@@ -7,14 +7,30 @@
     tools:context=".ACARREO_FILE.SecondActivity"
     >
 
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:background="@color/black"
-        android:text="hola mundo"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="16dp"></TextView>
+    <androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/nextButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="SIGUIENTE"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.538"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.8"></androidx.appcompat.widget.AppCompatButton>
 
+    <Spinner
+        android:id="@+id/mi_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"
+        android:entries="@array/locationPicker"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+    />
 
-    ></androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
