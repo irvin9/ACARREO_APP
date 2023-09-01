@@ -1,13 +1,15 @@
 <resources>
     <string name="app_name">ACARREO_APP</string>
 
+    <string-array name="locationTypePicker">
+        <item>ORIGEN</item>
+        <item>DESTINO</item>
+    </string-array>
+
     <string-array name="locationPicker">
-        <item>BANCO1</item>
-        <item>BANCO2</item>
-        <item>BANCO3</item>
-        <item>BANCO4</item>
-        <item>BANCO5</item>
-        <item>BANCO6</item>
+        <item>TRAZA</item>
+        <item>BANCO DE MATERIAL</item>
+        <item>OTRO</item>
     </string-array>
 
 </resources>
