@@ -11,9 +11,9 @@ class FirstAppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_app)
-        val viajes = findViewById<AppCompatButton>(R.id.viajes)
+        val loginButton = findViewById<AppCompatButton>(R.id.loginButton)
 
-        viajes.setOnClickListener{
+        loginButton.setOnClickListener{
             var pant:Int = 5
             Log.i("irving","se ah pulsado el boton $pant")
 
