@@ -93,6 +93,7 @@
             android:singleLine="true"
             android:padding="7dp"
             android:hint="      Contraseña"
+            android:inputType="textPassword"
             android:drawableLeft="@drawable/baseline_password_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.554"
