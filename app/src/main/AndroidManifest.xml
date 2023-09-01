@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ACARREO_APP"
         tools:targetApi="31">
         <activity
+            android:name=".ACARREO_FILE.ScanActivity"
+            android:exported="false" />
+        <activity
             android:name=".ACARREO_FILE.ThirdActivity"
             android:exported="false" />
         <activity
