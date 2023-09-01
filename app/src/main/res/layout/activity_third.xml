@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ACARREO_FILE.SecondActivity"
+    tools:context=".ACARREO_FILE.ThirdActivity">
 
-    >
-    
     <TextView
         android:id="@+id/module1Label"
         android:layout_width="wrap_content"
