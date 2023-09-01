@@ -12,4 +12,17 @@
         <item>OTRO</item>
     </string-array>
 
+    <string-array name="materialTypePicker">
+        <item>MATERIAL1</item>
+        <item>MATRERIAL2</item>
+        <item>MATERIAL3</item>
+    </string-array>
+
+    <string-array name="routePicker">
+        <item>ORIGINAL</item>
+        <item>ALTERNATRIVA XXXX</item>
+        <item>ALTERNATRIVA XXXX</item>
+        <item>OTRA</item>
+    </string-array>
+
 </resources>
