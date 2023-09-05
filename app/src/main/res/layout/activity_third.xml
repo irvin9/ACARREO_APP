@@ -64,7 +64,7 @@
         app:layout_constraintVertical_bias="0.9"></androidx.appcompat.widget.AppCompatButton>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/nfcGif"
         android:layout_width="307dp"
         android:layout_height="243dp"
         app:layout_constraintBottom_toBottomOf="parent"
