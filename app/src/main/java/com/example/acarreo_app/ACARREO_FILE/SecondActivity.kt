@@ -29,11 +29,7 @@ class SecondActivity : AppCompatActivity() {
         locationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedLocation = locationSpinner.selectedItem.toString()
-                    if (selectedLocation == "OTRO") {
-                        descriptionInput.isVisible = true
-                    } else {
-                        descriptionInput.isVisible = false
-                    }
+                descriptionInput.isVisible = selectedLocation == "OTRO"
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
