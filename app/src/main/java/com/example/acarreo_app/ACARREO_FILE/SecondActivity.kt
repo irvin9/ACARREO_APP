@@ -12,6 +12,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import android.view.View
 import android.widget.AdapterView
+import androidx.appcompat.widget.AppCompatTextView
 import com.example.acarreo_app.R
 
 class SecondActivity : AppCompatActivity() {
@@ -23,6 +24,7 @@ class SecondActivity : AppCompatActivity() {
         val nextButton = findViewById<AppCompatButton>(R.id.nextButton)
         val locationSpinner = findViewById<AppCompatSpinner>(R.id.locationSpinner)
         val descriptionInput = findViewById<AppCompatEditText>(R.id.descriptionInput)
+        val descriptionLabel = findViewById<AppCompatTextView>(R.id.locationDescriptionLabel)
 
         val selectedLocation = locationSpinner.selectedItem.toString()
 
@@ -30,6 +32,7 @@ class SecondActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedLocation = locationSpinner.selectedItem.toString()
                 descriptionInput.isVisible = selectedLocation == "OTRO"
+                descriptionLabel.isVisible = selectedLocation == "OTRO"
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
