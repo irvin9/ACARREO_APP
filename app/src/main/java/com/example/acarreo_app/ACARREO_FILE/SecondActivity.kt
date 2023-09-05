@@ -3,17 +3,17 @@ package com.example.acarreo_app.ACARREO_FILE
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import com.example.acarreo_app.R
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatSpinner
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import android.view.View
 import android.widget.AdapterView
 import androidx.appcompat.widget.AppCompatTextView
-import com.example.acarreo_app.R
+
 
 class SecondActivity : AppCompatActivity() {
     @SuppressLint("WrongViewCast")
