@@ -14,7 +14,7 @@ class ThirdActivity : AppCompatActivity() {
         val module1Button = findViewById<AppCompatButton>(R.id.module1Button)
 
         module1Button.setOnClickListener{
-            val scanScreen = Intent(this, ScanActivity::class.java)
+            val scanScreen = Intent(this, nfcActivity::class.java)
             startActivity(scanScreen)
         }
     }
