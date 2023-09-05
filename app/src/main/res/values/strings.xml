@@ -12,6 +12,22 @@
         <item>OTRO</item>
     </string-array>
 
+    <string-array name="trazaExamples">
+        <item>TRAZA1</item>
+        <item>TRAZA2</item>
+        <item>TRAZA3</item>
+        <item>TRAZA4</item>
+        <item>TRAZA5</item>
+    </string-array>
+
+    <string-array name="bancoExamples">
+        <item>BANCO1</item>
+        <item>BANCO2</item>
+        <item>BANCO3</item>
+        <item>BANCO4</item>
+        <item>BANCO5</item>
+    </string-array>
+
     <string-array name="materialTypePicker">
         <item>MATERIAL1</item>
         <item>MATRERIAL2</item>

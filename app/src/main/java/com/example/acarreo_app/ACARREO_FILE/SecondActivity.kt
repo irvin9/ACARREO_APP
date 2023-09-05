@@ -23,6 +23,8 @@ class SecondActivity : AppCompatActivity() {
 
         val nextButton = findViewById<AppCompatButton>(R.id.nextButton)
         val locationSpinner = findViewById<AppCompatSpinner>(R.id.locationSpinner)
+        val trazaSpinner = findViewById<AppCompatSpinner>(R.id.trazaExamSpinner)
+        val bancoSpinner = findViewById<AppCompatSpinner>(R.id.bancoExamSpinner)
         val descriptionInput = findViewById<AppCompatEditText>(R.id.descriptionInput)
         val descriptionLabel = findViewById<AppCompatTextView>(R.id.locationDescriptionLabel)
 
@@ -33,6 +35,8 @@ class SecondActivity : AppCompatActivity() {
                 val selectedLocation = locationSpinner.selectedItem.toString()
                 descriptionInput.isVisible = selectedLocation == "OTRO"
                 descriptionLabel.isVisible = selectedLocation == "OTRO"
+                trazaSpinner.isVisible = selectedLocation == "TRAZA"
+                bancoSpinner.isVisible = selectedLocation == "BANCO DE MATERIAL"
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
