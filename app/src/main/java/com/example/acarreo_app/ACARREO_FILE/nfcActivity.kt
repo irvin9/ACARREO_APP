@@ -23,8 +23,8 @@ class nfcActivity : AppCompatActivity() {
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter == null) {
             Toast.makeText(this, "NFC no disponible en este dispositivo", Toast.LENGTH_SHORT).show()
-            finish()
-            return
+//            finish()
+//            return
         }
     }
 
