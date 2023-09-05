@@ -29,6 +29,7 @@
         android:background="@drawable/borde"
         android:entries="@array/locationTypePicker"
         android:spinnerMode="dialog"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -58,6 +59,7 @@
         android:background="@drawable/borde"
         android:entries="@array/locationPicker"
         android:spinnerMode="dialog"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -69,31 +71,31 @@
         android:id="@+id/trazaExamSpinner"
         android:layout_width="238dp"
         android:layout_height="37dp"
-        android:spinnerMode="dialog"
         android:background="@drawable/borde"
         android:entries="@array/trazaExamples"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.668"
-        />
+        app:layout_constraintVertical_bias="0.668" />
 
     <Spinner
         android:id="@+id/bancoExamSpinner"
         android:layout_width="238dp"
         android:layout_height="37dp"
-        android:spinnerMode="dialog"
         android:background="@drawable/borde"
         android:entries="@array/bancoExamples"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.668"
-        />
+        app:layout_constraintVertical_bias="0.668" />
 
     <TextView
         android:id="@+id/locationDescriptionLabel"
