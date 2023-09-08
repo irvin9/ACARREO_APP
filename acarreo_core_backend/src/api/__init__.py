@@ -32,12 +32,15 @@ def create_app():
         pass
 
     from .routes import example_router
+    from .routes import camiones_router
     #replace this for add routes <-- NOT REMOVE THE COMMENT
-
-    app.register_blueprint(example_router, url_prefix='/example')
+    
+    VERSION_API = '/api/v1.0.0'
+    
+    # app.register_blueprint(example_router, url_prefix='/example')
+    app.register_blueprint(camiones_router, url_prefix=f'{VERSION_API}/camiones')
     #replace this for add blueprint <-- NOT REMOVE THE COMMENT
     
-
     @app.errorhandler(APIException)
     def handle_invalid_usage(error: APIException):
         response = jsonify(error.to_dict())
