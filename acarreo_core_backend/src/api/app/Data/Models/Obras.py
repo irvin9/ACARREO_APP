@@ -33,6 +33,7 @@ class Obras(BaseModel):
             "project_code": "project_code",
             "project_name": "project_name",
             "status": "status",
+            "id_client": "id_client",
             "created_at": "created_at",
             "updated_at": "updated_at",
         }
@@ -45,6 +46,7 @@ class Obras(BaseModel):
             "project_code",
             "project_name",
             "status",
+            "id_client",
             "created_at",
             "updated_at",
         ]

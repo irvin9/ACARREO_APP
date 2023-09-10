@@ -10,12 +10,24 @@ from api.app.Validators.RequestValidator import RequestValidator
 from ...Data.Interfaces.PaginationResult import PaginationResult
 from ..Data.BaseModel import BaseModel
 from ..Services.BaseService import BaseService
-from ....database.DBConnection import AlchemyEncoder, AlchemyRelationEncoder, get_session
-from ....utils.http_utils import build_response, get_paginate_params, get_filter_params, get_relationship_params, get_search_method_param, get_search_params
+from ....database.DBConnection import (
+    AlchemyEncoder,
+    AlchemyRelationEncoder,
+    get_session,
+)
+from ....utils.http_utils import (
+    build_response,
+    get_paginate_params,
+    get_filter_params,
+    get_relationship_params,
+    get_search_method_param,
+    get_search_params,
+)
 
 SUCCESS_STATUS = 200
 UNAUTHORIZED_STATUS = 401
 ERROR_STATUS = 400
+
 
 def index(service: BaseService):
     session = get_session()
@@ -29,39 +41,79 @@ def index(service: BaseService):
     search_columns = list(set(search_keys).intersection(search_query.keys()))
     filters_search = []
     for skey in search_columns:
-        filters_search.append({
-            'column': getattr(cast(BaseService, service).model, skey),
-            'value': search_query[skey]
-        })
-    
-    search_method = 'AND'
+        filters_search.append(
+            {
+                "column": getattr(cast(BaseService, service).model, skey),
+                "value": search_query[skey],
+            }
+        )
+
+    search_method = "AND"
     if len(filters_search) > 0:
         search_method = get_search_method_param(request)
-    
+
     model_filter_keys = cast(BaseService, service).get_filter_columns()
     filters_model = set(model_filter_keys).intersection(filter_keys)
-    
+
     filters = []
     for f in filters_model:
         filters.append({f: filter_query[f]})
-    
+
     try:
-        query, elements = cast(BaseService, service).multiple_filters(session, filters, True, page, per_page, search_filters=filters_search, search_method=search_method)
+        query, elements = cast(BaseService, service).multiple_filters(
+            session,
+            filters,
+            True,
+            page,
+            per_page,
+            search_filters=filters_search,
+            search_method=search_method,
+        )
         total_elements = cast(BaseService, service).count_with_query(query)
-        
-        encoder = AlchemyEncoder if 'relationships' not in relationship_retrieve else AlchemyRelationEncoder
-        
-        if 'accepts' in request.headers:
-            accepts = request.headers['accepts']
-            if accepts.lower() == 'application/json':
-                body = PaginationResult(elements, page, per_page, total_elements, refType=cast(BaseService, service).model).to_dict()
+
+        encoder = (
+            AlchemyEncoder
+            if "relationships" not in relationship_retrieve
+            else AlchemyRelationEncoder
+        )
+
+        if "accepts" in request.headers:
+            accepts = request.headers["accepts"]
+            if accepts.lower() == "application/json":
+                body = PaginationResult(
+                    elements,
+                    page,
+                    per_page,
+                    total_elements,
+                    refType=cast(BaseService, service).model,
+                ).to_dict()
             else:
-                body = PaginationResult(elements, page, per_page, total_elements, refType=cast(BaseService, service).model, is_json_resp=False).to_dict()
+                body = PaginationResult(
+                    elements,
+                    page,
+                    per_page,
+                    total_elements,
+                    refType=cast(BaseService, service).model,
+                    is_json_resp=False,
+                ).to_dict()
         else:
-            body = PaginationResult(elements, page, per_page, total_elements, refType=cast(BaseService, service).model, is_json_resp=False).to_dict()
-        body['Data'] = list(map(lambda d: dict(
-                **cast(BaseModel, d).to_dict(jsonEncoder=encoder, encoder_extras=relationship_retrieve)
-            ), body['Data'])
+            body = PaginationResult(
+                elements,
+                page,
+                per_page,
+                total_elements,
+                refType=cast(BaseService, service).model,
+                is_json_resp=False,
+            ).to_dict()
+        body["Data"] = list(
+            map(
+                lambda d: dict(
+                    **cast(BaseModel, d).to_dict(
+                        jsonEncoder=encoder, encoder_extras=relationship_retrieve
+                    )
+                ),
+                body["Data"],
+            )
         )
 
         status_code = HTTPStatusCode.OK.value
@@ -76,16 +128,25 @@ def index(service: BaseService):
         status_code = HTTPStatusCode.UNPROCESABLE_ENTITY.value
     finally:
         session.close()
-    
-    return build_response(status_code, body, jsonEncoder=encoder, encoder_extras=relationship_retrieve)
+
+    return build_response(
+        status_code, body, jsonEncoder=encoder, encoder_extras=relationship_retrieve
+    )
+
 
 def find(service: BaseService, id: int):
     session = get_session()
     relationship_retrieve = get_relationship_params(request)
     try:
-        encoder = AlchemyEncoder if 'relationships' not in relationship_retrieve else AlchemyRelationEncoder
+        encoder = (
+            AlchemyEncoder
+            if "relationships" not in relationship_retrieve
+            else AlchemyRelationEncoder
+        )
         element = cast(BaseService, service).get_one(session, id)
-        body = element.to_dict(jsonEncoder=encoder, encoder_extras=relationship_retrieve)
+        body = element.to_dict(
+            jsonEncoder=encoder, encoder_extras=relationship_retrieve
+        )
         status_code = HTTPStatusCode.OK.value
     except APIException as e:
         logging.exception("APIException occurred")
@@ -99,10 +160,13 @@ def find(service: BaseService, id: int):
         session.close()
     return build_response(status_code, body, jsonEncoder=AlchemyEncoder)
 
+
 def store(service: BaseService):
     session = get_session()
-    
-    RequestValidator(session, cast(BaseService, service).get_rules_for_store()).validate()
+
+    RequestValidator(
+        session, cast(BaseService, service).get_rules_for_store()
+    ).validate()
     input_params = request.get_json()
 
     try:
@@ -117,11 +181,12 @@ def store(service: BaseService):
         logging.exception("No se pudo realizar la consulta")
         body = dict(message="No se pudo realizar la consulta")
         response = json.dumps(body)
-        status_code=HTTPStatusCode.UNPROCESABLE_ENTITY.value
+        status_code = HTTPStatusCode.UNPROCESABLE_ENTITY.value
     finally:
         session.close()
-    
+
     return build_response(status_code, response, is_body_str=True)
+
 
 def update(service: BaseService, id: int):
     session = get_session()
@@ -143,6 +208,7 @@ def update(service: BaseService, id: int):
     finally:
         session.close()
     return build_response(status_code, response, is_body_str=True)
+
 
 def delete(service: BaseService, id: int):
     session = get_session()

@@ -16,13 +16,14 @@ class Tickets(BaseModel):
 
     __tablename__ = "tickets"
     id = Column("id", Integer, primary_key=True)
-    date = Column("fecha", String(191), nullable=False)
+    date = Column("fecha", String(191), nullable=True)
     id_truck = Column("id_camion", Integer, nullable=False)
     id_tracker = Column("id_checador", Integer, nullable=False)
     id_start_travel = Column("id_ubicacionOrigen", Integer, nullable=False)
     id_end_travel = Column("id_ubicacionDestino", Integer, nullable=False)
     id_material = Column("id_material", Integer, nullable=False)
-    description = Column("nota", String(191), nullable=False)
+    description = Column("nota", String(191), nullable=True)
+    folio = Column("folio", String(191), nullable=True)
     id_client = Column("id_cliente", Integer, nullable=False)
     id_project = Column("id_obra", Integer, nullable=False)
     created_at = Column("created_at", DateTime(timezone=True), default=func.now())
@@ -39,7 +40,8 @@ class Tickets(BaseModel):
             "id_start_travel": "id_start_travel",
             "id_end_travel": "id_end_travel",
             "id_material": "id_material",
-            "description": "descrition",
+            "description": "description",
+            "folio": "folio",
             "id_client": "id_client",
             "id_project": "id_project",
             "created_at": "created_at",
@@ -57,6 +59,7 @@ class Tickets(BaseModel):
             "id_end_travel",
             "id_material",
             "description",
+            "folio",
             "id_client",
             "id_project",
             "created_at",

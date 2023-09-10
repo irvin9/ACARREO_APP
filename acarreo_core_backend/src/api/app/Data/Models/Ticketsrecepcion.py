@@ -16,14 +16,15 @@ class Ticketsrecepcion(BaseModel):
 
     __tablename__ = "ticketsrecepcion"
     id = Column("id", Integer, primary_key=True)
-    folio_origin = Column("folioOrigen", String(191), nullable=False)
-    folio = Column("folio", String(191), nullable=False)
+    folio_origin = Column("folioOrigen", String(191), nullable=True)
+    folio = Column("folio", String(191), nullable=True)
+    date = Column("fecha", String(191), nullable=False)
     id_truck = Column("id_camion", Integer, nullable=False)
     id_tracker = Column("id_checador", Integer, nullable=False)
     id_end_travel = Column("id_ubicacionDestino", Integer, nullable=False)
     id_material = Column("id_material", Integer, nullable=False)
     description = Column("nota", String(191), nullable=False)
-    project_unit = Column("unidadObra", String(191), nullable=False)
+    project_unit = Column("unidadObra", String(191), nullable=True)
     id_client = Column("id_cliente", Integer, nullable=False)
     id_project = Column("id_obra", Integer, nullable=False)
     created_at = Column("created_at", DateTime(timezone=True), default=func.now())
@@ -36,6 +37,7 @@ class Ticketsrecepcion(BaseModel):
             "id": "id",
             "folio_origin": "folio_origin",
             "folio": "folio",
+            "date": "date",
             "id_truck": "id_truck",
             "id_tracker": "id_tracker",
             "id_end_travel": "id_end_travel",
@@ -54,7 +56,9 @@ class Ticketsrecepcion(BaseModel):
             "id",
             "folio_origin",
             "folio",
+            "date",
             "id_truck",
+            "id_tracker",
             "id_travel",
             "id_end_travel",
             "id_material",
