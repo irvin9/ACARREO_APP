@@ -88,7 +88,7 @@ def downgrade():
     sa.Column('queue', mysql.TEXT(), nullable=False),
     sa.Column('payload', mysql.LONGTEXT(), nullable=False),
     sa.Column('exception', mysql.LONGTEXT(), nullable=False),
-    sa.Column('failed_at', mysql.TIMESTAMP(), server_default=sa.text('current_timestamp()'), nullable=False),
+    sa.Column('failed_at', mysql.TIMESTAMP(), default=func.now()=sa.text('current_timestamp()'), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     mysql_collate='utf8mb3_spanish_ci',
     mysql_default_charset='utf8mb3',

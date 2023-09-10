@@ -20,9 +20,9 @@ class Ubicaciones(BaseModel):
     latitude = Column("latitud", String(191), nullable=False)
     longitude = Column("longitud", String(191), nullable=False)
     state = Column("estatus", Integer, nullable=False)
-    created_at = Column(
-        "created_at", DateTime(timezone=True), server_default=func.now()
-    )
+    id_client = Column("id_cliente", Integer, nullable=False)
+    id_project = Column("id_obra", Integer, nullable=False)
+    created_at = Column("created_at", DateTime(timezone=True), default=func.now())
     updated_at = Column("updated_at", DateTime(timezone=True), onupdate=func.now())
 
     model_path_name = "ubicaciones"
@@ -34,17 +34,22 @@ class Ubicaciones(BaseModel):
             "latitude": "latitude",
             "longitude": "longitude",
             "state": "state",
+            "id_client": "id_client",
+            "id_project": "id_project",
             "created_at": "created_at",
             "updated_at": "updated_at",
         }
 
-    def display_members(self) -> List[str]:
+    @classmethod
+    def display_members(cls) -> List[str]:
         return [
             "id",
             "name",
             "latitude",
             "longitude",
             "state",
+            "id_client",
+            "id_project",
             "created_at",
             "updated_at",
         ]

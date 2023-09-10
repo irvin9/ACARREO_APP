@@ -27,9 +27,7 @@ class Transportistas(BaseModel):
     email = Column("email", String(191), nullable=False)
     id_client = Column("id_cliente", String(191), nullable=False)
     id_project = Column("id_obra", String(191), nullable=False)
-    created_at = Column(
-        "created_at", DateTime(timezone=True), server_default=func.now()
-    )
+    created_at = Column("created_at", DateTime(timezone=True), default=func.now())
     updated_at = Column("updated_at", DateTime(timezone=True), onupdate=func.now())
 
     model_path_name = "transportistas"
@@ -52,7 +50,8 @@ class Transportistas(BaseModel):
             "updated_at": "updated_at",
         }
 
-    def display_members(self) -> List[str]:
+    @classmethod
+    def display_members(cls) -> List[str]:
         return [
             "id",
             "name",

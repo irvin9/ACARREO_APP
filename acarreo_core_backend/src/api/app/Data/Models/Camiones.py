@@ -17,7 +17,7 @@ class Camiones(BaseModel):
     __tablename__ = "camiones"
     id = Column("id", Integer, primary_key=True)
     driver = Column("conductor", String(191), nullable=False)
-    branch = Column("Marca", String(191), nullable=False)
+    branch = Column("marca", String(191), nullable=False)
     capacity = Column("capacidad", String(191), nullable=False)
     plate = Column("placas", String(191), nullable=False)
     plate_gondola = Column("placasGondola", String(191), nullable=False)
@@ -25,9 +25,7 @@ class Camiones(BaseModel):
     id_carrier = Column("id_transportista", Integer, nullable=False)
     id_client = Column("id_cliente", Integer, nullable=False)
     id_project = Column("id_obra", Integer, nullable=False)
-    created_at = Column(
-        "created_at", DateTime(timezone=True), server_default=func.now()
-    )
+    created_at = Column("created_at", DateTime(timezone=True), default=func.now())
     updated_at = Column("updated_at", DateTime(timezone=True), onupdate=func.now())
 
     model_path_name = "camiones"
@@ -41,11 +39,15 @@ class Camiones(BaseModel):
             "plate": "plate",
             "plate_gondola": "plate_gondola",
             "extra_capacity": "extra_capacity",
+            "id_carrier": "id_carrier",
+            "id_client": "id_client",
+            "id_project": "id_project",
             "created_at": "created_at",
             "updated_at": "updated_at",
         }
 
-    def display_members(self) -> List[str]:
+    @classmethod
+    def display_members(cls) -> List[str]:
         return [
             "id",
             "driver",
@@ -54,6 +56,9 @@ class Camiones(BaseModel):
             "plate",
             "plate_gondola",
             "extra_capacity",
+            "id_carrier",
+            "id_client",
+            "id_project",
             "created_at",
             "updated_at",
         ]
