@@ -1,12 +1,37 @@
 from flask import Blueprint
 from api.app.Controllers.TicketsController import index, find, store, update, delete
 from api.app.Services.TicketsService import TicketsService
+from api.app.Midlewares.auth import auth_midleware
 
-tickets_router = Blueprint('tickets', __name__)
-tickets_service = TicketsService()
+tickets_router = Blueprint("tickets", __name__)
+_service = TicketsService()
 
-tickets_router.route('/', methods=['GET'], defaults={'service': tickets_service}) (index)
-tickets_router.route('/', methods=['POST'], defaults={'service': tickets_service}) (store)
-tickets_router.route('/<id>', methods=['GET'], defaults={'service': tickets_service}) (find)
-tickets_router.route('/<id>', methods=['PUT'], defaults={'service': tickets_service}) (update)
-tickets_router.route('/<id>', methods=['DELETE'], defaults={'service': tickets_service}) (delete)
+
+@tickets_router.route("/", methods=["GET"], defaults={"service": _service})
+@auth_midleware
+def _index(service):
+    return index(service)
+
+
+@tickets_router.route("/", methods=["POST"], defaults={"service": _service})
+@auth_midleware
+def _store(service):
+    return store(service)
+
+
+@tickets_router.route("/<id>", methods=["GET"], defaults={"service": _service})
+@auth_midleware
+def _find(service, id):
+    return find(service, id)
+
+
+@tickets_router.route("/<id>", methods=["PUT"], defaults={"service": _service})
+@auth_midleware
+def _update(service, id):
+    return update(service, id)
+
+
+@tickets_router.route("/<id>", methods=["DELETE"], defaults={"service": _service})
+@auth_midleware
+def _delete(service, id):
+    return delete(service, id)
