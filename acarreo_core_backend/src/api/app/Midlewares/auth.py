@@ -32,12 +32,12 @@ def auth_midleware(func):
                 combined_key = hashlib.sha256((secret_key + seed).encode()).hexdigest()
                 data = jwt.decode(auth_token, combined_key, algorithms=["HS256"])
                 current_user = find(ChecadoresService(), data["id"])
-                if current_user.status_code == HTTPStatusCode.OK:
-                    return func(*args, **kwargs)
-
-                raise APIException(
-                    "Invalid Authentication token!", HTTPStatusCode.UNAUTHORIZED.value
-                )
+                if current_user.status_code != HTTPStatusCode.OK.value:
+                    raise APIException(
+                        "Invalid Authentication token!",
+                        HTTPStatusCode.UNAUTHORIZED.value,
+                    )
+                return func(*args, **kwargs)
             except Exception as e:
                 print(e)
                 raise APIException("Bad token", HTTPStatusCode.UNAUTHORIZED.value)

@@ -16,7 +16,6 @@ def login(service: AuthService):
     try:
         input_params = request.get_json(silent=True)
         body: dict = service.login(session, input_data=input_params)
-        print(body)
         response = json.dumps(body)
         status_code = HTTPStatusCode.OK.value
     except APIException as e:
