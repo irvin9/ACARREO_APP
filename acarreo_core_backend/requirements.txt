@@ -1,1 +1,2 @@
 isyflask-cli==0.1.8
+pyjwt==2.8.0

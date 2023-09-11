@@ -1,10 +1,16 @@
+import hashlib
+import jwt
+import Environment as env
+
 from functools import wraps
 from typing import cast
-import requests
 from flask import request
 
 from api.app.Exceptions.APIException import APIException
 from api.app.Data.Enum.http_status_code import HTTPStatusCode
+
+from api.app.Services.ChecadoresService import ChecadoresService
+from api.app.Controllers.ChecadoresController import find
 
 
 def auth_midleware(func):
@@ -20,22 +26,21 @@ def auth_midleware(func):
             auth_token = None
 
         if auth_token:
-            ## TODO: TBD endpoint to verify if the user is already logged
-            url = f"https://postman-echo.com/post"
+            try:
+                secret_key = env.APP_SECRET_KEY
+                seed = env.APP_SEED
+                combined_key = hashlib.sha256((secret_key + seed).encode()).hexdigest()
+                data = jwt.decode(auth_token, combined_key, algorithms=["HS256"])
+                current_user = find(ChecadoresService(), data["id"])
 
-            headers = {
-                "content-type": "application/json",
-                "Accept": "application/json",
-                "Authorization": f"Bearer {auth_token}",
-            }
-            resp = requests.post(url, headers=headers)
-
-            if resp.status_code == 200:
-                return func(*args, **kwargs)
-
-            if not resp.text:
-                raise APIException("Unauthorized", resp.status_code)
-            raise APIException(resp.text, resp.status_code, resp.json())
+                if current_user is None:
+                    raise APIException(
+                        "Invalid Authentication token!",
+                        HTTPStatusCode.UNAUTHORIZED.value,
+                    )
+                return func(current_user, *args, **kwargs)
+            except Exception:
+                raise APIException("Bad token", HTTPStatusCode.UNAUTHORIZED.value)
 
         raise APIException(
             "There is no token in headers", HTTPStatusCode.UNAUTHORIZED.value

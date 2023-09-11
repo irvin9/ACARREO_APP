@@ -31,6 +31,7 @@ def create_app():
     except OSError:
         pass
 
+    from .routes import auth_router
     from .routes import camiones_router
     from .routes import materiales_router
     from .routes import clientes_router
@@ -46,6 +47,7 @@ def create_app():
     VERSION_API = "/api/v1.0.0"
 
     # app.register_blueprint(example_router, url_prefix='/example')
+    app.register_blueprint(auth_router, url_prefix=f"{VERSION_API}/auth")
     app.register_blueprint(camiones_router, url_prefix=f"{VERSION_API}/camiones")
     app.register_blueprint(materiales_router, url_prefix=f"{VERSION_API}/materiales")
     app.register_blueprint(clientes_router, url_prefix=f"{VERSION_API}/clientes")

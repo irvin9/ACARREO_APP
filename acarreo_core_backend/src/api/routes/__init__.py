@@ -1,3 +1,4 @@
+from .AuthRouter import auth_router
 from .ExampleRouter import example_router
 from .CamionesRouter import camiones_router
 from .MaterialesRouter import materiales_router

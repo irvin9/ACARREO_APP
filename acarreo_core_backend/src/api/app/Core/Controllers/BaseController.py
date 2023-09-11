@@ -161,6 +161,37 @@ def find(service: BaseService, id: int):
     return build_response(status_code, body, jsonEncoder=AlchemyEncoder)
 
 
+def find_by_column(service: BaseService, column_name: str, column_value):
+    session = get_session()
+    relationship_retrieve = get_relationship_params(request)
+    try:
+        encoder = (
+            AlchemyEncoder
+            if "relationships" not in relationship_retrieve
+            else AlchemyRelationEncoder
+        )
+        element = cast(BaseService, service).get_by_column(
+            session,
+            column_name,
+            column_value,
+        )
+        body = element.to_dict(
+            jsonEncoder=encoder, encoder_extras=relationship_retrieve
+        )
+        status_code = HTTPStatusCode.OK.value
+    except APIException as e:
+        logging.exception("APIException occurred")
+        body = e.to_dict()
+        status_code = e.status_code
+    except Exception as e:
+        logging.exception("Cannot make the request")
+        body = dict(message="Cannot make the request")
+        status_code = HTTPStatusCode.UNPROCESABLE_ENTITY.value
+    finally:
+        session.close()
+    return build_response(status_code, body, jsonEncoder=AlchemyEncoder)
+
+
 def store(service: BaseService):
     session = get_session()
 
