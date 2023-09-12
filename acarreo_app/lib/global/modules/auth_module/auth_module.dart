@@ -8,6 +8,5 @@ class AuthModule extends Module {
   @override
   void routes(r) {
     r.child('/login', child: (context) => const LoginScreen());
-    r.redirect('/', to: '/login');
   }
 }

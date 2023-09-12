@@ -28,7 +28,7 @@ class GeneralTextField extends StatelessWidget {
     this.containerTextFieldHeight = 0.0,
     this.containerTextFieldPaddingTop = 0.0,
     this.hintTextSize = 16.0,
-    this.colorHinText = const Color(0xFF00639A),
+    this.colorHinText = Colors.black87,
     this.hintFontWeight = FontWeight.bold,
     this.fontFamilyHintText,
     this.textInputType = TextInputType.text,
@@ -54,11 +54,11 @@ class GeneralTextField extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           boxShadow: const [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 4.0,
-              offset: Offset(-0.5, 2.3),
-            ),
+            // BoxShadow(
+            //   color: Colors.grey,
+            //   blurRadius: 4.0,
+            //   offset: Offset(-0.5, 2.3),
+            // ),
           ],
         ),
         child: textFormFieldWithState(validator),
