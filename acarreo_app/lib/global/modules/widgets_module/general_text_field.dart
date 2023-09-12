@@ -70,10 +70,12 @@ class GeneralTextField extends StatelessWidget {
     return TextFormField(
       keyboardType: textInputType,
       obscureText: obscureText,
+      style: const TextStyle(color: Colors.black87),
       decoration: InputDecoration(
         suffixIcon: icon,
         hintText: labelText,
         border: InputBorder.none,
+        errorStyle: const TextStyle(height: 0),
         hintStyle: TextStyle(
           color: colorHinText,
           fontWeight: hintFontWeight,

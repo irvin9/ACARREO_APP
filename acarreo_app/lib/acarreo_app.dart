@@ -20,7 +20,7 @@ class AcarreoApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF1E293B),
-          brightness: Brightness.light,
+          brightness: Brightness.dark,
         ),
       ),
     );
