@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class AcarreoApp extends StatelessWidget {
-  const AcarreoApp({super.key});
+  final String initialRoute;
+  const AcarreoApp({super.key, this.initialRoute = '/'});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    Modular.setInitialRoute(initialRoute);
+    return MaterialApp.router(
+      title: 'Acarreo App',
+      routerConfig: Modular.routerConfig,
     );
   }
 }
