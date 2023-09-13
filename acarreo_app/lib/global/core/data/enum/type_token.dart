@@ -1,0 +1,1 @@
+enum TypeToken { bearerToken, none }
