@@ -53,7 +53,7 @@ class FlutterHttpService extends HttpService {
       }
 
       if (token != null) {
-        addTokenHeaders(token);
+        await addTokenHeaders(token);
       }
 
       final body = jsonEncode(data);

@@ -3,7 +3,11 @@ import 'package:acarreo_app/global/core/data/enum/type_token.dart';
 import 'package:acarreo_app/global/core/data/model/response_http_model.dart';
 
 abstract class HttpService {
-  final Map<String, String> _headers = {'Content-Type': 'application/json'};
+  final Map<String, String> _headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest',
+  };
 
   Map<String, String> get headers => _headers;
 

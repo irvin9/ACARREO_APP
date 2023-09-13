@@ -18,7 +18,7 @@ class FlutterStorageService implements StorageService {
 
   @override
   Future<String> getToken() async {
-    return readByKey(StorageService.tokenKey);
+    return await readByKey(StorageService.tokenKey);
   }
 
   @override
@@ -33,7 +33,7 @@ class FlutterStorageService implements StorageService {
 
   @override
   Future<void> saveToken(String token) async {
-    writeByKey(StorageService.tokenKey, token);
+    await writeByKey(StorageService.tokenKey, token);
   }
 
   @override

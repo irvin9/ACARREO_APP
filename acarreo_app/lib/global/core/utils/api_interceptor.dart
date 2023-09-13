@@ -2,9 +2,8 @@ import 'package:http_interceptor/http_interceptor.dart';
 
 class ApiInterceptor implements InterceptorContract {
   @override
-  Future<BaseRequest> interceptRequest({required BaseRequest request}) async {
-    return request;
-  }
+  Future<BaseRequest> interceptRequest({required BaseRequest request}) async =>
+      request;
 
   @override
   Future<bool> shouldInterceptRequest() async => true;

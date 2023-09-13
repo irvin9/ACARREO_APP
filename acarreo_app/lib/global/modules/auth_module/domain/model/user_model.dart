@@ -18,7 +18,7 @@ class UserModel extends Equatable {
         name: json["name"],
         fathersLastname: json["fathers_lastname"],
         id: json["id"],
-        updatedAt: json.containsKey("updated_at")
+        updatedAt: json["updated_at"] != null
             ? DateTime.parse(json["updated_at"])
             : null,
         password: json["password"],
