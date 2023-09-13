@@ -17,6 +17,6 @@ class ApiRestException implements Exception {
 
   @override
   String toString() {
-    return 'RestException{response=$message, httpStatusCode=$httpStatusCode}';
+    return '${runtimeType.toString()} -> {response=$message, httpStatusCode=$httpStatusCode}';
   }
 }

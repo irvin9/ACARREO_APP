@@ -1,27 +1,32 @@
 import 'package:equatable/equatable.dart';
 
 class UserCredential extends Equatable {
-  const UserCredential({required this.username, required this.password});
-
-  final String password;
-  final String username;
+  const UserCredential({required this.user, required this.password});
 
   factory UserCredential.fromMap(Map<String, String> map) {
     return UserCredential(
-      username: map['username'] as String,
+      user: map['user'] as String,
       password: map['password'] as String,
     );
   }
 
+  final String password;
+  final String user;
+
+  Map<String, dynamic> toMap() => {
+        "user": user,
+        "password": password,
+      };
+
   @override
-  List<Object?> get props => [username, password];
+  List<Object?> get props => [user, password];
 
   UserCredential copyWith({
-    String? username,
+    String? user,
     String? password,
   }) =>
       UserCredential(
-        username: username ?? this.username,
+        user: user ?? this.user,
         password: password ?? this.password,
       );
 }

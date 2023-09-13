@@ -9,8 +9,8 @@ import 'package:acarreo_app/global/core/domain/service/http_service.dart';
 import 'package:acarreo_app/global/core/data/model/api_rest_exception.dart';
 import 'package:acarreo_app/global/core/data/model/response_http_model.dart';
 
-class HttpFlutterService extends HttpService {
-  HttpFlutterService({required this.secureStorage});
+class FlutterHttpService extends HttpService {
+  FlutterHttpService({required this.secureStorage});
 
   final FlutterSecureStorage secureStorage;
 

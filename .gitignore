@@ -46,3 +46,4 @@ app.*.map.json
 .vscode
 pubspec.lock
 *.lock
+acarreo_app/config*.json

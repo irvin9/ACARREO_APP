@@ -38,7 +38,7 @@ class LoginForm extends StatelessWidget {
             containerTextFieldHeight: 45.0,
             hintTextSize: 16.0,
             textInputType: TextInputType.name,
-            onChanged: (value) => cubit.credentials.addAll({'username': value}),
+            onChanged: (value) => cubit.credentials.addAll({'user': value}),
             validator: (value) => validation(value),
           ),
           GeneralTextField(
