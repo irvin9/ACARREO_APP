@@ -14,9 +14,7 @@ class AuthService:
         try:
             valid_user = self.validate_user_and_password(session, input_data)
             if valid_user == None:
-                raise APIException(
-                    "Credentials are incorrent!", HTTPStatusCode.BAD_REQUEST.value
-                )
+                raise APIException("Credentials are incorrent!", HTTPStatusCode.BAD_REQUEST.value)
             expiration_time = datetime.datetime.utcnow() + datetime.timedelta(days=31)
             payload = {
                 "id": valid_user["id"],
@@ -45,4 +43,12 @@ class AuthService:
             if find_user:
                 user = find_user.to_dict()
                 return user if password == user["password"] else None
+        return user
+
+    def verify_user(self, session, id) -> dict:
+        """Verify user by token"""
+        user = {}
+        find_user = ChecadoresService().get_one(session, id)
+        if find_user:
+            user = find_user.to_dict()
         return user

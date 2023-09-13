@@ -1,8 +1,6 @@
-from api.utils.http_utils import build_response
-import json
-
 class APIException(Exception):
     status_code = 400
+
     def __init__(self, message, status_code=None, payload=None) -> None:
         super().__init__(f"[{status_code}] {message}")
 
@@ -13,5 +11,5 @@ class APIException(Exception):
 
     def to_dict(self):
         rv = dict(self.payload or ())
-        rv['message'] = self.message
+        rv["message"] = self.message
         return rv
