@@ -1,5 +1,5 @@
 import 'package:acarreo_app/global/core/domain/service/storage_service.dart';
-import 'package:flutter/material.dart';
+import 'package:acarreo_app/global/modules/auth_module/domain/model/user_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:acarreo_app/global/core/domain/models/user_credential.dart';
@@ -32,7 +32,7 @@ class AuthCubit extends Cubit<AuthState> {
     final user = await service.verifyToken(token);
     if (user != null) {
       await storage.saveToken(token);
-      currentState = AuthSuccess(token: token);
+      currentState = AuthSuccess(user: user);
     }
     _isLoading = false;
     emit(currentState);
