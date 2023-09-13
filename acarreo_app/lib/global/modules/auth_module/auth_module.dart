@@ -1,5 +1,7 @@
+import 'package:acarreo_app/global/core/data/service/flutter_storage_service.dart';
 import 'package:acarreo_app/global/core/domain/service/environment_service.dart';
 import 'package:acarreo_app/global/core/domain/service/http_service.dart';
+import 'package:acarreo_app/global/core/domain/service/storage_service.dart';
 import 'package:acarreo_app/global/modules/auth_module/domain/repository/auth_repository.dart';
 import 'package:acarreo_app/global/modules/auth_module/domain/service/auth_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +18,7 @@ class AuthModule extends Module {
   @override
   void binds(i) {
     i.addSingleton<FlutterSecureStorage>(FlutterSecureStorage.new);
+    i.addSingleton<StorageService>(FlutterStorageService.new);
     i.addSingleton<EnviromentService>(FlutterEnvironmentService.new);
     i.addSingleton<HttpService>(FlutterHttpService.new);
     i.addSingleton<AuthRepository>(AcarreoAuthRepository.new);

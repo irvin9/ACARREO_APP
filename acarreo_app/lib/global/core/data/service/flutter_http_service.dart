@@ -1,18 +1,18 @@
 import 'dart:convert';
+import 'package:acarreo_app/global/core/domain/service/storage_service.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:acarreo_app/global/core/utils/api_interceptor.dart';
 import 'package:acarreo_app/global/core/data/enum/type_token.dart';
 import 'package:acarreo_app/global/core/utils/api_retry_police.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:acarreo_app/global/core/data/enum/http_methods.dart';
 import 'package:acarreo_app/global/core/domain/service/http_service.dart';
 import 'package:acarreo_app/global/core/data/model/api_rest_exception.dart';
 import 'package:acarreo_app/global/core/data/model/response_http_model.dart';
 
 class FlutterHttpService extends HttpService {
-  FlutterHttpService({required this.secureStorage});
+  FlutterHttpService({required this.storage});
 
-  final FlutterSecureStorage secureStorage;
+  final StorageService storage;
 
   final Client client = InterceptedClient.build(
     interceptors: [ApiInterceptor()],
@@ -22,7 +22,7 @@ class FlutterHttpService extends HttpService {
 
   @override
   Future<void> addTokenHeaders(TypeToken? tokenHeader) async {
-    String token = await secureStorage.read(key: 'token') ?? '';
+    String token = await storage.getToken();
     if (token.isEmpty) {
       throw ApiRestException.fromMessage('Token Not Found');
     }
@@ -47,11 +47,14 @@ class FlutterHttpService extends HttpService {
   }) async {
     try {
       Uri uri = Uri.parse(url);
+
       if (params != null) {
         uri = Uri.parse(url).replace(queryParameters: params);
       }
 
-      if (token != null && TypeToken.bearerToken == token) {}
+      if (token != null) {
+        addTokenHeaders(token);
+      }
 
       final body = jsonEncode(data);
       Response response;
