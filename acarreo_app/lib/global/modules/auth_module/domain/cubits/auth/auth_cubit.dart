@@ -24,13 +24,13 @@ class AuthCubit extends Cubit<AuthState> {
   login(UserCredential credential) async {
     _isLoading = true;
     AuthState currentState = AuthProcessing();
-    debugPrint(credential.toString());
     emit(currentState);
 
     currentState = const AuthError(message: 'Ocurrio un error');
     String? token;
-    token = await service.login(credential);
-    if (token != null) {
+    token = await service.login(credential) ?? '';
+    final user = await service.verifyToken(token);
+    if (user != null) {
       await storage.saveToken(token);
       currentState = AuthSuccess(token: token);
     }

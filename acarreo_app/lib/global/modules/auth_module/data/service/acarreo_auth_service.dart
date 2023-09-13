@@ -1,8 +1,9 @@
 import 'package:flutter/widgets.dart';
+import 'package:acarreo_app/global/core/data/model/token_auth_model.dart';
 import 'package:acarreo_app/global/core/domain/models/user_credential.dart';
-import 'package:acarreo_app/global/modules/auth_module/data/model/token_auth_model.dart';
-import 'package:acarreo_app/global/modules/auth_module/domain/repository/auth_repository.dart';
+import 'package:acarreo_app/global/modules/auth_module/domain/model/user_model.dart';
 import 'package:acarreo_app/global/modules/auth_module/domain/service/auth_service.dart';
+import 'package:acarreo_app/global/modules/auth_module/domain/repository/auth_repository.dart';
 
 class AcarreoAuthService implements AuthService {
   final AuthRepository repository;
@@ -10,7 +11,7 @@ class AcarreoAuthService implements AuthService {
   const AcarreoAuthService({required this.repository});
 
   @override
-  Future getCurrentUser(int id) {
+  Future<UserModel?> getCurrentUser(int id) async {
     throw UnimplementedError();
   }
 
@@ -34,7 +35,16 @@ class AcarreoAuthService implements AuthService {
   }
 
   @override
-  Future verifyUSer(String token) {
-    throw UnimplementedError();
+  Future<UserModel?> verifyToken(String token) async {
+    try {
+      assert(token.isNotEmpty);
+      final data = await repository.verifyToken(token);
+      return UserModel.fromMap(data.toMap());
+    } catch (e, s) {
+      debugPrint('Exception on -> ${runtimeType.toString()}');
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: s);
+      return null;
+    }
   }
 }
