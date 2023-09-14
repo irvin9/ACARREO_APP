@@ -1,5 +1,9 @@
 abstract class GlobalRoutesApp {
-  static const String initialRoute = '/';
-  static const String authRoute = '/auth';
-  static const String authLoginRoute = '$authRoute/login';
+  static String get initialRoute => '/';
+  static String get authRoute => '/auth';
+  static String get authLoginRoute => '$authRoute/login';
+
+  static String get homeRoute => '/home';
+  static String get trackerRoute => '$homeRoute/tracker';
+  static String get registerTravelRoute => '$trackerRoute/register-travel';
 }

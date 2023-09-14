@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 
 class AcarreoApp extends StatelessWidget {
   final String initialRoute;
 
   const AcarreoApp({
     super.key,
-    this.initialRoute = GlobalRoutesApp.authLoginRoute,
+    required this.initialRoute,
   });
 
   @override
