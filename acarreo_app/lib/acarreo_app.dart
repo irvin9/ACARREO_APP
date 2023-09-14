@@ -17,10 +17,6 @@ class AcarreoApp extends StatelessWidget {
       title: 'Acarreo App',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF1E293B),
-          brightness: Brightness.dark,
-        ),
       ),
     );
   }

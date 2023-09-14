@@ -19,7 +19,7 @@ class TittleScreen extends StatelessWidget {
         style: GoogleFonts.poppins(
           textStyle: const TextStyle(
             fontSize: 24.0,
-            color: Colors.white,
+            color: Colors.black87,
             letterSpacing: 0.5,
             fontWeight: FontWeight.bold,
           ),

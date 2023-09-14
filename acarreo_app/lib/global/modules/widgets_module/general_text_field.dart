@@ -54,11 +54,11 @@ class GeneralTextField extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           boxShadow: const [
-            // BoxShadow(
-            //   color: Colors.grey,
-            //   blurRadius: 4.0,
-            //   offset: Offset(-0.5, 2.3),
-            // ),
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 4.0,
+              offset: Offset(-0.5, 2.3),
+            ),
           ],
         ),
         child: textFormFieldWithState(validator),

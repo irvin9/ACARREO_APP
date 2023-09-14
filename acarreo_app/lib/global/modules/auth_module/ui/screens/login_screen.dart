@@ -12,34 +12,20 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthCubit authCubit = Modular.get<AuthCubit>();
     return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
       child: DecoratedBox(
         decoration: const BoxDecoration(
-          color: Color(0xFF1E293B),
-          // color: Colors.blueGrey,
+          color: Color(0xFF151A20),
           image: DecorationImage(
             isAntiAlias: true,
             alignment: Alignment.bottomCenter,
             image: AssetImage(WidgetAssets.backgroundT1),
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.fill,
           ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(24.0),
-          child: Column(
-            children: [
-              const Expanded(flex: 1, child: SizedBox.shrink()),
-              Expanded(
-                flex: 5,
-                child: LoginForm(cubit: authCubit),
-              ),
-              const LogoApp(
-                assetName: WidgetAssets.logoNameApp,
-                width: 164.0,
-                height: 64.0,
-              ),
-            ],
+          child: Center(
+            child: LoginForm(cubit: authCubit),
           ),
         ),
       ),
