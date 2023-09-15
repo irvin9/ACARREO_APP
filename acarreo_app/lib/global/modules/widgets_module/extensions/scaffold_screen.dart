@@ -1,3 +1,5 @@
+import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/modules/auth_module/core/domain/cubits/auth/auth_cubit.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
@@ -93,7 +95,7 @@ extension ScaffoldScreen on Widget {
               ),
             ],
             onSelected: (value) {
-              // Handle menu item selection
+              if (value == 'logout') Modular.get<AuthCubit>().logout();
             },
           ).withPaddingSymmetric(vertical: 0),
         ],

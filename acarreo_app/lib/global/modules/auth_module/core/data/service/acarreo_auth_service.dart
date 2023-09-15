@@ -30,8 +30,14 @@ class AcarreoAuthService implements AuthService {
   }
 
   @override
-  Future<void> logout() {
-    throw UnimplementedError();
+  Future<void> logout() async {
+    try {
+      await repository.logout();
+    } catch (e, s) {
+      debugPrint('Exception on -> ${runtimeType.toString()}');
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: s);
+    }
   }
 
   @override

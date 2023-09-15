@@ -54,16 +54,3 @@ class RegisterTravelForm extends StatelessWidget {
     );
   }
 }
-
-
-
-            // TextFormField(
-            //   style: GoogleFonts.poppins(fontSize: 14.0),
-            //   decoration: const InputDecoration(
-            //     floatingLabelBehavior: FloatingLabelBehavior.never,
-            //     labelText: 'Seleccione su tipo de ubicación',
-            //     contentPadding: EdgeInsets.symmetric(
-            //       horizontal: 12.0,
-            //     ),
-            //   ),
-            // ),

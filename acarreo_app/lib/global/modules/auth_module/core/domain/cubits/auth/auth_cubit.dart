@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:acarreo_app/global/core/domain/models/user_credential.dart';
-import 'package:acarreo_app/global/core/domain/service/storage_service.dart';
+import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/service/auth_service.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/model/user_model.dart';
 
@@ -38,5 +35,17 @@ class AuthCubit extends Cubit<AuthState> {
     }
     _isLoading = false;
     emit(currentState);
+  }
+
+  logout() async {
+    AuthState currentState = const AuthInitCloseSession();
+    emit(currentState);
+
+    currentState = const AuthCloseSessionSuccess();
+    await service.logout().then((_) async {
+      await storage.deleteAll();
+      emit(currentState);
+      Modular.to.navigate(GlobalRoutesApp.authLoginRoute);
+    });
   }
 }

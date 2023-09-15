@@ -39,3 +39,17 @@ class AuthError extends AuthState {
   @override
   List<Object?> get props => [message];
 }
+
+class AuthInitCloseSession extends AuthState {
+  const AuthInitCloseSession();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthCloseSessionSuccess extends AuthState {
+  const AuthCloseSessionSuccess();
+
+  @override
+  List<Object?> get props => [];
+}
