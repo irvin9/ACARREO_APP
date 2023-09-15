@@ -6,4 +6,5 @@ abstract class GlobalRoutesApp {
   static String get homeRoute => '/home';
   static String get trackerRoute => '$homeRoute/tracker';
   static String get registerTravelRoute => '$trackerRoute/register-travel';
+  static String get readTravelNFCRoute => '$trackerRoute/read-travel-nfc';
 }

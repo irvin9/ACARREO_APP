@@ -4,15 +4,18 @@ import 'package:acarreo_app/global/modules/widgets_module/general_button.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 
 class GeneralTrackerScreen extends StatelessWidget {
-  final int currentStep;
-  final int totalSteps;
+  final int? currentStep;
+  final int? totalSteps;
+  final void Function()? onContinue;
   final List<Widget> children;
 
-  const GeneralTrackerScreen(
-      {super.key,
-      this.currentStep = 1,
-      this.totalSteps = 4,
-      required this.children});
+  const GeneralTrackerScreen({
+    super.key,
+    this.currentStep = 1,
+    this.totalSteps = 4,
+    this.onContinue,
+    required this.children,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +32,15 @@ class GeneralTrackerScreen extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 12.0),
-                DotsProgressBar(currentStep: currentStep, steps: totalSteps),
+                DotsProgressBar(currentStep: currentStep!, steps: totalSteps!),
                 const SizedBox(height: 24.0),
                 Expanded(
-                    child: SingleChildScrollView(
-                        child: Column(children: [...children])))
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [...children],
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -43,7 +50,7 @@ class GeneralTrackerScreen extends StatelessWidget {
             buttonText: 'Continuar',
             buttonElevation: 2.0,
             textColor: Colors.black87,
-            onPressed: () {},
+            onPressed: onContinue,
           )
         ],
       ),

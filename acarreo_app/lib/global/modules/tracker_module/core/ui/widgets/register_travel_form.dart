@@ -14,9 +14,9 @@ class RegisterTravelForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      child: const Column(
+      child: Column(
         children: [
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -32,12 +32,59 @@ class RegisterTravelForm extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 24.0),
-          Column(
+          const SizedBox(height: 24.0),
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Ubicación',
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              DropdownFormField(
+                options: FormValues.optionTravels,
+              ),
+            ],
+          ),
+          const SizedBox(height: 24.0),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Descripción de ubicación',
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              TextFormField(
+                maxLines: null,
+                maxLength: 180,
+                keyboardType: TextInputType.multiline,
+                style: GoogleFonts.poppins(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
+                ),
+                decoration: const InputDecoration(
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  labelText: 'Describa su ubicación',
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24.0),
+          const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Lista de ubicaciones',
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 16.0,

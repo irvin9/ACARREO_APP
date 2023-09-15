@@ -1,3 +1,4 @@
+import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/register_travel_form.dart';
 import 'package:flutter/material.dart';
@@ -21,18 +22,22 @@ class RegisterTravelScreen extends StatelessWidget {
     const String titleH2 = 'Detalles de la ubicación';
     const String descriptionH2 = 'Añade los detalles de tu ubicación';
 
-    return GeneralTrackerScreen(currentStep: currentStep, children: [
-      const TitleForm(
-        title: title,
-        description: description,
-      ),
-      const SizedBox(height: 8.0),
-      TitleForm.h2(
-        title: titleH2,
-        description: descriptionH2,
-      ),
-      const SizedBox(height: 12.0),
-      RegisterTravelForm(formKey: formKey)
-    ]);
+    return GeneralTrackerScreen(
+        currentStep: currentStep,
+        onContinue: () =>
+            Modular.to.pushNamed(GlobalRoutesApp.readTravelNFCRoute),
+        children: [
+          const TitleForm(
+            title: title,
+            description: description,
+          ),
+          const SizedBox(height: 8.0),
+          TitleForm.h2(
+            title: titleH2,
+            description: descriptionH2,
+          ),
+          const SizedBox(height: 12.0),
+          RegisterTravelForm(formKey: formKey)
+        ]);
   }
 }
