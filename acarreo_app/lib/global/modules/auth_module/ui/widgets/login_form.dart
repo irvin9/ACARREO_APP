@@ -65,7 +65,7 @@ class LoginForm extends StatelessWidget {
               BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
                   if (state is AuthSuccess) {
-                    Modular.to.pushNamed(
+                    Modular.to.navigate(
                       GlobalRoutesApp.registerTravelRoute,
                     );
                   }

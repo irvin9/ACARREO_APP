@@ -2,7 +2,6 @@ import 'package:acarreo_app/global/modules/auth_module/domain/cubits/auth/auth_c
 import 'package:acarreo_app/global/modules/auth_module/ui/widgets/login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
-import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginScreen extends StatelessWidget {

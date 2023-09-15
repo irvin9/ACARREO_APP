@@ -16,7 +16,7 @@ import 'package:acarreo_app/global/modules/auth_module/data/repository/acarreo_a
 
 class AuthModule extends Module {
   @override
-  void binds(i) {
+  void exportedBinds(i) {
     i.addSingleton<FlutterSecureStorage>(FlutterSecureStorage.new);
     i.addSingleton<StorageService>(FlutterStorageService.new);
     i.addSingleton<EnviromentService>(FlutterEnvironmentService.new);

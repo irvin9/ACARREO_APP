@@ -15,9 +15,11 @@ class AcarreoApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: Modular.routerConfig,
       title: 'Acarreo App',
-      theme: ThemeData(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(
         useMaterial3: true,
       ),
+      darkTheme: ThemeData.dark(useMaterial3: true),
     );
   }
 }
