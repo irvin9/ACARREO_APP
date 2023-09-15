@@ -16,3 +16,5 @@ export 'package:acarreo_app/global/core/data/service/flutter_environment_service
 export 'package:acarreo_app/global/core/data/service/flutter_http_service.dart';
 export 'package:acarreo_app/global/core/domain/service/environment_service.dart';
 export 'package:acarreo_app/global/core/domain/service/http_service.dart';
+
+export 'package:acarreo_app/global/core/domain/models/user_credential.dart';

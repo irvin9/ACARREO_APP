@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:acarreo_app/global/core/data/model/token_auth_model.dart';
 import 'package:acarreo_app/global/core/domain/models/user_credential.dart';
-import 'package:acarreo_app/global/modules/auth_module/domain/model/user_model.dart';
-import 'package:acarreo_app/global/modules/auth_module/domain/service/auth_service.dart';
-import 'package:acarreo_app/global/modules/auth_module/domain/repository/auth_repository.dart';
+import 'package:acarreo_app/global/modules/auth_module/core/domain/model/user_model.dart';
+import 'package:acarreo_app/global/modules/auth_module/core/domain/service/auth_service.dart';
+import 'package:acarreo_app/global/modules/auth_module/core/domain/repository/auth_repository.dart';
 
 class AcarreoAuthService implements AuthService {
   final AuthRepository repository;

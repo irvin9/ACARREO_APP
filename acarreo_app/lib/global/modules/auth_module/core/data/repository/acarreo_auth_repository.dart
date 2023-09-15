@@ -7,7 +7,7 @@ import 'package:acarreo_app/global/core/data/model/user_auth_model.dart';
 import 'package:acarreo_app/global/core/domain/service/http_service.dart';
 import 'package:acarreo_app/global/core/data/model/api_rest_exception.dart';
 import 'package:acarreo_app/global/core/domain/service/environment_service.dart';
-import 'package:acarreo_app/global/modules/auth_module/domain/repository/auth_repository.dart';
+import 'package:acarreo_app/global/modules/auth_module/core/domain/repository/auth_repository.dart';
 
 class AcarreoAuthRepository implements AuthRepository {
   const AcarreoAuthRepository({required this.http, required this.environment});

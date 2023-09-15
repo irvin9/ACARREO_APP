@@ -1,5 +1,5 @@
 import 'package:acarreo_app/global/core/domain/models/user_credential.dart';
-import 'package:acarreo_app/global/modules/auth_module/domain/model/user_model.dart';
+import 'package:acarreo_app/global/modules/auth_module/core/domain/model/user_model.dart';
 
 abstract class AuthService {
   Future<String?> login(UserCredential credential);

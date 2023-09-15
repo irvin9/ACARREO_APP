@@ -13,9 +13,6 @@ class AcarreoAppModule extends Module {
   }
 
   @override
-  get imports => [AuthModule()];
-
-  @override
   void routes(r) {
     super.routes(r);
     r.module(
