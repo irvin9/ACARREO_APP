@@ -8,6 +8,9 @@ extension ScaffoldScreen on Widget {
     return Scaffold(
       key: key,
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        toolbarHeight: 0,
+      ),
       body: SafeArea(
         bottom: false,
         child: this,
