@@ -35,6 +35,11 @@ class _DropdownFormFieldState extends State<DropdownFormField> {
       width: double.infinity,
       child: DropdownButtonFormField<String>(
         value: seleccion,
+        decoration: const InputDecoration(
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 12.0,
+          ),
+        ),
         items: widget.options.keys.map((String key) {
           return DropdownMenuItem<String>(
             value: key,
