@@ -27,6 +27,8 @@ class Ubicaciones(BaseModel):
 
     model_path_name = "ubicaciones"
 
+    filter_columns = ["nombre", "state", "id_client", "id_project"]
+
     def property_map(self) -> Dict:
         return {
             "id": "id",

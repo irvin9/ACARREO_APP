@@ -29,6 +29,8 @@ class Materiales(BaseModel):
 
     model_path_name = "materiales"
 
+    filter_columns = ["material_name", "truck", "travel_mode", "travel_price", "state", "material_price", "id_client", "id_project"]
+
     def property_map(self) -> Dict:
         return {
             "id": "id",

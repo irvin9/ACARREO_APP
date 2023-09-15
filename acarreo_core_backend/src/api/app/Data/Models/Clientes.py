@@ -25,6 +25,8 @@ class Clientes(BaseModel):
 
     model_path_name = "clientes"
 
+    filter_columns = ["name", "phone", "rfc"]
+
     def property_map(self) -> Dict:
         return {
             "id": "id",

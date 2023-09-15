@@ -30,6 +30,8 @@ class Camiones(BaseModel):
 
     model_path_name = "camiones"
 
+    filter_columns = ["plate", "plate_gondola", "id_client", "id_project", "id_carrier"]
+
     def property_map(self) -> Dict:
         return {
             "id": "id",

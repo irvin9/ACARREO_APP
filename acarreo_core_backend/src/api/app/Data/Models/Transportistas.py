@@ -32,6 +32,8 @@ class Transportistas(BaseModel):
 
     model_path_name = "transportistas"
 
+    filter_columns = ["nombre", "rfc", "phone", "email", "id_client", "id_project"]
+
     def property_map(self) -> Dict:
         return {
             "id": "id",
