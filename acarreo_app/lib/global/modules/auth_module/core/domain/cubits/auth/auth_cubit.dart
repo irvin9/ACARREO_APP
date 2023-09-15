@@ -48,4 +48,10 @@ class AuthCubit extends Cubit<AuthState> {
       Modular.to.navigate(GlobalRoutesApp.authLoginRoute);
     });
   }
+
+  Future<void> goToNavigate(String route) async {
+    Modular.to.navigate(
+      route,
+    );
+  }
 }

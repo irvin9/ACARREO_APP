@@ -61,8 +61,13 @@ class LoginForm extends StatelessWidget {
               BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
                   if (state is AuthSuccess) {
-                    Modular.to.navigate(
-                      GlobalRoutesApp.registerTravelRoute,
+                    cubit.goToNavigate(GlobalRoutesApp.registerTravelRoute);
+                  }
+
+                  if (state is AuthError) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('No se pudo iniciar sesión')),
                     );
                   }
                 },
