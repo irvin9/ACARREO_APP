@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TitleForm extends StatelessWidget {
   final String title;
-  final String description;
+  final String? description;
   final double titleTextSize;
   final double descriptionTextSize;
   final TextAlign align;
@@ -11,7 +11,7 @@ class TitleForm extends StatelessWidget {
   const TitleForm({
     super.key,
     this.title = 'Título de Formulario',
-    this.description = 'Descripcion',
+    this.description,
     this.titleTextSize = 32.0,
     this.descriptionTextSize = 16,
     this.align = TextAlign.center,
@@ -49,20 +49,23 @@ class TitleForm extends StatelessWidget {
           ),
         ),
         SizedBox(height: spacing),
-        SizedBox(
-          width: double.infinity,
-          child: Text(
-            description,
-            textAlign: align,
-            style: TextStyle(
-              color: const Color(0xFF575E6E),
-              fontSize: descriptionTextSize,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w300,
-              // height: 0.09,
+        Visibility(
+          visible: description != null,
+          child: SizedBox(
+            width: double.infinity,
+            child: Text(
+              description ?? '',
+              textAlign: align,
+              style: TextStyle(
+                color: const Color(0xFF575E6E),
+                fontSize: descriptionTextSize,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w300,
+                // height: 0.09,
+              ),
             ),
           ),
-        ),
+        )
       ],
     );
   }
