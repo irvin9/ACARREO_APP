@@ -5,8 +5,6 @@ import 'package:acarreo_app/global/modules/auth_module/domain/model/user_model.d
 import 'package:flutter/material.dart';
 import 'package:acarreo_app/global/modules/widgets_module/general_button.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginForm extends StatelessWidget {
   final AuthCubit cubit;

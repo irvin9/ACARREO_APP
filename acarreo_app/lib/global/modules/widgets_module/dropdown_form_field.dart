@@ -41,7 +41,7 @@ class _DropdownFormFieldState extends State<DropdownFormField> {
             child: Text(widget.options[key] ?? ''),
           );
         }).toList(),
-        onChanged: widget.disable
+        onChanged: !widget.disable
             ? (String? newValue) {
                 setState(() {
                   seleccion = newValue!;
