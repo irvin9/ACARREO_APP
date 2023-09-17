@@ -1,3 +1,4 @@
-abstract class LocationRepository {
-  getLocationsByClientAndProject(String clientId, String projectId);
+abstract class LocationRepository<T> {
+  Future<List<T>> getLocationsByClientAndProject(
+      String idClient, String idProject);
 }

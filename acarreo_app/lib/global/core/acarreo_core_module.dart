@@ -21,3 +21,4 @@ export 'package:acarreo_app/global/core/domain/service/environment_service.dart'
 export 'package:acarreo_app/global/core/domain/service/http_service.dart';
 
 export 'package:acarreo_app/global/core/domain/models/user_credential.dart';
+export 'package:acarreo_app/global/core/data/model/api_rest_paginated.dart';

@@ -5,9 +5,7 @@ import 'package:acarreo_app/global/core/routes/global_routes_app.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class SessionGuard extends RouteGuard {
-  SessionGuard()
-      : super(
-            redirectTo: '${GlobalRoutesApp.trackerRoute}/form/register-travel');
+  SessionGuard() : super(redirectTo: GlobalRoutesApp.registerTravelRoute);
 
   @override
   FutureOr<bool> canActivate(String path, ParallelRoute route) async {
