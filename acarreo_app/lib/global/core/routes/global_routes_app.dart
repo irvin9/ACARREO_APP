@@ -5,10 +5,11 @@ abstract class GlobalRoutesApp {
 
   static String get homeRoute => '/home';
   static String get trackerRoute => '$homeRoute/tracker';
-  static String get registerTravelRoute => '$trackerRoute/register-travel';
-  static String get readTravelNFCRoute => '$trackerRoute/read-travel-nfc';
+  static String get trackerFormRoute => '$trackerRoute/form';
+  static String get registerTravelRoute => '$trackerFormRoute/register-travel';
+  static String get readTravelNFCRoute => '$trackerFormRoute/read-travel-nfc';
   static String get detailsTicketTravelRoute =>
-      '$trackerRoute/details-ticket-travel';
+      '$trackerFormRoute/details-ticket-travel';
   static String get previewTicketTravelRoute =>
-      '$trackerRoute/preview-ticket-travel';
+      '$trackerFormRoute/preview-ticket-travel';
 }
