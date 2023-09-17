@@ -1,7 +1,13 @@
+import 'package:acarreo_app/global/core/data/model/user_auth_model.dart';
+
 abstract class StorageService {
   static const tokenKey = 'token';
 
   static const defaultValue = '';
+
+  Future<void> saveUser(UserAuthModel user);
+
+  Future<UserAuthModel> getCurrentUser();
 
   Future<String> getToken();
 

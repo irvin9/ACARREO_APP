@@ -6,7 +6,6 @@ class UserModel extends Equatable {
     required this.fathersLastname,
     required this.id,
     this.updatedAt,
-    required this.password,
     required this.user,
     required this.createdAt,
     required this.idClient,
@@ -21,7 +20,6 @@ class UserModel extends Equatable {
         updatedAt: json["updated_at"] != null
             ? DateTime.parse(json["updated_at"])
             : null,
-        password: json["password"],
         user: json["user"],
         createdAt: DateTime.parse(json["created_at"]),
         idClient: json["id_client"],
@@ -36,7 +34,6 @@ class UserModel extends Equatable {
   final int idProject;
   final String mothersLastname;
   final String name;
-  final String password;
   final DateTime? updatedAt;
   final String user;
 
@@ -44,7 +41,6 @@ class UserModel extends Equatable {
   List<Object?> get props => [
         name,
         fathersLastname,
-        password,
         user,
         idClient,
         idProject,
@@ -65,7 +61,6 @@ class UserModel extends Equatable {
         id: id,
         name: name ?? this.name,
         fathersLastname: fathersLastname ?? this.fathersLastname,
-        password: password ?? this.password,
         user: user ?? this.user,
         createdAt: createdAt,
         idClient: idClient ?? this.idClient,
@@ -77,7 +72,6 @@ class UserModel extends Equatable {
         "id": id,
         "name": name,
         "fathers_lastname": fathersLastname,
-        "password": password,
         "user": user,
         "id_client": idClient,
         "mothers_lastname": mothersLastname,

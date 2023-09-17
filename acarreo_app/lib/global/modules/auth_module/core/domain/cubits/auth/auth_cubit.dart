@@ -26,7 +26,6 @@ class AuthCubit extends Cubit<AuthState> {
     currentState = const AuthError(message: 'Ocurrio un error');
     String? token;
     token = await service.login(credential) ?? '';
-    await storage.saveToken(token);
     final user = await service.verifyToken(token);
     if (user != null) {
       currentState = AuthSuccess(user: user);

@@ -8,7 +8,7 @@ class UserAuthModel extends Equatable {
     required this.fathersLastname,
     required this.id,
     this.updatedAt,
-    required this.password,
+    // required this.password,
     required this.user,
     required this.createdAt,
     required this.idClient,
@@ -26,7 +26,7 @@ class UserAuthModel extends Equatable {
         updatedAt: json["updated_at"] != null
             ? DateTime.parse(json["updated_at"])
             : null,
-        password: json["password"],
+        // password: json["password"],
         user: json["user"],
         createdAt: DateTime.parse(json["created_at"]),
         idClient: json["id_client"],
@@ -41,7 +41,7 @@ class UserAuthModel extends Equatable {
   final int idProject;
   final String mothersLastname;
   final String name;
-  final String password;
+  // final String password;
   final DateTime? updatedAt;
   final String user;
 
@@ -49,7 +49,7 @@ class UserAuthModel extends Equatable {
   List<Object?> get props => [
         name,
         fathersLastname,
-        password,
+        // password,
         user,
         idClient,
         idProject,
@@ -60,7 +60,7 @@ class UserAuthModel extends Equatable {
   UserAuthModel copyWith({
     String? name,
     String? fathersLastname,
-    String? password,
+    // String? password,
     String? user,
     int? idClient,
     String? mothersLastname,
@@ -70,7 +70,7 @@ class UserAuthModel extends Equatable {
         id: id,
         name: name ?? this.name,
         fathersLastname: fathersLastname ?? this.fathersLastname,
-        password: password ?? this.password,
+        // password: password ?? this.password,
         user: user ?? this.user,
         createdAt: createdAt,
         idClient: idClient ?? this.idClient,
@@ -90,7 +90,7 @@ class UserAuthModel extends Equatable {
         "id": id,
         "name": name,
         "fathers_lastname": fathersLastname,
-        "password": password,
+        // "password": password,
         "user": user,
         "id_client": idClient,
         "mothers_lastname": mothersLastname,

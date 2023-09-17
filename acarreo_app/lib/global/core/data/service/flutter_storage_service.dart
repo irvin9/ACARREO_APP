@@ -1,5 +1,6 @@
-import 'package:acarreo_app/global/core/domain/service/storage_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:acarreo_app/global/core/data/model/user_auth_model.dart';
+import 'package:acarreo_app/global/core/domain/service/storage_service.dart';
 
 class FlutterStorageService implements StorageService {
   const FlutterStorageService(this.storage);
@@ -39,5 +40,17 @@ class FlutterStorageService implements StorageService {
   @override
   Future<void> writeByKey(String key, String value) async {
     await storage.write(key: key, value: value);
+  }
+
+  @override
+  Future<UserAuthModel> getCurrentUser() async {
+    final data = await storage.read(key: 'user') ?? '';
+    return UserAuthModel.fromApiJson(data);
+  }
+
+  @override
+  Future<void> saveUser(UserAuthModel user) async {
+    final data = user.toString();
+    await writeByKey('user', data);
   }
 }

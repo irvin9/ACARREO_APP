@@ -1,18 +1,28 @@
+import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:flutter/widgets.dart';
 import 'package:acarreo_app/global/core/data/model/token_auth_model.dart';
-import 'package:acarreo_app/global/core/domain/models/user_credential.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/model/user_model.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/service/auth_service.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/repository/auth_repository.dart';
 
 class AcarreoAuthService implements AuthService {
+  final StorageService storage;
   final AuthRepository repository;
 
-  const AcarreoAuthService({required this.repository});
+  const AcarreoAuthService({required this.repository, required this.storage});
 
   @override
   Future<UserModel?> getCurrentUser(int id) async {
-    throw UnimplementedError();
+    try {
+      final data = await storage.getCurrentUser();
+      final user = UserModel.fromMap(data.toMap());
+      return user;
+    } catch (e, s) {
+      debugPrint('Exception on -> ${runtimeType.toString()}');
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: s);
+      return null;
+    }
   }
 
   @override
@@ -45,6 +55,8 @@ class AcarreoAuthService implements AuthService {
     try {
       assert(token.isNotEmpty);
       final data = await repository.verifyToken(token);
+      storage.saveToken(token);
+      storage.saveUser(data);
       return UserModel.fromMap(data.toMap());
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
