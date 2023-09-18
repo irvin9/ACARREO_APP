@@ -49,52 +49,23 @@ class DetailsTicketForm extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 24.0),
-          const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Tipo de ruta',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              DropdownFormField(
-                options: FormValues.optionTravels,
-              ),
-            ],
-          ),
-          const SizedBox(height: 24.0),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Kilometros previsto de ruta',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              TextFormField(
-                maxLines: 1,
-                keyboardType: TextInputType.number,
-                style: GoogleFonts.poppins(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                ),
-                decoration: const InputDecoration(
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                  labelText: 'Introduzca en numeros enteros.',
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          // const SizedBox(height: 24.0),
+          // const Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     Text(
+          //       'Tipo de ruta',
+          //       textAlign: TextAlign.start,
+          //       style: TextStyle(
+          //         fontSize: 16.0,
+          //         fontWeight: FontWeight.w500,
+          //       ),
+          //     ),
+          //     DropdownFormField(
+          //       options: FormValues.optionTravels,
+          //     ),
+          //   ],
+          // ),
           const SizedBox(height: 24.0),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,6 +81,7 @@ class DetailsTicketForm extends StatelessWidget {
               TextFormField(
                 maxLines: null,
                 maxLength: 180,
+                enabled: false,
                 keyboardType: TextInputType.multiline,
                 style: GoogleFonts.poppins(
                   fontSize: 16.0,
@@ -117,7 +89,7 @@ class DetailsTicketForm extends StatelessWidget {
                 ),
                 decoration: const InputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.never,
-                  labelText: 'Describa su ubicación',
+                  labelText: 'Nota de ubicación',
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 12.0,
                   ),
