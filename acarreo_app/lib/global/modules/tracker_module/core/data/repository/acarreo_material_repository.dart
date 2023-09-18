@@ -11,7 +11,7 @@ class AcarreoMaterialRepository implements MaterialRepository<AcarreoMaterial> {
   final EnviromentService environment;
   final HttpService http;
 
-  static const String _subCategoryPath = '/material';
+  static const String _subCategoryPath = '/materiales';
   @override
   getMaterialsByClientAndProject(String idClient, String idProject) async {
     final String hostUrl = environment.apiHostUrl;

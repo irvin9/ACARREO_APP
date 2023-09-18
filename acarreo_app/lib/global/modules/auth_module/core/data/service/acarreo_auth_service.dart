@@ -54,11 +54,12 @@ class AcarreoAuthService implements AuthService {
   Future<UserModel?> verifyToken(String token) async {
     try {
       assert(token.isNotEmpty);
+      await storage.saveToken(token);
       final data = await repository.verifyToken(token);
-      storage.saveToken(token);
-      storage.saveUser(data);
+      await storage.saveUser(data);
       return UserModel.fromMap(data.toMap());
     } catch (e, s) {
+      await storage.deleteAll();
       debugPrint('Exception on -> ${runtimeType.toString()}');
       debugPrint(e.toString());
       debugPrintStack(stackTrace: s);
