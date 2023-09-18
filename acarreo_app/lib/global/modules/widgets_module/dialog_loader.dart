@@ -2,23 +2,34 @@ import 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+class DialogMessage {
+  final String title;
+  final String description;
+
+  DialogMessage({required this.title, required this.description});
+
+  factory DialogMessage.fromMap(Map<String, dynamic> message) => DialogMessage(
+        title: message['title'],
+        description: message['description'],
+      );
+}
+
 class DialogLoader {
-  static show(context) {
+  static show(BuildContext context, DialogMessage message) {
     return GenericDialog.show(
-      context,
+      context: context,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Cargando nueva información',
+            message.title,
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
                 fontSize: 24.0, fontWeight: FontWeight.w700),
           ),
           Container(
             padding: const EdgeInsets.all(12.0),
-            // color: Colors.white70,
             child: const Center(
               child: SizedBox(
                 width: 80,
@@ -33,7 +44,7 @@ class DialogLoader {
             ),
           ),
           Text(
-            'Espere estamos cargando nueva información a su cuenta...',
+            message.description,
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
                 fontSize: 14.0, fontWeight: FontWeight.w400),

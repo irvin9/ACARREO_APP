@@ -10,7 +10,21 @@ class AcarreoCubit extends Cubit<AcarreoState> {
   AcarreoCubit(this.managerService) : super(const AcarreoInitState());
 
   Future<void> getAcarreoData() async {
-    emit(const AcarreoLoadingData());
+    await Future.delayed(Duration.zero);
+    emit(const AcarreoShowLoadingModal(message: {
+      'title': 'Cargando nueva información',
+      'description': 'Espere estamos cargando nueva información a su cuenta...',
+    }));
+    await managerService.getData();
+    emit(const AcarreoSuccess());
+  }
+
+  Future<void> updateTickets() async {
+    await Future.delayed(Duration.zero);
+    emit(const AcarreoShowLoadingModal(message: {
+      'title': 'Subiendo archivos pendientes',
+      'description': 'Espere estamos subiendo la información pendiente...',
+    }));
     await managerService.getData();
     emit(const AcarreoSuccess());
   }

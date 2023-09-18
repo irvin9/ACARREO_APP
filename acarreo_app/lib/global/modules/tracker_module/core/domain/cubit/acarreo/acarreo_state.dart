@@ -1,4 +1,5 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/modules/widgets_module/dialog_loader.dart';
 
 abstract class AcarreoState extends Equatable {
   const AcarreoState();
@@ -13,10 +14,12 @@ class AcarreoInitState extends AcarreoState {
   List<Object?> get props => [];
 }
 
-class AcarreoLoadingData extends AcarreoState {
-  const AcarreoLoadingData();
+class AcarreoShowLoadingModal extends AcarreoState {
+  final Map<String, dynamic> message;
+
+  const AcarreoShowLoadingModal({required this.message});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [message];
 }
 
 class AcarreoSuccess extends AcarreoState {

@@ -4,8 +4,11 @@ class GenericDialog extends StatelessWidget {
   final Widget child;
   const GenericDialog({super.key, required this.child});
 
-  static Future<void> show(BuildContext context,
-          {Key? key, required Widget child}) async =>
+  static Future<void> show({
+    required BuildContext context,
+    Key? key,
+    required Widget child,
+  }) async =>
       showDialog<void>(
         context: context,
         useRootNavigator: false,
@@ -24,7 +27,6 @@ class GenericDialog extends StatelessWidget {
       onWillPop: () async => false,
       child: Dialog(
         backgroundColor: Colors.white,
-        // shadowColor: Colors.amber,
         child: Padding(padding: const EdgeInsets.all(24.0), child: child),
       ),
     );

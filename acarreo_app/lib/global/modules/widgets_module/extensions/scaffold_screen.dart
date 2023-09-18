@@ -3,7 +3,6 @@ import 'package:acarreo_app/global/modules/auth_module/core/domain/cubits/auth/a
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_state.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_loader.dart';
-import 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
@@ -25,8 +24,8 @@ extension ScaffoldScreen on Widget {
   setScaffoldWithAppBar({GlobalKey<ScaffoldState>? key}) {
     return BlocConsumer<AcarreoCubit, AcarreoState>(
       listener: (context, state) {
-        if (state is AcarreoLoadingData) {
-          DialogLoader.show(context);
+        if (state is AcarreoShowLoadingModal) {
+          DialogLoader.show(context, DialogMessage.fromMap(state.message));
         }
 
         if (state is AcarreoSuccess) {
@@ -45,13 +44,11 @@ extension ScaffoldScreen on Widget {
             iconTheme: const IconThemeData(color: Colors.white, size: 32),
             actions: [
               IconButton(
-                onPressed: () => {},
+                onPressed: () => Modular.get<AcarreoCubit>().updateTickets(),
                 icon: const Icon(color: Colors.white, Icons.cloud_upload),
               ),
               IconButton(
-                onPressed: () {
-                  Modular.get<AcarreoCubit>().getAcarreoData();
-                },
+                onPressed: () => Modular.get<AcarreoCubit>().getAcarreoData(),
                 icon: const Icon(color: Colors.white, Icons.update),
               ),
               PopupMenuButton<String>(
