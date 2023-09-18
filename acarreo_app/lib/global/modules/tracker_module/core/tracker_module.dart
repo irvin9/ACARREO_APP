@@ -86,7 +86,7 @@ class TrackerModule extends Module {
         ),
         ChildRoute(
           TrackerRoutesModule.previewTicketTravelRoute,
-          child: (context) => const PreviewTicketTravel(
+          child: (context) => const PreviewTicketTravelScreen(
             currentStep: 4,
             totalSteps: totalSteps,
           ),

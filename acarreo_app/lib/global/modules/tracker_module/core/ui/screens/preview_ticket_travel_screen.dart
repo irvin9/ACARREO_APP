@@ -4,10 +4,11 @@ import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/genera
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
-class PreviewTicketTravel extends StatelessWidget {
+class PreviewTicketTravelScreen extends StatelessWidget {
   final int? currentStep;
   final int? totalSteps;
-  const PreviewTicketTravel({super.key, this.currentStep, this.totalSteps});
+  const PreviewTicketTravelScreen(
+      {super.key, this.currentStep, this.totalSteps});
 
   @override
   Widget build(BuildContext context) {
