@@ -22,6 +22,8 @@ extension ScaffoldScreen on Widget {
   }
 
   setScaffoldWithAppBar({GlobalKey<ScaffoldState>? key}) {
+    final acarreoCubit = Modular.get<AcarreoCubit>();
+
     return BlocConsumer<AcarreoCubit, AcarreoState>(
       listener: (context, state) {
         if (state is AcarreoShowLoadingModal) {
@@ -43,12 +45,15 @@ extension ScaffoldScreen on Widget {
             ),
             iconTheme: const IconThemeData(color: Colors.white, size: 32),
             actions: [
-              IconButton(
-                onPressed: () => Modular.get<AcarreoCubit>().updateTickets(),
-                icon: const Icon(color: Colors.white, Icons.cloud_upload),
+              Visibility(
+                visible: acarreoCubit.pedingTickets,
+                child: IconButton(
+                  onPressed: () => acarreoCubit.updateTickets(),
+                  icon: const Icon(color: Colors.white, Icons.cloud_upload),
+                ),
               ),
               IconButton(
-                onPressed: () => Modular.get<AcarreoCubit>().getAcarreoData(),
+                onPressed: () => acarreoCubit.getAcarreoData(),
                 icon: const Icon(color: Colors.white, Icons.update),
               ),
               PopupMenuButton<String>(

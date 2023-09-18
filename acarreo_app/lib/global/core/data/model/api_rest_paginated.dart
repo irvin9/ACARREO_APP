@@ -16,7 +16,7 @@ class ApiRestPaginated<T> {
           Map<String, dynamic> json, Function transform) =>
       ApiRestPaginated(
         data: List<T>.from(json["Data"].map((x) => transform(x))),
-        links: json["Links"],
+        links: Links.fromJson(json["Links"]),
         total: json["Total"],
         limit: json["Limit"],
         offset: json["Offset"],

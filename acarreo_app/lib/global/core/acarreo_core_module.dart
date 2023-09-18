@@ -24,3 +24,4 @@ export 'package:acarreo_app/global/core/domain/models/user_credential.dart';
 export 'package:acarreo_app/global/core/data/model/api_rest_paginated.dart';
 
 export 'package:acarreo_app/global/core/data/repository/base_repository.dart';
+export 'package:acarreo_app/global/core/data/enum/type_token.dart';

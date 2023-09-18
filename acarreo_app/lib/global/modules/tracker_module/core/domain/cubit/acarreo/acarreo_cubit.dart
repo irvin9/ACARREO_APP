@@ -3,11 +3,14 @@ import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acar
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/data_manager_service.dart';
 
 class AcarreoCubit extends Cubit<AcarreoState> {
-  final Map<String, dynamic> formAnswers = {};
+  AcarreoCubit(this.managerService) : super(const AcarreoInitState());
 
+  final Map<String, dynamic> formAnswers = {};
   final DataManagerService managerService;
 
-  AcarreoCubit(this.managerService) : super(const AcarreoInitState());
+  bool _pendingTickets = false;
+
+  bool get pedingTickets => _pendingTickets;
 
   Future<void> getAcarreoData() async {
     await Future.delayed(Duration.zero);

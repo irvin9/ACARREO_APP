@@ -50,7 +50,7 @@ class FlutterStorageService implements StorageService {
 
   @override
   Future<void> saveUser(UserAuthModel user) async {
-    final data = user.toString();
+    final data = user.toLocalStorage();
     await writeByKey('user', data);
   }
 }

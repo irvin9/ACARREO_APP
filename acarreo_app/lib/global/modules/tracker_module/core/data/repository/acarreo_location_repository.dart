@@ -21,7 +21,11 @@ class AcarreoLocationRepository extends BaseRepository
       'id_project': idProject
     };
     final response = await http.request(
-        url: url, httpMethod: HttpMethods.GET, params: params);
+      url: url,
+      token: TypeToken.bearerToken,
+      httpMethod: HttpMethods.GET,
+      params: params,
+    );
     if (response.statusCode != HttpStatus.ok) {
       throw ApiRestException.fromResponse(response);
     }

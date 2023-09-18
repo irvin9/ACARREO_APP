@@ -86,6 +86,10 @@ class UserAuthModel extends Equatable {
     return json.encode(apiMap);
   }
 
+  String toLocalStorage() {
+    return json.encode(toMap());
+  }
+
   Map<String, dynamic> toMap() => {
         "id": id,
         "name": name,

@@ -8,7 +8,8 @@ class ApiRetryPolicy extends RetryPolicy {
 
   @override
   Future<bool> shouldAttemptRetryOnResponse(BaseResponse response) async {
-    if (response.statusCode == HttpStatus.unprocessableEntity) {
+    if (response.statusCode == HttpStatus.unprocessableEntity ||
+        response.statusCode == HttpStatus.unauthorized) {
       debugPrint('Se esta reintentando peticion -> ${response.request?.url}');
       return true;
     }
