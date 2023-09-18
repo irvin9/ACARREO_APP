@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/core/data/enum/type_token.dart';
 import 'package:acarreo_app/global/core/data/model/user_auth_model.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/repository/auth_repository.dart';
 

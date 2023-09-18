@@ -25,3 +25,5 @@ export 'package:acarreo_app/global/core/data/model/api_rest_paginated.dart';
 
 export 'package:acarreo_app/global/core/data/repository/base_repository.dart';
 export 'package:acarreo_app/global/core/data/enum/type_token.dart';
+export 'package:acarreo_app/global/core/domain/repository/scan_nfc_repository.dart';
+export 'package:acarreo_app/global/core/domain/models/dialog_message_model.dart';

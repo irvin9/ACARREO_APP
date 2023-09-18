@@ -25,10 +25,7 @@ class GenericDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
-      child: Dialog(
-        backgroundColor: Colors.white,
-        child: Padding(padding: const EdgeInsets.all(24.0), child: child),
-      ),
+      child: child,
     );
   }
 }

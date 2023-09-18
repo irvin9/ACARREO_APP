@@ -1,5 +1,4 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/modules/widgets_module/dialog_loader.dart';
 
 abstract class AcarreoState extends Equatable {
   const AcarreoState();

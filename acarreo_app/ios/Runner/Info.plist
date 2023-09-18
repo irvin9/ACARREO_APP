@@ -47,5 +47,15 @@
 		</array>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NFCReaderUsageDescription</key>
+		<string>This app needs to access NFC to read tags.</string>
+		<key>NFCReaderFelicaSystemCodes</key>
+		<array>
+		<string>1234</string>
+		</array>
+		<key>NFCReaderISO7816SelectIdentifiers</key>
+		<array>
+		<string>A000000000000000</string>
+		</array>
 	</dict>
 </plist>

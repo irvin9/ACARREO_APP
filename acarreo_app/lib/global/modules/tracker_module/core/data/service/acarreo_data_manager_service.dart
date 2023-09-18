@@ -3,6 +3,7 @@ import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/lo
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/material_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/ticket_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/truck_service.dart';
+import 'package:flutter/foundation.dart';
 
 class AcarreoDataManagerService implements DataManagerService {
   final LocationService locationService;
@@ -19,7 +20,16 @@ class AcarreoDataManagerService implements DataManagerService {
 
   @override
   Future<void> getData() async {
-    await Future.delayed(const Duration(seconds: 3));
+    try {
+      final locations = await locationService.getLocations();
+      final materials = await materialService.getMaterials();
+      final trucks = await truckService.getTrucks();
+    } catch (e, s) {
+      debugPrint('Exception on -> ${runtimeType.toString()}');
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: s);
+    }
+    // await Future.delayed(const Duration(seconds: 3));
   }
 
   @override

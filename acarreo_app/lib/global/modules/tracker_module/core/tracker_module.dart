@@ -1,5 +1,6 @@
 import 'package:acarreo_app/global/acarreo_app_module.dart';
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/core/data/repository/scan_nfc_manager_repository.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_location.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_material.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
@@ -14,6 +15,7 @@ import 'package:acarreo_app/global/modules/tracker_module/core/data/service/acar
 import 'package:acarreo_app/global/modules/tracker_module/core/data/service/acarreo_ticket_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/service/acarreo_truck_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/nfc/nfc_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/location_repository.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/material_repository.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/ticket_repository.dart';
@@ -24,7 +26,7 @@ import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/ma
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/ticket_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/truck_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/details_ticket_travel_screen.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/preview_ticket_travel.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/preview_ticket_travel_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/read_nfc_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/register_travel_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/tracker_module.dart';
@@ -35,6 +37,7 @@ class TrackerModule extends Module {
   @override
   void binds(Injector i) {
     super.binds(i);
+    i.addLazySingleton<ScanNfcRepository>(ScanNFCManagerRepository.new);
     i.addLazySingleton<LocationRepository<AcarreoLocation>>(
         AcarreoLocationRepository.new);
     i.addLazySingleton<MaterialRepository<AcarreoMaterial>>(
@@ -49,6 +52,7 @@ class TrackerModule extends Module {
     i.addLazySingleton<TruckService>(AcarreoTruckService.new);
     i.addLazySingleton<DataManagerService>(AcarreoDataManagerService.new);
     i.addLazySingleton<AcarreoCubit>(AcarreoCubit.new);
+    i.addLazySingleton<NfcCubit>(NfcCubit.new);
   }
 
   @override
@@ -59,7 +63,7 @@ class TrackerModule extends Module {
     r.child(
       '/form',
       child: (context) => BlocProvider.value(
-        value: Modular.get<AcarreoCubit>(),
+        value: Modular.get<AcarreoCubit>()..getAcarreoData(),
         child: const RouterOutlet(),
       ),
       children: [
@@ -72,9 +76,12 @@ class TrackerModule extends Module {
         ),
         ChildRoute(
           TrackerRoutesModule.readTravelNFCRoute,
-          child: (context) => const ReadNFCTravelScreen(
-            currentStep: 2,
-            totalSteps: totalSteps,
+          child: (context) => BlocProvider.value(
+            value: Modular.get<NfcCubit>()..startScan(),
+            child: const ReadNFCTravelScreen(
+              currentStep: 2,
+              totalSteps: totalSteps,
+            ),
           ),
         ),
         ChildRoute(

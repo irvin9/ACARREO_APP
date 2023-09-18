@@ -27,7 +27,7 @@ extension ScaffoldScreen on Widget {
     return BlocConsumer<AcarreoCubit, AcarreoState>(
       listener: (context, state) {
         if (state is AcarreoShowLoadingModal) {
-          DialogLoader.show(context, DialogMessage.fromMap(state.message));
+          DialogLoader.show(context, DialogMessageModel.fromMap(state.message));
         }
 
         if (state is AcarreoSuccess) {
