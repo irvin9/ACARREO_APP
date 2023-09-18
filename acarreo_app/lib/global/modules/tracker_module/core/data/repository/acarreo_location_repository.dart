@@ -4,12 +4,9 @@ import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_location.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/location_repository.dart';
 
-class AcarreoLocationRepository implements LocationRepository<AcarreoLocation> {
-  const AcarreoLocationRepository(
-      {required this.http, required this.environment});
-
-  final EnviromentService environment;
-  final HttpService http;
+class AcarreoLocationRepository extends BaseRepository
+    implements LocationRepository<AcarreoLocation> {
+  AcarreoLocationRepository();
 
   static const String _subCategoryPath = '/ubicaciones';
 

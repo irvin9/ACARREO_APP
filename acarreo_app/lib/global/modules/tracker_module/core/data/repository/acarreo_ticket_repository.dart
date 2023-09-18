@@ -4,13 +4,11 @@ import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/ticket_repository.dart';
 
-class AcarreoTicketRepository extends TicketRepository<AcarreoTicket> {
-  final EnviromentService environment;
-  final HttpService http;
-
+class AcarreoTicketRepository extends BaseRepository
+    implements TicketRepository<AcarreoTicket> {
   static const String _subCategoryPath = '/tickets';
 
-  AcarreoTicketRepository({required this.environment, required this.http});
+  AcarreoTicketRepository();
 
   @override
   Future<AcarreoTicket> createTicket(AcarreoTicket ticket) async {

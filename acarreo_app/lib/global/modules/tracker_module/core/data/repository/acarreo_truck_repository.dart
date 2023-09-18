@@ -4,9 +4,8 @@ import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/truck_repository.dart';
 
-class AcarreoTruckRepositorio<T> implements TruckRepository<AcarreoTruck> {
-  const AcarreoTruckRepositorio(
-      {required this.http, required this.environment});
+class AcarreoTruckRepository implements TruckRepository<AcarreoTruck> {
+  const AcarreoTruckRepository({required this.http, required this.environment});
 
   final EnviromentService environment;
   final HttpService http;

@@ -6,10 +6,10 @@ import 'package:acarreo_app/global/modules/auth_module/core/domain/service/auth_
 import 'package:acarreo_app/global/modules/auth_module/core/domain/repository/auth_repository.dart';
 
 class AcarreoAuthService implements AuthService {
-  final StorageService storage;
+  final StorageService storage = Modular.get<StorageService>();
   final AuthRepository repository;
 
-  const AcarreoAuthService({required this.repository, required this.storage});
+  AcarreoAuthService({required this.repository});
 
   @override
   Future<UserModel?> getCurrentUser(int id) async {
@@ -43,6 +43,7 @@ class AcarreoAuthService implements AuthService {
   Future<void> logout() async {
     try {
       await repository.logout();
+      await storage.deleteAll();
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
       debugPrint(e.toString());

@@ -8,18 +8,19 @@ import 'package:acarreo_app/global/modules/auth_module/core/ui/screens/login_scr
 
 class AuthModule extends Module {
   @override
-  void exportedBinds(i) {
-    i.addSingleton<FlutterSecureStorage>(FlutterSecureStorage.new);
-    i.addSingleton<StorageService>(FlutterStorageService.new);
-    i.addSingleton<EnviromentService>(FlutterEnvironmentService.new);
-    i.addSingleton<HttpService>(FlutterHttpService.new);
-    i.addSingleton<AuthRepository>(AcarreoAuthRepository.new);
-    i.addSingleton<AuthService>(AcarreoAuthService.new);
-    i.addSingleton<AuthCubit>(AuthCubit.new);
+  void binds(i) {
+    i.addLazySingleton<AuthRepository>(AcarreoAuthRepository.new);
+    i.addLazySingleton<AuthService>(AcarreoAuthService.new);
   }
 
   @override
-  void binds(i) {}
+  void exportedBinds(Injector i) {
+    super.exportedBinds(i);
+    i.addLazySingleton<AuthCubit>(AuthCubit.new);
+  }
+
+  // @override
+  // void binds(i) {}
 
   @override
   void routes(r) {

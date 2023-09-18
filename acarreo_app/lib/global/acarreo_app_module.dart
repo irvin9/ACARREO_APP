@@ -8,6 +8,14 @@ class AcarreoAppModule extends Module {
   get imports => [AuthModule()];
 
   @override
+  void binds(Injector i) {
+    i.addSingleton<FlutterSecureStorage>(FlutterSecureStorage.new);
+    i.addSingleton<StorageService>(FlutterStorageService.new);
+    i.addSingleton<EnviromentService>(FlutterEnvironmentService.new);
+    i.addSingleton<HttpService>(FlutterHttpService.new);
+  }
+
+  @override
   void routes(r) {
     super.routes(r);
     r.module(

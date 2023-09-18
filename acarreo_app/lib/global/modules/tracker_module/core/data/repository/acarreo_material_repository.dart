@@ -4,12 +4,9 @@ import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_material.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/material_repository.dart';
 
-class AcarreoMaterialRepository implements MaterialRepository<AcarreoMaterial> {
-  const AcarreoMaterialRepository(
-      {required this.http, required this.environment});
-
-  final EnviromentService environment;
-  final HttpService http;
+class AcarreoMaterialRepository extends BaseRepository
+    implements MaterialRepository<AcarreoMaterial> {
+  AcarreoMaterialRepository();
 
   static const String _subCategoryPath = '/materiales';
   @override

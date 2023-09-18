@@ -5,11 +5,9 @@ import 'package:acarreo_app/global/modules/auth_module/core/domain/model/user_mo
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit({required this.service, required this.storage})
-      : super(const AuthInitial());
+  AuthCubit({required this.service}) : super(const AuthInitial());
 
   final AuthService service;
-  final StorageService storage;
 
   final Map<String, String> _credentials = {};
   bool _isLoading = false;
@@ -29,8 +27,6 @@ class AuthCubit extends Cubit<AuthState> {
     final user = await service.verifyToken(token);
     if (user != null) {
       currentState = AuthSuccess(user: user);
-    } else {
-      await storage.deleteAll();
     }
     _isLoading = false;
     emit(currentState);
@@ -41,11 +37,9 @@ class AuthCubit extends Cubit<AuthState> {
     emit(currentState);
 
     currentState = const AuthCloseSessionSuccess();
-    await service.logout().then((_) async {
-      await storage.deleteAll();
-      emit(currentState);
-      Modular.to.navigate(GlobalRoutesApp.authLoginRoute);
-    });
+    await service.logout();
+    emit(currentState);
+    goToNavigate(GlobalRoutesApp.authLoginRoute);
   }
 
   Future<void> goToNavigate(String route) async {

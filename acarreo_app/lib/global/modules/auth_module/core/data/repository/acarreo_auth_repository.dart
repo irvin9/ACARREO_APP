@@ -1,19 +1,13 @@
 import 'dart:io';
 import 'dart:convert';
 
-import 'package:acarreo_app/global/core/data/enum/http_methods.dart';
+import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/core/data/enum/type_token.dart';
 import 'package:acarreo_app/global/core/data/model/user_auth_model.dart';
-import 'package:acarreo_app/global/core/domain/service/http_service.dart';
-import 'package:acarreo_app/global/core/data/model/api_rest_exception.dart';
-import 'package:acarreo_app/global/core/domain/service/environment_service.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/repository/auth_repository.dart';
 
-class AcarreoAuthRepository implements AuthRepository {
-  const AcarreoAuthRepository({required this.http, required this.environment});
-
-  final EnviromentService environment;
-  final HttpService http;
+class AcarreoAuthRepository extends BaseRepository implements AuthRepository {
+  AcarreoAuthRepository();
 
   static const String _subCategoryPath = '/auth';
 
