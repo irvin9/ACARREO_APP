@@ -1,6 +1,6 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_screen.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/read_nfc.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_wrap.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/read_nfc_form.dart';
 import 'package:flutter/material.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 
@@ -17,7 +17,7 @@ class ReadNFCTravelScreen extends StatelessWidget {
     const String description =
         'Leeremos su código de indentificación mediante un lector NFC.';
 
-    return GeneralTrackerScreen(
+    return GeneralTrackerWrap(
         currentStep: currentStep,
         onContinue: () =>
             Modular.to.pushNamed(GlobalRoutesApp.detailsTicketTravelRoute),
@@ -31,7 +31,7 @@ class ReadNFCTravelScreen extends StatelessWidget {
                 description: description,
               ),
               SizedBox(height: 8.0),
-              ReadNFC()
+              ReadNFCForm()
             ],
           )
         ]);

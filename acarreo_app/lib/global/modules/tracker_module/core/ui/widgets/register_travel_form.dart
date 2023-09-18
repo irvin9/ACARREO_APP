@@ -14,9 +14,9 @@ class RegisterTravelForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      child: Column(
+      child: const Column(
         children: [
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -32,8 +32,8 @@ class RegisterTravelForm extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 24.0),
-          const Column(
+          SizedBox(height: 24.0),
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -48,54 +48,7 @@ class RegisterTravelForm extends StatelessWidget {
                 options: FormValues.optionTravels,
               ),
             ],
-          ),
-          const SizedBox(height: 24.0),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Descripción de ubicación',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              TextFormField(
-                maxLines: null,
-                maxLength: 180,
-                keyboardType: TextInputType.multiline,
-                style: GoogleFonts.poppins(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                ),
-                decoration: const InputDecoration(
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                  labelText: 'Describa su ubicación',
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24.0),
-          const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Lista de ubicaciones',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              DropdownFormField(
-                options: FormValues.optionTravels,
-              ),
-            ],
-          ),
+          )
         ],
       ),
     );

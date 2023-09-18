@@ -1,5 +1,9 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/cubits/auth/auth_cubit.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_state.dart';
+import 'package:acarreo_app/global/modules/widgets_module/dialog_loader.dart';
+import 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
@@ -19,96 +23,111 @@ extension ScaffoldScreen on Widget {
   }
 
   setScaffoldWithAppBar({GlobalKey<ScaffoldState>? key}) {
-    return Scaffold(
-      key: key,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const SizedBox(
-          width: 140,
-          child: LogoApp(assetName: WidgetAssets.logoNameLightApp),
-        ),
-        iconTheme: const IconThemeData(color: Colors.white, size: 32),
-        actions: [
-          const IconButton(
-            onPressed: null,
-            icon: Icon(color: Colors.white, Icons.cloud_upload),
-          ),
-          const IconButton(
-            onPressed: null,
-            icon: Icon(color: Colors.white, Icons.update),
-          ),
-          PopupMenuButton<String>(
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'about',
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: Icon(
-                          Icons.info_outline,
-                          size: 24,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: SizedBox(
-                          width: 10.0,
-                        ),
-                      ),
+    return BlocConsumer<AcarreoCubit, AcarreoState>(
+      listener: (context, state) {
+        if (state is AcarreoLoadingData) {
+          DialogLoader.show(context);
+        }
+
+        if (state is AcarreoSuccess) {
+          DialogLoader.hide(context);
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          key: key,
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: const SizedBox(
+              width: 140,
+              child: LogoApp(assetName: WidgetAssets.logoNameLightApp),
+            ),
+            iconTheme: const IconThemeData(color: Colors.white, size: 32),
+            actions: [
+              IconButton(
+                onPressed: () => {},
+                icon: const Icon(color: Colors.white, Icons.cloud_upload),
+              ),
+              IconButton(
+                onPressed: () {
+                  Modular.get<AcarreoCubit>().getAcarreoData();
+                },
+                icon: const Icon(color: Colors.white, Icons.update),
+              ),
+              PopupMenuButton<String>(
+                itemBuilder: (context) => [
+                  const PopupMenuItem(
+                    value: 'about',
+                    child: Text.rich(
                       TextSpan(
-                        text: 'Sobre la app',
-                        style: TextStyle(fontSize: 18),
+                        children: [
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Icon(
+                              Icons.info_outline,
+                              size: 24,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: SizedBox(
+                              width: 10.0,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Sobre la app',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              const PopupMenuDivider(
-                height: 10,
-              ),
-              const PopupMenuItem(
-                value: 'logout',
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: Icon(
-                          Icons.logout_outlined,
-                          size: 24,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: SizedBox(
-                          width: 10.0,
-                        ),
-                      ),
+                  const PopupMenuDivider(
+                    height: 10,
+                  ),
+                  const PopupMenuItem(
+                    value: 'logout',
+                    child: Text.rich(
                       TextSpan(
-                        text: 'Cerrar sesión',
-                        style: TextStyle(fontSize: 18),
+                        children: [
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Icon(
+                              Icons.logout_outlined,
+                              size: 24,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: SizedBox(
+                              width: 10.0,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Cerrar sesión',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
+                ],
+                onSelected: (value) {
+                  if (value == 'logout') Modular.get<AuthCubit>().logout();
+                },
+              ).withPaddingSymmetric(vertical: 0),
             ],
-            onSelected: (value) {
-              if (value == 'logout') Modular.get<AuthCubit>().logout();
-            },
-          ).withPaddingSymmetric(vertical: 0),
-        ],
-        backgroundColor: const Color(0xFF151A20),
-        actionsIconTheme: const IconThemeData(size: 32),
-      ),
-      body: SafeArea(
-        bottom: false,
-        child: this,
-      ),
+            backgroundColor: const Color(0xFF151A20),
+            actionsIconTheme: const IconThemeData(size: 32),
+          ),
+          body: SafeArea(
+            bottom: false,
+            child: this,
+          ),
+        );
+      },
     );
   }
 }

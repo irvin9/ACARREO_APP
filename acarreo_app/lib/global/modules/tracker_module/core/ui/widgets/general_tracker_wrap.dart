@@ -3,13 +3,13 @@ import 'package:acarreo_app/global/modules/widgets_module/dots_progress_bar.dart
 import 'package:acarreo_app/global/modules/widgets_module/general_button.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 
-class GeneralTrackerScreen extends StatelessWidget {
+class GeneralTrackerWrap extends StatelessWidget {
   final int? currentStep;
   final int? totalSteps;
   final void Function()? onContinue;
   final List<Widget> children;
 
-  const GeneralTrackerScreen({
+  const GeneralTrackerWrap({
     super.key,
     this.currentStep = 1,
     this.totalSteps = 4,

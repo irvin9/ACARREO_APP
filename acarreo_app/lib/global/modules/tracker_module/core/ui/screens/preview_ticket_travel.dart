@@ -1,6 +1,6 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/concept_text_ticket.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_screen.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_wrap.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class PreviewTicketTravel extends StatelessWidget {
   Widget build(BuildContext context) {
     const String title = 'Revisa el ticker generado';
 
-    return GeneralTrackerScreen(
+    return GeneralTrackerWrap(
       onContinue: () => Modular.to.pushNamedAndRemoveUntil(
           GlobalRoutesApp.registerTravelRoute, (p0) => false),
       currentStep: currentStep,

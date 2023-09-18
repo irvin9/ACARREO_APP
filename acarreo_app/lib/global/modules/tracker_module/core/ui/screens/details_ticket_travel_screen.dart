@@ -1,6 +1,6 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/details_ticket_form.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_screen.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_wrap.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/widgets.dart';
 
@@ -21,7 +21,7 @@ class DetailsTicketTravelScreen extends StatelessWidget {
     const String description =
         'Debes registrar los detalles de la ubicación, que se definen a continuación';
 
-    return GeneralTrackerScreen(
+    return GeneralTrackerWrap(
       currentStep: currentStep,
       onContinue: () =>
           Modular.to.pushNamed(GlobalRoutesApp.previewTicketTravelRoute),

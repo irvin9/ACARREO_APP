@@ -1,8 +1,8 @@
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/widgets.dart';
 
-class ReadNFC extends StatelessWidget {
-  const ReadNFC({super.key});
+class ReadNFCForm extends StatelessWidget {
+  const ReadNFCForm({super.key});
 
   @override
   Widget build(BuildContext context) {
