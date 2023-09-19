@@ -4,6 +4,9 @@ import 'package:acarreo_app/global/core/domain/repository/scan_nfc_repository.da
 import 'package:flutter/foundation.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
+import 'package:flutter/material.dart';
+import 'package:nfc_manager/platform_tags.dart';
+
 class ScanNFCManagerRepository implements ScanNfcRepository {
   bool _isAvailable = false;
 
@@ -22,6 +25,8 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
     if (checkSupport) {
       NfcManager.instance.startSession(
         onDiscovered: (tag) async {
+          final nfca = NfcA.from(tag);
+          if (nfca != null) return;
           tagDecode = await _onTagDiscovered(tag);
           stopSession();
         },
@@ -31,7 +36,7 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
         },
       );
 
-      Future.delayed(Duration(seconds: timeout), () {
+      await Future.delayed(Duration(seconds: timeout), () {
         stopSession();
       });
     }
@@ -45,10 +50,10 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
 
   Future<String?> _onTagDiscovered(tag) async {
     try {
-      final ndef = Ndef.from(tag);
-      if (ndef == null) throw Exception('No NDEF tag');
-      final data = await ndef.read();
-      final dataDecode = utf8.decode(data.records.first.payload).substring(3);
+      final nfca = NfcA.from(tag);
+      if (nfca == null) throw Exception('No NDEF tag');
+      final data = nfca.atqa;
+      final dataDecode = utf8.decode(data).substring(3);
       debugPrint(dataDecode.toString());
       return dataDecode;
     } catch (e, s) {

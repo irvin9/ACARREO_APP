@@ -21,6 +21,11 @@ class ReadNFCTravelScreen extends StatelessWidget {
 
     return BlocConsumer<NfcCubit, NfcState>(
       listener: (context, state) {
+        if (state is NfcScanSuccess) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.data)));
+        }
+
         if (state is NfcScanFailed) {
           DialogError.show(
             context,
