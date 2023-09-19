@@ -21,6 +21,7 @@ dependencies:
   equatable: ^2.0.5
   printing: ^5.11.0
   nfc_manager: ^3.3.0
+  path_provider: ^2.1.1
 
 dev_dependencies:
   flutter_test:
