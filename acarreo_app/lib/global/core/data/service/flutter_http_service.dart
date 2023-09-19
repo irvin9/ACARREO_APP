@@ -21,8 +21,9 @@ class FlutterHttpService extends HttpService {
   );
 
   @override
-  Future<void> addTokenHeaders(TypeToken? tokenHeader) async {
+  Future<Map<String, String>> addTokenHeaders(TypeToken? tokenHeader) async {
     String token = await storage.getToken();
+    final Map<String, String> headers = {};
     if (token.isEmpty) {
       throw ApiRestException.fromMessage('Token Not Found');
     }
@@ -30,10 +31,10 @@ class FlutterHttpService extends HttpService {
     switch (tokenHeader) {
       case TypeToken.bearerToken:
         headers.addAll({'Authorization': 'Bearer $token'});
-        break;
       default:
         throw ApiRestException.fromMessage('El token no es soportado');
     }
+    return headers;
   }
 
   @override
@@ -45,6 +46,7 @@ class FlutterHttpService extends HttpService {
     Map<String, String>? params,
     String? route,
   }) async {
+    final Map<String, String> headerRequest = {...headers};
     try {
       Uri uri = Uri.parse(url);
 
@@ -53,28 +55,31 @@ class FlutterHttpService extends HttpService {
       }
 
       if (token != null) {
-        await addTokenHeaders(token);
+        final headerToken = await addTokenHeaders(token);
+        headerRequest.addAll(headerToken);
       }
 
       final body = jsonEncode(data);
       Response response;
       switch (httpMethod.verb) {
         case 'POST':
-          response = await client.post(uri, headers: headers, body: body);
+          response = await client.post(uri, headers: headerRequest, body: body);
           break;
         case 'GET':
-          response = await client.get(uri, headers: headers);
+          response = await client.get(uri, headers: headerRequest);
           break;
         case 'PUT':
-          response = await client.put(uri, headers: headers, body: body);
+          response = await client.put(uri, headers: headerRequest, body: body);
           break;
 
         case 'DELETE':
-          response = await client.delete(uri, headers: headers, body: body);
+          response =
+              await client.delete(uri, headers: headerRequest, body: body);
           break;
 
         case 'PATCH':
-          response = await client.patch(uri, headers: headers, body: body);
+          response =
+              await client.patch(uri, headers: headerRequest, body: body);
           break;
         default:
           throw ApiRestException.fromMessage(

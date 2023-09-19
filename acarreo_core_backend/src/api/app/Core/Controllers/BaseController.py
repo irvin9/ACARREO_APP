@@ -55,6 +55,8 @@ def index(service: BaseService):
     model_filter_keys = cast(BaseService, service).get_filter_columns()
     filters_model = set(model_filter_keys).intersection(filter_keys)
 
+    encoder = AlchemyEncoder if "relationships" not in relationship_retrieve else AlchemyRelationEncoder
+
     filters = []
     for f in filters_model:
         filters.append({f: filter_query[f]})
@@ -70,12 +72,6 @@ def index(service: BaseService):
             search_method=search_method,
         )
         total_elements = cast(BaseService, service).count_with_query(query)
-
-        encoder = (
-            AlchemyEncoder
-            if "relationships" not in relationship_retrieve
-            else AlchemyRelationEncoder
-        )
 
         if "accepts" in request.headers:
             accepts = request.headers["accepts"]
@@ -107,11 +103,7 @@ def index(service: BaseService):
             ).to_dict()
         body["Data"] = list(
             map(
-                lambda d: dict(
-                    **cast(BaseModel, d).to_dict(
-                        jsonEncoder=encoder, encoder_extras=relationship_retrieve
-                    )
-                ),
+                lambda d: dict(**cast(BaseModel, d).to_dict(jsonEncoder=encoder, encoder_extras=relationship_retrieve)),
                 body["Data"],
             )
         )
@@ -129,24 +121,16 @@ def index(service: BaseService):
     finally:
         session.close()
 
-    return build_response(
-        status_code, body, jsonEncoder=encoder, encoder_extras=relationship_retrieve
-    )
+    return build_response(status_code, body, jsonEncoder=encoder, encoder_extras=relationship_retrieve)
 
 
 def find(service: BaseService, id: int):
     session = get_session()
     relationship_retrieve = get_relationship_params(request)
     try:
-        encoder = (
-            AlchemyEncoder
-            if "relationships" not in relationship_retrieve
-            else AlchemyRelationEncoder
-        )
+        encoder = AlchemyEncoder if "relationships" not in relationship_retrieve else AlchemyRelationEncoder
         element = cast(BaseService, service).get_one(session, id)
-        body = element.to_dict(
-            jsonEncoder=encoder, encoder_extras=relationship_retrieve
-        )
+        body = element.to_dict(jsonEncoder=encoder, encoder_extras=relationship_retrieve)
         status_code = HTTPStatusCode.OK.value
     except APIException as e:
         logging.exception("APIException occurred")
@@ -165,19 +149,13 @@ def find_by_column(service: BaseService, column_name: str, column_value):
     session = get_session()
     relationship_retrieve = get_relationship_params(request)
     try:
-        encoder = (
-            AlchemyEncoder
-            if "relationships" not in relationship_retrieve
-            else AlchemyRelationEncoder
-        )
+        encoder = AlchemyEncoder if "relationships" not in relationship_retrieve else AlchemyRelationEncoder
         element = cast(BaseService, service).get_by_column(
             session,
             column_name,
             column_value,
         )
-        body = element.to_dict(
-            jsonEncoder=encoder, encoder_extras=relationship_retrieve
-        )
+        body = element.to_dict(jsonEncoder=encoder, encoder_extras=relationship_retrieve)
         status_code = HTTPStatusCode.OK.value
     except APIException as e:
         logging.exception("APIException occurred")
@@ -195,9 +173,7 @@ def find_by_column(service: BaseService, column_name: str, column_value):
 def store(service: BaseService):
     session = get_session()
 
-    RequestValidator(
-        session, cast(BaseService, service).get_rules_for_store()
-    ).validate()
+    RequestValidator(session, cast(BaseService, service).get_rules_for_store()).validate()
     input_params = request.get_json()
 
     try:
