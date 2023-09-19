@@ -2,12 +2,8 @@ import 'package:acarreo_app/global/core/domain/service/local_storage_service.dar
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
-typedef HiveLocalObject = Map<String, dynamic>;
-
 class HiveLocalStorageService
-    implements
-        LocalStorageService<Box<HiveLocalObject>, HiveLocalObject,
-            List<HiveLocalObject?>> {
+    implements LocalStorageService<Box<StorageObject>> {
   String? _storageName;
 
   @override
@@ -25,7 +21,13 @@ class HiveLocalStorageService
   }
 
   @override
-  Future<List<HiveLocalObject?>> getByKey(String key) async {
+  Future<StorageObject?> getByKey(String key) async {
+    final store = await storage();
+    return store.get(key);
+  }
+
+  @override
+  Future<List<StorageObject>> getItems() async {
     final store = await storage();
     return store.values.toList();
   }
@@ -45,9 +47,9 @@ class HiveLocalStorageService
   }
 
   @override
-  Future<void> saveItems(String id, List<HiveLocalObject> items) async {
+  Future<void> saveItems(List<StorageObject> items) async {
     final store = await storage();
-    for (HiveLocalObject item in items) {
+    for (StorageObject item in items) {
       assert(item['id'] != null);
       store.put(item['id'], item);
     }
@@ -55,9 +57,9 @@ class HiveLocalStorageService
   }
 
   @override
-  Future<Box<HiveLocalObject>> storage() async {
+  Future<Box<StorageObject>> storage() async {
     assert(_storageName != null);
-    return await Hive.openBox<HiveLocalObject>(_storageName!);
+    return await Hive.openBox<StorageObject>(_storageName!);
   }
 
   String get storageName {
