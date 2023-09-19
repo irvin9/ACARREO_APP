@@ -28,6 +28,7 @@
 #define SS_PIN          10          // Configurable, see typical pin layout above
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance
+byte writeBuffer[34];
 
 void setup() {
   Serial.begin(9600);        // Initialize serial communications with the PC
@@ -61,7 +62,7 @@ void loop() {
   MFRC522::PICC_Type piccType = mfrc522.PICC_GetType(mfrc522.uid.sak);
   Serial.println(mfrc522.PICC_GetTypeName(piccType));
 
-  byte buffer[34];
+  
   byte block;
   MFRC522::StatusCode status;
   byte len;
@@ -69,8 +70,8 @@ void loop() {
   Serial.setTimeout(20000L) ;     // wait until 20 seconds for input from serial
   // Ask personal data: Family name
   Serial.println(F("Type Family name, ending with #"));
-  len = Serial.readBytesUntil('#', (char *) buffer, 30) ; // read family name from serial
-  for (byte i = len; i < 30; i++) buffer[i] = ' ';     // pad with spaces
+  len = Serial.readBytesUntil('#', (char *) writeBuffer, 30) ; // read family name from serial
+  for (byte i = len; i < 30; i++) writeBuffer[i] = ' ';     // pad with spaces
 
   block = 1;
   //Serial.println(F("Authenticating using key A..."));
@@ -83,7 +84,7 @@ void loop() {
   else Serial.println(F("PCD_Authenticate() success: "));
 
   // Write block
-  status = mfrc522.MIFARE_Write(block, buffer, 16);
+  status = mfrc522.MIFARE_Write(block, writeBuffer, 16);
   if (status != MFRC522::STATUS_OK) {
     Serial.print(F("MIFARE_Write() failed: "));
     Serial.println(mfrc522.GetStatusCodeName(status));
@@ -101,7 +102,7 @@ void loop() {
   }
 
   // Write block
-  status = mfrc522.MIFARE_Write(block, &buffer[16], 16);
+  status = mfrc522.MIFARE_Write(block, &writeBuffer[16], 16);
   if (status != MFRC522::STATUS_OK) {
     Serial.print(F("MIFARE_Write() failed: "));
     Serial.println(mfrc522.GetStatusCodeName(status));
@@ -111,8 +112,8 @@ void loop() {
 
   // Ask personal data: First name
   Serial.println(F("Type First name, ending with #"));
-  len = Serial.readBytesUntil('#', (char *) buffer, 20) ; // read first name from serial
-  for (byte i = len; i < 20; i++) buffer[i] = ' ';     // pad with spaces
+  len = Serial.readBytesUntil('#', (char *) writeBuffer, 20) ; // read first name from serial
+  for (byte i = len; i < 20; i++) writeBuffer[i] = ' ';     // pad with spaces
 
   block = 4;
   //Serial.println(F("Authenticating using key A..."));
@@ -124,7 +125,7 @@ void loop() {
   }
 
   // Write block
-  status = mfrc522.MIFARE_Write(block, buffer, 16);
+  status = mfrc522.MIFARE_Write(block, writeBuffer, 16);
   if (status != MFRC522::STATUS_OK) {
     Serial.print(F("MIFARE_Write() failed: "));
     Serial.println(mfrc522.GetStatusCodeName(status));
@@ -142,7 +143,7 @@ void loop() {
   }
 
   // Write block
-  status = mfrc522.MIFARE_Write(block, &buffer[16], 16);
+  status = mfrc522.MIFARE_Write(block, &writeBuffer[16], 16);
   if (status != MFRC522::STATUS_OK) {
     Serial.print(F("MIFARE_Write() failed: "));
     Serial.println(mfrc522.GetStatusCodeName(status));
