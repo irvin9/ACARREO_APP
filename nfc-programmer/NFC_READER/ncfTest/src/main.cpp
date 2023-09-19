@@ -41,14 +41,7 @@ void setup() {
 
 void loop() {
   // Prepare key - all keys are set to FFFFFFFFFFFFh at chip delivery from the factory.
-  MFRC522::MIFARE_Key key;
-  // for (byte i = 0; i < 6; i++) key.keyByte[i] = 0xFF;
-  key.keyByte[0] = 0xFF;
-  key.keyByte[1] = 0xFF;
-  key.keyByte[2] = 0xFF;
-  key.keyByte[3] = 0xFF;
-  key.keyByte[4] = 0xFF;
-  key.keyByte[5] = 0xFF;
+  MFRC522::MIFARE_Key key = {keyByte: {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}};
 
   // Reset the loop if no new card present on the sensor/reader. This saves the entire process when idle.
   if ( ! mfrc522.PICC_IsNewCardPresent()) {
