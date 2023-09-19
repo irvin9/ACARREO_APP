@@ -40,7 +40,6 @@ void setup() {
 }
 
 void loop() {
-
   // Prepare key - all keys are set to FFFFFFFFFFFFh at chip delivery from the factory.
   MFRC522::MIFARE_Key key;
   for (byte i = 0; i < 6; i++) key.keyByte[i] = 0xFF;
@@ -64,10 +63,57 @@ void loop() {
   MFRC522::PICC_Type piccType = mfrc522.PICC_GetType(mfrc522.uid.sak);
   Serial.println(mfrc522.PICC_GetTypeName(piccType));
 
-  
   byte block;
   MFRC522::StatusCode status;
   byte len;
+
+  block = 4;
+  len = 18;
+
+  status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 4, &key, &(mfrc522.uid)); //line 834 of MFRC522.cpp file
+  if (status != MFRC522::STATUS_OK) {
+    Serial.print(F("Authentication failed: "));
+    Serial.println(mfrc522.GetStatusCodeName(status));
+    return;
+  }
+
+  status = mfrc522.MIFARE_Read(block, readBuffer1, &len);
+  if (status != MFRC522::STATUS_OK) {
+    Serial.print(F("Reading failed: "));
+    Serial.println(mfrc522.GetStatusCodeName(status));
+    return;
+  }
+
+  for (uint8_t i = 0; i < 16; i++) {
+    if (readBuffer1[i] != 32) {
+      Serial.write(readBuffer1[i]);
+    }
+  }
+  Serial.print(" ");
+
+  block = 1;
+  status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 1, &key, &(mfrc522.uid)); //line 834
+  if (status != MFRC522::STATUS_OK) {
+    Serial.print(F("Authentication failed: "));
+    Serial.println(mfrc522.GetStatusCodeName(status));
+    return;
+  }
+
+  status = mfrc522.MIFARE_Read(block, readBuffer2, &len);
+  if (status != MFRC522::STATUS_OK) {
+    Serial.print(F("Reading failed: "));
+    Serial.println(mfrc522.GetStatusCodeName(status));
+    return;
+  }
+
+  for (uint8_t i = 0; i < 16; i++) {
+    if (readBuffer2[i] != 32) {
+      Serial.write(readBuffer2[i]);
+    }
+  }
+
+  Serial.println();
+
 
   Serial.setTimeout(20000L) ;     // wait until 20 seconds for input from serial
   // Ask personal data: Family name
@@ -175,10 +221,8 @@ void loop() {
   }
 
   //PRINT FIRST NAME
-  for (uint8_t i = 0; i < 16; i++)
-  {
-    if (readBuffer1[i] != 32)
-    {
+  for (uint8_t i = 0; i < 16; i++) {
+    if (readBuffer1[i] != 32) {
       Serial.write(readBuffer1[i]);
     }
   }
