@@ -18,17 +18,17 @@ def env(env_key: str, default_value: Any) -> Any:
     if env_key in os.environ:
         if os.environ[env_key].isdecimal():
             return int(os.environ[env_key])
-        elif (
-            str(os.environ[env_key]).lower() == "true"
-            or str(os.environ[env_key]).lower() == "true"
-        ):
+        elif str(os.environ[env_key]).lower() == "true" or str(os.environ[env_key]).lower() == "true":
             return str(os.environ[env_key]).lower() == "true"
+        elif str(os.environ[env_key]).lower() == "false" or str(os.environ[env_key]).lower() == "false":
+            return False
         else:
             return os.environ[env_key]
     else:
         return default_value
 
 
+ENVIRONMENT = env("ENVIRONMENT", "local")
 APP_NAME = env("APP_NAME", "Flask app")
 APP_URL = env("APP_URL", "http://localhost")
 
@@ -37,3 +37,5 @@ APP_SEED = env("APP_SEED", "")
 
 DB_DRIVER = env("DB_DRIVER", "sqlite")
 DB_CONNECTION_STRING = env("DB_CONNECTION_STRING", "sqlite:///app.db")
+
+DISABLE_MIDDLEWARE_AUTH = env("DISABLE_MIDDLEWARE_AUTH", False)
