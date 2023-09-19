@@ -20,5 +20,5 @@ abstract class HttpService {
     String? route,
   });
 
-  Future<void> addTokenHeaders(TypeToken? tokenHeader);
+  Future<Map<String, String>> addTokenHeaders(TypeToken? tokenHeader);
 }
