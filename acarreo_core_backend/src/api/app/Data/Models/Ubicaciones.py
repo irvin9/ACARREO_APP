@@ -20,6 +20,8 @@ class Ubicaciones(BaseModel):
     latitude = Column("latitud", String(191), nullable=False)
     longitude = Column("longitud", String(191), nullable=False)
     state = Column("estatus", Integer, nullable=False)
+    type = Column("tipo", String(191), nullable=False)
+    folio = Column("folio", String(191), nullable=False)
     id_client = Column("id_cliente", Integer, nullable=False)
     id_project = Column("id_obra", Integer, nullable=False)
     created_at = Column("created_at", DateTime(timezone=True), default=func.now())
@@ -27,7 +29,7 @@ class Ubicaciones(BaseModel):
 
     model_path_name = "ubicaciones"
 
-    filter_columns = ["nombre", "state", "id_client", "id_project"]
+    filter_columns = ["nombre", "state", "id_client", "id_project", "type", "folio"]
 
     def property_map(self) -> Dict:
         return {
@@ -36,6 +38,8 @@ class Ubicaciones(BaseModel):
             "latitude": "latitude",
             "longitude": "longitude",
             "state": "state",
+            "folio": "folio",
+            "type": "type",
             "id_client": "id_client",
             "id_project": "id_project",
             "created_at": "created_at",
@@ -50,6 +54,8 @@ class Ubicaciones(BaseModel):
             "latitude",
             "longitude",
             "state",
+            "type",
+            "folio",
             "id_client",
             "id_project",
             "created_at",
