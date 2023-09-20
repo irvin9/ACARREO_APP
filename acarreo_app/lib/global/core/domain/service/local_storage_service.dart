@@ -1,4 +1,4 @@
-typedef StorageObject = Map<String, dynamic>;
+typedef StorageObject = Map<dynamic, dynamic>;
 
 abstract class LocalStorageService<S> {
   String? _storageName;

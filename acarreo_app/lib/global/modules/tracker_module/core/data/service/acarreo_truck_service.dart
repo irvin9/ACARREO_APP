@@ -20,7 +20,7 @@ class AcarreoTruckService implements TruckService<AcarreoTruck> {
   get() async {
     try {
       final items = await localStorageService.getItems();
-      final trucks = items.map((i) => AcarreoTruck.fromJson(i)).toList();
+      final trucks = items.cast().map((i) => AcarreoTruck.fromJson(i)).toList();
       return trucks;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');

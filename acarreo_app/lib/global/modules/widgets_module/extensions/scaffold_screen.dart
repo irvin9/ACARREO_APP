@@ -1,15 +1,17 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/cubits/auth/auth_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_state.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_loader.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
 extension ScaffoldScreen on Widget {
   setMainScaffold({GlobalKey<ScaffoldState>? key}) {
+    final GlobalKey<ScaffoldState> scaffoldKey =
+        key ?? GlobalKey<ScaffoldState>();
+
     return Scaffold(
-      key: key,
+      key: scaffoldKey,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 0,
@@ -22,6 +24,8 @@ extension ScaffoldScreen on Widget {
   }
 
   setScaffoldWithAppBar({GlobalKey<ScaffoldState>? key}) {
+    final GlobalKey<ScaffoldState> scaffoldKey =
+        key ?? GlobalKey<ScaffoldState>();
     final acarreoCubit = Modular.get<AcarreoCubit>();
 
     return BlocConsumer<AcarreoCubit, AcarreoState>(
@@ -36,7 +40,7 @@ extension ScaffoldScreen on Widget {
       },
       builder: (context, state) {
         return Scaffold(
-          key: key,
+          key: scaffoldKey,
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: const SizedBox(
@@ -53,7 +57,7 @@ extension ScaffoldScreen on Widget {
                 ),
               ),
               IconButton(
-                onPressed: () => acarreoCubit.getAcarreoData(),
+                onPressed: () => acarreoCubit.updateLocalData(),
                 icon: const Icon(color: Colors.white, Icons.update),
               ),
               PopupMenuButton<String>(

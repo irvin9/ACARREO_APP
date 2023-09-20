@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:acarreo_app/global/core/domain/repository/scan_nfc_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:nfc_manager/nfc_manager.dart';

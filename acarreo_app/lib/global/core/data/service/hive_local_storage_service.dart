@@ -5,11 +5,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
 class HiveLocalStorageService extends LocalStorageService<Box<StorageObject>> {
-  HiveLocalStorageService() {
-    _init();
-  }
+  HiveLocalStorageService();
 
-  Future<void> _init() async {
+  static Future<void> initStorage() async {
     final directory = await getApplicationSupportDirectory();
     await Hive.initFlutter(directory.path);
   }
@@ -35,8 +33,10 @@ class HiveLocalStorageService extends LocalStorageService<Box<StorageObject>> {
   @override
   Future<List<StorageObject>> getItems() async {
     final store = await storage();
-    final items = store.values.toList();
-    return items;
+    final items = store.toMap().map((key, value) =>
+        MapEntry(key.toString(), Map<String, dynamic>.from(value)));
+
+    return items.values.toList();
   }
 
   @override

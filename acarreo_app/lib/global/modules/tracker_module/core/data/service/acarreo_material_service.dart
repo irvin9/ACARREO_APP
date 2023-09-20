@@ -20,7 +20,8 @@ class AcarreoMaterialService implements MaterialService<AcarreoMaterial> {
   get() async {
     try {
       final items = await localStorageService.getItems();
-      final materials = items.map((i) => AcarreoMaterial.fromJson(i)).toList();
+      final materials =
+          items.cast().map((i) => AcarreoMaterial.fromJson(i)).toList();
       return materials;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');

@@ -1,6 +1,5 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class AcarreoApp extends StatelessWidget {
   final String initialRoute;

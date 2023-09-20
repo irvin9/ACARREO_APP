@@ -1,3 +1,6 @@
+import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_location.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_material.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/data_manager_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/location_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/material_service.dart';
@@ -6,10 +9,20 @@ import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/tr
 import 'package:flutter/foundation.dart';
 
 class AcarreoDataManagerService implements DataManagerService {
-  final LocationService locationService;
-  final MaterialService materialService;
+  final LocationService<AcarreoLocation> locationService;
+  final MaterialService<AcarreoMaterial> materialService;
   final TicketService ticketService;
-  final TruckService truckService;
+  final TruckService<AcarreoTruck> truckService;
+
+  final List<AcarreoLocation> _localLocations = [];
+  final List<AcarreoMaterial> _localMaterials = [];
+  final List<AcarreoTruck> _localTrucks = [];
+
+  List<AcarreoLocation> get locations => _localLocations;
+
+  List<AcarreoMaterial> get materials => _localMaterials;
+
+  List<AcarreoTruck> get trucks => _localTrucks;
 
   AcarreoDataManagerService({
     required this.locationService,
@@ -19,11 +32,11 @@ class AcarreoDataManagerService implements DataManagerService {
   });
 
   @override
-  Future<void> update() async {
+  update() async {
     try {
-      final locations = await locationService.update();
-      final materials = await materialService.update();
-      final trucks = await truckService.update();
+      await locationService.update();
+      await materialService.update();
+      await truckService.update();
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
       debugPrint(e.toString());
@@ -32,8 +45,18 @@ class AcarreoDataManagerService implements DataManagerService {
   }
 
   @override
-  Future<void> get() {
-    // TODO: implement get
-    throw UnimplementedError();
+  get() async {
+    _localLocations.clear();
+    _localMaterials.clear();
+    _localTrucks.clear();
+    final locations = await locationService.get() ?? [];
+    final materials = await materialService.get() ?? [];
+    final trucks = await truckService.get() ?? [];
+    _localLocations.addAll(locations);
+    _localMaterials.addAll(materials);
+    _localTrucks.addAll(trucks);
+    return _localLocations.isNotEmpty &&
+        _localMaterials.isNotEmpty &&
+        _localTrucks.isNotEmpty;
   }
 }

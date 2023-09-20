@@ -20,7 +20,8 @@ class AcarreoLocationService implements LocationService<AcarreoLocation> {
   get() async {
     try {
       final items = await localStorageService.getItems();
-      final locations = items.map((i) => AcarreoLocation.fromJson(i)).toList();
+      final locations =
+          items.cast().map((i) => AcarreoLocation.fromJson(i)).toList();
       return locations;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');

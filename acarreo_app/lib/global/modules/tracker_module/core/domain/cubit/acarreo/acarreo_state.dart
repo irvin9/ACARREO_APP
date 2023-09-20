@@ -27,6 +27,18 @@ class AcarreoSuccess extends AcarreoState {
   List<Object?> get props => [];
 }
 
+class LoadingLocalData extends AcarreoState {
+  const LoadingLocalData();
+  @override
+  List<Object?> get props => [];
+}
+
+class LocalDataSuccess extends AcarreoState {
+  const LocalDataSuccess();
+  @override
+  List<Object?> get props => [];
+}
+
 class AcarreoError extends AcarreoState {
   const AcarreoError();
   @override

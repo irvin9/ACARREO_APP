@@ -11,7 +11,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
 
   bool get pedingTickets => _pendingTickets;
 
-  Future<void> getAcarreoData() async {
+  Future<void> updateLocalData() async {
     await Future.delayed(Duration.zero);
     emit(const AcarreoShowLoadingModal(message: {
       'title': 'Cargando nueva información',
@@ -21,13 +21,22 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     emit(const AcarreoSuccess());
   }
 
+  Future<void> getLocalData() async {
+    await Future.delayed(Duration.zero);
+    emit(const LoadingLocalData());
+    final hasData = await managerService.get();
+    if (!hasData) {
+      updateLocalData();
+    }
+    emit(const LocalDataSuccess());
+  }
+
   Future<void> updateTickets() async {
     await Future.delayed(Duration.zero);
     emit(const AcarreoShowLoadingModal(message: {
       'title': 'Subiendo archivos pendientes',
       'description': 'Espere estamos subiendo la información pendiente...',
     }));
-    // await managerService.();
     emit(const AcarreoSuccess());
   }
 }

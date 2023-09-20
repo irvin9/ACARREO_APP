@@ -9,7 +9,6 @@ import 'package:acarreo_app/global/modules/tracker_module/core/data/repository/a
 import 'package:acarreo_app/global/modules/tracker_module/core/data/repository/acarreo_material_repository.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/repository/acarreo_ticket_repository.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/repository/acarreo_truck_repository.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/data/service/acarreo_data_manager_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/service/acarreo_location_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/service/acarreo_material_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/service/acarreo_ticket_service.dart';
@@ -30,6 +29,7 @@ import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/previe
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/read_nfc_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/register_travel_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/tracker_module.dart';
+import 'package:flutter/material.dart';
 
 const int totalSteps = 4;
 
@@ -46,14 +46,21 @@ class TrackerModule extends Module {
     i.addLazySingleton<TruckRepository<AcarreoTruck>>(
         AcarreoTruckRepository.new);
 
-    i.addLazySingleton<LocalStorageService>(HiveLocalStorageService.new);
-    i.addLazySingleton<LocationService>(AcarreoLocationService.new);
-    i.addLazySingleton<MaterialService>(AcarreoMaterialService.new);
+    i.add<LocalStorageService>(HiveLocalStorageService.new);
+    i.addLazySingleton<LocationService<AcarreoLocation>>(
+        AcarreoLocationService.new);
+    i.addLazySingleton<MaterialService<AcarreoMaterial>>(
+        AcarreoMaterialService.new);
     i.addLazySingleton<TicketService>(AcarreoTickeService.new);
-    i.addLazySingleton<TruckService>(AcarreoTruckService.new);
+    i.addLazySingleton<TruckService<AcarreoTruck>>(AcarreoTruckService.new);
     i.addLazySingleton<DataManagerService>(AcarreoDataManagerService.new);
     i.addLazySingleton<AcarreoCubit>(AcarreoCubit.new);
     i.addLazySingleton<NfcCubit>(NfcCubit.new);
+  }
+
+  Future<bool> initExternalService() async {
+    await HiveLocalStorageService.initStorage();
+    return true;
   }
 
   @override
@@ -64,8 +71,16 @@ class TrackerModule extends Module {
     r.child(
       '/form',
       child: (context) => BlocProvider.value(
-        value: Modular.get<AcarreoCubit>()..getAcarreoData(),
-        child: const RouterOutlet(),
+        value: Modular.get<AcarreoCubit>(),
+        child: FutureBuilder(
+          future: initExternalService(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              Modular.get<AcarreoCubit>().getLocalData();
+            }
+            return const RouterOutlet();
+          },
+        ),
       ),
       children: [
         ChildRoute(
