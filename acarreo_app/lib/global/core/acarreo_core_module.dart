@@ -1,7 +1,7 @@
 export 'package:flutter/foundation.dart';
 export 'package:flutter_modular/flutter_modular.dart';
 export 'package:flutter_secure_storage/flutter_secure_storage.dart';
-export 'package:flutter_bloc/flutter_bloc.dart';
+export 'package:flutter_bloc/flutter_bloc.dart' hide WatchContext;
 export 'package:google_fonts/google_fonts.dart';
 export 'package:equatable/equatable.dart';
 export 'package:hive_flutter/hive_flutter.dart';

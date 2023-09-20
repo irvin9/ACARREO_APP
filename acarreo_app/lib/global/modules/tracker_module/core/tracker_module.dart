@@ -53,7 +53,8 @@ class TrackerModule extends Module {
         AcarreoMaterialService.new);
     i.addLazySingleton<TicketService>(AcarreoTickeService.new);
     i.addLazySingleton<TruckService<AcarreoTruck>>(AcarreoTruckService.new);
-    i.addLazySingleton<DataManagerService>(AcarreoDataManagerService.new);
+    i.addLazySingleton<AcarreoDataManagerService>(
+        AcarreoDataManagerService.new);
     i.addLazySingleton<AcarreoCubit>(AcarreoCubit.new);
     i.addLazySingleton<NfcCubit>(NfcCubit.new);
   }

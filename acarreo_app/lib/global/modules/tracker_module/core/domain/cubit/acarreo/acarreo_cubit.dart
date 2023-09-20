@@ -1,13 +1,14 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/data_manager_service.dart';
 
 class AcarreoCubit extends Cubit<AcarreoState> {
   AcarreoCubit(this.managerService) : super(const AcarreoInitState());
 
-  final Map<String, dynamic> formAnswers = {};
-  final DataManagerService managerService;
+  final AcarreoDataManagerService managerService;
 
+  final Map<String, dynamic> _formAnswers = {};
   bool _pendingTickets = false;
+
+  Map<String, dynamic> get formAnswers => _formAnswers;
 
   bool get pedingTickets => _pendingTickets;
 
@@ -29,6 +30,11 @@ class AcarreoCubit extends Cubit<AcarreoState> {
       updateLocalData();
     }
     emit(const LocalDataSuccess());
+  }
+
+  Map<String, dynamic> addAnswer(String key, dynamic value) {
+    _formAnswers.addAll({key: value});
+    return _formAnswers;
   }
 
   Future<void> updateTickets() async {

@@ -1,19 +1,25 @@
+import 'dart:convert';
+
 import 'package:acarreo_app/global/core/domain/repository/scan_nfc_repository.dart';
 import 'package:flutter/foundation.dart';
-import 'package:nfc_manager/nfc_manager.dart';
+// import 'package:nfc_manager/nfc_manager.dart';
 
 import 'package:flutter/material.dart';
-import 'package:nfc_manager/platform_tags.dart';
+import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
+// import 'package:nfc_manager/platform_tags.dart';
 
 class ScanNFCManagerRepository implements ScanNfcRepository {
-  bool _isAvailable = false;
+  late NFCAvailability _isAvailable;
 
-  bool get isAvailable => _isAvailable;
+  NFCAvailability get isAvailable => _isAvailable;
 
   @override
   Future<bool> isSupported() async {
-    _isAvailable = await NfcManager.instance.isAvailable();
-    return isAvailable;
+    _isAvailable = await FlutterNfcKit.nfcAvailability;
+    if (_isAvailable != NFCAvailability.available) {
+      return false;
+    }
+    return true;
   }
 
   @override
@@ -21,49 +27,24 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
     String? tagDecode;
     bool checkSupport = await isSupported();
     if (checkSupport) {
-      NfcManager.instance.startSession(
-        onDiscovered: (tag) async {
-          final nfca = NfcA.from(tag);
-          if (nfca == null) return;
-          tagDecode = await _onTagDiscovered(tag);
-          stopSession();
-        },
-        onError: (error) async {
-          debugPrint('Exception on -> ${runtimeType.toString()}');
-          debugPrint(error.message);
-        },
-      );
-
-      await Future.delayed(Duration(seconds: timeout), () {
-        stopSession();
-      });
+      final tag = await FlutterNfcKit.poll(timeout: Duration(seconds: timeout));
+      tagDecode = tag.id;
+      if (tag.ndefAvailable!) {
+        for (var record in await FlutterNfcKit.readNDEFRecords(cached: false)) {
+          debugPrint(record.toString());
+        }
+        for (var record
+            in await FlutterNfcKit.readNDEFRawRecords(cached: false)) {
+          debugPrint(jsonEncode(record).toString());
+        }
+      }
+      await stopSession();
     }
     return tagDecode;
   }
 
   @override
-  void stopSession() {
-    NfcManager.instance.stopSession();
-  }
-
-  Future<String?> _onTagDiscovered(tag) async {
-    try {
-      final nfca = NfcA.from(tag);
-      if (nfca == null) {
-        debugPrint('No NDEF tag');
-        throw Exception('No NDEF tag');
-      }
-
-      final data = nfca.identifier;
-      debugPrint(data.toString());
-      final dataDecode = String.fromCharCodes(data);
-      debugPrint('Data read: $dataDecode');
-      return dataDecode;
-    } catch (e, s) {
-      debugPrint('Exception on -> ${runtimeType.toString()}');
-      debugPrint(e.toString());
-      debugPrintStack(stackTrace: s);
-      return null;
-    }
+  Future<void> stopSession() async {
+    await FlutterNfcKit.finish();
   }
 }
