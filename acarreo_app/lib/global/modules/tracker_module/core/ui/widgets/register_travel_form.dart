@@ -1,4 +1,5 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 
@@ -12,14 +13,18 @@ class RegisterTravelForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.watch<AcarreoCubit>((bloc) => bloc.stream);
+    final locations = bloc.managerService.locations
+        .map((i) => {i.id.toString(): i.name})
+        .toList();
     return Form(
       key: formKey,
-      child: const Column(
+      child: Column(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Tipo de ubicación',
                 textAlign: TextAlign.start,
                 style: TextStyle(
@@ -29,14 +34,15 @@ class RegisterTravelForm extends StatelessWidget {
               ),
               DropdownFormField(
                 options: FormValues.optionTypeTravels,
+                onChanged: (value) => bloc.addAnswer('type_location', value),
               ),
             ],
           ),
-          SizedBox(height: 24.0),
+          const SizedBox(height: 24.0),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Ubicación',
                 textAlign: TextAlign.start,
                 style: TextStyle(
@@ -45,7 +51,12 @@ class RegisterTravelForm extends StatelessWidget {
                 ),
               ),
               DropdownFormField(
-                options: FormValues.optionTravels,
+                options: locations.fold({'': 'Selecciona una opción'},
+                    (previousValue, element) {
+                  previousValue.addAll(element);
+                  return previousValue;
+                }),
+                onChanged: (value) => bloc.addAnswer('id_location', value),
               ),
             ],
           )
