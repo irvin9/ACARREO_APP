@@ -8,6 +8,8 @@ class AcarreoLocation {
     required this.idProject,
     required this.latitude,
     required this.longitude,
+    required this.folio,
+    required this.type,
     required this.name,
     required this.state,
     this.updatedAt,
@@ -24,6 +26,8 @@ class AcarreoLocation {
         idProject: json["id_project"],
         latitude: json["latitude"],
         longitude: json["longitude"],
+        folio: json["folio"],
+        type: json["type"],
         name: json["name"],
         state: json["state"],
         updatedAt: json["updated_at"] != null
@@ -36,6 +40,8 @@ class AcarreoLocation {
   final int idClient;
   final int idProject;
   final String latitude;
+  final String type;
+  final String folio;
   final String longitude;
   final String name;
   final int state;
@@ -46,6 +52,8 @@ class AcarreoLocation {
     String? longitude,
     String? name,
     int? state,
+    String? folio,
+    String? type,
   }) =>
       AcarreoLocation(
         createdAt: createdAt,
@@ -57,6 +65,8 @@ class AcarreoLocation {
         name: name ?? this.name,
         state: state ?? this.state,
         updatedAt: updatedAt,
+        folio: folio ?? this.folio,
+        type: type ?? this.type,
       );
 
   String toApiJson() {
@@ -77,6 +87,8 @@ class AcarreoLocation {
         "longitude": longitude,
         "name": name,
         "state": state,
+        "folio": folio,
+        "type": "type",
         "updated_at": updatedAt?.toIso8601String(),
       };
 }
