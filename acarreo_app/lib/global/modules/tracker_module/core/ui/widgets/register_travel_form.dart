@@ -13,10 +13,17 @@ class RegisterTravelForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final defaultValue = {'': 'Selecciona una opción'};
     final bloc = context.watch<AcarreoCubit>((bloc) => bloc.stream);
+
+    final String? answerTypeLocation = bloc.formAnswers['type_location'];
+
     final locations = bloc.managerService.locations
+        .where(
+            (l) => FormValues.mappingTypeLocation[l.type] == answerTypeLocation)
         .map((i) => {i.id.toString(): i.name})
         .toList();
+
     return Form(
       key: formKey,
       child: Column(
@@ -33,8 +40,10 @@ class RegisterTravelForm extends StatelessWidget {
                 ),
               ),
               DropdownFormField(
+                disable: bloc.formAnswers['id_location'] != null,
                 options: FormValues.optionTypeTravels,
-                onChanged: (value) => bloc.addAnswer('type_location', value),
+                onChanged: (value) => bloc.addAnswer(
+                    'type_location', value!.isNotEmpty ? value : null),
               ),
             ],
           ),
@@ -51,12 +60,14 @@ class RegisterTravelForm extends StatelessWidget {
                 ),
               ),
               DropdownFormField(
-                options: locations.fold({'': 'Selecciona una opción'},
-                    (previousValue, element) {
+                initialValue: '',
+                disable: bloc.formAnswers['type_location'] == null,
+                options: locations.fold(defaultValue, (previousValue, element) {
                   previousValue.addAll(element);
                   return previousValue;
                 }),
-                onChanged: (value) => bloc.addAnswer('id_location', value),
+                onChanged: (value) => bloc.addAnswer(
+                    'id_location', value!.isNotEmpty ? value : null),
               ),
             ],
           )

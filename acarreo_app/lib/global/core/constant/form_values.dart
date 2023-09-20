@@ -1,3 +1,5 @@
+enum TypeLocations { origin, destino }
+
 class FormValues {
   static const Map<String, String> optionTypeTravels = {
     "": "Seleccione una opción",
@@ -10,5 +12,10 @@ class FormValues {
     "origen": "TRAZA",
     "destino": "BANCO DE MATERIAL",
     "otro": "OTRO"
+  };
+
+  static const Map<String, String> mappingTypeLocation = {
+    "1": "origen",
+    "2": "destino"
   };
 }

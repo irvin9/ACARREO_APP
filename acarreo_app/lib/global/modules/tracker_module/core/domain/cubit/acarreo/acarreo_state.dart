@@ -44,3 +44,17 @@ class AcarreoError extends AcarreoState {
   @override
   List<Object?> get props => [];
 }
+
+class SettingNewValueToForm extends AcarreoState {
+  final Map<String, dynamic> newValue;
+  const SettingNewValueToForm(this.newValue);
+  @override
+  List<Object?> get props => [newValue];
+}
+
+class FormChangedValue extends AcarreoState {
+  final Map<String, dynamic> answers;
+  const FormChangedValue(this.answers);
+  @override
+  List<Object?> get props => [answers];
+}

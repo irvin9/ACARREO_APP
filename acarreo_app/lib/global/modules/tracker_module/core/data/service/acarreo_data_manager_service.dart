@@ -37,6 +37,7 @@ class AcarreoDataManagerService implements DataManagerService {
       await locationService.update();
       await materialService.update();
       await truckService.update();
+      if (!(await get())) throw Exception();
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
       debugPrint(e.toString());

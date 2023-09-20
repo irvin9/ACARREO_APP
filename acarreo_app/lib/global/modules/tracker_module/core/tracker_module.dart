@@ -19,7 +19,6 @@ import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/material_repository.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/ticket_repository.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/truck_repository.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/data_manager_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/location_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/material_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/ticket_service.dart';

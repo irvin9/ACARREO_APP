@@ -32,9 +32,11 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     emit(const LocalDataSuccess());
   }
 
-  Map<String, dynamic> addAnswer(String key, dynamic value) {
+  void addAnswer(String key, dynamic value) {
+    final newValue = {key: value};
+    emit(SettingNewValueToForm(newValue));
     _formAnswers.addAll({key: value});
-    return _formAnswers;
+    emit(FormChangedValue(_formAnswers));
   }
 
   Future<void> updateTickets() async {

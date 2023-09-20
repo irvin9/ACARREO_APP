@@ -88,7 +88,7 @@ class AcarreoLocation {
         "name": name,
         "state": state,
         "folio": folio,
-        "type": "type",
+        "type": type,
         "updated_at": updatedAt?.toIso8601String(),
       };
 }
