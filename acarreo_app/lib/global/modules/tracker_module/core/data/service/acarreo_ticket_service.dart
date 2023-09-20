@@ -2,9 +2,8 @@ import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/ticket_repository.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/ticket_service.dart';
-import 'package:flutter/foundation.dart';
 
-class AcarreoTickeService implements TicketService {
+class AcarreoTickeService implements TicketService<AcarreoTicket> {
   final TicketRepository<AcarreoTicket> repository;
   final StorageService storage;
 
@@ -25,7 +24,7 @@ class AcarreoTickeService implements TicketService {
   }
 
   @override
-  getTickets() async {
+  get() async {
     try {
       final currentUser = await storage.getCurrentUser();
       final trucks = await repository.getTicketsByUser(
@@ -38,5 +37,11 @@ class AcarreoTickeService implements TicketService {
       debugPrintStack(stackTrace: s);
       return null;
     }
+  }
+
+  @override
+  Future<List<AcarreoTicket>?> update() {
+    // TODO: implement update
+    throw UnimplementedError();
   }
 }

@@ -1,5 +1,3 @@
-import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_location.dart';
+import 'package:acarreo_app/global/core/domain/service/base_service.dart';
 
-abstract class LocationService {
-  Future<List<AcarreoLocation>?> getLocations();
-}
+abstract class LocationService<T> implements BaseService<T> {}

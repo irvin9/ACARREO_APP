@@ -38,14 +38,15 @@ class TrackerModule extends Module {
   void binds(Injector i) {
     super.binds(i);
     i.addLazySingleton<ScanNfcRepository>(ScanNFCManagerRepository.new);
-    i.addLazySingleton<LocationRepository<AcarreoLocation>>(
-        AcarreoLocationRepository.new);
+    i.add<LocationRepository<AcarreoLocation>>(AcarreoLocationRepository.new);
     i.addLazySingleton<MaterialRepository<AcarreoMaterial>>(
         AcarreoMaterialRepository.new);
     i.addLazySingleton<TicketRepository<AcarreoTicket>>(
         AcarreoTicketRepository.new);
     i.addLazySingleton<TruckRepository<AcarreoTruck>>(
         AcarreoTruckRepository.new);
+
+    i.addLazySingleton<LocalStorageService>(HiveLocalStorageService.new);
     i.addLazySingleton<LocationService>(AcarreoLocationService.new);
     i.addLazySingleton<MaterialService>(AcarreoMaterialService.new);
     i.addLazySingleton<TicketService>(AcarreoTickeService.new);

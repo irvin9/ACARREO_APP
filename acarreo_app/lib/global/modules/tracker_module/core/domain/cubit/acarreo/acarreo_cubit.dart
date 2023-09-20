@@ -1,5 +1,4 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_state.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/data_manager_service.dart';
 
 class AcarreoCubit extends Cubit<AcarreoState> {
@@ -18,7 +17,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
       'title': 'Cargando nueva información',
       'description': 'Espere estamos cargando nueva información a su cuenta...',
     }));
-    await managerService.getData();
+    await managerService.update();
     emit(const AcarreoSuccess());
   }
 
@@ -28,7 +27,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
       'title': 'Subiendo archivos pendientes',
       'description': 'Espere estamos subiendo la información pendiente...',
     }));
-    await managerService.getData();
+    // await managerService.();
     emit(const AcarreoSuccess());
   }
 }

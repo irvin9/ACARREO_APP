@@ -72,14 +72,23 @@ class AcarreoTruck {
         updatedAt: updatedAt,
       );
 
-  String toApiJson() => json.encode(toJson());
+  Map<String, dynamic> toApiJson() {
+    final apiMap = toMap();
+    apiMap.remove('id');
+    apiMap.remove('created_at');
+    apiMap.remove('updated_at');
+    return apiMap;
+  }
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
+        "id": id,
         "branch": branch,
         "capacity": capacity,
         "driver": driver,
         "extra_capacity": extraCapacity,
         "plate": plate,
         "plate_gondola": plateGondola,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }

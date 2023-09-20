@@ -1,22 +1,28 @@
+import 'dart:async';
+
 import 'package:acarreo_app/global/core/domain/service/local_storage_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
-class HiveLocalStorageService
-    implements LocalStorageService<Box<StorageObject>> {
-  String? _storageName;
+class HiveLocalStorageService extends LocalStorageService<Box<StorageObject>> {
+  HiveLocalStorageService() {
+    _init();
+  }
+
+  Future<void> _init() async {
+    final directory = await getApplicationSupportDirectory();
+    await Hive.initFlutter(directory.path);
+  }
 
   @override
   Future<void> deleteItem(String key) async {
     final store = await storage();
     store.delete(key);
-    store.close();
   }
 
   @override
   Future<bool> dispose() async {
-    final store = await storage();
-    store.close();
+    await Hive.close();
     return true;
   }
 
@@ -29,13 +35,13 @@ class HiveLocalStorageService
   @override
   Future<List<StorageObject>> getItems() async {
     final store = await storage();
-    return store.values.toList();
+    final items = store.values.toList();
+    return items;
   }
 
   @override
-  Future<bool> init() async {
-    final directory = await getApplicationSupportDirectory();
-    await Hive.initFlutter(directory.path);
+  Future<bool> init(String storageName) async {
+    setStorageName = storageName;
     return true;
   }
 
@@ -43,7 +49,6 @@ class HiveLocalStorageService
   Future<void> saveBykey(String key, item) async {
     final store = await storage();
     await store.put(key, item);
-    store.close();
   }
 
   @override
@@ -53,19 +58,17 @@ class HiveLocalStorageService
       assert(item['id'] != null);
       store.put(item['id'], item);
     }
-    store.close();
   }
 
   @override
   Future<Box<StorageObject>> storage() async {
-    assert(_storageName != null);
-    return await Hive.openBox<StorageObject>(_storageName!);
+    final box = await Hive.openBox<StorageObject>(storageName);
+    return box;
   }
 
-  String get storageName {
-    assert(_storageName != null);
-    return _storageName!;
+  @override
+  Future<bool> clearAllStorage() async {
+    await Hive.deleteFromDisk();
+    return true;
   }
-
-  set setStorageName(String boxName) => _storageName = boxName;
 }

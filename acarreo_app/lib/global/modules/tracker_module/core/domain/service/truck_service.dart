@@ -1,5 +1,3 @@
-import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
+import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 
-abstract class TruckService {
-  Future<List<AcarreoTruck>?> getTrucks();
-}
+abstract class TruckService<T> implements BaseService<T> {}

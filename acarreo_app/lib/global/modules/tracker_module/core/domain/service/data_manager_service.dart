@@ -1,5 +1,4 @@
 abstract class DataManagerService {
-  Future<void> getData();
-
-  Future<void> uploadData();
+  Future<void> update();
+  Future<void> get();
 }

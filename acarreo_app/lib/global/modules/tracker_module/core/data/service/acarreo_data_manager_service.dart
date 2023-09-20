@@ -19,22 +19,21 @@ class AcarreoDataManagerService implements DataManagerService {
   });
 
   @override
-  Future<void> getData() async {
+  Future<void> update() async {
     try {
-      final locations = await locationService.getLocations();
-      final materials = await materialService.getMaterials();
-      final trucks = await truckService.getTrucks();
+      final locations = await locationService.update();
+      final materials = await materialService.update();
+      final trucks = await truckService.update();
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
       debugPrint(e.toString());
       debugPrintStack(stackTrace: s);
     }
-    // await Future.delayed(const Duration(seconds: 3));
   }
 
   @override
-  Future<void> uploadData() async {
-    // TODO: implement uploadData
+  Future<void> get() {
+    // TODO: implement get
     throw UnimplementedError();
   }
 }

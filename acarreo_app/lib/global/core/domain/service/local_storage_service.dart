@@ -1,7 +1,17 @@
 typedef StorageObject = Map<String, dynamic>;
 
 abstract class LocalStorageService<S> {
-  Future<bool> init();
+  String? _storageName;
+
+  String get storageName {
+    assert(_storageName != null,
+        '${runtimeType.toString()}: Set Storage name with setStorageName()');
+    return _storageName!;
+  }
+
+  set setStorageName(String storageName) => _storageName = storageName;
+
+  Future<bool> init(String storageName);
 
   Future<S> storage();
 
@@ -14,6 +24,8 @@ abstract class LocalStorageService<S> {
   Future<List<StorageObject>> getItems();
 
   Future<StorageObject?> getByKey(String key);
+
+  Future<bool> clearAllStorage();
 
   Future<void> dispose();
 }

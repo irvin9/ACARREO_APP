@@ -1,6 +1,6 @@
-import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
+import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 
-abstract class TicketService {
-  Future<List<AcarreoTicket>?> getTickets();
-  Future<AcarreoTicket?> createTicket(AcarreoTicket ticket);
+abstract class TicketService<T> implements BaseService<T> {
+  // Future<List<T>?> getTickets();
+  Future<T?> createTicket(T ticket);
 }
