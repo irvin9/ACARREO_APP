@@ -51,10 +51,15 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
   Future<String?> _onTagDiscovered(tag) async {
     try {
       final nfca = NfcA.from(tag);
-      if (nfca == null) throw Exception('No NDEF tag');
-      final data = nfca.atqa;
-      final dataDecode = utf8.decode(data).substring(3);
-      debugPrint(dataDecode.toString());
+      if (nfca == null) {
+        debugPrint('No NDEF tag');
+        throw Exception('No NDEF tag');
+      }
+
+      final data = nfca.identifier;
+      debugPrint(data.toString());
+      final dataDecode = String.fromCharCodes(data);
+      debugPrint('Data read: $dataDecode');
       return dataDecode;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
