@@ -26,7 +26,7 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
       NfcManager.instance.startSession(
         onDiscovered: (tag) async {
           final nfca = NfcA.from(tag);
-          if (nfca != null) return;
+          if (nfca == null) return;
           tagDecode = await _onTagDiscovered(tag);
           stopSession();
         },
