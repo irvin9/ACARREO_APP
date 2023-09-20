@@ -17,7 +17,7 @@ class GenericDialog extends StatelessWidget {
           key: key,
           child: child,
         ),
-      ).then((_) => FocusScope.of(context).requestFocus(FocusNode()));
+      );
 
   static void hide(BuildContext context) => Navigator.pop(context);
 
