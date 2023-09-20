@@ -22,6 +22,7 @@ class ReadNFCTravelScreen extends StatelessWidget {
     return BlocConsumer<NfcCubit, NfcState>(
       listener: (context, state) {
         if (state is NfcScanSuccess) {
+          Modular.to.pushNamed(GlobalRoutesApp.detailsTicketTravelRoute);
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.data)));
         }
