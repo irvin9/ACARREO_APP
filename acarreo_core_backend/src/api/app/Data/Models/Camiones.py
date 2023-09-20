@@ -22,6 +22,7 @@ class Camiones(BaseModel):
     plate = Column("placas", String(191), nullable=False)
     plate_gondola = Column("placasGondola", String(191), nullable=False)
     extra_capacity = Column("capacidadExtra", String(191), nullable=False)
+    id_nfc = Column("nfc_id", String(8), nullable=False)
     id_carrier = Column("id_transportista", Integer, nullable=False)
     id_client = Column("id_cliente", Integer, nullable=False)
     id_project = Column("id_obra", Integer, nullable=False)
@@ -41,6 +42,7 @@ class Camiones(BaseModel):
             "plate": "plate",
             "plate_gondola": "plate_gondola",
             "extra_capacity": "extra_capacity",
+            "id_nfc": "id_nfc",
             "id_carrier": "id_carrier",
             "id_client": "id_client",
             "id_project": "id_project",
@@ -58,6 +60,7 @@ class Camiones(BaseModel):
             "plate",
             "plate_gondola",
             "extra_capacity",
+            "id_nfc",
             "id_carrier",
             "id_client",
             "id_project",
