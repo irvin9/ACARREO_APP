@@ -20,9 +20,9 @@ dependencies:
   http_interceptor: ^2.0.0-beta.7
   equatable: ^2.0.5
   printing: ^5.11.0
-  # nfc_manager: ^3.3.0
   flutter_nfc_kit: ^3.3.3
   path_provider: ^2.1.1
+  barcode: ^2.2.4
 
 dev_dependencies:
   flutter_test:

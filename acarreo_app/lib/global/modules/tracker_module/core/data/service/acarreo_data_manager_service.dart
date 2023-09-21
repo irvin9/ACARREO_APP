@@ -32,16 +32,18 @@ class AcarreoDataManagerService implements DataManagerService {
   });
 
   @override
-  update() async {
+  Future<bool> update() async {
     try {
       await locationService.update();
       await materialService.update();
       await truckService.update();
       if (!(await get())) throw Exception();
+      return true;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
       debugPrint(e.toString());
       debugPrintStack(stackTrace: s);
+      return false;
     }
   }
 

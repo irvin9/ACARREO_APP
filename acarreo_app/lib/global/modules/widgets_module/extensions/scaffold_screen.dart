@@ -1,6 +1,7 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/cubits/auth/auth_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
+import 'package:acarreo_app/global/modules/widgets_module/dialog_error.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_loader.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,12 @@ extension ScaffoldScreen on Widget {
       listener: (context, state) {
         if (state is AcarreoShowLoadingModal) {
           DialogLoader.show(context, DialogMessageModel.fromMap(state.message));
+        }
+
+        if (state is AcarreoError) {
+          DialogLoader.hide(context);
+          DialogError.show(context, DialogMessageModel.fromMap(state.message),
+              () => DialogError.hide(context));
         }
 
         if (state is AcarreoSuccess) {

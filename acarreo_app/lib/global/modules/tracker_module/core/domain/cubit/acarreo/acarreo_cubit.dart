@@ -18,8 +18,15 @@ class AcarreoCubit extends Cubit<AcarreoState> {
       'title': 'Cargando nueva información',
       'description': 'Espere estamos cargando nueva información a su cuenta...',
     }));
-    await managerService.update();
-    emit(const AcarreoSuccess());
+    final success = await managerService.update();
+    if (success) {
+      emit(const AcarreoSuccess());
+    } else {
+      emit(const AcarreoError({
+        'title': '¡Ocurrio un error!',
+        'description': 'Una disculpa, no hemos podido completar la petición.',
+      }));
+    }
   }
 
   Future<void> getLocalData() async {

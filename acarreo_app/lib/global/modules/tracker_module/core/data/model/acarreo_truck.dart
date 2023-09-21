@@ -13,6 +13,7 @@ class AcarreoTruck {
     required this.idProject,
     required this.plate,
     required this.plateGondola,
+    required this.idNfc,
     this.updatedAt,
   });
 
@@ -31,6 +32,7 @@ class AcarreoTruck {
         idProject: json["id_project"],
         plate: json["plate"],
         plateGondola: json["plate_gondola"],
+        idNfc: json["id_nfc"],
         updatedAt: json["updated_at"] != null
             ? DateTime.parse(json["updated_at"])
             : null,
@@ -47,6 +49,7 @@ class AcarreoTruck {
   final int idProject;
   final String plate;
   final String plateGondola;
+  final String idNfc;
   final DateTime? updatedAt;
 
   AcarreoTruck copyWith({
@@ -69,6 +72,7 @@ class AcarreoTruck {
         idProject: idProject,
         plate: plate ?? this.plate,
         plateGondola: plateGondola ?? this.plateGondola,
+        idNfc: idNfc,
         updatedAt: updatedAt,
       );
 
@@ -91,6 +95,7 @@ class AcarreoTruck {
         "id_project": idProject,
         "plate": plate,
         "plate_gondola": plateGondola,
+        "id_nfc": idNfc,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };

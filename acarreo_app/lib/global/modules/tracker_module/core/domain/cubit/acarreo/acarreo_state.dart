@@ -40,7 +40,8 @@ class LocalDataSuccess extends AcarreoState {
 }
 
 class AcarreoError extends AcarreoState {
-  const AcarreoError();
+  final Map<String, dynamic> message;
+  const AcarreoError(this.message);
   @override
   List<Object?> get props => [];
 }
