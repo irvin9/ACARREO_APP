@@ -20,7 +20,7 @@ class ReadNFCTravelScreen extends StatelessWidget {
         'Leeremos su código de indentificación mediante un lector NFC.';
 
     return BlocConsumer<NfcCubit, NfcState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is NfcScanSuccess) {
           Modular.to.pushNamed(GlobalRoutesApp.detailsTicketTravelRoute);
         }

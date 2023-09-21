@@ -1,19 +1,28 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
 
 part 'nfc_state.dart';
 
 class NfcCubit extends Cubit<NfcState> {
   final ScanNfcRepository scanNFC;
+  final AcarreoDataManagerService managerService;
 
-  NfcCubit(this.scanNFC) : super(const NfcInitState());
+  NfcCubit(this.scanNFC, this.managerService) : super(const NfcInitState());
 
   startScan() async {
     Future.delayed(Duration.zero);
     emit(const NfcStartedScan());
-    final data = await scanNFC.startSession();
-    if (data != null) {
-      emit(NfcScanSuccess(data: data));
-      return;
+    final String? idNfc = await scanNFC.startSession();
+    if (idNfc != null) {
+      final currentTruck = managerService.trucks
+          .cast<AcarreoTruck?>()
+          .firstWhere(
+              (element) => element?.idNfc.toLowerCase() == idNfc.toLowerCase(),
+              orElse: () => null);
+      if (currentTruck != null) {
+        emit(NfcScanSuccess(data: idNfc));
+        return;
+      }
     }
     emit(const NfcScanFailed({
       'title': 'La lectura no puede ser completada',
