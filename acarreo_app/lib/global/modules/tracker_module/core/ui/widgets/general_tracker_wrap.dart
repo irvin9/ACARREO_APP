@@ -7,6 +7,7 @@ class GeneralTrackerWrap extends StatelessWidget {
   final int? currentStep;
   final int? totalSteps;
   final void Function()? onContinue;
+  final bool showMainButton;
   final List<Widget> children;
 
   const GeneralTrackerWrap({
@@ -14,6 +15,7 @@ class GeneralTrackerWrap extends StatelessWidget {
     this.currentStep = 1,
     this.totalSteps = 4,
     this.onContinue,
+    this.showMainButton = true,
     required this.children,
   });
 
@@ -44,14 +46,16 @@ class GeneralTrackerWrap extends StatelessWidget {
               ],
             ),
           ),
-          GeneralButton(
-            vertical: 16.0,
-            horizontal: 16.0,
-            buttonText: 'Continuar',
-            buttonElevation: 2.0,
-            textColor: Colors.black87,
-            onPressed: onContinue,
-          )
+          Visibility(
+              visible: showMainButton,
+              child: GeneralButton(
+                vertical: 16.0,
+                horizontal: 16.0,
+                buttonText: 'Continuar',
+                buttonElevation: 2.0,
+                textColor: Colors.black87,
+                onPressed: onContinue,
+              )),
         ],
       ),
     ).setScaffoldWithAppBar();

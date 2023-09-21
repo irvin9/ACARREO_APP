@@ -37,8 +37,7 @@ class ReadNFCTravelScreen extends StatelessWidget {
       builder: (context, state) {
         return GeneralTrackerWrap(
             currentStep: currentStep,
-            onContinue: () =>
-                Modular.to.pushNamed(GlobalRoutesApp.detailsTicketTravelRoute),
+            showMainButton: false,
             children: const [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
