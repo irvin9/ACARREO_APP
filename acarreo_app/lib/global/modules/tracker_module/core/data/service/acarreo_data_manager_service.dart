@@ -1,9 +1,11 @@
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_location.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_material.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/data/model/api_project_model.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/data_manager_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/location_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/material_service.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/project_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/ticket_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/truck_service.dart';
 import 'package:flutter/foundation.dart';
@@ -13,10 +15,13 @@ class AcarreoDataManagerService implements DataManagerService {
   final MaterialService<AcarreoMaterial> materialService;
   final TicketService ticketService;
   final TruckService<AcarreoTruck> truckService;
+  final ProjectService<ApiProjectModel> projectService;
 
   final List<AcarreoLocation> _localLocations = [];
   final List<AcarreoMaterial> _localMaterials = [];
   final List<AcarreoTruck> _localTrucks = [];
+
+  ApiProjectModel? _localProject;
 
   List<AcarreoLocation> get locations => _localLocations;
 
@@ -24,11 +29,14 @@ class AcarreoDataManagerService implements DataManagerService {
 
   List<AcarreoTruck> get trucks => _localTrucks;
 
+  ApiProjectModel? get project => _localProject;
+
   AcarreoDataManagerService({
     required this.locationService,
     required this.materialService,
     required this.ticketService,
     required this.truckService,
+    required this.projectService,
   });
 
   @override
@@ -37,7 +45,8 @@ class AcarreoDataManagerService implements DataManagerService {
       await locationService.update();
       await materialService.update();
       await truckService.update();
-      if (!(await get())) throw Exception();
+      await projectService.updateProject();
+      if (!(await get())) throw Exception('');
       return true;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
@@ -49,17 +58,24 @@ class AcarreoDataManagerService implements DataManagerService {
 
   @override
   get() async {
-    _localLocations.clear();
-    _localMaterials.clear();
-    _localTrucks.clear();
     final locations = await locationService.get() ?? [];
     final materials = await materialService.get() ?? [];
     final trucks = await truckService.get() ?? [];
+    final project = await projectService.getProject();
+
+    if (locations.isEmpty ||
+        materials.isEmpty ||
+        trucks.isEmpty ||
+        project == null) {
+      return false;
+    }
+    _localLocations.clear();
+    _localMaterials.clear();
+    _localTrucks.clear();
     _localLocations.addAll(locations);
     _localMaterials.addAll(materials);
     _localTrucks.addAll(trucks);
-    return _localLocations.isNotEmpty &&
-        _localMaterials.isNotEmpty &&
-        _localTrucks.isNotEmpty;
+    _localProject = project;
+    return true;
   }
 }

@@ -25,7 +25,7 @@ class DetailsTicketTravelScreen extends StatelessWidget {
       currentStep: currentStep,
       onContinue: () {
         if (formKey.currentState!.validate()) {
-          Modular.to.pushNamed(GlobalRoutesApp.previewTicketTravelRoute);
+          Modular.to.navigate(GlobalRoutesApp.previewTicketTravelRoute);
         }
       },
       disableToBack: true,

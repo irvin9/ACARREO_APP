@@ -18,6 +18,7 @@ class PreviewTicketTravelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const String title = 'Revisa el ticker generado';
     final bloc = Modular.get<AcarreoCubit>();
+    final project = bloc.managerService.project;
     final String? answerTypeLocation = bloc.formAnswers['type_location'];
     final String description = bloc.formAnswers['description'] ?? '';
     final truck = bloc.formAnswers['currentTruck'] as AcarreoTruck;
@@ -30,8 +31,10 @@ class PreviewTicketTravelScreen extends StatelessWidget {
 
     return GeneralTrackerWrap(
       mainButtonText: 'Generar Ticket',
-      onContinue: () => Modular.to.pushNamedAndRemoveUntil(
-          GlobalRoutesApp.registerTravelRoute, (p0) => false),
+      onContinue: () {
+        bloc.clearAnswers();
+        bloc.goTo(GlobalRoutesApp.registerTravelRoute);
+      },
       currentStep: currentStep,
       children: [
         const TitleForm(
@@ -46,11 +49,11 @@ class PreviewTicketTravelScreen extends StatelessWidget {
             children: [
               ConceptTextTicket(
                 conceptText: 'Desarrolladora:',
-                valueText: 'VIAS AZVINDI',
+                valueText: project?.enterpriseName ?? 'N/A',
               ),
               ConceptTextTicket(
                 conceptText: 'Proyecto:',
-                valueText: 'SUPERESTRUCTURA AZVINDI 13',
+                valueText: project?.projectName ?? 'N/A',
               ),
               ConceptTextTicket(
                 conceptText: 'Fecha:',
