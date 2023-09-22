@@ -1,4 +1,5 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/nfc/nfc_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_wrap.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/read_nfc_form.dart';
@@ -15,6 +16,7 @@ class ReadNFCTravelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = Modular.get<AcarreoCubit>();
     const String title = 'Identifica tu Unidad';
     const String description =
         'Leeremos su código de indentificación mediante un lector NFC.';
@@ -22,6 +24,8 @@ class ReadNFCTravelScreen extends StatelessWidget {
     return BlocConsumer<NfcCubit, NfcState>(
       listener: (context, state) async {
         if (state is NfcScanSuccess) {
+          bloc.addAnswer('date', DateTime.now());
+          bloc.addAnswer('currentTruck', state.truck);
           Modular.to.pushNamed(GlobalRoutesApp.detailsTicketTravelRoute);
         }
 
@@ -36,22 +40,24 @@ class ReadNFCTravelScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return GeneralTrackerWrap(
-            currentStep: currentStep,
-            showMainButton: false,
-            children: const [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TitleForm(
-                    title: title,
-                    description: description,
-                  ),
-                  SizedBox(height: 8.0),
-                  ReadNFCForm()
-                ],
-              )
-            ]);
+          currentStep: currentStep,
+          showMainButton: false,
+          disableToBack: true,
+          children: const [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TitleForm(
+                  title: title,
+                  description: description,
+                ),
+                SizedBox(height: 8.0),
+                ReadNFCForm()
+              ],
+            )
+          ],
+        );
       },
     );
   }

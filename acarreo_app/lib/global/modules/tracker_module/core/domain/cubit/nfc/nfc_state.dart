@@ -19,12 +19,12 @@ class NfcStartedScan extends NfcState {
 }
 
 class NfcScanSuccess extends NfcState {
-  final String data;
+  final AcarreoTruck truck;
 
-  const NfcScanSuccess({required this.data});
+  const NfcScanSuccess({required this.truck});
 
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [truck];
 }
 
 class NfcScanFailed extends NfcState {

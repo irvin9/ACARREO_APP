@@ -20,7 +20,7 @@ class NfcCubit extends Cubit<NfcState> {
               (element) => element?.idNfc.toLowerCase() == idNfc.toLowerCase(),
               orElse: () => null);
       if (currentTruck != null) {
-        emit(NfcScanSuccess(data: idNfc));
+        emit(NfcScanSuccess(truck: currentTruck));
         return;
       }
     }
