@@ -23,6 +23,7 @@ dependencies:
   flutter_nfc_kit: ^3.3.3
   path_provider: ^2.1.1
   barcode: ^2.2.4
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

@@ -25,6 +25,7 @@ class DetailsTicketTravelScreen extends StatelessWidget {
       currentStep: currentStep,
       onContinue: () =>
           Modular.to.pushNamed(GlobalRoutesApp.previewTicketTravelRoute),
+      disableToBack: true,
       children: [
         const TitleForm(
           title: title,

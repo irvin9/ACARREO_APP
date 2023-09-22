@@ -24,7 +24,8 @@ extension ScaffoldScreen on Widget {
     );
   }
 
-  setScaffoldWithAppBar({GlobalKey<ScaffoldState>? key}) {
+  setScaffoldWithAppBar(
+      {GlobalKey<ScaffoldState>? key, bool disableToBack = false}) {
     final GlobalKey<ScaffoldState> scaffoldKey =
         key ?? GlobalKey<ScaffoldState>();
     final acarreoCubit = Modular.get<AcarreoCubit>();
@@ -54,6 +55,7 @@ extension ScaffoldScreen on Widget {
               width: 140,
               child: LogoApp(assetName: WidgetAssets.logoNameLightApp),
             ),
+            automaticallyImplyLeading: !disableToBack,
             iconTheme: const IconThemeData(color: Colors.white, size: 32),
             actions: [
               Visibility(

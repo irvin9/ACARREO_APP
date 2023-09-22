@@ -39,7 +39,8 @@ class RegisterTravelForm extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              DropdownFormField(
+              DropdownField(
+                initialValue: bloc.formAnswers['type_location'] ?? '',
                 disable: bloc.formAnswers['id_location'] != null,
                 options: FormValues.optionTypeTravels,
                 onChanged: (value) => bloc.addAnswer(
@@ -59,8 +60,8 @@ class RegisterTravelForm extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              DropdownFormField(
-                initialValue: '',
+              DropdownField(
+                initialValue: bloc.formAnswers['id_location'] ?? '',
                 disable: bloc.formAnswers['type_location'] == null,
                 options: locations.fold(defaultValue, (previousValue, element) {
                   previousValue.addAll(element);

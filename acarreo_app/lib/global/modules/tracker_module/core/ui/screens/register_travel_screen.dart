@@ -8,8 +8,11 @@ class RegisterTravelScreen extends StatelessWidget {
   final int currentStep;
   final int totalSteps;
 
-  const RegisterTravelScreen(
-      {super.key, this.currentStep = 1, this.totalSteps = 4});
+  const RegisterTravelScreen({
+    super.key,
+    this.currentStep = 1,
+    this.totalSteps = 4,
+  });
 
   @override
   Widget build(BuildContext context) {

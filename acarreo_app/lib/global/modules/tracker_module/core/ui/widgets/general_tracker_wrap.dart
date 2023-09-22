@@ -9,6 +9,7 @@ class GeneralTrackerWrap extends StatelessWidget {
   final void Function()? onContinue;
   final bool showMainButton;
   final List<Widget> children;
+  final bool disableToBack;
 
   const GeneralTrackerWrap({
     super.key,
@@ -17,6 +18,7 @@ class GeneralTrackerWrap extends StatelessWidget {
     this.onContinue,
     this.showMainButton = true,
     required this.children,
+    this.disableToBack = false,
   });
 
   @override
@@ -58,6 +60,6 @@ class GeneralTrackerWrap extends StatelessWidget {
               )),
         ],
       ),
-    ).setScaffoldWithAppBar();
+    ).setScaffoldWithAppBar(disableToBack: disableToBack);
   }
 }
