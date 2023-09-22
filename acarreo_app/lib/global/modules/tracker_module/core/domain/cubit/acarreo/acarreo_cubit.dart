@@ -31,6 +31,10 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     }
   }
 
+  void clearAnswers() {
+    _formAnswers.clear();
+  }
+
   Future<void> getLocalData() async {
     await Future.delayed(Duration.zero);
     emit(const LoadingLocalData());

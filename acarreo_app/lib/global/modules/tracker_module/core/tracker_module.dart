@@ -35,7 +35,6 @@ const int totalSteps = 4;
 class TrackerModule extends Module {
   @override
   void binds(Injector i) {
-    super.binds(i);
     i.addLazySingleton<ScanNfcRepository>(ScanNFCManagerRepository.new);
     i.add<LocationRepository<AcarreoLocation>>(AcarreoLocationRepository.new);
     i.addLazySingleton<MaterialRepository<AcarreoMaterial>>(
@@ -70,8 +69,8 @@ class TrackerModule extends Module {
   void routes(RouteManager r) {
     r.child(
       '/form',
-      child: (context) => BlocProvider.value(
-        value: Modular.get<AcarreoCubit>(),
+      child: (context) => BlocProvider(
+        create: (BuildContext context) => Modular.get<AcarreoCubit>(),
         child: FutureBuilder(
           future: initExternalService(),
           builder: (context, snapshot) {

@@ -1,6 +1,7 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/service/auth_service.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/model/user_model.dart';
+import 'package:flutter/material.dart';
 
 part 'auth_state.dart';
 
@@ -42,8 +43,6 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> goToNavigate(String route) async {
-    Modular.to.navigate(
-      route,
-    );
+    Modular.to.navigate(route);
   }
 }
