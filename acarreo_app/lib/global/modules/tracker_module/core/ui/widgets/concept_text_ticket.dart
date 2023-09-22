@@ -17,22 +17,21 @@ class ConceptTextTicket extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Expanded(
-          flex: 1,
-          child: Text(
-            conceptText,
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.poppins(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600,
-            ),
+        Text(
+          conceptText,
+          overflow: TextOverflow.fade,
+          style: GoogleFonts.poppins(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
           ),
         ),
+        const SizedBox(
+          width: 10.0,
+        ),
         Expanded(
-          flex: 2,
           child: Text(
             valueText,
-            overflow: TextOverflow.ellipsis,
+            overflow: TextOverflow.fade,
             style: GoogleFonts.poppins(
               fontSize: 14.0,
               fontWeight: FontWeight.w400,

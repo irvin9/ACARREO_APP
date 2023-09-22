@@ -1,8 +1,12 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/concept_text_ticket.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_wrap.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class PreviewTicketTravelScreen extends StatelessWidget {
   final int? currentStep;
@@ -13,8 +17,19 @@ class PreviewTicketTravelScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String title = 'Revisa el ticker generado';
+    final bloc = Modular.get<AcarreoCubit>();
+    final String? answerTypeLocation = bloc.formAnswers['type_location'];
+    final String description = bloc.formAnswers['description'] ?? '';
+    final truck = bloc.formAnswers['currentTruck'] as AcarreoTruck;
+    final int materialId = int.parse(bloc.getAnswersForm('id_material'));
+    final material = bloc.managerService.materials
+        .firstWhere((item) => materialId == item.id);
+    final captureDate =
+        DateFormat('dd/MM/yy hh:mm a').format(bloc.formAnswers['date']);
+    final ticketCode = bloc.generateTicketCode();
 
     return GeneralTrackerWrap(
+      mainButtonText: 'Generar Ticket',
       onContinue: () => Modular.to.pushNamedAndRemoveUntil(
           GlobalRoutesApp.registerTravelRoute, (p0) => false),
       currentStep: currentStep,
@@ -27,43 +42,47 @@ class PreviewTicketTravelScreen extends StatelessWidget {
         Card(
           elevation: 0.5,
           color: Colors.white,
-          child: const Column(
+          child: Column(
             children: [
               ConceptTextTicket(
-                conceptText: 'Empresa:',
+                conceptText: 'Desarrolladora:',
                 valueText: 'VIAS AZVINDI',
               ),
               ConceptTextTicket(
-                conceptText: 'Obra:',
+                conceptText: 'Proyecto:',
                 valueText: 'SUPERESTRUCTURA AZVINDI 13',
               ),
               ConceptTextTicket(
-                conceptText: 'Ubicación:',
+                conceptText: 'Fecha:',
+                valueText: captureDate,
+              ),
+              ConceptTextTicket(
+                conceptText:
+                    FormValues.mappingTypeLocation['1'] == answerTypeLocation
+                        ? 'Origen:'
+                        : 'Destino:',
                 valueText: 'FLAMBOYANES ACOPIO',
               ),
               ConceptTextTicket(
                 conceptText: 'Material:',
-                valueText: 'BALASTO SENCILLO',
+                valueText: material.materialName,
               ),
               ConceptTextTicket(
                 conceptText: 'Placas:',
-                valueText: '22UH6D',
-              ),
-              ConceptTextTicket(
-                conceptText: 'Marca:',
-                valueText: 'INDEFINIDA',
+                valueText: truck.plate,
               ),
               ConceptTextTicket(
                 conceptText: 'M3:',
-                valueText: '28,00',
+                valueText: '${truck.capacity} m3',
               ),
               ConceptTextTicket(
                 conceptText: 'Nota:',
-                valueText: '(PROGRESO) (NORDIC MERCHANTS)',
+                valueText: description,
               ),
-              ConceptTextTicket(
-                conceptText: 'Fecha:',
-                valueText: '2023/jul/06 10:06:48 p m',
+              BarcodeWidget(
+                padding: const EdgeInsets.all(10.0),
+                barcode: Barcode.code128(),
+                data: ticketCode,
               )
             ],
           ).withPaddingSymmetric(vertical: 12.0, horizontal: 12.0),

@@ -25,6 +25,7 @@ class ReadNFCTravelScreen extends StatelessWidget {
       listener: (context, state) async {
         if (state is NfcScanSuccess) {
           bloc.addAnswer('date', DateTime.now());
+          bloc.addAnswer('truckId', state.truck.id);
           bloc.addAnswer('currentTruck', state.truck);
           Modular.to.pushNamed(GlobalRoutesApp.detailsTicketTravelRoute);
         }

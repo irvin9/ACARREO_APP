@@ -22,7 +22,7 @@ dependencies:
   printing: ^5.11.0
   flutter_nfc_kit: ^3.3.3
   path_provider: ^2.1.1
-  barcode: ^2.2.4
+  barcode_widget: ^2.0.4
   intl: ^0.18.1
 
 dev_dependencies:

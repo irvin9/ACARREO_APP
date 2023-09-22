@@ -48,6 +48,7 @@ class DetailsTicketForm extends StatelessWidget {
             child: CustomTextFormField(
               label: 'Folio Banco',
               placeholder: 'Ingrese el folio',
+              initialValue: bloc.formAnswers['folio'] ?? '',
               maxLength: 6,
               maxLines: 1,
               validators: const {'NOT_NULL': '', 'MIN_LENGTH': 6},
@@ -61,6 +62,7 @@ class DetailsTicketForm extends StatelessWidget {
             child: CustomTextFormField(
               label: 'Folio Ticket',
               placeholder: 'Ingrese el folio',
+              initialValue: bloc.formAnswers['folioTicket'] ?? '',
               maxLength: 20,
               maxLines: 1,
               keyboardType: TextInputType.number,
@@ -74,6 +76,7 @@ class DetailsTicketForm extends StatelessWidget {
           CustomTextFormField(
             label: 'Comentario',
             placeholder: 'Nota de ubicación',
+            initialValue: bloc.formAnswers['description'] ?? '',
             maxLength: 180,
             maxLines: null,
             keyboardType: TextInputType.multiline,

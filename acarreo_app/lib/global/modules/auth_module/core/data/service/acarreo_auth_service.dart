@@ -1,5 +1,4 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:flutter/widgets.dart';
 import 'package:acarreo_app/global/core/data/model/token_auth_model.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/model/user_model.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/service/auth_service.dart';

@@ -10,12 +10,14 @@ class GeneralTrackerWrap extends StatelessWidget {
   final bool showMainButton;
   final List<Widget> children;
   final bool disableToBack;
+  final String? mainButtonText;
 
   const GeneralTrackerWrap({
     super.key,
     this.currentStep = 1,
     this.totalSteps = 4,
     this.onContinue,
+    this.mainButtonText,
     this.showMainButton = true,
     required this.children,
     this.disableToBack = false,
@@ -53,7 +55,7 @@ class GeneralTrackerWrap extends StatelessWidget {
               child: GeneralButton(
                 vertical: 16.0,
                 horizontal: 16.0,
-                buttonText: 'Continuar',
+                buttonText: mainButtonText ?? 'Continuar',
                 buttonElevation: 2.0,
                 textColor: Colors.black87,
                 onPressed: onContinue,

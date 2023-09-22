@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 
 class AcarreoCubit extends Cubit<AcarreoState> {
@@ -46,6 +48,10 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     emit(FormChangedValue(_formAnswers));
   }
 
+  dynamic getAnswersForm(String key) {
+    return _formAnswers[key];
+  }
+
   Future<void> updateTickets() async {
     await Future.delayed(Duration.zero);
     emit(const AcarreoShowLoadingModal(message: {
@@ -53,5 +59,28 @@ class AcarreoCubit extends Cubit<AcarreoState> {
       'description': 'Espere estamos subiendo la información pendiente...',
     }));
     emit(const AcarreoSuccess());
+  }
+
+  String generateTicketCode() {
+    final DateTime captureDate = _formAnswers['date'];
+    String dateFormatted =
+        "${captureDate.day}${captureDate.month.toString().padLeft(2, '0')}${captureDate.year.toString().substring(2)}";
+    final String truckId =
+        int.parse((_formAnswers['truckId'] ?? '0').toString())
+            .toString()
+            .padLeft(4, '0'); // (PROGRESO)(NORDIC MERCHANTS)
+    String hourFormatted =
+        '${captureDate.hour.toString().padLeft(2, '0')}${captureDate.minute.toString().padLeft(2, '0')}${captureDate.second.toString().padLeft(2, '0')}';
+    String scannerId = _generateScannerId();
+
+    String ticketCode = '$dateFormatted$truckId$hourFormatted$scannerId';
+    addAnswer('folioId', ticketCode);
+    return ticketCode;
+  }
+
+  String _generateScannerId() {
+    final random = Random();
+    int numeroAleatorio = random.nextInt(9999) + 1;
+    return numeroAleatorio.toString().padLeft(4, '0');
   }
 }
