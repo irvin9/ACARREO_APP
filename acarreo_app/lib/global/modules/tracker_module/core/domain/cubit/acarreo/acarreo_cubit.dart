@@ -26,13 +26,17 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     } else {
       emit(const AcarreoError({
         'title': '¡Ocurrio un error!',
-        'description': 'Una disculpa, no hemos podido completar la petición.',
+        'description':
+            'Una disculpa, no hemos podido completar la petición, vuelva intentarlo.',
       }));
     }
   }
 
-  void clearAnswers() {
+  void clearAnswers() async {
+    await Future.delayed(Duration.zero);
+    emit(const AcarreoInitState());
     _formAnswers.clear();
+    emit(FormChangedValue(_formAnswers));
   }
 
   Future<void> getLocalData() async {
@@ -86,5 +90,9 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     final random = Random();
     int numeroAleatorio = random.nextInt(9999) + 1;
     return numeroAleatorio.toString().padLeft(4, '0');
+  }
+
+  Future<void> goTo(String route) {
+    return Modular.to.pushNamedAndRemoveUntil(route, (p0) => false);
   }
 }
