@@ -11,6 +11,7 @@ class AuthModule extends Module {
   void binds(i) {
     i.addLazySingleton<AuthRepository>(AcarreoAuthRepository.new);
     i.addLazySingleton<AuthService>(AcarreoAuthService.new);
+    i.add<LocalStorageService>(HiveLocalStorageService.new);
   }
 
   @override
@@ -18,9 +19,6 @@ class AuthModule extends Module {
     super.exportedBinds(i);
     i.addLazySingleton<AuthCubit>(AuthCubit.new);
   }
-
-  // @override
-  // void binds(i) {}
 
   @override
   void routes(r) {

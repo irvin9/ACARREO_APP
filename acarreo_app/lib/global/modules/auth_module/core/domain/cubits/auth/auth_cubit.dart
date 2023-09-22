@@ -35,7 +35,6 @@ class AuthCubit extends Cubit<AuthState> {
   logout() async {
     AuthState currentState = const AuthInitCloseSession();
     emit(currentState);
-
     currentState = const AuthCloseSessionSuccess();
     await service.logout();
     emit(currentState);
