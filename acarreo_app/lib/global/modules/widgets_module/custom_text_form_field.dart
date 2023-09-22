@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String label;
@@ -11,6 +12,8 @@ class CustomTextFormField extends StatelessWidget {
   final bool enable;
   final double fontSizeLabel;
   final double fontSizePlaceholder;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? textInputFormatter;
   final Map<String, dynamic>? validators;
   final void Function(String)? onChanged;
 
@@ -26,6 +29,8 @@ class CustomTextFormField extends StatelessWidget {
     this.fontSizePlaceholder = 16.0,
     this.onChanged,
     this.validators,
+    this.keyboardType,
+    this.textInputFormatter,
   }) : super(key: key);
 
   String? validation(String? value) {
@@ -59,13 +64,14 @@ class CustomTextFormField extends StatelessWidget {
           initialValue: initialValue,
           enabled: true,
           onChanged: onChanged,
-          keyboardType: TextInputType.multiline,
+          keyboardType: keyboardType,
           style: GoogleFonts.poppins(
             fontSize: fontSizePlaceholder,
             fontWeight: FontWeight.w500,
           ),
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) => validation(value),
+          inputFormatters: textInputFormatter,
           decoration: InputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.never,
             labelText: placeholder,

@@ -19,12 +19,15 @@ class DetailsTicketTravelScreen extends StatelessWidget {
 
     const String title = 'Detalles de la Ubicación';
     const String description =
-        'Debes registrar los detalles de la ubicación, que se definen a continuación';
+        'Debes registrar los detalles de la ubicación, que se definen a continuación.';
 
     return GeneralTrackerWrap(
       currentStep: currentStep,
-      onContinue: () =>
-          Modular.to.pushNamed(GlobalRoutesApp.previewTicketTravelRoute),
+      onContinue: () {
+        if (formKey.currentState!.validate()) {
+          Modular.to.pushNamed(GlobalRoutesApp.previewTicketTravelRoute);
+        }
+      },
       disableToBack: true,
       children: [
         const TitleForm(

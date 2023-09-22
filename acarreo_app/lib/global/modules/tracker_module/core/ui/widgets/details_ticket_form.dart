@@ -5,6 +5,7 @@ import 'package:acarreo_app/global/modules/widgets_module/custom_text_form_field
 import 'package:acarreo_app/global/modules/widgets_module/dropdown_form_field.dart';
 import 'package:acarreo_app/global/modules/widgets_module/text_field_viewer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class DetailsTicketForm extends StatelessWidget {
@@ -18,6 +19,7 @@ class DetailsTicketForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.watch<AcarreoCubit>((bloc) => bloc.stream);
+    final String? answerTypeLocation = bloc.formAnswers['type_location'];
     final truck = bloc.formAnswers['currentTruck'] as AcarreoTruck;
     final captureDate =
         DateFormat('dd/MM/yy hh:mm a').format(bloc.formAnswers['date']);
@@ -41,21 +43,40 @@ class DetailsTicketForm extends StatelessWidget {
             onChanged: (value) =>
                 bloc.addAnswer('id_material', value!.isNotEmpty ? value : null),
           ),
-          CustomTextFormField(
-            label: 'Folio Banco',
-            placeholder: 'Ingrese el folio',
-            maxLength: 6,
-            maxLines: 1,
-            validators: const {'NOT_NULL': '', 'MIN_LENGTH': 6},
-            onChanged: (value) {
-              bloc.addAnswer('folio', value);
-            },
+          Visibility(
+            visible: FormValues.mappingTypeLocation['1'] == answerTypeLocation,
+            child: CustomTextFormField(
+              label: 'Folio Banco',
+              placeholder: 'Ingrese el folio',
+              maxLength: 6,
+              maxLines: 1,
+              validators: const {'NOT_NULL': '', 'MIN_LENGTH': 6},
+              onChanged: (value) {
+                bloc.addAnswer('folio', value);
+              },
+            ),
+          ),
+          Visibility(
+            visible: FormValues.mappingTypeLocation['2'] == answerTypeLocation,
+            child: CustomTextFormField(
+              label: 'Folio Ticket',
+              placeholder: 'Ingrese el folio',
+              maxLength: 20,
+              maxLines: 1,
+              keyboardType: TextInputType.number,
+              textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
+              validators: const {'NOT_NULL': '', 'MIN_LENGTH': 20},
+              onChanged: (value) {
+                bloc.addAnswer('folioTicket', value);
+              },
+            ),
           ),
           CustomTextFormField(
             label: 'Comentario',
             placeholder: 'Nota de ubicación',
             maxLength: 180,
             maxLines: null,
+            keyboardType: TextInputType.multiline,
             validators: const {'NOT_NULL': ''},
             onChanged: (value) {
               bloc.addAnswer('description', value);
