@@ -24,6 +24,7 @@ class Tickets(BaseModel):
     id_material = Column("id_material", Integer, nullable=False)
     description = Column("nota", String(191), nullable=True)
     folio = Column("folio", String(191), nullable=True)
+    folio_ticket = Column("folioId", String(191), nullable=True)
     id_client = Column("id_cliente", Integer, nullable=False)
     id_project = Column("id_obra", Integer, nullable=False)
     created_at = Column("created_at", DateTime(timezone=True), default=func.now())
@@ -42,6 +43,7 @@ class Tickets(BaseModel):
             "id_material": "id_material",
             "description": "description",
             "folio": "folio",
+            "folio_ticket": "folio_ticket",
             "id_client": "id_client",
             "id_project": "id_project",
             "created_at": "created_at",
@@ -60,6 +62,7 @@ class Tickets(BaseModel):
             "id_material",
             "description",
             "folio",
+            "folio_ticket",
             "id_client",
             "id_project",
             "created_at",
