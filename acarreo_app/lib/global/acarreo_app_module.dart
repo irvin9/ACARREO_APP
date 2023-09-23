@@ -1,7 +1,6 @@
-import 'package:acarreo_app/global/modules/auth_module/auth_module.dart';
-import 'package:acarreo_app/global/modules/home_module/core/home_module.dart';
-
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/modules/auth_module/auth_module.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/tracker_module.dart';
 
 class AcarreoAppModule extends Module {
   @override
@@ -17,16 +16,16 @@ class AcarreoAppModule extends Module {
 
   @override
   void routes(r) {
-    super.routes(r);
     r.module(
       GlobalRoutesApp.authRoute,
       module: AuthModule(),
       guards: [SessionGuard()],
     );
     r.module(
-      GlobalRoutesApp.homeRoute,
-      module: HomeModule(),
+      GlobalRoutesApp.trackerRoute,
+      module: TrackerModule(),
       guards: [AuthGuard()],
     );
+    r.redirect('/', to: GlobalRoutesApp.authLoginRoute);
   }
 }

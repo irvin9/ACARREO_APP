@@ -1,4 +1,3 @@
-import 'package:acarreo_app/global/acarreo_app_module.dart';
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/core/data/repository/scan_nfc_manager_repository.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_location.dart';
@@ -37,9 +36,13 @@ import 'package:flutter/material.dart';
 
 const int totalSteps = 4;
 
-class TrackerModule extends Module {
+class TrackerModule extends Disposable implements Module {
   @override
   void binds(Injector i) {
+    i.addSingleton<FlutterSecureStorage>(FlutterSecureStorage.new);
+    i.addSingleton<StorageService>(FlutterStorageService.new);
+    i.addSingleton<EnviromentService>(FlutterEnvironmentService.new);
+    i.addSingleton<HttpService>(FlutterHttpService.new);
     i.addLazySingleton<ScanNfcRepository>(ScanNFCManagerRepository.new);
     i.add<LocationRepository<AcarreoLocation>>(AcarreoLocationRepository.new);
     i.addLazySingleton<MaterialRepository<AcarreoMaterial>>(
@@ -61,8 +64,14 @@ class TrackerModule extends Module {
     i.addLazySingleton<TicketService>(AcarreoTickeService.new);
     i.addLazySingleton<AcarreoDataManagerService>(
         AcarreoDataManagerService.new);
-    i.addLazySingleton<AcarreoCubit>(AcarreoCubit.new);
-    i.addLazySingleton<NfcCubit>(NfcCubit.new);
+    i.addLazySingleton<AcarreoCubit>(AcarreoCubit.new,
+        config: BindConfig(
+          onDispose: (value) => print('object'),
+        ));
+    i.addLazySingleton<NfcCubit>(NfcCubit.new,
+        config: BindConfig(
+          onDispose: (value) => print('gol'),
+        ));
   }
 
   Future<bool> initExternalService() async {
@@ -71,14 +80,11 @@ class TrackerModule extends Module {
   }
 
   @override
-  List<Module> get imports => [AcarreoAppModule()];
-
-  @override
   void routes(RouteManager r) {
     r.child(
       '/form',
-      child: (context) => BlocProvider(
-        create: (BuildContext context) => Modular.get<AcarreoCubit>(),
+      child: (context) => BlocProvider.value(
+        value: Modular.get<AcarreoCubit>(),
         child: FutureBuilder(
           future: initExternalService(),
           builder: (context, snapshot) {
@@ -124,4 +130,18 @@ class TrackerModule extends Module {
       ],
     );
   }
+
+  @override
+  void dispose() {
+    print('gola');
+  }
+
+  @override
+  void exportedBinds(Injector i) {
+    // TODO: implement exportedBinds
+  }
+
+  @override
+  // TODO: implement imports
+  List<Module> get imports => throw UnimplementedError();
 }
