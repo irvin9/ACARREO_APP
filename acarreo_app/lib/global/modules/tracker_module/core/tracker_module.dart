@@ -31,7 +31,6 @@ class TrackerModule extends Module {
         Bind.lazySingleton((i) => ApiProjectRepository()),
         Bind.lazySingleton((i) => AcarreoTicketRepository()),
         Bind.lazySingleton((i) => ScanNFCManagerRepository()),
-        Bind.factory((i) => HiveLocalStorageService()),
         Bind.lazySingleton((i) => AcarreoLocationService(
             localStorageService: i(), repository: i(), storage: i())),
         Bind.lazySingleton((i) => AcarreoMaterialService(

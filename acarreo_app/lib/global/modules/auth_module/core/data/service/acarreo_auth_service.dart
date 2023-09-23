@@ -6,8 +6,9 @@ import 'package:acarreo_app/global/modules/auth_module/core/domain/repository/au
 
 class AcarreoAuthService implements AuthService {
   final StorageService storage = Modular.get<StorageService>();
+  final LocalStorageService localStorageService =
+      Modular.get<LocalStorageService>();
   final AuthRepository repository;
-  // final LocalStorageService localStorageService;
 
   AcarreoAuthService({required this.repository});
 
@@ -43,6 +44,7 @@ class AcarreoAuthService implements AuthService {
   Future<void> logout() async {
     try {
       await repository.logout();
+      await localStorageService.clearAllStorage();
       await storage.deleteAll();
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');

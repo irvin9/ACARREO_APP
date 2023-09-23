@@ -11,6 +11,7 @@ class AcarreoAppModule extends Module {
         Bind.singleton((i) => const FlutterSecureStorage()),
         Bind.singleton((i) => FlutterEnvironmentService()),
         Bind.singleton((i) => FlutterStorageService(i())),
+        Bind.factory((i) => HiveLocalStorageService()),
         Bind.singleton((i) => FlutterHttpService(storage: i()))
       ];
 
