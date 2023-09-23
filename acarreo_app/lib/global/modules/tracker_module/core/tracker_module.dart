@@ -36,7 +36,7 @@ import 'package:flutter/material.dart';
 
 const int totalSteps = 4;
 
-class TrackerModule extends Disposable implements Module {
+class TrackerModule extends Module {
   @override
   void binds(Injector i) {
     i.addSingleton<FlutterSecureStorage>(FlutterSecureStorage.new);
@@ -64,14 +64,8 @@ class TrackerModule extends Disposable implements Module {
     i.addLazySingleton<TicketService>(AcarreoTickeService.new);
     i.addLazySingleton<AcarreoDataManagerService>(
         AcarreoDataManagerService.new);
-    i.addLazySingleton<AcarreoCubit>(AcarreoCubit.new,
-        config: BindConfig(
-          onDispose: (value) => print('object'),
-        ));
-    i.addLazySingleton<NfcCubit>(NfcCubit.new,
-        config: BindConfig(
-          onDispose: (value) => print('gol'),
-        ));
+    i.addLazySingleton<AcarreoCubit>(AcarreoCubit.new);
+    i.addLazySingleton<NfcCubit>(NfcCubit.new);
   }
 
   Future<bool> initExternalService() async {
@@ -130,18 +124,4 @@ class TrackerModule extends Disposable implements Module {
       ],
     );
   }
-
-  @override
-  void dispose() {
-    print('gola');
-  }
-
-  @override
-  void exportedBinds(Injector i) {
-    // TODO: implement exportedBinds
-  }
-
-  @override
-  // TODO: implement imports
-  List<Module> get imports => throw UnimplementedError();
 }
