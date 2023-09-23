@@ -7,25 +7,25 @@ class AcarreoAppModule extends Module {
   get imports => [AuthModule()];
 
   @override
-  void binds(Injector i) {
-    i.addSingleton<FlutterSecureStorage>(FlutterSecureStorage.new);
-    i.addSingleton<StorageService>(FlutterStorageService.new);
-    i.addSingleton<EnviromentService>(FlutterEnvironmentService.new);
-    i.addSingleton<HttpService>(FlutterHttpService.new);
-  }
+  List<Bind<Object>> get binds => [
+        Bind.singleton((i) => const FlutterSecureStorage()),
+        Bind.singleton((i) => FlutterEnvironmentService()),
+        Bind.singleton((i) => FlutterStorageService(i())),
+        Bind.singleton((i) => FlutterHttpService(storage: i()))
+      ];
 
   @override
-  void routes(r) {
-    r.module(
-      GlobalRoutesApp.authRoute,
-      module: AuthModule(),
-      guards: [SessionGuard()],
-    );
-    r.module(
-      GlobalRoutesApp.trackerRoute,
-      module: TrackerModule(),
-      guards: [AuthGuard()],
-    );
-    r.redirect('/', to: GlobalRoutesApp.authLoginRoute);
-  }
+  List<ModularRoute> get routes => [
+        ModuleRoute(
+          GlobalRoutesApp.authRoute,
+          module: AuthModule(),
+          guards: [SessionGuard()],
+        ),
+        ModuleRoute(
+          GlobalRoutesApp.trackerRoute,
+          module: TrackerModule(),
+          guards: [AuthGuard()],
+        ),
+        RedirectRoute('/', to: GlobalRoutesApp.authLoginRoute)
+      ];
 }

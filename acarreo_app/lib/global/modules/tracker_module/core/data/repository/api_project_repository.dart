@@ -4,11 +4,9 @@ import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/api_project_model.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/project_repository.dart';
 
-class ApiProjectRepository implements ProjectRepository<ApiProjectModel> {
-  const ApiProjectRepository({required this.http, required this.environment});
-
-  final EnviromentService environment;
-  final HttpService http;
+class ApiProjectRepository extends BaseRepository<ApiProjectModel>
+    implements ProjectRepository<ApiProjectModel> {
+  ApiProjectRepository();
 
   static const String _subCategoryPath = '/obras';
 

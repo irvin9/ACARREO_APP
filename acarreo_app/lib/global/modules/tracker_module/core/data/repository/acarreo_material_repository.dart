@@ -4,7 +4,7 @@ import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_material.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/material_repository.dart';
 
-class AcarreoMaterialRepository extends BaseRepository
+class AcarreoMaterialRepository extends BaseRepository<AcarreoMaterial>
     implements MaterialRepository<AcarreoMaterial> {
   AcarreoMaterialRepository();
 

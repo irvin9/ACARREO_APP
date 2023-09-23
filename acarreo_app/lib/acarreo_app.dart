@@ -13,7 +13,8 @@ class AcarreoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Modular.setInitialRoute(initialRoute);
     return MaterialApp.router(
-      routerConfig: Modular.routerConfig,
+      routeInformationParser: Modular.routeInformationParser,
+      routerDelegate: Modular.routerDelegate,
       title: 'Acarreo App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
