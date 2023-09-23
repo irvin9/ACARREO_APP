@@ -49,7 +49,7 @@ extension ScaffoldScreen on Widget {
       builder: (context, state) {
         return Scaffold(
           key: scaffoldKey,
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           appBar: AppBar(
             title: const SizedBox(
               width: 140,

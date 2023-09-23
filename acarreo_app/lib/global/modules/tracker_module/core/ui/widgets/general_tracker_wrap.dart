@@ -51,15 +51,17 @@ class GeneralTrackerWrap extends StatelessWidget {
             ),
           ),
           Visibility(
-              visible: showMainButton,
-              child: GeneralButton(
-                vertical: 16.0,
-                horizontal: 16.0,
-                buttonText: mainButtonText ?? 'Continuar',
-                buttonElevation: 2.0,
-                textColor: Colors.black87,
-                onPressed: onContinue,
-              )),
+            visible:
+                showMainButton && MediaQuery.of(context).viewInsets.bottom == 0,
+            child: GeneralButton(
+              vertical: 16.0,
+              horizontal: 16.0,
+              buttonText: mainButtonText ?? 'Continuar',
+              buttonElevation: 2.0,
+              textColor: Colors.black87,
+              onPressed: onContinue,
+            ),
+          ),
         ],
       ),
     ).setScaffoldWithAppBar(disableToBack: disableToBack);
