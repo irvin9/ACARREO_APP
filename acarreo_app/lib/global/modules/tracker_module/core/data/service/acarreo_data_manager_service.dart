@@ -79,4 +79,14 @@ class AcarreoDataManagerService implements DataManagerService {
     _localProject = project;
     return true;
   }
+
+  @override
+  Future<bool> hasPeddingTickes() async {
+    final tickets = await ticketService.get();
+
+    if (tickets == null || tickets.isEmpty) {
+      return false;
+    }
+    return true;
+  }
 }

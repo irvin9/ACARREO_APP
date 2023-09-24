@@ -45,6 +45,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     await Future.delayed(Duration.zero);
     emit(const LoadingLocalData());
     final hasData = await managerService.get();
+    _pendingTickets = await managerService.hasPeddingTickes();
     if (!hasData) {
       updateLocalData();
     }

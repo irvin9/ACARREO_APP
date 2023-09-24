@@ -37,11 +37,10 @@ class AcarreoTickeService implements TicketService<AcarreoTicket> {
   @override
   get() async {
     try {
-      final currentUser = await storage.getCurrentUser();
-      final trucks = await repository.getTicketsByUser(
-        currentUser.id.toString(),
-      );
-      return trucks;
+      final items = await localStorageService.getItems();
+      final tickets =
+          items.cast().map((i) => AcarreoTicket.fromJson(i)).toList();
+      return tickets;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
       debugPrint(e.toString());
