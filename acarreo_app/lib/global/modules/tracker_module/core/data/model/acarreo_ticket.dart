@@ -14,7 +14,7 @@ class AcarreoTicket {
   final int? idTracker;
   final int idTruck;
   final String folioTicket;
-  final int typeLocation;
+  final int? typeLocation;
   final DateTime? updatedAt;
 
   AcarreoTicket({
@@ -116,7 +116,6 @@ class AcarreoTicket {
   Map<String, dynamic> toTicketOrigenJson() {
     assert(idTracker != null);
     final apiMap = toMap();
-    apiMap['folio_origin'] = apiMap.remove('folio_ticket');
     apiMap['id_end_travel'] = -1;
     apiMap.remove('id');
     apiMap.remove('type_location');

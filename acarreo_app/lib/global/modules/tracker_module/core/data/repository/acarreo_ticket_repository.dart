@@ -6,8 +6,8 @@ import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository
 
 class AcarreoTicketRepository extends BaseRepository<AcarreoTicket>
     implements TicketRepository<AcarreoTicket> {
-  static const String _subCategoryPathOrigin = '/tickets';
-  static const String _subCategoryPathDestination = '/ticketsrecepcion';
+  static const String _subCategoryPathOrigin = '/tickets/';
+  static const String _subCategoryPathDestination = '/ticketsrecepcion/';
 
   AcarreoTicketRepository();
 
@@ -26,8 +26,11 @@ class AcarreoTicketRepository extends BaseRepository<AcarreoTicket>
       data = ticket.toTicketDestinationJson();
     }
 
-    final response =
-        await http.request(url: url, httpMethod: HttpMethods.POST, data: data);
+    final response = await http.request(
+        url: url,
+        token: TypeToken.bearerToken,
+        httpMethod: HttpMethods.POST,
+        data: data);
     if (response.statusCode != HttpStatus.ok) {
       throw ApiRestException.fromResponse(response);
     }
