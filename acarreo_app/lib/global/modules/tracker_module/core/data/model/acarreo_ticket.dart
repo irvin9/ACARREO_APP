@@ -5,61 +5,57 @@ class AcarreoTicket {
   final DateTime date;
   final String description;
   final String folio;
-  final int id;
+  final int? id;
   final int idClient;
-  final int idEndTravel;
+  final int? idEndTravel;
   final int idMaterial;
   final int idProject;
   final int idStartTravel;
-  final int idTracker;
+  final int? idTracker;
   final int idTruck;
+  final String folioTicket;
+  final int typeLocation;
   final DateTime? updatedAt;
 
   AcarreoTicket({
-    required this.createdAt,
+    this.id,
     required this.date,
     required this.description,
     required this.folio,
-    required this.id,
     required this.idClient,
-    required this.idEndTravel,
+    this.idEndTravel,
     required this.idMaterial,
     required this.idProject,
     required this.idStartTravel,
     required this.idTracker,
     required this.idTruck,
-    required this.updatedAt,
+    required this.folioTicket,
+    required this.typeLocation,
+    this.updatedAt,
+    required this.createdAt,
   });
 
-  AcarreoTicket copyWith({
-    DateTime? createdAt,
-    DateTime? date,
-    String? description,
-    String? folio,
-    int? id,
-    int? idClient,
-    int? idEndTravel,
-    int? idMaterial,
-    int? idProject,
-    int? idStartTravel,
-    int? idTracker,
-    int? idTruck,
-    DateTime? updatedAt,
-  }) =>
+  AcarreoTicket copyWith(
+          {DateTime? date,
+          String? description,
+          String? folio,
+          int? idTracker}) =>
       AcarreoTicket(
-        createdAt: createdAt ?? this.createdAt,
+        createdAt: createdAt,
         date: date ?? this.date,
         description: description ?? this.description,
         folio: folio ?? this.folio,
-        id: id ?? this.id,
-        idClient: idClient ?? this.idClient,
-        idEndTravel: idEndTravel ?? this.idEndTravel,
-        idMaterial: idMaterial ?? this.idMaterial,
-        idProject: idProject ?? this.idProject,
-        idStartTravel: idStartTravel ?? this.idStartTravel,
+        id: id,
+        idClient: idClient,
+        idEndTravel: idEndTravel,
+        idMaterial: idMaterial,
+        idProject: idProject,
+        idStartTravel: idStartTravel,
         idTracker: idTracker ?? this.idTracker,
-        idTruck: idTruck ?? this.idTruck,
-        updatedAt: updatedAt ?? this.updatedAt,
+        idTruck: idTruck,
+        folioTicket: folioTicket,
+        typeLocation: typeLocation,
+        updatedAt: updatedAt,
       );
 
   factory AcarreoTicket.fromRawJson(String str) =>
@@ -72,6 +68,8 @@ class AcarreoTicket {
         date: DateTime.parse(json["date"]),
         description: json["description"],
         folio: json["folio"],
+        typeLocation: json["type_location"],
+        folioTicket: json["folio_origin"] ?? json["folio_ticket"],
         id: json["id"],
         idClient: json["id_client"],
         idEndTravel: json["id_end_travel"],
@@ -85,9 +83,55 @@ class AcarreoTicket {
             : null,
       );
 
+  factory AcarreoTicket.fromForm(Map<String, dynamic> answers) => AcarreoTicket(
+        createdAt: DateTime.now(),
+        date: answers["date"],
+        description: answers["description"],
+        folio: answers["folio"],
+        typeLocation: answers["type_location"] == 'origen' ? 1 : 2,
+        folioTicket: answers["folioId"],
+        id: null,
+        idClient: answers["id_client"],
+        idEndTravel: int.parse(answers["id_location"]),
+        idMaterial: int.parse(answers["id_material"]),
+        idProject: answers["id_project"],
+        idStartTravel: int.parse(answers["id_location"]),
+        idTracker: 0,
+        idTruck: answers["id_truck"],
+        updatedAt: null,
+      );
+
   Map<String, dynamic> toApiJson() {
+    assert(idTracker != null);
     final apiMap = toMap();
     apiMap.remove('id');
+    apiMap['folio_ticket'] = apiMap.remove('folio_ticket');
+    apiMap.remove('type_location');
+    apiMap.remove('id_start_travel');
+    apiMap.remove('created_at');
+    apiMap.remove('updated_at');
+    return apiMap;
+  }
+
+  Map<String, dynamic> toTicketOrigenJson() {
+    assert(idTracker != null);
+    final apiMap = toMap();
+    apiMap['folio_origin'] = apiMap.remove('folio_ticket');
+    apiMap['id_end_travel'] = -1;
+    apiMap.remove('id');
+    apiMap.remove('type_location');
+    apiMap.remove('created_at');
+    apiMap.remove('updated_at');
+    return apiMap;
+  }
+
+  Map<String, dynamic> toTicketDestinationJson() {
+    assert(idTracker != null);
+    final apiMap = toMap();
+    apiMap.remove('id');
+    apiMap['folio_origin'] = apiMap.remove('folio_ticket');
+    apiMap.remove('type_location');
+    apiMap.remove('id_start_travel');
     apiMap.remove('created_at');
     apiMap.remove('updated_at');
     return apiMap;
@@ -98,8 +142,9 @@ class AcarreoTicket {
         "date": date.toIso8601String(),
         "description": description,
         "folio": folio,
-        "id": id,
         "id_client": idClient,
+        "type_location": typeLocation,
+        "folio_ticket": folioTicket,
         "id_end_travel": idEndTravel,
         "id_material": idMaterial,
         "id_project": idProject,
