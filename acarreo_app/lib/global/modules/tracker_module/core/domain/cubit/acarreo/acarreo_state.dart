@@ -13,6 +13,18 @@ class AcarreoInitState extends AcarreoState {
   List<Object?> get props => [];
 }
 
+class AcarreoInitCreateTicket extends AcarreoState {
+  const AcarreoInitCreateTicket();
+  @override
+  List<Object?> get props => [];
+}
+
+class AcarreoShowModalTicketPrint extends AcarreoState {
+  const AcarreoShowModalTicketPrint();
+  @override
+  List<Object?> get props => [];
+}
+
 class AcarreoShowLoadingModal extends AcarreoState {
   final Map<String, dynamic> message;
 

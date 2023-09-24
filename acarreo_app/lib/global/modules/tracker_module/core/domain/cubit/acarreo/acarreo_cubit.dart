@@ -64,13 +64,24 @@ class AcarreoCubit extends Cubit<AcarreoState> {
   }
 
   Future<void> createTicket() async {
+    await Future.delayed(Duration.zero);
+    emit(const AcarreoInitCreateTicket());
     final truck = _formAnswers['currentTruck'] as AcarreoTruck;
     _formAnswers['id_client'] = truck.idClient;
     _formAnswers['id_project'] = truck.idProject;
     _formAnswers['id_truck'] = truck.id;
     final ticket = AcarreoTicket.fromForm(_formAnswers);
     final success = await managerService.ticketService.createTicket(ticket);
-    if (success == null) _pendingTickets = false;
+    if (success != null) {
+      _pendingTickets = true;
+      emit(const AcarreoShowModalTicketPrint());
+      return;
+    }
+    _pendingTickets = false;
+    emit(const AcarreoError({
+      'title': 'Error al crear ticket',
+      'description': 'No hemos podido crear tu ticket.'
+    }));
   }
 
   Future<void> updateTickets() async {
@@ -83,10 +94,8 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     final tickets = await managerService.ticketService.get() ?? [];
 
     for (var ticket in tickets) {
-      await Future.delayed(const Duration(seconds: 2));
-      debugPrint(ticket.toMap().toString());
-      final status = false;
-      if (!status) {
+      final newTicket = await managerService.ticketService.uploadTicket(ticket);
+      if (newTicket == null) {
         _pendingTickets = true;
         emit(const AcarreoError({
           'title': 'Ha ocurrido un error',
