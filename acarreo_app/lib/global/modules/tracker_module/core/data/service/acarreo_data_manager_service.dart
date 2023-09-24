@@ -1,5 +1,6 @@
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_location.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_material.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/api_project_model.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/data_manager_service.dart';
@@ -13,7 +14,7 @@ import 'package:flutter/foundation.dart';
 class AcarreoDataManagerService implements DataManagerService {
   final LocationService<AcarreoLocation> locationService;
   final MaterialService<AcarreoMaterial> materialService;
-  final TicketService ticketService;
+  final TicketService<AcarreoTicket> ticketService;
   final TruckService<AcarreoTruck> truckService;
   final ProjectService<ApiProjectModel> projectService;
 

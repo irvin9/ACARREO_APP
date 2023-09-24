@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
 
 class AcarreoCubit extends Cubit<AcarreoState> {
   AcarreoCubit(this.managerService) : super(const AcarreoInitState());
@@ -58,6 +60,18 @@ class AcarreoCubit extends Cubit<AcarreoState> {
 
   dynamic getAnswersForm(String key) {
     return _formAnswers[key];
+  }
+
+  Future<void> createTicket() async {
+    final truck = _formAnswers['currentTruck'] as AcarreoTruck;
+    _formAnswers['id_client'] = truck.idClient;
+    _formAnswers['id_project'] = truck.idProject;
+    _formAnswers['id_truck'] = truck.id;
+    final ticket = AcarreoTicket.fromForm(_formAnswers);
+    final success = await managerService.ticketService.createTicket(ticket);
+    if (success != null) {
+      _pendingTickets = true;
+    }
   }
 
   Future<void> updateTickets() async {

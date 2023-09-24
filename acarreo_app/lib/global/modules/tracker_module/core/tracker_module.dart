@@ -37,8 +37,8 @@ class TrackerModule extends Module {
             localStorageService: i(), repository: i(), storage: i())),
         Bind.lazySingleton((i) => AcarreoTruckService(
             localStorageService: i(), repository: i(), storage: i())),
-        Bind.lazySingleton(
-            (i) => AcarreoTickeService(repository: i(), storage: i())),
+        Bind.lazySingleton((i) => AcarreoTickeService(
+            localStorageService: i(), repository: i(), storage: i())),
         Bind.lazySingleton((i) => ApiProjectService(
             localStorageService: i(), repository: i(), storage: i())),
         Bind.lazySingleton(

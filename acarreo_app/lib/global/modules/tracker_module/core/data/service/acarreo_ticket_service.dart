@@ -6,15 +6,26 @@ import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/ti
 class AcarreoTickeService implements TicketService<AcarreoTicket> {
   final TicketRepository<AcarreoTicket> repository;
   final StorageService storage;
+  final LocalStorageService localStorageService;
 
-  AcarreoTickeService({required this.repository, required this.storage});
+  AcarreoTickeService({
+    required this.repository,
+    required this.storage,
+    required this.localStorageService,
+  }) {
+    localStorageService.init(StorageLocalNames.tickets);
+  }
 
   @override
   createTicket(ticket) async {
     try {
-      // final currentUser = await storage.getCurrentUser();
-      final newTicket = await repository.createTicket(ticket);
-      return newTicket;
+      final currentUser = await storage.getCurrentUser();
+      final ticketCopy = ticket.copyWith(idTracker: currentUser.id);
+      localStorageService.saveBykey(
+        ticketCopy.folioTicket,
+        ticketCopy.toMap(),
+      );
+      return ticketCopy;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
       debugPrint(e.toString());

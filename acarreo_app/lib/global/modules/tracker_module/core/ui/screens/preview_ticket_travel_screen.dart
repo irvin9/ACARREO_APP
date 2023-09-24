@@ -32,8 +32,9 @@ class PreviewTicketTravelScreen extends StatelessWidget {
     return GeneralTrackerWrap(
       mainButtonText: 'Generar Ticket',
       onContinue: () {
-        bloc.clearAnswers();
-        bloc.goTo(GlobalRoutesApp.registerTravelRoute);
+        bloc.createTicket();
+        // bloc.clearAnswers();
+        // bloc.goTo(GlobalRoutesApp.registerTravelRoute);
       },
       currentStep: currentStep,
       children: [
