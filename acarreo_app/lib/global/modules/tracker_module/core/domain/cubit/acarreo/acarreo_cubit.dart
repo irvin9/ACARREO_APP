@@ -70,17 +70,33 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     _formAnswers['id_truck'] = truck.id;
     final ticket = AcarreoTicket.fromForm(_formAnswers);
     final success = await managerService.ticketService.createTicket(ticket);
-    if (success != null) {
-      _pendingTickets = true;
-    }
+    if (success == null) _pendingTickets = false;
   }
 
   Future<void> updateTickets() async {
     await Future.delayed(Duration.zero);
+    if (!_pendingTickets) return;
     emit(const AcarreoShowLoadingModal(message: {
       'title': 'Subiendo archivos pendientes',
       'description': 'Espere estamos subiendo la información pendiente...',
     }));
+    final tickets = await managerService.ticketService.get() ?? [];
+
+    for (var ticket in tickets) {
+      await Future.delayed(const Duration(seconds: 2));
+      debugPrint(ticket.toMap().toString());
+      final status = false;
+      if (!status) {
+        _pendingTickets = true;
+        emit(const AcarreoError({
+          'title': 'Ha ocurrido un error',
+          'description': 'No hemos podido terminar la carga de tickets, '
+              'intente más tarde'
+        }));
+        return;
+      }
+    }
+    _pendingTickets = false;
     emit(const AcarreoSuccess());
   }
 

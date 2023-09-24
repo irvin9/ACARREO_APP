@@ -54,4 +54,31 @@ class AcarreoTickeService implements TicketService<AcarreoTicket> {
     // TODO: implement update
     throw UnimplementedError();
   }
+
+  @override
+  Future<bool> deleteTicket(String id) async {
+    try {
+      await localStorageService.deleteItem(id);
+      return true;
+    } catch (e, s) {
+      debugPrint('Exception on -> ${runtimeType.toString()}');
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: s);
+      return false;
+    }
+  }
+
+  @override
+  Future<AcarreoTicket?> uploadTicket(AcarreoTicket ticket) async {
+    try {
+      final newTicket = await repository.createTicket(ticket);
+      await localStorageService.deleteItem(newTicket.folioTicket);
+      return newTicket;
+    } catch (e, s) {
+      debugPrint('Exception on -> ${runtimeType.toString()}');
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: s);
+      return null;
+    }
+  }
 }
