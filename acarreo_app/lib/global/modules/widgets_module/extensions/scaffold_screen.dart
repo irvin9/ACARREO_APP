@@ -4,7 +4,6 @@ import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acar
 import 'package:acarreo_app/global/modules/widgets_module/dialog_error.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_loader.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_logout.dart';
-import 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 

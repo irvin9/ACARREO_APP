@@ -135,4 +135,10 @@ class AcarreoCubit extends Cubit<AcarreoState> {
   Future<void> goTo(String route) {
     return Modular.to.pushNamedAndRemoveUntil(route, (p0) => false);
   }
+
+  finishForm(String route) async {
+    clearAnswers();
+    await goTo(route);
+    emit(const AcarreoInitState());
+  }
 }
