@@ -8,7 +8,7 @@ class AcarreoMaterialRepository extends BaseRepository<AcarreoMaterial>
     implements MaterialRepository<AcarreoMaterial> {
   AcarreoMaterialRepository();
 
-  static const String _subCategoryPath = '/materiales';
+  static const String _subCategoryPath = '/materiales/';
   @override
   getMaterialsByClientAndProject(String idClient, String idProject) async {
     final String hostUrl = environment.apiHostUrl;
@@ -20,7 +20,10 @@ class AcarreoMaterialRepository extends BaseRepository<AcarreoMaterial>
       'id_project': idProject
     };
     final response = await http.request(
-        url: url, httpMethod: HttpMethods.GET, params: params);
+        url: url,
+        token: TypeToken.bearerToken,
+        httpMethod: HttpMethods.GET,
+        params: params);
     if (response.statusCode != HttpStatus.ok) {
       throw ApiRestException.fromResponse(response);
     }

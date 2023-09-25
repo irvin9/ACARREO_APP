@@ -8,7 +8,7 @@ class ApiProjectRepository extends BaseRepository<ApiProjectModel>
     implements ProjectRepository<ApiProjectModel> {
   ApiProjectRepository();
 
-  static const String _subCategoryPath = '/obras';
+  static const String _subCategoryPath = '/obras/';
 
   @override
   Future<ApiProjectModel> getById(String id) async {

@@ -8,7 +8,7 @@ class AcarreoTruckRepository extends BaseRepository
     implements TruckRepository<AcarreoTruck> {
   AcarreoTruckRepository();
 
-  static const String _subCategoryPath = '/camiones';
+  static const String _subCategoryPath = '/camiones/';
 
   @override
   Future<AcarreoTruck> getTruckByPlate(String plate) async {

@@ -8,7 +8,7 @@ class AcarreoLocationRepository extends BaseRepository<AcarreoLocation>
     implements LocationRepository<AcarreoLocation> {
   AcarreoLocationRepository();
 
-  static const String _subCategoryPath = '/ubicaciones';
+  static const String _subCategoryPath = '/ubicaciones/';
 
   @override
   getLocationsByClientAndProject(String idClient, String idProject) async {
