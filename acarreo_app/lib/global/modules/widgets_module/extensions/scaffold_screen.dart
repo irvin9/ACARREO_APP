@@ -3,6 +3,8 @@ import 'package:acarreo_app/global/modules/auth_module/core/domain/cubits/auth/a
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_error.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_loader.dart';
+import 'package:acarreo_app/global/modules/widgets_module/dialog_logout.dart';
+import 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
@@ -130,7 +132,19 @@ extension ScaffoldScreen on Widget {
                   ),
                 ],
                 onSelected: (value) {
-                  if (value == 'logout') Modular.get<AuthCubit>().logout();
+                  if (value == 'logout') {
+                    DialogLogout.show(
+                        context,
+                        DialogMessageModel.fromMap(
+                          {
+                            'title': '¿Desea salir de su sesión?',
+                            'description':
+                                'Al salir los datos actuales se perderán.'
+                          },
+                        ),
+                        () => Modular.get<AuthCubit>().logout(),
+                        () => DialogLogout.hide(context));
+                  }
                 },
               ).withPaddingSymmetric(vertical: 0),
             ],
