@@ -62,14 +62,14 @@ class DetailsTicketForm extends StatelessWidget {
             child: CustomTextFormField(
               label: 'Folio Ticket',
               placeholder: 'Ingrese el folio',
-              initialValue: bloc.formAnswers['folioTicket'] ?? '',
+              initialValue: bloc.formAnswers['folio'] ?? '',
               maxLength: 20,
               maxLines: 1,
               keyboardType: TextInputType.number,
               textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
               validators: const {'NOT_NULL': '', 'MIN_LENGTH': 20},
               onChanged: (value) {
-                bloc.addAnswer('folioTicket', value);
+                bloc.addAnswer('folio', value);
               },
             ),
           ),

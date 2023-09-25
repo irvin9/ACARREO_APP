@@ -10,7 +10,7 @@ class AcarreoTicket {
   final int? idEndTravel;
   final int idMaterial;
   final int idProject;
-  final int idStartTravel;
+  final int? idStartTravel;
   final int? idTracker;
   final int idTruck;
   final String folioTicket;
@@ -96,7 +96,7 @@ class AcarreoTicket {
         idMaterial: int.parse(answers["id_material"]),
         idProject: answers["id_project"],
         idStartTravel: int.parse(answers["id_location"]),
-        idTracker: 0,
+        idTracker: null,
         idTruck: answers["id_truck"],
         updatedAt: null,
       );
@@ -128,7 +128,8 @@ class AcarreoTicket {
     assert(idTracker != null);
     final apiMap = toMap();
     apiMap.remove('id');
-    apiMap['folio_origin'] = apiMap.remove('folio_ticket');
+    apiMap['folio_origin'] = apiMap.remove('folio');
+    apiMap['folio'] = apiMap.remove('folio_ticket');
     apiMap.remove('type_location');
     apiMap.remove('id_start_travel');
     apiMap.remove('created_at');
