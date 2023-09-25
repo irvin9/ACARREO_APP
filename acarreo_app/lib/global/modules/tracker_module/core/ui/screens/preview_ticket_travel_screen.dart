@@ -25,6 +25,9 @@ class PreviewTicketTravelScreen extends StatelessWidget {
     final int materialId = int.parse(bloc.getAnswersForm('id_material'));
     final material = bloc.managerService.materials
         .firstWhere((item) => materialId == item.id);
+    final int locationId = int.parse(bloc.getAnswersForm('id_location'));
+    final location = bloc.managerService.locations
+        .firstWhere((item) => item.id == locationId);
     final captureDate =
         DateFormat('dd/MM/yy hh:mm a').format(bloc.formAnswers['date']);
     final ticketCode = bloc.generateTicketCode();
@@ -33,8 +36,6 @@ class PreviewTicketTravelScreen extends StatelessWidget {
       mainButtonText: 'Generar Ticket',
       onContinue: () {
         bloc.createTicket();
-        // bloc.clearAnswers();
-        // bloc.goTo(GlobalRoutesApp.registerTravelRoute);
       },
       currentStep: currentStep,
       children: [
@@ -65,7 +66,7 @@ class PreviewTicketTravelScreen extends StatelessWidget {
                     FormValues.mappingTypeLocation['1'] == answerTypeLocation
                         ? 'Origen:'
                         : 'Destino:',
-                valueText: 'FLAMBOYANES ACOPIO',
+                valueText: location.name,
               ),
               ConceptTextTicket(
                 conceptText: 'Material:',
