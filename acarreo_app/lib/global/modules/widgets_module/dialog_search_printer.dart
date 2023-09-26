@@ -2,6 +2,7 @@ import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/printer/printer_cubit.dart';
 import 'package:acarreo_app/global/modules/widgets_module/general_button.dart';
 import 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';
+import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
 class DialogSearchPrinter {
@@ -30,7 +31,7 @@ class DialogSearchPrinter {
                   onPressed: state is PrintersInitSearch
                       ? null
                       : () => _cubit.findPrinters(),
-                ),
+                ).withPaddingSymmetric(vertical: 12.0, horizontal: 0.0),
               ),
               Visibility(
                 visible:
@@ -81,19 +82,24 @@ class DialogSearchPrinter {
   }
 
   static _buildListPrinters(List<StarXpandPrinter> printers) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return ListTile(
-          onTap: () {
-            _cubit.selectPrinter(printers[index]);
-            hide(context);
-          },
-          leading: const Icon(Icons.print, size: 18, color: Colors.black87),
-          title: Text(printers[index].model.label),
-          subtitle: Text(printers[index].identifier),
-        );
-      },
+    return SizedBox(
+      height: 200,
+      width: double.maxFinite,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: printers.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            onTap: () {
+              _cubit.selectPrinter(printers[index]);
+              hide(context);
+            },
+            leading: const Icon(Icons.print, size: 24, color: Colors.black87),
+            title: Text(printers[index].model.label),
+            subtitle: Text(printers[index].identifier),
+          );
+        },
+      ),
     );
   }
 

@@ -26,7 +26,7 @@ class StartxpandPrinterBluetoothService {
         "Fecha:  ${data['date']}\n"
         "Origen: ${data['location']}\n"
         "Material: ${data['material']}\n"
-        "Pacas:  ${data['plates']}\n"
+        "Placas:  ${data['plates']}\n"
         "M3: ${data['capacity']}\n"
         "Nota: ${data['description']}\n"
         "\n\n");
