@@ -8,7 +8,6 @@ class AcarreoLocation {
     required this.idProject,
     required this.latitude,
     required this.longitude,
-    required this.folio,
     required this.type,
     required this.name,
     required this.state,
@@ -26,7 +25,6 @@ class AcarreoLocation {
         idProject: json["id_project"],
         latitude: json["latitude"],
         longitude: json["longitude"],
-        folio: json["folio"],
         type: json["type"],
         name: json["name"],
         state: json["state"],
@@ -41,7 +39,6 @@ class AcarreoLocation {
   final int idProject;
   final String latitude;
   final String type;
-  final String folio;
   final String longitude;
   final String name;
   final int state;
@@ -65,7 +62,6 @@ class AcarreoLocation {
         name: name ?? this.name,
         state: state ?? this.state,
         updatedAt: updatedAt,
-        folio: folio ?? this.folio,
         type: type ?? this.type,
       );
 
@@ -87,7 +83,6 @@ class AcarreoLocation {
         "longitude": longitude,
         "name": name,
         "state": state,
-        "folio": folio,
         "type": type,
         "updated_at": updatedAt?.toIso8601String(),
       };
