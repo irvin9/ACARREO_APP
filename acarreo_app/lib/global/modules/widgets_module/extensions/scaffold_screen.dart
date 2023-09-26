@@ -1,7 +1,6 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/cubits/auth/auth_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
-import 'package:acarreo_app/global/modules/widgets_module/custom_popup_menu_item.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_error.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_loader.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_logout.dart';
