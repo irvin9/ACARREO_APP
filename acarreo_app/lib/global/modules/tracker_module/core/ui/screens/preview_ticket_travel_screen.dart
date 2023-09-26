@@ -3,7 +3,7 @@ import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarre
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/concept_text_ticket.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_wrap.dart';
-import 'package:acarreo_app/global/modules/widgets_module/dialog_pritting.dart';
+import 'package:acarreo_app/global/modules/widgets_module/dialog_printting.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
