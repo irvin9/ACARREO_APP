@@ -19,11 +19,13 @@ dependencies:
   google_fonts: ^5.1.0
   http_interceptor: ^2.0.0-beta.7
   equatable: ^2.0.5
-  # printing: ^5.11.0
+  starxpand: ^0.0.2
   flutter_nfc_kit: ^3.3.3
   path_provider: ^2.1.1
   barcode_widget: ^2.0.4
   intl: ^0.18.1
+  open_settings: ^2.0.2
+  flutter_blue: ^0.8.0
 
 dev_dependencies:
   flutter_test:

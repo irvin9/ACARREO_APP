@@ -57,5 +57,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UISupportedExternalAccessoryProtocols</key>
+	<array>
+		<string>jp.star-m.starpro</string>
+	</array>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Our app uses bluetooth to find, connect and print to Star printers.</string>
+
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Our app uses bluetooth to find, connect and print to Star printers.</string>
+
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Our app uses LAN to find, connect and print to Star printers.</string>
 </dict>
 </plist>

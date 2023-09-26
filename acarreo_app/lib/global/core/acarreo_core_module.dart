@@ -6,6 +6,9 @@ export 'package:google_fonts/google_fonts.dart';
 export 'package:equatable/equatable.dart';
 export 'package:hive_flutter/hive_flutter.dart';
 export 'package:path_provider/path_provider.dart';
+export 'package:flutter_blue/flutter_blue.dart';
+export 'package:starxpand/starxpand.dart';
+export 'package:open_settings/open_settings.dart';
 
 export 'package:acarreo_app/global/core/routes/global_routes_app.dart';
 export 'package:acarreo_app/global/core/routes/guards/session_guard.dart';
@@ -37,3 +40,4 @@ export 'package:acarreo_app/global/core/constant/storage_local_names.dart';
 export 'package:acarreo_app/global/modules/tracker_module/core/data/service/acarreo_data_manager_service.dart';
 export 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_state.dart';
 export 'package:acarreo_app/global/core/domain/service/base_service.dart';
+export 'package:acarreo_app/global/core/data/service/starxpand_printer_bluetooth_service.dart';
