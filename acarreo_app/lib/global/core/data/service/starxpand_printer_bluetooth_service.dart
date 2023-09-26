@@ -4,16 +4,58 @@ import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 class StartxpandPrinterBluetoothService {
   final FlutterBlue flutterBlue = FlutterBlue.instance;
 
-  getImageData(String asset) async {
+  Future<Uint8List> getImageData(String asset) async {
     final ByteData byteData = await rootBundle.load(asset);
     return byteData.buffer.asUint8List();
   }
 
-  Future<bool> print(StarXpandPrinter printer) async {
+  Future<void> _appendTittle(
+      StarXpandDocument doc, StarXpandDocumentPrint printDoc) async {
+    final logoImage = await getImageData('assets/logo/logo-icon.png');
+    printDoc.style(alignment: StarXpandStyleAlignment.center);
+    printDoc.actionPrintImage(logoImage, 350);
+    printDoc.actionPrintText("--------------------------------\n");
+  }
+
+  void appendBody(StarXpandDocument doc, StarXpandDocumentPrint printDoc,
+      Map<String, dynamic> data) {
+    printDoc.style(alignment: StarXpandStyleAlignment.left);
+
+    printDoc.actionPrintText("Desarrolladora: ${data['enterpriseName']}\n"
+        "Proyecto: ${data['projectName']}\n"
+        "Fecha:  ${data['date']}\n"
+        "Origen: ${data['location']}\n"
+        "Material: ${data['material']}\n"
+        "Pacas:  ${data['plates']}\n"
+        "M3: ${data['capacity']}\n"
+        "Nota: ${data['description']}\n"
+        "\n\n");
+    printDoc.actionPrintText("--------------------------------\n");
+  }
+
+  void _appendBarCode(
+      StarXpandDocument doc, StarXpandDocumentPrint printDoc, String barcode) {
+    printDoc.style(alignment: StarXpandStyleAlignment.center);
+    printDoc.actionFeedLine(1);
+    printDoc.actionPrintBarcode(barcode,
+        symbology: StarXpandBarcodeSymbology.code128,
+        barDots: 1,
+        height: 10.0,
+        printHri: true);
+
+    printDoc.actionFeedLine(5);
+  }
+
+  Future<bool> print(
+      StarXpandPrinter printer, Map<String, dynamic> data) async {
     final doc = StarXpandDocument();
     final printDoc = StarXpandDocumentPrint();
 
     try {
+      await _appendTittle(doc, printDoc);
+      appendBody(doc, printDoc, data);
+      _appendBarCode(doc, printDoc, data['barcode']);
+
       doc.addPrint(printDoc);
       doc.addDrawer(StarXpandDocumentDrawer());
       StarXpand.printDocument(printer, doc);
