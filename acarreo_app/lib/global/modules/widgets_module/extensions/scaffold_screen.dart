@@ -1,9 +1,11 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/cubits/auth/auth_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
+import 'package:acarreo_app/global/modules/widgets_module/custom_popup_menu_item.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_error.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_loader.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_logout.dart';
+import 'package:acarreo_app/global/modules/widgets_module/dialog_search_printer.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
@@ -72,6 +74,36 @@ extension ScaffoldScreen on Widget {
               ),
               PopupMenuButton<String>(
                 itemBuilder: (context) => [
+                  const PopupMenuItem(
+                    value: 'printers',
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Icon(
+                              Icons.print_outlined,
+                              size: 24,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: SizedBox(
+                              width: 10.0,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Impresoras',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const PopupMenuDivider(
+                    height: 10,
+                  ),
                   const PopupMenuItem(
                     value: 'about',
                     child: Text.rich(
@@ -143,6 +175,9 @@ extension ScaffoldScreen on Widget {
                         ),
                         () => Modular.get<AuthCubit>().logout(),
                         () => DialogLogout.hide(context));
+                  }
+                  if (value == 'printers') {
+                    DialogSearchPrinter.show(context);
                   }
                 },
               ).withPaddingSymmetric(vertical: 0),
