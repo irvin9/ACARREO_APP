@@ -61,6 +61,7 @@ void loop() {
   Serial.print(F(" PICC type: "));   // Dump PICC type
   MFRC522::PICC_Type piccType = mfrc522.PICC_GetType(mfrc522.uid.sak);
   Serial.println(mfrc522.PICC_GetTypeName(piccType));
+  Serial.print("Info: ");
 
   byte block;
   MFRC522::StatusCode status;
@@ -116,7 +117,9 @@ void loop() {
 
   Serial.setTimeout(20000L) ;     // wait until 20 seconds for input from serial
   // Ask personal data: Family name
-  Serial.println(F("Type Family name, ending with #"));
+  Serial.println(F("Press any key to write info"));
+  while(Serial.available() == 0);
+  Serial.println(F("Type truck brand, ending with #"));
   len = Serial.readBytesUntil('#', (char *) writeBuffer, 30) ; // read family name from serial
   for (byte i = len; i < 30; i++) writeBuffer[i] = ' ';     // pad with spaces
 
@@ -158,7 +161,9 @@ void loop() {
   else Serial.println(F("MIFARE_Write() success: "));
 
   // Ask personal data: First name
-  Serial.println(F("Type First name, ending with #"));
+  Serial.println(F("Press any key to write truck plate"));
+  while(Serial.available() == 0);
+  Serial.println(F("Type Truck plate, ending with #"));
   len = Serial.readBytesUntil('#', (char *) writeBuffer, 20) ; // read first name from serial
   for (byte i = len; i < 20; i++) writeBuffer[i] = ' ';     // pad with spaces
 
