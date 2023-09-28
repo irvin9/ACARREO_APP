@@ -29,8 +29,7 @@ class DialogPritting {
       case PrinterSuccessPrint():
         return _buildSuccessBody();
       case PrinterInitPrint():
-        return const LoaderInnerDialog(
-            description: 'Estamos imprimiendo su ticket...');
+        return _buildLoaderBody();
       default:
         return _buildInitBody(context, message);
     }
@@ -88,6 +87,20 @@ class DialogPritting {
           ),
         ],
       ),
+    );
+  }
+
+  static _buildLoaderBody() {
+    return AlertDialog(
+      title: Text(
+        'Imprimiendo ticket',
+        textAlign: TextAlign.center,
+        style: GoogleFonts.poppins(fontSize: 20.0, fontWeight: FontWeight.w700),
+      ),
+      icon:
+          const Icon(Icons.check_circle_outline, size: 60, color: Colors.green),
+      content: const LoaderInnerDialog(
+          description: 'Estamos imprimiendo su ticket...'),
     );
   }
 

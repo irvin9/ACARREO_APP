@@ -58,7 +58,8 @@ class StartxpandPrinterBluetoothService {
 
       doc.addPrint(printDoc);
       doc.addDrawer(StarXpandDocumentDrawer());
-      final status = await StarXpand.printDocument(printer, doc);
+      final status = await StarXpand.printDocument(printer, doc)
+          .timeout(const Duration(seconds: 30));
       return status;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
