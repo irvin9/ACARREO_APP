@@ -7,8 +7,8 @@ class PrinterCubit extends Cubit<PrinterState> {
   final List<StarXpandPrinter> _printers = [];
   StarXpandPrinter? _selectedPrinter;
 
-  get printers => _printers;
-  get selectedPrinter => _selectedPrinter;
+  List<StarXpandPrinter> get printers => _printers;
+  StarXpandPrinter? get selectedPrinter => _selectedPrinter;
 
   PrinterCubit(this.printerService) : super(const PrinterInitial());
 
@@ -27,6 +27,12 @@ class PrinterCubit extends Cubit<PrinterState> {
     }
     _printers.addAll(newPrinters);
     emit(PrintersFound(newPrinters));
+  }
+
+  Future<bool> print(Map<String, dynamic> data) async {
+    if (selectedPrinter == null) return false;
+    final status = await printerService.print(selectedPrinter!, data);
+    return status;
   }
 
   void selectPrinter(StarXpandPrinter printer) {

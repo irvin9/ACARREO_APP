@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class GeneralButton extends StatelessWidget {
   final double horizontal;
   final double vertical;
+  final double fontSize;
   final String buttonText;
   final Color textColor;
   final Color buttonColor;
@@ -17,6 +18,7 @@ class GeneralButton extends StatelessWidget {
     Key? key,
     this.height = 54.0,
     this.borderRadius = 12.0,
+    this.fontSize = 20,
     this.onPressed,
     this.horizontal = 0.0,
     this.vertical = 0.0,
@@ -45,6 +47,7 @@ class GeneralButton extends StatelessWidget {
         child: !isLoading
             ? Text(
                 buttonText,
+                textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
                   color: textColor,
                   fontWeight: FontWeight.bold,

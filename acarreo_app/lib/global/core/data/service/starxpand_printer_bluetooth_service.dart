@@ -27,7 +27,7 @@ class StartxpandPrinterBluetoothService {
         "Origen: ${data['location']}\n"
         "Material: ${data['material']}\n"
         "Placas:  ${data['plates']}\n"
-        "M3: ${data['capacity']}\n"
+        "M3: ${data['capacity']} m3\n"
         "Nota: ${data['description']}\n"
         "\n\n");
     printDoc.actionPrintText("--------------------------------\n");

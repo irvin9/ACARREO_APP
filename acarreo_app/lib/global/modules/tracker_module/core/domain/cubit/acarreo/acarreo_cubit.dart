@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
+import 'package:intl/intl.dart';
 
 class AcarreoCubit extends Cubit<AcarreoState> {
   AcarreoCubit(this.managerService) : super(const AcarreoInitState());
@@ -130,6 +131,33 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     final random = Random();
     int numeroAleatorio = random.nextInt(9999) + 1;
     return numeroAleatorio.toString().padLeft(4, '0');
+  }
+
+  Map<String, dynamic> formatTicket() {
+    final project = managerService.project;
+    final String description = formAnswers['description'] ?? '';
+    final truck = formAnswers['currentTruck'] as AcarreoTruck;
+    final int materialId = int.parse(getAnswersForm('id_material'));
+    final material =
+        managerService.materials.firstWhere((item) => materialId == item.id);
+    final int locationId = int.parse(getAnswersForm('id_location'));
+    final location =
+        managerService.locations.firstWhere((item) => item.id == locationId);
+    final captureDate =
+        DateFormat('dd/MM/yy hh:mm a').format(formAnswers['date']);
+    final ticketCode = generateTicketCode();
+
+    return {
+      'enterpriseName': project?.enterpriseName ?? 'N/A',
+      'projectName': project?.projectName ?? 'N/A',
+      'date': captureDate,
+      'location': location.name,
+      'material': material.materialName,
+      'plates': truck.plate,
+      'capacity': truck.capacity,
+      'description': description,
+      'barcode': ticketCode,
+    };
   }
 
   Future<void> goTo(String route) {

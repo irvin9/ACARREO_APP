@@ -19,32 +19,20 @@ class PreviewTicketTravelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const String title = 'Revisa el ticker generado';
     final bloc = Modular.get<AcarreoCubit>();
-    final project = bloc.managerService.project;
     final String? answerTypeLocation = bloc.formAnswers['type_location'];
-    final String description = bloc.formAnswers['description'] ?? '';
-    final truck = bloc.formAnswers['currentTruck'] as AcarreoTruck;
-    final int materialId = int.parse(bloc.getAnswersForm('id_material'));
-    final material = bloc.managerService.materials
-        .firstWhere((item) => materialId == item.id);
-    final int locationId = int.parse(bloc.getAnswersForm('id_location'));
-    final location = bloc.managerService.locations
-        .firstWhere((item) => item.id == locationId);
-    final captureDate =
-        DateFormat('dd/MM/yy hh:mm a').format(bloc.formAnswers['date']);
-    final ticketCode = bloc.generateTicketCode();
+    final Map<String, dynamic> ticketData = bloc.formatTicket();
 
     return BlocListener<AcarreoCubit, AcarreoState>(
       listener: (context, state) {
         if (state is AcarreoShowModalTicketPrint) {
           DialogPritting.show(
-              context,
-              DialogMessageModel(
-                title: '¡Vamos a imprimir su ticket!',
-                description:
-                    'Para eso necesitamos que tenga ya conectada su impresora al dispositivo.',
-              ),
-              () {},
-              () => bloc.finishForm(GlobalRoutesApp.registerTravelRoute));
+            context,
+            DialogMessageModel(
+              title: '¡Vamos a imprimir su ticket!',
+              description:
+                  'Para eso necesitamos que tenga ya conectada su impresora al dispositivo.',
+            ),
+          );
         }
       },
       child: GeneralTrackerWrap(
@@ -66,43 +54,43 @@ class PreviewTicketTravelScreen extends StatelessWidget {
               children: [
                 ConceptTextTicket(
                   conceptText: 'Desarrolladora:',
-                  valueText: project?.enterpriseName ?? 'N/A',
+                  valueText: ticketData['projectName'],
                 ),
                 ConceptTextTicket(
                   conceptText: 'Proyecto:',
-                  valueText: project?.projectName ?? 'N/A',
+                  valueText: ticketData['projectName'],
                 ),
                 ConceptTextTicket(
                   conceptText: 'Fecha:',
-                  valueText: captureDate,
+                  valueText: ticketData['date'],
                 ),
                 ConceptTextTicket(
                   conceptText:
                       FormValues.mappingTypeLocation['1'] == answerTypeLocation
                           ? 'Origen:'
                           : 'Destino:',
-                  valueText: location.name,
+                  valueText: ticketData['location'],
                 ),
                 ConceptTextTicket(
                   conceptText: 'Material:',
-                  valueText: material.materialName,
+                  valueText: ticketData['material'],
                 ),
                 ConceptTextTicket(
                   conceptText: 'Placas:',
-                  valueText: truck.plate,
+                  valueText: ticketData['plates'],
                 ),
                 ConceptTextTicket(
                   conceptText: 'M3:',
-                  valueText: '${truck.capacity} m3',
+                  valueText: '${ticketData['capacity']} m3',
                 ),
                 ConceptTextTicket(
                   conceptText: 'Nota:',
-                  valueText: description,
+                  valueText: ticketData['description'],
                 ),
                 BarcodeWidget(
                   padding: const EdgeInsets.all(10.0),
                   barcode: Barcode.code128(),
-                  data: ticketCode,
+                  data: ticketData['barcode'],
                 )
               ],
             ).withPaddingSymmetric(vertical: 12.0, horizontal: 12.0),
