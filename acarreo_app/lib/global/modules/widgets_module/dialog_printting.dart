@@ -11,6 +11,7 @@ class DialogPritting {
   static final _printerCubit = Modular.get<PrinterCubit>();
   static final _acarreoCubit = Modular.get<AcarreoCubit>();
   static show(BuildContext context, DialogMessageModel message) {
+    _printerCubit.initPrinter();
     return GenericDialog.show(
       context: context,
       child: BlocBuilder<PrinterCubit, PrinterState>(

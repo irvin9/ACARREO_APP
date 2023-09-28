@@ -12,6 +12,10 @@ class PrinterCubit extends Cubit<PrinterState> {
 
   PrinterCubit(this.printerService) : super(const PrinterInitial());
 
+  Future<void> initPrinter() async {
+    emit(const PrinterInitial());
+  }
+
   Future<void> findPrinters() async {
     Future.delayed(Duration.zero);
     emit(const PrintersInitSearch());
