@@ -18,6 +18,7 @@ class PreviewTicketTravelScreen extends StatelessWidget {
     const String title = 'Revisa el ticker generado';
     final bloc = Modular.get<AcarreoCubit>();
     final String? answerTypeLocation = bloc.formAnswers['type_location'];
+    bloc.generateTicketCode();
     final Map<String, dynamic> ticketData = bloc.formatTicket();
 
     return BlocListener<AcarreoCubit, AcarreoState>(
