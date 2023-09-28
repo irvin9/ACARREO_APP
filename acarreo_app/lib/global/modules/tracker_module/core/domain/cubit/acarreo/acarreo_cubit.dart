@@ -145,7 +145,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
         managerService.locations.firstWhere((item) => item.id == locationId);
     final captureDate =
         DateFormat('dd/MM/yy hh:mm a').format(formAnswers['date']);
-    final ticketCode = generateTicketCode();
+    final String ticketCode = formAnswers['folioId'];
 
     return {
       'enterpriseName': project?.enterpriseName ?? 'N/A',
