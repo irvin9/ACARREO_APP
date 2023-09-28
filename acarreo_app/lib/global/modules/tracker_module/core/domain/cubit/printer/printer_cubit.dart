@@ -12,7 +12,7 @@ class PrinterCubit extends Cubit<PrinterState> {
 
   PrinterCubit(this.printerService) : super(const PrinterInitial());
 
-  findPrinters() async {
+  Future<void> findPrinters() async {
     Future.delayed(Duration.zero);
     emit(const PrintersInitSearch());
     _printers.clear();
@@ -31,7 +31,13 @@ class PrinterCubit extends Cubit<PrinterState> {
 
   Future<bool> print(Map<String, dynamic> data) async {
     if (selectedPrinter == null) return false;
+    emit(const PrinterInitPrint());
     final status = await printerService.print(selectedPrinter!, data);
+    if (status) {
+      emit(const PrinterSuccessPrint());
+      return status;
+    }
+    emit(const PrinterErrorPrint());
     return status;
   }
 

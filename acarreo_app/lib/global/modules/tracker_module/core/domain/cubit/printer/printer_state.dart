@@ -38,3 +38,24 @@ class PrintersError extends PrinterState {
   @override
   List<Object?> get props => [];
 }
+
+class PrinterInitPrint extends PrinterState {
+  const PrinterInitPrint();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class PrinterSuccessPrint extends PrinterState {
+  const PrinterSuccessPrint();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class PrinterErrorPrint extends PrinterState {
+  const PrinterErrorPrint();
+
+  @override
+  List<Object?> get props => [];
+}
