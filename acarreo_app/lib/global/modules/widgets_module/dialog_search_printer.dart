@@ -22,8 +22,7 @@ class DialogSearchPrinter {
             ),
             actions: [
               Visibility(
-                visible:
-                    state is! PrintersInitSearch && state is! PrintersError,
+                visible: state is PrintersNotFound || state is PrintersFound,
                 child: GeneralButton(
                   buttonText: 'Refrescar',
                   textColor: Colors.white,
@@ -34,8 +33,7 @@ class DialogSearchPrinter {
                 ).withPaddingSymmetric(vertical: 12.0, horizontal: 0.0),
               ),
               Visibility(
-                visible:
-                    state is! PrintersInitSearch && state is PrintersNotFound,
+                visible: state is PrintersNotFound,
                 child: GeneralButton(
                   buttonText: 'Regresar',
                   textColor: Colors.black87,
@@ -65,20 +63,17 @@ class DialogSearchPrinter {
   }
 
   static _buildBody(PrinterState state) {
-    if (state is PrintersFound) {
-      return _buildListPrinters(state.printers);
+    switch (state) {
+      case PrintersFound():
+        return _buildListPrinters(state.printers);
+      case PrintersNotFound():
+        return _buildNotFoundPrinters();
+      case PrintersError():
+        return _buildErrorScan();
+      default:
+        return const LoaderInnerDialog(
+            description: 'Estamos buscando impresoras...');
     }
-
-    if (state is PrintersError) {
-      return _buildErrorScan();
-    }
-
-    if (state is PrintersNotFound) {
-      return _buildNotFoundPrinters();
-    }
-
-    return const LoaderInnerDialog(
-        description: 'Estamos buscando impresoras...');
   }
 
   static _buildListPrinters(List<StarXpandPrinter> printers) {
