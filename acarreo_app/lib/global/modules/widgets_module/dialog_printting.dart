@@ -97,8 +97,6 @@ class DialogPritting {
         textAlign: TextAlign.center,
         style: GoogleFonts.poppins(fontSize: 20.0, fontWeight: FontWeight.w700),
       ),
-      icon:
-          const Icon(Icons.check_circle_outline, size: 60, color: Colors.green),
       content: const LoaderInnerDialog(
           description: 'Estamos imprimiendo su ticket...'),
     );
