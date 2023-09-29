@@ -14,7 +14,14 @@ class StartxpandPrinterBluetoothService {
     final logoImage = await getImageData('assets/logo/logo-icon.png');
     printDoc.style(alignment: StarXpandStyleAlignment.center);
     printDoc.actionPrintImage(logoImage, 350);
-    printDoc.actionPrintText("--------------------------------\n");
+    printDoc.actionFeedLine(1);
+  }
+
+  Future<void> _appendIsotype(
+      StarXpandDocument doc, StarXpandDocumentPrint printDoc) async {
+    final isotypeImage = await getImageData('assets/logo/logo-isotype.png');
+    printDoc.style(alignment: StarXpandStyleAlignment.right);
+    printDoc.actionPrintImage(isotypeImage, 150);
   }
 
   void appendBody(StarXpandDocument doc, StarXpandDocumentPrint printDoc,
@@ -28,9 +35,7 @@ class StartxpandPrinterBluetoothService {
         "Material: ${data['material']}\n"
         "Placas:  ${data['plates']}\n"
         "M3: ${data['capacity']} m3\n"
-        "Nota: ${data['description']}\n"
-        "\n\n");
-    printDoc.actionPrintText("--------------------------------\n");
+        "Nota: ${data['description']}");
   }
 
   void _appendBarCode(
@@ -48,7 +53,7 @@ class StartxpandPrinterBluetoothService {
     printDoc.actionFeedLine(1);
     printDoc.style(alignment: StarXpandStyleAlignment.center);
     printDoc.actionPrintText("www.truckinginnovation.com\n");
-    printDoc.actionFeedLine(5);
+    printDoc.actionFeedLine(4);
   }
 
   Future<bool> print(
@@ -59,6 +64,7 @@ class StartxpandPrinterBluetoothService {
     try {
       await _appendTittle(doc, printDoc);
       appendBody(doc, printDoc, data);
+      await _appendIsotype(doc, printDoc);
       _appendBarCode(doc, printDoc, data['barcode']);
       _appendWebSite(doc, printDoc);
 
