@@ -17,13 +17,6 @@ class StartxpandPrinterBluetoothService {
     printDoc.actionFeedLine(1);
   }
 
-  Future<void> _appendIsotype(
-      StarXpandDocument doc, StarXpandDocumentPrint printDoc) async {
-    final isotypeImage = await getImageData('assets/logo/logo-isotype.png');
-    printDoc.style(alignment: StarXpandStyleAlignment.right);
-    printDoc.actionPrintImage(isotypeImage, 150);
-  }
-
   void appendBody(StarXpandDocument doc, StarXpandDocumentPrint printDoc,
       Map<String, dynamic> data) {
     printDoc.style(alignment: StarXpandStyleAlignment.left);
@@ -36,6 +29,13 @@ class StartxpandPrinterBluetoothService {
         "Placas:  ${data['plates']}\n"
         "M3: ${data['capacity']} m3\n"
         "Nota: ${data['description']}");
+  }
+
+  Future<void> _appendIsotype(
+      StarXpandDocument doc, StarXpandDocumentPrint printDoc) async {
+    final isotypeImage = await getImageData('assets/logo/logo-isotype.png');
+    printDoc.style(alignment: StarXpandStyleAlignment.right);
+    printDoc.actionPrintImage(isotypeImage, 150);
   }
 
   void _appendBarCode(
