@@ -24,7 +24,7 @@ class StartxpandPrinterBluetoothService {
     printDoc.actionPrintText("Desarrolladora: ${data['enterpriseName']}\n"
         "Proyecto: ${data['projectName']}\n"
         "Fecha:  ${data['date']}\n"
-        "Origen: ${data['location']}\n"
+        "Ubicación: ${data['location']}\n"
         "Material: ${data['material']}\n"
         "Placas:  ${data['plates']}\n"
         "M3: ${data['capacity']} m3\n"
@@ -42,7 +42,12 @@ class StartxpandPrinterBluetoothService {
         barDots: 1,
         height: 10.0,
         printHri: true);
+  }
 
+  void _appendWebSite(StarXpandDocument doc, StarXpandDocumentPrint printDoc) {
+    printDoc.actionFeedLine(1);
+    printDoc.style(alignment: StarXpandStyleAlignment.center);
+    printDoc.actionPrintText("www.truckinginnovation.com\n");
     printDoc.actionFeedLine(5);
   }
 
@@ -55,6 +60,7 @@ class StartxpandPrinterBluetoothService {
       await _appendTittle(doc, printDoc);
       appendBody(doc, printDoc, data);
       _appendBarCode(doc, printDoc, data['barcode']);
+      _appendWebSite(doc, printDoc);
 
       doc.addPrint(printDoc);
       doc.addDrawer(StarXpandDocumentDrawer());
