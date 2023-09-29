@@ -64,10 +64,14 @@ class PreviewTicketTravelScreen extends StatelessWidget {
                   valueText: ticketData['date'],
                 ),
                 ConceptTextTicket(
-                  conceptText:
+                  conceptText: 'Tipo de viaje:',
+                  valueText:
                       FormValues.mappingTypeLocation['1'] == answerTypeLocation
-                          ? 'Origen:'
-                          : 'Destino:',
+                          ? 'Origen'
+                          : 'Destino',
+                ),
+                ConceptTextTicket(
+                  conceptText: 'Ubicación:',
                   valueText: ticketData['location'],
                 ),
                 ConceptTextTicket(
