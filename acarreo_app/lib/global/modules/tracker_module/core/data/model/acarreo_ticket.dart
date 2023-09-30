@@ -68,7 +68,7 @@ class AcarreoTicket {
         date: DateTime.parse(json["date"]),
         description: json["description"],
         folio: json["folio"],
-        typeLocation: json["type_location"],
+        typeLocation: json["type_register"],
         folioTicket: json["folio_origin"] ?? json["folio_ticket"],
         id: json["id"],
         idClient: json["id_client"],
@@ -88,7 +88,7 @@ class AcarreoTicket {
         date: answers["date"],
         description: answers["description"],
         folio: answers["folio"],
-        typeLocation: answers["type_location"] == 'origen' ? 1 : 2,
+        typeLocation: answers["type_register"] == 'origen' ? 1 : 2,
         folioTicket: answers["folioId"],
         id: null,
         idClient: answers["id_client"],
@@ -106,7 +106,7 @@ class AcarreoTicket {
     final apiMap = toMap();
     apiMap.remove('id');
     apiMap['folio_ticket'] = apiMap.remove('folio_ticket');
-    apiMap.remove('type_location');
+    apiMap.remove('type_register');
     apiMap.remove('id_start_travel');
     apiMap.remove('created_at');
     apiMap.remove('updated_at');
@@ -118,7 +118,7 @@ class AcarreoTicket {
     final apiMap = toMap();
     apiMap['id_end_travel'] = -1;
     apiMap.remove('id');
-    apiMap.remove('type_location');
+    apiMap.remove('type_register');
     apiMap.remove('created_at');
     apiMap.remove('updated_at');
     return apiMap;
@@ -130,7 +130,7 @@ class AcarreoTicket {
     apiMap.remove('id');
     apiMap['folio_origin'] = apiMap.remove('folio');
     apiMap['folio'] = apiMap.remove('folio_ticket');
-    apiMap.remove('type_location');
+    apiMap.remove('type_register');
     apiMap.remove('id_start_travel');
     apiMap.remove('created_at');
     apiMap.remove('updated_at');
@@ -143,7 +143,7 @@ class AcarreoTicket {
         "description": description,
         "folio": folio,
         "id_client": idClient,
-        "type_location": typeLocation,
+        "type_register": typeLocation,
         "folio_ticket": folioTicket,
         "id_end_travel": idEndTravel,
         "id_material": idMaterial,

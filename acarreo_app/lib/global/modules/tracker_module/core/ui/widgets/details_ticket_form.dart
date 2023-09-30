@@ -19,7 +19,7 @@ class DetailsTicketForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.watch<AcarreoCubit>((bloc) => bloc.stream);
-    final String? answerTypeLocation = bloc.formAnswers['type_location'];
+    final String? answerTypeLocation = bloc.formAnswers['type_register'];
     final truck = bloc.formAnswers['currentTruck'] as AcarreoTruck;
     final captureDate =
         DateFormat('dd/MM/yy hh:mm a').format(bloc.formAnswers['date']);
@@ -44,7 +44,7 @@ class DetailsTicketForm extends StatelessWidget {
                 bloc.addAnswer('id_material', value!.isNotEmpty ? value : null),
           ),
           Visibility(
-            visible: FormValues.mappingTypeLocation['1'] == answerTypeLocation,
+            visible: FormValues.mappingTypeRegister['1'] == answerTypeLocation,
             child: CustomTextFormField(
               label: 'Folio Banco',
               placeholder: 'Ingrese el folio',
@@ -58,7 +58,7 @@ class DetailsTicketForm extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: FormValues.mappingTypeLocation['2'] == answerTypeLocation,
+            visible: FormValues.mappingTypeRegister['2'] == answerTypeLocation,
             child: CustomTextFormField(
               label: 'Folio Ticket',
               placeholder: 'Ingrese el folio',

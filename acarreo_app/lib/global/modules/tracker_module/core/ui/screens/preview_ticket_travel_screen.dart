@@ -17,7 +17,7 @@ class PreviewTicketTravelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const String title = 'Revisa el ticker generado';
     final bloc = Modular.get<AcarreoCubit>();
-    final String? answerTypeLocation = bloc.formAnswers['type_location'];
+    final String? answerTypeLocation = bloc.formAnswers['type_register'];
     bloc.generateTicketCode();
     final Map<String, dynamic> ticketData = bloc.formatTicket();
 
@@ -66,7 +66,7 @@ class PreviewTicketTravelScreen extends StatelessWidget {
                 ConceptTextTicket(
                   conceptText: 'Tipo de viaje:',
                   valueText:
-                      FormValues.mappingTypeLocation['1'] == answerTypeLocation
+                      FormValues.mappingTypeRegister['1'] == answerTypeLocation
                           ? 'Origen'
                           : 'Destino',
                 ),
