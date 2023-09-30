@@ -6,6 +6,7 @@ class DropDownFormField extends StatelessWidget {
   final List<Map<String, String>> items;
   final String initialValue;
   final double fontSize;
+  final bool disable;
   final FontWeight fontWeight;
   final TextAlign? textAlign;
   final double padding;
@@ -19,6 +20,7 @@ class DropDownFormField extends StatelessWidget {
     this.fontWeight = FontWeight.w500,
     this.textAlign = TextAlign.start,
     this.padding = 24.0,
+    this.disable = false,
     this.onChanged,
     this.initialValue = '',
   });
@@ -38,6 +40,7 @@ class DropDownFormField extends StatelessWidget {
         ),
         DropdownField(
           initialValue: initialValue,
+          disable: disable,
           options: foldItems(),
           onChanged: onChanged,
         ),
