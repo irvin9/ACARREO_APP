@@ -69,5 +69,8 @@
 
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Our app uses LAN to find, connect and print to Star printers.</string>
+
+	<key>NSCameraUsageDescription</key>
+    <string>Se necesita permiso de cámara para escanear códigos de barras.</string>
 </dict>
 </plist>

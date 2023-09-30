@@ -9,6 +9,7 @@ import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/ma
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/project_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/ticket_service.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/truck_service.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/foundation.dart';
 
 class AcarreoDataManagerService implements DataManagerService {
@@ -88,5 +89,20 @@ class AcarreoDataManagerService implements DataManagerService {
       return false;
     }
     return true;
+  }
+
+  @override
+  Future<String?> readScanner() async {
+    try {
+      final result = await BarcodeScanner.scan();
+      if (result.type == ResultType.Barcode) {
+        if (result.format == BarcodeFormat.code128) {
+          return result.rawContent;
+        }
+      }
+      return '';
+    } catch (e) {
+      return null;
+    }
   }
 }

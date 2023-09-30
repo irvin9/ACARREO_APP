@@ -71,3 +71,22 @@ class FormChangedValue extends AcarreoState {
   @override
   List<Object?> get props => [answers];
 }
+
+class FormInitScanner extends AcarreoState {
+  const FormInitScanner();
+  @override
+  List<Object?> get props => [];
+}
+
+class FormScannerSuccess extends AcarreoState {
+  final String data;
+  const FormScannerSuccess(this.data);
+  @override
+  List<Object?> get props => [data];
+}
+
+class FormScannerError extends AcarreoState {
+  const FormScannerError();
+  @override
+  List<Object?> get props => [];
+}

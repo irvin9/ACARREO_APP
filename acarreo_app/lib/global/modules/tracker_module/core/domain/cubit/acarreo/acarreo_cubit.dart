@@ -169,4 +169,15 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     await goTo(route);
     emit(const AcarreoInitState());
   }
+
+  Future<void> initScannerCode() async {
+    emit(const FormInitScanner());
+    final code = await managerService.readScanner();
+    if (code != null) {
+      addAnswer('folio_ticket', code);
+      emit(FormScannerSuccess(code));
+      return;
+    }
+    emit(const FormScannerError());
+  }
 }

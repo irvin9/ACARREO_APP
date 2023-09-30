@@ -9,6 +9,9 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class DetailsTicketForm extends StatelessWidget {
+  static final TextEditingController folioTicketController =
+      TextEditingController(text: '');
+
   const DetailsTicketForm({
     super.key,
     required this.formKey,
@@ -18,14 +21,15 @@ class DetailsTicketForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<AcarreoCubit>((bloc) => bloc.stream);
-    final String? answerTypeLocation = bloc.formAnswers['type_location'];
-    final String? answerTypeRegister = bloc.formAnswers['type_register'];
-    final truck = bloc.formAnswers['currentTruck'] as AcarreoTruck;
+    final cubit = context.watch<AcarreoCubit>((bloc) => bloc.stream);
+    folioTicketController.text = cubit.formAnswers['folio'] ?? '';
+    final String? answerTypeLocation = cubit.formAnswers['type_location'];
+    final String? answerTypeRegister = cubit.formAnswers['type_register'];
+    final truck = cubit.formAnswers['currentTruck'] as AcarreoTruck;
     final captureDate =
-        DateFormat('dd/MM/yy hh:mm a').format(bloc.formAnswers['date']);
+        DateFormat('dd/MM/yy hh:mm a').format(cubit.formAnswers['date']);
 
-    final materials = bloc.managerService.materials
+    final materials = cubit.managerService.materials
         .map((i) => {i.id.toString(): i.materialName})
         .toList();
 
@@ -41,52 +45,56 @@ class DetailsTicketForm extends StatelessWidget {
           TextFieldViewer(
               label: 'Capacidad de Carga:', value: '${truck.capacity} m3'),
           DropDownFormField(
-            initialValue: bloc.formAnswers['id_material'] ?? '',
+            initialValue: cubit.formAnswers['id_material'] ?? '',
             items: materials,
             label: 'Tipo de material',
-            onChanged: (value) =>
-                bloc.addAnswer('id_material', value!.isNotEmpty ? value : null),
+            onChanged: (value) => cubit.addAnswer(
+                'id_material', value!.isNotEmpty ? value : null),
           ),
           Visibility(
             visible: TypeLocations.banco.toString() == answerTypeLocation,
             child: CustomTextFormField(
               label: 'Folio Banco',
               placeholder: 'Ingrese el folio',
-              initialValue: bloc.formAnswers['folio'] ?? '',
+              initialValue: cubit.formAnswers['folio'] ?? '',
               maxLength: 6,
               maxLines: 1,
               validators: const {'NOT_NULL': '', 'MIN_LENGTH': 6},
               onChanged: (value) {
-                bloc.addAnswer('folio', value);
+                cubit.addAnswer('folio', value);
               },
             ),
           ),
           Visibility(
             visible: FormValues.mappingTypeRegister['2'] == answerTypeRegister,
-            child: CustomTextFormField(
-              label: 'Folio Ticket',
-              placeholder: 'Ingrese el folio',
-              initialValue: bloc.formAnswers['folio'] ?? '',
-              maxLength: 20,
-              maxLines: 1,
-              keyboardType: TextInputType.number,
-              textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
-              validators: const {'NOT_NULL': '', 'MIN_LENGTH': 20},
-              onChanged: (value) {
-                bloc.addAnswer('folio', value);
-              },
+            child: GestureDetector(
+              onLongPress: () => cubit.initScannerCode(),
+              child: AbsorbPointer(
+                absorbing: true,
+                child: CustomTextFormFieldController(
+                  label: 'Folio Ticket',
+                  placeholder: 'Ingrese el folio',
+                  controller: folioTicketController,
+                  readOnly: true,
+                  maxLength: 20,
+                  maxLines: 1,
+                  keyboardType: TextInputType.number,
+                  textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
+                  validators: const {'NOT_NULL': '', 'MIN_LENGTH': 20},
+                ),
+              ),
             ),
           ),
           CustomTextFormField(
             label: 'Comentario',
             placeholder: 'Nota de ubicación',
-            initialValue: bloc.formAnswers['description'] ?? '',
+            initialValue: cubit.formAnswers['description'] ?? '',
             maxLength: 180,
             maxLines: null,
             keyboardType: TextInputType.multiline,
             validators: const {'NOT_NULL': ''},
             onChanged: (value) {
-              bloc.addAnswer('description', value);
+              cubit.addAnswer('description', value);
             },
           ),
         ],
