@@ -35,7 +35,7 @@
 		<string>A000000000000000</string>
 	</array>
 	<key>NFCReaderUsageDescription</key>
-	<string>This app needs to access NFC to read tags.</string>
+	<string>Esta aplicación necesita acceder al NFC para leer las tarjetas.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -62,13 +62,13 @@
 		<string>jp.star-m.starpro</string>
 	</array>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Our app uses bluetooth to find, connect and print to Star printers.</string>
+	<string>Nuestra aplicación utiliza bluetooth para encontrar, conectarse e imprimir en impresoras Star.</string>
 
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Our app uses bluetooth to find, connect and print to Star printers.</string>
+	<string>Nuestra aplicación utiliza bluetooth para encontrar, conectarse e imprimir en impresoras Star.</string>
 
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Our app uses LAN to find, connect and print to Star printers.</string>
+	<string>Nuestra aplicación utiliza LAN para encontrar, conectarse e imprimir en impresoras Star.</string>
 
 	<key>NSCameraUsageDescription</key>
     <string>Se necesita permiso de cámara para escanear códigos de barras.</string>
