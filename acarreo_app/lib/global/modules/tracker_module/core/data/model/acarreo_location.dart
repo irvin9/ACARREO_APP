@@ -24,7 +24,7 @@ class AcarreoLocation {
         id: json["id"],
         idClient: json["id_client"],
         idProject: json["id_project"],
-        idLabel: json["idLabel"] ?? 1,
+        idLabel: json["id_label"] ?? 1,
         latitude: json["latitude"],
         longitude: json["longitude"],
         type: json["type"],
