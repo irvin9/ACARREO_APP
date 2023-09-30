@@ -23,12 +23,13 @@ class Ubicaciones(BaseModel):
     type = Column("tipo", String(191), nullable=False)
     id_client = Column("id_cliente", Integer, nullable=False)
     id_project = Column("id_obra", Integer, nullable=False)
+    id_label = Column("id_etiqueta", Integer, nullable=True)
     created_at = Column("created_at", DateTime(timezone=True), default=func.now())
     updated_at = Column("updated_at", DateTime(timezone=True), onupdate=func.now())
 
     model_path_name = "ubicaciones"
 
-    filter_columns = ["nombre", "state", "id_client", "id_project", "type", "folio"]
+    filter_columns = ["nombre", "state", "id_client", "id_etiqueta", "id_project", "type", "folio"]
 
     def property_map(self) -> Dict:
         return {
@@ -40,6 +41,7 @@ class Ubicaciones(BaseModel):
             "type": "type",
             "id_client": "id_client",
             "id_project": "id_project",
+            "id_label": "id_label",
             "created_at": "created_at",
             "updated_at": "updated_at",
         }
@@ -55,6 +57,7 @@ class Ubicaciones(BaseModel):
             "type",
             "id_client",
             "id_project",
+            "id_label",
             "created_at",
             "updated_at",
         ]
