@@ -164,16 +164,15 @@ extension ScaffoldScreen on Widget {
                 onSelected: (value) {
                   if (value == 'logout') {
                     DialogLogout.show(
-                        context,
-                        DialogMessageModel.fromMap(
-                          {
-                            'title': '¿Desea salir de su sesión?',
-                            'description':
-                                'Al salir los datos actuales se perderán.'
-                          },
-                        ),
-                        () => Modular.get<AuthCubit>().logout(),
-                        () => DialogLogout.hide(context));
+                      context,
+                      DialogMessageModel.fromMap(
+                        {
+                          'title': '¿Desea salir de su sesión?',
+                          'description':
+                              'Al salir los datos actuales se perderán.'
+                        },
+                      ),
+                    );
                   }
                   if (value == 'printers') {
                     DialogSearchPrinter.show(context);
