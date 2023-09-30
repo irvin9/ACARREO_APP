@@ -87,9 +87,11 @@ class AcarreoTicket {
         createdAt: DateTime.now(),
         date: answers["date"],
         description: answers["description"],
-        folio: answers["folio"],
+        folio: answers["type_register"] == 'origen'
+            ? answers["folio"] ?? ''
+            : answers["folio_ticket_origin"] ?? '',
         typeLocation: answers["type_register"] == 'origen' ? 1 : 2,
-        folioTicket: answers["folioId"],
+        folioTicket: answers["folio_ticket"],
         id: null,
         idClient: answers["id_client"],
         idEndTravel: int.parse(answers["id_location"]),
@@ -105,7 +107,6 @@ class AcarreoTicket {
     assert(idTracker != null);
     final apiMap = toMap();
     apiMap.remove('id');
-    apiMap['folio_ticket'] = apiMap.remove('folio_ticket');
     apiMap.remove('type_register');
     apiMap.remove('id_start_travel');
     apiMap.remove('created_at');

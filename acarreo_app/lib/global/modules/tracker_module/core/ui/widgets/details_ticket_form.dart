@@ -22,7 +22,7 @@ class DetailsTicketForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.watch<AcarreoCubit>((bloc) => bloc.stream);
-    folioTicketController.text = cubit.formAnswers['folio_ticket'] ?? '';
+    folioTicketController.text = cubit.formAnswers['folio_ticket_origin'] ?? '';
     final String? answerTypeLocation = cubit.formAnswers['type_location'];
     final String? answerTypeRegister = cubit.formAnswers['type_register'];
     final truck = cubit.formAnswers['currentTruck'] as AcarreoTruck;
@@ -52,7 +52,8 @@ class DetailsTicketForm extends StatelessWidget {
                 'id_material', value!.isNotEmpty ? value : null),
           ),
           Visibility(
-            visible: TypeLocations.banco.toString() == answerTypeLocation,
+            visible: TypeLocations.banco.toString() == answerTypeLocation &&
+                FormValues.mappingTypeRegister['1'] == answerTypeRegister,
             child: CustomTextFormField(
               label: 'Folio Banco',
               placeholder: 'Ingrese el folio',
@@ -72,7 +73,7 @@ class DetailsTicketForm extends StatelessWidget {
               child: AbsorbPointer(
                 absorbing: true,
                 child: CustomTextFormFieldController(
-                  label: 'Folio Ticket',
+                  label: 'Folio Ticket Origen',
                   placeholder: 'Ingrese el folio',
                   controller: folioTicketController,
                   readOnly: true,

@@ -123,7 +123,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     String scannerId = _generateScannerId();
 
     String ticketCode = '$dateFormatted$truckId$hourFormatted$scannerId';
-    addAnswer('folioId', ticketCode);
+    addAnswer('folio_ticket', ticketCode);
     return ticketCode;
   }
 
@@ -145,7 +145,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
         managerService.locations.firstWhere((item) => item.id == locationId);
     final captureDate =
         DateFormat('dd/MM/yy hh:mm a').format(formAnswers['date']);
-    final String ticketCode = formAnswers['folioId'];
+    final String ticketCode = formAnswers['folio_ticket'];
 
     return {
       'enterpriseName': project?.enterpriseName ?? 'N/A',
@@ -174,7 +174,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     emit(const FormInitScanner());
     final code = await managerService.readScanner();
     if (code != null) {
-      addAnswer('folio_ticket', code);
+      addAnswer('folio_ticket_origin', code);
       emit(FormScannerSuccess(code));
       return;
     }
