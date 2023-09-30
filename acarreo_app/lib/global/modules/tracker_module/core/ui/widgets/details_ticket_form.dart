@@ -19,7 +19,8 @@ class DetailsTicketForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.watch<AcarreoCubit>((bloc) => bloc.stream);
-    final String? answerTypeLocation = bloc.formAnswers['type_register'];
+    final String? answerTypeLocation = bloc.formAnswers['type_location'];
+    final String? answerTypeRegister = bloc.formAnswers['type_register'];
     final truck = bloc.formAnswers['currentTruck'] as AcarreoTruck;
     final captureDate =
         DateFormat('dd/MM/yy hh:mm a').format(bloc.formAnswers['date']);
@@ -32,6 +33,9 @@ class DetailsTicketForm extends StatelessWidget {
       key: formKey,
       child: Column(
         children: [
+          TextFieldViewer(
+              label: 'Tipo de registro',
+              value: answerTypeRegister?.toUpperCase() ?? 'Desconocido'),
           TextFieldViewer(label: 'Matricula camión:', value: truck.plate),
           TextFieldViewer(label: 'Fecha de captura:', value: captureDate),
           TextFieldViewer(
@@ -44,7 +48,7 @@ class DetailsTicketForm extends StatelessWidget {
                 bloc.addAnswer('id_material', value!.isNotEmpty ? value : null),
           ),
           Visibility(
-            visible: FormValues.mappingTypeRegister['1'] == answerTypeLocation,
+            visible: TypeLocations.banco.toString() == answerTypeLocation,
             child: CustomTextFormField(
               label: 'Folio Banco',
               placeholder: 'Ingrese el folio',
@@ -58,7 +62,7 @@ class DetailsTicketForm extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: FormValues.mappingTypeRegister['2'] == answerTypeLocation,
+            visible: FormValues.mappingTypeRegister['2'] == answerTypeRegister,
             child: CustomTextFormField(
               label: 'Folio Ticket',
               placeholder: 'Ingrese el folio',

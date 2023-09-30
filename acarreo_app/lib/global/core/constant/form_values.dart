@@ -1,4 +1,10 @@
-enum TypeLocations { origin, destino }
+enum TypeRegisters { origin, destino }
+
+abstract class TypeLocations {
+  static const banco = 1;
+  static const traza = 2;
+  static const other = 3;
+}
 
 class FormValues {
   static const Map<String, String> optionTypeRegisters = {
