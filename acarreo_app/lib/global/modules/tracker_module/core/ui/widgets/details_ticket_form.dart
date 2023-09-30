@@ -22,7 +22,7 @@ class DetailsTicketForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.watch<AcarreoCubit>((bloc) => bloc.stream);
-    folioTicketController.text = cubit.formAnswers['folio'] ?? '';
+    folioTicketController.text = cubit.formAnswers['folio_ticket'] ?? '';
     final String? answerTypeLocation = cubit.formAnswers['type_location'];
     final String? answerTypeRegister = cubit.formAnswers['type_register'];
     final truck = cubit.formAnswers['currentTruck'] as AcarreoTruck;
