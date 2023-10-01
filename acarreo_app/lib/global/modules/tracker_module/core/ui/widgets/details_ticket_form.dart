@@ -48,6 +48,9 @@ class DetailsTicketForm extends StatelessWidget {
             initialValue: cubit.formAnswers['id_material'] ?? '',
             items: materials,
             label: 'Tipo de material',
+            helperMessage: DialogMessageModel(
+                title: 'Tipo de material',
+                description: 'Seleccione el material.'),
             onChanged: (value) => cubit.addAnswer(
                 'id_material', value!.isNotEmpty ? value : null),
           ),
@@ -57,6 +60,8 @@ class DetailsTicketForm extends StatelessWidget {
             child: CustomTextFormField(
               label: 'Folio Banco',
               placeholder: 'Ingrese el folio',
+              helperMessage: DialogMessageModel(
+                  title: 'Folio Banco', description: 'Ingrese el folio.'),
               initialValue: cubit.formAnswers['folio'] ?? '',
               maxLength: 6,
               maxLines: 1,
@@ -68,27 +73,28 @@ class DetailsTicketForm extends StatelessWidget {
           ),
           Visibility(
             visible: FormValues.mappingTypeRegister['2'] == answerTypeRegister,
-            child: GestureDetector(
+            child: CustomTextFormFieldController(
+              label: 'Folio Ticket Origen',
+              placeholder: 'Ingrese el folio',
+              helperMessage: DialogMessageModel(
+                  title: 'Escanea el folio',
+                  description:
+                      'Mantenga prensionado el campo para abrir la camara, despues escanee su código.'),
+              controller: folioTicketController,
+              readOnly: true,
+              maxLength: 20,
+              maxLines: 1,
+              keyboardType: TextInputType.number,
               onLongPress: () => cubit.initScannerCode(),
-              child: AbsorbPointer(
-                absorbing: true,
-                child: CustomTextFormFieldController(
-                  label: 'Folio Ticket Origen',
-                  placeholder: 'Ingrese el folio',
-                  controller: folioTicketController,
-                  readOnly: true,
-                  maxLength: 20,
-                  maxLines: 1,
-                  keyboardType: TextInputType.number,
-                  textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
-                  validators: const {'NOT_NULL': '', 'MIN_LENGTH': 20},
-                ),
-              ),
+              textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
+              validators: const {'NOT_NULL': '', 'MIN_LENGTH': 20},
             ),
           ),
           CustomTextFormField(
             label: 'Comentario',
             placeholder: 'Nota de ubicación',
+            helperMessage: DialogMessageModel(
+                title: 'Comentario', description: 'Nota de ubicación.'),
             initialValue: cubit.formAnswers['description'] ?? '',
             maxLength: 180,
             maxLines: null,

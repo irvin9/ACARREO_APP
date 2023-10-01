@@ -2,19 +2,23 @@ import 'package:flutter/material.dart';
 
 class GenericDialog extends StatelessWidget {
   final Widget child;
-  const GenericDialog({super.key, required this.child});
+  final bool dismissible;
+  const GenericDialog(
+      {super.key, required this.child, this.dismissible = false});
 
   static Future<void> show({
     required BuildContext context,
     Key? key,
     required Widget child,
+    bool dismissible = false,
   }) async =>
       showDialog<void>(
         context: context,
         useRootNavigator: false,
-        barrierDismissible: false,
+        barrierDismissible: dismissible,
         builder: (_) => GenericDialog(
           key: key,
+          dismissible: dismissible,
           child: child,
         ),
       );
@@ -24,7 +28,7 @@ class GenericDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async => dismissible,
       child: child,
     );
   }

@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:acarreo_app/global/modules/widgets_module/dialog_info.dart';
 import 'package:flutter/material.dart';
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +15,7 @@ class CustomTextFormField extends StatelessWidget {
   final double fontSizePlaceholder;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? textInputFormatter;
+  final DialogMessageModel? helperMessage;
   final Map<String, dynamic>? validators;
   final void Function(String)? onChanged;
 
@@ -28,6 +30,7 @@ class CustomTextFormField extends StatelessWidget {
     this.fontSizeLabel = 16.0,
     this.fontSizePlaceholder = 16.0,
     this.onChanged,
+    this.helperMessage,
     this.validators,
     this.keyboardType,
     this.textInputFormatter,
@@ -50,13 +53,31 @@ class CustomTextFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          textAlign: TextAlign.start,
-          style: TextStyle(
-            fontSize: fontSizeLabel,
-            fontWeight: FontWeight.w500,
-          ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Text(
+                label,
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: fontSizeLabel,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            Visibility(
+              visible: helperMessage != null,
+              child: IconButton(
+                color: Colors.black87,
+                iconSize: fontSizeLabel,
+                icon: const Icon(Icons.info_outline),
+                onPressed: () {
+                  DialogInfo.show(context, helperMessage!);
+                },
+              ),
+            ),
+          ],
         ),
         TextFormField(
           maxLines: maxLines,
@@ -97,8 +118,11 @@ class CustomTextFormFieldController extends StatelessWidget {
   final double fontSizePlaceholder;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? textInputFormatter;
+  final DialogMessageModel? helperMessage;
+
   final Map<String, dynamic>? validators;
   final void Function(String)? onChanged;
+  final void Function()? onLongPress;
 
   const CustomTextFormFieldController({
     Key? key,
@@ -111,6 +135,8 @@ class CustomTextFormFieldController extends StatelessWidget {
     this.fontSizeLabel = 16.0,
     this.fontSizePlaceholder = 16.0,
     this.onChanged,
+    this.onLongPress,
+    this.helperMessage,
     this.validators,
     this.keyboardType,
     this.textInputFormatter,
@@ -133,34 +159,58 @@ class CustomTextFormFieldController extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          textAlign: TextAlign.start,
-          style: TextStyle(
-            fontSize: fontSizeLabel,
-            fontWeight: FontWeight.w500,
-          ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Text(
+                label,
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: fontSizeLabel,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            Visibility(
+              visible: helperMessage != null,
+              child: IconButton(
+                color: Colors.black87,
+                iconSize: fontSizeLabel,
+                icon: const Icon(Icons.info_outline),
+                onPressed: () {
+                  DialogInfo.show(context, helperMessage!);
+                },
+              ),
+            ),
+          ],
         ),
-        TextFormField(
-          maxLines: maxLines,
-          maxLength: maxLength,
-          controller: controller,
-          enableInteractiveSelection: true,
-          readOnly: readOnly,
-          onChanged: onChanged,
-          keyboardType: keyboardType,
-          style: GoogleFonts.poppins(
-            fontSize: fontSizePlaceholder,
-            fontWeight: FontWeight.w500,
-          ),
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (value) => validation(value),
-          inputFormatters: textInputFormatter,
-          decoration: InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            labelText: placeholder,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
+        GestureDetector(
+          onLongPress: onLongPress,
+          child: AbsorbPointer(
+            absorbing: onLongPress != null,
+            child: TextFormField(
+              maxLines: maxLines,
+              maxLength: maxLength,
+              controller: controller,
+              enableInteractiveSelection: true,
+              readOnly: readOnly,
+              onChanged: onChanged,
+              keyboardType: keyboardType,
+              style: GoogleFonts.poppins(
+                fontSize: fontSizePlaceholder,
+                fontWeight: FontWeight.w500,
+              ),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) => validation(value),
+              inputFormatters: textInputFormatter,
+              decoration: InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                labelText: placeholder,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 12.0,
+                ),
+              ),
             ),
           ),
         ),
