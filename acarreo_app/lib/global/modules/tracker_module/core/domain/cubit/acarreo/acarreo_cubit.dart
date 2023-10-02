@@ -113,7 +113,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
   String generateTicketCode() {
     final DateTime captureDate = _formAnswers['date'];
     String dateFormatted =
-        "${captureDate.year.toString().substring(2)}${captureDate.month.toString().padLeft(2, '0')}${captureDate.day}";
+        "${captureDate.year.toString().substring(2)}${captureDate.month.toString().padLeft(2, '0')}${captureDate.day.toString().padLeft(2, '0')}";
     final String truckId =
         int.parse((_formAnswers['truckId'] ?? '0').toString())
             .toString()
