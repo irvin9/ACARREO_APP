@@ -103,14 +103,14 @@ extension ScaffoldScreen on Widget {
                     height: 10,
                   ),
                   const PopupMenuItem(
-                    value: 'about',
+                    value: 'list-tickets',
                     child: Text.rich(
                       TextSpan(
                         children: [
                           WidgetSpan(
                             alignment: PlaceholderAlignment.middle,
                             child: Icon(
-                              Icons.info_outline,
+                              Icons.article_outlined,
                               size: 24,
                               color: Colors.black87,
                             ),
@@ -122,7 +122,7 @@ extension ScaffoldScreen on Widget {
                             ),
                           ),
                           TextSpan(
-                            text: 'Sobre la app',
+                            text: 'Ver tickets',
                             style: TextStyle(fontSize: 18),
                           ),
                         ],
@@ -175,6 +175,10 @@ extension ScaffoldScreen on Widget {
                   }
                   if (value == 'printers') {
                     DialogSearchPrinter.show(context);
+                  }
+
+                  if (value == 'list-tickets') {
+                    Modular.to.pushNamed(GlobalRoutesApp.listTicketsRoute);
                   }
                 },
               ).withPaddingSymmetric(vertical: 0),

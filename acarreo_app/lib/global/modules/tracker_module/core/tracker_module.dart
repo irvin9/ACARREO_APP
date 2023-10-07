@@ -13,7 +13,9 @@ import 'package:acarreo_app/global/modules/tracker_module/core/data/service/api_
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/nfc/nfc_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/printer/printer_cubit.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/list_tickets/list_tickets_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/details_ticket_travel_screen.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/list_tickets_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/preview_ticket_travel_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/read_nfc_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/register_travel_screen.dart';
@@ -54,12 +56,24 @@ class TrackerModule extends Module {
         Bind.lazySingleton((i) => AcarreoCubit(i())),
         Bind.lazySingleton((i) => PrinterCubit(i())),
         Bind.lazySingleton((i) => NfcCubit(i(), i())),
+        Bind.lazySingleton((i) => ListTicketsCubit(i())),
       ];
 
   @override
   List<ModularRoute> get routes => [
         ChildRoute(
-          '/form',
+          TrackerRoutesModule.listTicketRoute,
+          child: ((context, args) => MultiBlocProvider(
+                providers: [
+                  BlocProvider.value(value: Modular.get<AcarreoCubit>()),
+                  BlocProvider.value(value: Modular.get<ListTicketsCubit>()),
+                  BlocProvider.value(value: Modular.get<PrinterCubit>()),
+                ],
+                child: const ListTicketsScreen(),
+              )),
+        ),
+        ChildRoute(
+          TrackerRoutesModule.formTravelRoute,
           child: ((context, args) => MultiBlocProvider(
                 providers: [
                   BlocProvider.value(value: Modular.get<AcarreoCubit>()),
