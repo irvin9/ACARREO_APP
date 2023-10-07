@@ -7,6 +7,16 @@ class PrinterCubit extends Cubit<PrinterState> {
   final List<StarXpandPrinter> _printers = [];
   StarXpandPrinter? _selectedPrinter;
 
+  int _totalPageCopies = 1;
+
+  int _currentPagePrint = 0;
+
+  int get currentPrint => _currentPagePrint;
+
+  int get totalCopies => _totalPageCopies;
+
+  set setTotalCopies(int total) => _totalPageCopies = total;
+
   List<StarXpandPrinter> get printers => _printers;
   StarXpandPrinter? get selectedPrinter => _selectedPrinter;
 
@@ -33,16 +43,21 @@ class PrinterCubit extends Cubit<PrinterState> {
     emit(PrintersFound(newPrinters));
   }
 
-  Future<bool> print(Map<String, dynamic> data) async {
-    if (selectedPrinter == null) return false;
+  Future<void> print(Map<String, dynamic> data) async {
+    if (selectedPrinter == null) return;
     emit(const PrinterInitPrint());
-    final status = await printerService.print(selectedPrinter!, data);
-    if (status) {
+    while (currentPrint < totalCopies) {
+      final status = await printerService.print(selectedPrinter!, data);
+      if (!status) break;
+      _currentPagePrint++;
+    }
+    if (currentPrint == totalCopies) {
       emit(const PrinterSuccessPrint());
-      return status;
+      _currentPagePrint = 0;
+      return;
     }
     emit(const PrinterErrorPrint());
-    return status;
+    return;
   }
 
   void selectPrinter(StarXpandPrinter printer) {

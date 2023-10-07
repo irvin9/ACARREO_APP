@@ -1,4 +1,5 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/modules/widgets_module/counter_button.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dialog_search_printer.dart';
 import 'package:acarreo_app/global/modules/widgets_module/general_button.dart';
 import 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';
@@ -107,6 +108,12 @@ class DialogPritting {
     return AlertDialog(
       icon: const Icon(Icons.print, size: 60, color: Colors.black87),
       actions: [
+        Visibility(
+          visible: _printerCubit.selectedPrinter != null,
+          child: CounterButton(
+              onPressed: (value) => _printerCubit.setTotalCopies = value),
+        ),
+        const SizedBox(height: 10.0),
         GeneralButton(
           fontSize: 18.0,
           buttonText: _printerCubit.selectedPrinter != null
