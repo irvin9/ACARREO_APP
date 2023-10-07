@@ -54,7 +54,7 @@ extension ScaffoldScreen on Widget {
           appBar: AppBar(
             title: const SizedBox(
               width: 140,
-              child: LogoApp(assetName: WidgetAssets.logoNameApp),
+              child: LogoApp(assetName: WidgetAssets.logoNameLightApp),
             ),
             automaticallyImplyLeading: !disableToBack,
             iconTheme: const IconThemeData(color: Colors.white, size: 32),
@@ -179,7 +179,7 @@ extension ScaffoldScreen on Widget {
                 },
               ).withPaddingSymmetric(vertical: 0),
             ],
-            backgroundColor: const Color(0xFF151A20),
+            backgroundColor: const Color(0xFF384596),
             actionsIconTheme: const IconThemeData(size: 32),
           ),
           body: SafeArea(

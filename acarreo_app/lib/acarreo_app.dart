@@ -21,6 +21,9 @@ class AcarreoApp extends StatelessWidget {
         useMaterial3: true,
         brightness: Brightness.light,
         fontFamily: 'Poppins',
+        appBarTheme: const AppBarTheme(
+          color: Color(0xFF384596),
+        ),
       ),
     );
   }

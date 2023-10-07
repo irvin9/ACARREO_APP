@@ -69,7 +69,7 @@ class ActiveIndicator extends StatelessWidget {
                   width: 1,
                   strokeAlign: BorderSide.strokeAlignCenter,
                   color: isActive
-                      ? Colors.black87 // const Color(0xFF007AFF)
+                      ? const Color(0xFF384596) // const Color(0xFF007AFF)
                       : const Color(0xFFB8B8C3),
                 ),
               ),
@@ -82,7 +82,7 @@ class ActiveIndicator extends StatelessWidget {
             width: 12,
             height: 12,
             decoration: ShapeDecoration(
-              color: isActive ? Colors.black87 : Colors.white,
+              color: isActive ? const Color(0xFF384596) : Colors.white,
               shape: isActive
                   ? const OvalBorder()
                   : const OvalBorder(
@@ -95,25 +95,6 @@ class ActiveIndicator extends StatelessWidget {
             ),
           ),
         ),
-        // Visibility(
-        //   visible: !isFirst && !isLast,
-        //   child: Container(
-        //     width: 40.0,
-        //     height: 1.0,
-        //     padding: const EdgeInsets.symmetric(horizontal: 208.0),
-        //     decoration: ShapeDecoration(
-        //       shape: RoundedRectangleBorder(
-        //         side: BorderSide(
-        //           width: 1,
-        //           strokeAlign: BorderSide.strokeAlignCenter,
-        //           color: isActive
-        //               ? const Color(0xFF007AFF)
-        //               : const Color(0xFFB8B8C3),
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }
