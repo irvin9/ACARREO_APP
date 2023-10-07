@@ -54,7 +54,7 @@ extension ScaffoldScreen on Widget {
           appBar: AppBar(
             title: const SizedBox(
               width: 140,
-              child: LogoApp(assetName: WidgetAssets.logoNameLightApp),
+              child: LogoApp(assetName: WidgetAssets.logoNameApp),
             ),
             automaticallyImplyLeading: !disableToBack,
             iconTheme: const IconThemeData(color: Colors.white, size: 32),
