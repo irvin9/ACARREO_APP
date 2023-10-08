@@ -16,26 +16,28 @@ class PreviewTicketTravelScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String title = 'Revisa el ticker generado';
-    final bloc = Modular.get<AcarreoCubit>();
-    bloc.generateTicketCode();
-    final PreviewTicketModel ticketData = bloc.formatTicketByForm();
+    final cubit = Modular.get<AcarreoCubit>();
+    cubit.generateTicketCode();
+    final PreviewTicketModel ticketData = cubit.formatTicketByForm();
     return BlocListener<AcarreoCubit, AcarreoState>(
       listener: (context, state) {
         if (state is AcarreoShowModalTicketPrint) {
           DialogPritting.show(
-            context,
-            DialogMessageModel(
+            context: context,
+            message: DialogMessageModel(
               title: '¡Vamos a imprimir su ticket!',
               description:
                   'Para eso necesitamos que tenga ya conectada su impresora al dispositivo.',
             ),
+            data: ticketData.toMap(),
+            onBack: () => cubit.finishForm(GlobalRoutesApp.registerTravelRoute),
           );
         }
       },
       child: GeneralTrackerWrap(
         mainButtonText: 'Generar Ticket',
         onContinue: () {
-          bloc.createTicket();
+          cubit.createTicket();
         },
         currentStep: currentStep,
         children: [

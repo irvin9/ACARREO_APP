@@ -62,28 +62,25 @@ class TrackerModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ChildRoute(
-          TrackerRoutesModule.listTicketRoute,
-          child: ((context, args) => MultiBlocProvider(
-                providers: [
-                  BlocProvider.value(value: Modular.get<AcarreoCubit>()),
-                  BlocProvider.value(value: Modular.get<ListTicketsCubit>()),
-                  BlocProvider.value(value: Modular.get<PrinterCubit>()),
-                ],
-                child: const ListTicketsScreen(),
-              )),
-        ),
-        ChildRoute(
-          TrackerRoutesModule.reviewTicketRoute,
-          child: ((context, args) => MultiBlocProvider(
-                providers: [
-                  BlocProvider.value(value: Modular.get<AcarreoCubit>()),
-                  BlocProvider.value(value: Modular.get<ListTicketsCubit>()),
-                  BlocProvider.value(value: Modular.get<PrinterCubit>()),
-                ],
-                child: const ReviewTicketTravelScreen(),
-              )),
-        ),
+        ChildRoute(TrackerRoutesModule.ticketsRoutes,
+            child: ((context, args) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: Modular.get<AcarreoCubit>()),
+                    BlocProvider.value(value: Modular.get<ListTicketsCubit>()),
+                    BlocProvider.value(value: Modular.get<PrinterCubit>()),
+                  ],
+                  child: const RouterOutlet(),
+                )),
+            children: [
+              ChildRoute(
+                TrackerRoutesModule.listTicketRoute,
+                child: (context, args) => const ListTicketsScreen(),
+              ),
+              ChildRoute(
+                TrackerRoutesModule.reviewTicketRoute,
+                child: (context, args) => const ReviewTicketTravelScreen(),
+              ),
+            ]),
         ChildRoute(
           TrackerRoutesModule.formTravelRoute,
           child: ((context, args) => MultiBlocProvider(

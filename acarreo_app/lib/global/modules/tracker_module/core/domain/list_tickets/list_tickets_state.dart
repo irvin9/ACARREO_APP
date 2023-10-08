@@ -34,3 +34,9 @@ class LoadTicketsError extends ListTicketsState {
   @override
   List<Object?> get props => [message];
 }
+
+class ShowModalTicketPrint extends ListTicketsState {
+  const ShowModalTicketPrint();
+  @override
+  List<Object?> get props => [];
+}

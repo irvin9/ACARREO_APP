@@ -11,33 +11,43 @@ import 'package:flutter/material.dart';
 class DialogPritting {
   static final _printerCubit = Modular.get<PrinterCubit>();
   static final _acarreoCubit = Modular.get<AcarreoCubit>();
-  static show(BuildContext context, DialogMessageModel message) {
+  static show({
+    required BuildContext context,
+    required DialogMessageModel message,
+    required Map<String, dynamic> data,
+    void Function()? onBack,
+  }) {
     _printerCubit.initPrinter();
     return GenericDialog.show(
       context: context,
       child: BlocBuilder<PrinterCubit, PrinterState>(
         builder: (context, state) {
-          return _buildBody(context, state, message);
+          return _buildBody(context, state, message, data, onBack);
         },
       ),
     );
   }
 
   static _buildBody(
-      BuildContext context, PrinterState state, DialogMessageModel message) {
+    BuildContext context,
+    PrinterState state,
+    DialogMessageModel message,
+    Map<String, dynamic> data,
+    void Function()? onBack,
+  ) {
     switch (state) {
       case PrinterErrorPrint():
-        return _buildErrorBody();
+        return _buildErrorBody(data);
       case PrinterSuccessPrint():
         return _buildSuccessBody();
       case PrinterInitPrint():
         return _buildLoaderBody();
       default:
-        return _buildInitBody(context, message);
+        return _buildInitBody(context, message, data, onBack);
     }
   }
 
-  static _buildErrorBody() {
+  static _buildErrorBody(Map<String, dynamic> data) {
     return AlertDialog(
       icon:
           const Icon(Icons.error_outline_outlined, size: 60, color: Colors.red),
@@ -46,8 +56,7 @@ class DialogPritting {
           buttonText: 'Reintentar',
           textColor: Colors.white,
           buttonColor: Colors.black87,
-          onPressed: () =>
-              _printerCubit.print(_acarreoCubit.formatTicketByForm().toMap()),
+          onPressed: () => _printerCubit.print(data),
         ),
       ],
       content: Column(
@@ -105,7 +114,8 @@ class DialogPritting {
     );
   }
 
-  static _buildInitBody(BuildContext context, DialogMessageModel message) {
+  static _buildInitBody(BuildContext context, DialogMessageModel message,
+      Map<String, dynamic> data, void Function()? onBack) {
     return AlertDialog(
       icon: const Icon(Icons.print, size: 60, color: Colors.black87),
       actions: [
@@ -122,8 +132,7 @@ class DialogPritting {
               : 'Seleccionar impresora',
           textColor: Colors.black87,
           onPressed: _printerCubit.selectedPrinter != null
-              ? () => _printerCubit
-                  .print(_acarreoCubit.formatTicketByForm().toMap())
+              ? () => _printerCubit.print(data)
               : () {
                   hide(context);
                   DialogSearchPrinter.show(context);
@@ -134,8 +143,7 @@ class DialogPritting {
           buttonText: 'No imprimir',
           textColor: Colors.white,
           buttonColor: Colors.black87,
-          onPressed: () =>
-              _acarreoCubit.finishForm(GlobalRoutesApp.registerTravelRoute),
+          onPressed: onBack ?? () => hide(context),
         ),
       ],
       content: Column(
@@ -159,7 +167,7 @@ class DialogPritting {
     );
   }
 
-  static hide(context) {
+  static void hide(context) {
     GenericDialog.hide(context);
   }
 }

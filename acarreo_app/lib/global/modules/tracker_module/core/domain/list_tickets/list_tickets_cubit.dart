@@ -1,6 +1,8 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/core/domain/models/preview_ticket_model.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
+import 'package:acarreo_app/global/modules/widgets_module/dialog_printting.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 part 'list_tickets_state.dart';
@@ -54,6 +56,18 @@ class ListTicketsCubit extends Cubit<ListTicketsState> {
       location: location.name,
       barcode: ticketCode,
       typeLocation: typeRegister,
+    );
+  }
+
+  printTicket(BuildContext context) {
+    DialogPritting.show(
+      context: context,
+      message: DialogMessageModel(
+        title: '¡Vamos a imprimir su ticket!',
+        description:
+            'Para eso necesitamos que tenga ya conectada su impresora al dispositivo.',
+      ),
+      data: formatTicket().toMap(),
     );
   }
 }
