@@ -19,6 +19,7 @@ import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/list_t
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/preview_ticket_travel_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/read_nfc_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/register_travel_screen.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/ticket_travel_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/tracker_module.dart';
 import 'package:flutter/material.dart';
 
@@ -70,6 +71,17 @@ class TrackerModule extends Module {
                   BlocProvider.value(value: Modular.get<PrinterCubit>()),
                 ],
                 child: const ListTicketsScreen(),
+              )),
+        ),
+        ChildRoute(
+          TrackerRoutesModule.reviewTicketRoute,
+          child: ((context, args) => MultiBlocProvider(
+                providers: [
+                  BlocProvider.value(value: Modular.get<AcarreoCubit>()),
+                  BlocProvider.value(value: Modular.get<ListTicketsCubit>()),
+                  BlocProvider.value(value: Modular.get<PrinterCubit>()),
+                ],
+                child: const TicketTravelScreen(),
               )),
         ),
         ChildRoute(

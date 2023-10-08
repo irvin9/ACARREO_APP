@@ -72,7 +72,7 @@ class AcarreoTickeService implements TicketService<AcarreoTicket> {
   Future<AcarreoTicket?> uploadTicket(AcarreoTicket ticket) async {
     try {
       final newTicket = await repository.createTicket(ticket);
-      if (ticket.typeLocation == 1) {
+      if (ticket.typeRegister == 1) {
         await localStorageService.deleteItem(newTicket.folioTicket);
       } else {
         await localStorageService.deleteItem(newTicket.folio);

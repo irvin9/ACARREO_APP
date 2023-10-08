@@ -46,7 +46,8 @@ class DialogPritting {
           buttonText: 'Reintentar',
           textColor: Colors.white,
           buttonColor: Colors.black87,
-          onPressed: () => _printerCubit.print(_acarreoCubit.formatTicket()),
+          onPressed: () =>
+              _printerCubit.print(_acarreoCubit.formatTicketByForm().toMap()),
         ),
       ],
       content: Column(
@@ -121,7 +122,8 @@ class DialogPritting {
               : 'Seleccionar impresora',
           textColor: Colors.black87,
           onPressed: _printerCubit.selectedPrinter != null
-              ? () => _printerCubit.print(_acarreoCubit.formatTicket())
+              ? () => _printerCubit
+                  .print(_acarreoCubit.formatTicketByForm().toMap())
               : () {
                   hide(context);
                   DialogSearchPrinter.show(context);

@@ -49,7 +49,7 @@ class ListTicketsScreen extends StatelessWidget {
       itemCount: tickets.length,
       itemBuilder: (context, index) {
         return ListTile(
-          onTap: () {},
+          onTap: () => _listTicketsCubit.goToTicketScreen(tickets[index]),
           leading: const Icon(Icons.article_outlined,
               size: 24, color: Colors.black87),
           title: Text(

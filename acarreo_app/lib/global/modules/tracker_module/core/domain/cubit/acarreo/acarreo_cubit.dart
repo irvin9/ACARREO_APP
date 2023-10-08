@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/core/domain/models/preview_ticket_model.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
 import 'package:intl/intl.dart';
@@ -133,7 +134,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     return numeroAleatorio.toString().padLeft(4, '0');
   }
 
-  Map<String, dynamic> formatTicket() {
+  PreviewTicketModel formatTicketByForm() {
     final project = managerService.project;
     final String description = formAnswers['description'] ?? '';
     final truck = formAnswers['currentTruck'] as AcarreoTruck;
@@ -146,18 +147,20 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     final captureDate =
         DateFormat('dd/MM/yy hh:mm a').format(formAnswers['date']);
     final String ticketCode = formAnswers['folio_ticket'];
+    final String typeRegister = formAnswers['type_register'];
 
-    return {
-      'enterpriseName': project?.enterpriseName ?? 'N/A',
-      'projectName': project?.projectName ?? 'N/A',
-      'date': captureDate,
-      'location': location.name,
-      'material': material.materialName,
-      'plates': truck.plate,
-      'capacity': truck.capacity,
-      'description': description,
-      'barcode': ticketCode,
-    };
+    return PreviewTicketModel(
+      enterpriseName: project?.enterpriseName ?? 'N/A',
+      projectName: project?.projectName ?? 'N/A',
+      date: captureDate,
+      material: material.materialName,
+      plates: truck.plate,
+      capacity: truck.capacity,
+      description: description,
+      location: location.name,
+      barcode: ticketCode,
+      typeLocation: typeRegister,
+    );
   }
 
   Future<void> goTo(String route) {

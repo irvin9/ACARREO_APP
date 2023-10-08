@@ -9,6 +9,7 @@ export 'package:path_provider/path_provider.dart';
 export 'package:flutter_blue/flutter_blue.dart';
 export 'package:starxpand/starxpand.dart';
 export 'package:open_settings/open_settings.dart';
+export 'package:barcode_widget/barcode_widget.dart';
 
 export 'package:acarreo_app/global/core/routes/global_routes_app.dart';
 export 'package:acarreo_app/global/core/routes/guards/session_guard.dart';

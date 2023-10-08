@@ -14,7 +14,7 @@ class AcarreoTicket {
   final int? idTracker;
   final int idTruck;
   final String folioTicket;
-  final int? typeLocation;
+  final int? typeRegister;
   final DateTime? updatedAt;
 
   AcarreoTicket({
@@ -30,7 +30,7 @@ class AcarreoTicket {
     required this.idTracker,
     required this.idTruck,
     required this.folioTicket,
-    required this.typeLocation,
+    required this.typeRegister,
     this.updatedAt,
     required this.createdAt,
   });
@@ -54,7 +54,7 @@ class AcarreoTicket {
         idTracker: idTracker ?? this.idTracker,
         idTruck: idTruck,
         folioTicket: folioTicket,
-        typeLocation: typeLocation,
+        typeRegister: typeRegister,
         updatedAt: updatedAt,
       );
 
@@ -68,7 +68,7 @@ class AcarreoTicket {
         date: DateTime.parse(json["date"]),
         description: json["description"],
         folio: json["folio"],
-        typeLocation: json["type_register"],
+        typeRegister: json["type_register"],
         folioTicket: json["folio_origin"] ?? json["folio_ticket"],
         id: json["id"],
         idClient: json["id_client"],
@@ -90,7 +90,7 @@ class AcarreoTicket {
         folio: answers["type_register"] == 'origen'
             ? answers["folio"] ?? ''
             : answers["folio_ticket_origin"] ?? '',
-        typeLocation: answers["type_register"] == 'origen' ? 1 : 2,
+        typeRegister: answers["type_register"] == 'origen' ? 1 : 2,
         folioTicket: answers["folio_ticket"],
         id: null,
         idClient: answers["id_client"],
@@ -144,7 +144,7 @@ class AcarreoTicket {
         "description": description,
         "folio": folio,
         "id_client": idClient,
-        "type_register": typeLocation,
+        "type_register": typeRegister,
         "folio_ticket": folioTicket,
         "id_end_travel": idEndTravel,
         "id_material": idMaterial,

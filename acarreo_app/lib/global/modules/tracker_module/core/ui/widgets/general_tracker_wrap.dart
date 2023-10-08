@@ -11,6 +11,7 @@ class GeneralTrackerWrap extends StatelessWidget {
   final List<Widget> children;
   final bool disableToBack;
   final String? mainButtonText;
+  final bool showStepper;
 
   const GeneralTrackerWrap({
     super.key,
@@ -21,6 +22,7 @@ class GeneralTrackerWrap extends StatelessWidget {
     this.showMainButton = true,
     required this.children,
     this.disableToBack = false,
+    this.showStepper = true,
   });
 
   @override
@@ -37,9 +39,15 @@ class GeneralTrackerWrap extends StatelessWidget {
           Expanded(
             child: Column(
               children: [
-                const SizedBox(height: 12.0),
-                DotsProgressBar(currentStep: currentStep!, steps: totalSteps!),
-                const SizedBox(height: 24.0),
+                Visibility(
+                  visible: showStepper,
+                  child: DotsProgressBar(
+                          currentStep: currentStep!, steps: totalSteps!)
+                      .withPaddingSymmetric(
+                    vertical: 12.0,
+                    horizontal: 0.0,
+                  ),
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
