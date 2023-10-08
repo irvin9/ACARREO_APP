@@ -7,8 +7,8 @@ import 'package:acarreo_app/global/modules/widgets_module/preview_details_ticket
 import 'package:acarreo_app/global/modules/widgets_module/dialog_printting.dart';
 import 'package:flutter/material.dart';
 
-class TicketTravelScreen extends StatelessWidget {
-  const TicketTravelScreen({super.key});
+class ReviewTicketTravelScreen extends StatelessWidget {
+  const ReviewTicketTravelScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
