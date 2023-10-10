@@ -26,6 +26,8 @@ class Obras(BaseModel):
 
     model_path_name = "obras"
 
+    filter_columns = ["enterprise_name", "project_code", "project_name", "status", "id_client"]
+
     def property_map(self) -> Dict:
         return {
             "id": "id",
