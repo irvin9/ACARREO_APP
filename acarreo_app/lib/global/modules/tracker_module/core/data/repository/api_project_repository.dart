@@ -11,7 +11,7 @@ class ApiProjectRepository extends BaseRepository<ApiProjectModel>
   static const String _subCategoryPath = '/obras/';
 
   @override
-  Future<ApiProjectModel> getById(String id) async {
+  Future<ApiProjectModel> getByProjectCode(String id) async {
     final String hostUrl = environment.apiHostUrl;
     final String apiVersion = environment.apiAuthVersion;
     final String url = '$hostUrl$apiVersion$_subCategoryPath';

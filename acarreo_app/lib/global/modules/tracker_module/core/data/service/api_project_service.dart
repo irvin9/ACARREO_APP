@@ -53,7 +53,7 @@ class ApiProjectService implements ProjectService<ApiProjectModel> {
     try {
       final currentUser = await storage.getCurrentUser();
       final project =
-          await repository.getById(currentUser.idProject.toString());
+          await repository.getByProjectCode(currentUser.idProject.toString());
       localStorageService.saveBykey(
           project.projectCode.toString(), project.toMap());
       return project;
@@ -68,7 +68,8 @@ class ApiProjectService implements ProjectService<ApiProjectModel> {
   @override
   Future<ApiProjectModel?> getProject() async {
     try {
-      final projectId = (await storage.getCurrentUser()).idProject;
+      final currentUser = await storage.getCurrentUser();
+      final projectId = currentUser.idProject;
       final item = await localStorageService.getByKey(projectId.toString());
       if (item == null) return null;
       final Map<String, dynamic> project = item.cast();

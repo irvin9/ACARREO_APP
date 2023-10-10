@@ -48,7 +48,7 @@ class AcarreoDataManagerService implements DataManagerService {
       await materialService.update();
       await truckService.update();
       await projectService.updateProject();
-      if (!(await get())) throw Exception('');
+      if (!(await get())) throw Exception('User data error!');
       return true;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
