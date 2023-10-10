@@ -39,20 +39,14 @@ void setup() {
   Serial.println(F("Write personal data on a MIFARE PICC "));
 }
 
-void loop() {
-  // Prepare key - all keys are set to FFFFFFFFFFFFh at chip delivery from the factory.
-  MFRC522::MIFARE_Key key = {keyByte: {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}};
-
+void waitForCard() {
   // Reset the loop if no new card present on the sensor/reader. This saves the entire process when idle.
-  if ( ! mfrc522.PICC_IsNewCardPresent()) {
-    return;
-  }
-
+  while(!mfrc522.PICC_IsNewCardPresent());
   // Select one of the cards
-  if ( ! mfrc522.PICC_ReadCardSerial()) {
-    return;
-  }
+  while(!mfrc522.PICC_ReadCardSerial());
+}
 
+void printCardInfo() {
   Serial.print(F("Card UID:"));    //Dump UID
   for (byte i = 0; i < mfrc522.uid.size; i++) {
     Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
@@ -61,6 +55,15 @@ void loop() {
   Serial.print(F(" PICC type: "));   // Dump PICC type
   MFRC522::PICC_Type piccType = mfrc522.PICC_GetType(mfrc522.uid.sak);
   Serial.println(mfrc522.PICC_GetTypeName(piccType));
+}
+
+void loop() {
+  // Prepare key - all keys are set to FFFFFFFFFFFFh at chip delivery from the factory.
+  MFRC522::MIFARE_Key key = {keyByte: {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}};
+
+  waitForCard();
+  printCardInfo();
+  
   Serial.print("Info: ");
 
   byte block;
