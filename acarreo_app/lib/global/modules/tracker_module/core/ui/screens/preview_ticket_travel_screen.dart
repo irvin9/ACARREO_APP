@@ -15,7 +15,7 @@ class PreviewTicketTravelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String title = 'Revisa el ticker generado';
+    const String title = 'Revisa el ticket generado';
     final cubit = Modular.get<AcarreoCubit>();
     cubit.generateTicketCode();
     final PreviewTicketModel ticketData = cubit.formatTicketByForm();
