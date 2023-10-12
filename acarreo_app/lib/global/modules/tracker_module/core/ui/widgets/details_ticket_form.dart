@@ -50,7 +50,8 @@ class DetailsTicketForm extends StatelessWidget {
             label: 'Tipo de material',
             helperMessage: DialogMessageModel(
                 title: 'Tipo de material',
-                description: 'Seleccione el material.'),
+                description:
+                    'Selecciona el material que transporta el camión. Si no aparece el material en el listado es necesario darlo de alta en el sistema.'),
             onChanged: (value) => cubit.addAnswer(
                 'id_material', value!.isNotEmpty ? value : null),
           ),
@@ -61,7 +62,9 @@ class DetailsTicketForm extends StatelessWidget {
               label: 'Folio Banco',
               placeholder: 'Ingrese el folio',
               helperMessage: DialogMessageModel(
-                  title: 'Folio Banco', description: 'Ingrese el folio.'),
+                  title: 'Folio Banco',
+                  description:
+                      'Introduce los últimos 6 dígitos del albarán del banco de material. Si son menos de 6 dígitos completar con ceros. Ejemplo: 001234.'),
               initialValue: cubit.formAnswers['folio'] ?? '',
               maxLength: 6,
               maxLines: 1,
@@ -79,7 +82,7 @@ class DetailsTicketForm extends StatelessWidget {
               helperMessage: DialogMessageModel(
                   title: 'Escanea el folio',
                   description:
-                      'Mantenga prensionado el campo para abrir la camara, despues escanee su código.'),
+                      'Presione el campo para abrir la camara, despues escanee su código.'),
               controller: folioTicketController,
               readOnly: true,
               maxLength: 20,
@@ -94,7 +97,9 @@ class DetailsTicketForm extends StatelessWidget {
             label: 'Comentario',
             placeholder: 'Nota de ubicación',
             helperMessage: DialogMessageModel(
-                title: 'Comentario', description: 'Nota de ubicación.'),
+                title: 'Comentario',
+                description:
+                    'Introduce información adicional del viaje (imputación de coste, unidad de obra, destino final del viaje, ruta de acarreo, incidencias, descuentos a subcontratistas…).'),
             initialValue: cubit.formAnswers['description'] ?? '',
             maxLength: 180,
             maxLines: null,
