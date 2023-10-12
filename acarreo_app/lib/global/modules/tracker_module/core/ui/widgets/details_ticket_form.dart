@@ -4,6 +4,7 @@ import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acar
 import 'package:acarreo_app/global/modules/widgets_module/custom_text_form_field.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dropdown_form_field.dart';
 import 'package:acarreo_app/global/modules/widgets_module/text_field_viewer.dart';
+import 'package:acarreo_app/global/modules/widgets_module/title_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -44,6 +45,11 @@ class DetailsTicketForm extends StatelessWidget {
           TextFieldViewer(label: 'Fecha de captura:', value: captureDate),
           TextFieldViewer(
               label: 'Capacidad de Carga:', value: '${truck.capacity} m3'),
+          const TitleForm(
+            title: '',
+            description:
+                'Debes registrar los detalles de la ubicación, que se definen a continuación.',
+          ),
           DropDownFormField(
             initialValue: cubit.formAnswers['id_material'] ?? '',
             items: materials,

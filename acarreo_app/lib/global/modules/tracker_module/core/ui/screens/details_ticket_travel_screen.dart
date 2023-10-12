@@ -18,8 +18,8 @@ class DetailsTicketTravelScreen extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     const String title = 'Detalles de la Ubicación';
-    const String description =
-        'Debes registrar los detalles de la ubicación, que se definen a continuación.';
+    // const String description =
+    //     'Debes registrar los detalles de la ubicación, que se definen a continuación.';
 
     return GeneralTrackerWrap(
       currentStep: currentStep,
@@ -32,7 +32,7 @@ class DetailsTicketTravelScreen extends StatelessWidget {
       children: [
         const TitleForm(
           title: title,
-          description: description,
+          // description: description,
         ),
         const SizedBox(height: 12.0),
         DetailsTicketForm(formKey: formKey)
