@@ -88,7 +88,7 @@ class DetailsTicketForm extends StatelessWidget {
               maxLength: 20,
               maxLines: 1,
               keyboardType: TextInputType.number,
-              onLongPress: () => cubit.initScannerCode(),
+              onTap: () => cubit.initScannerCode(),
               textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
               validators: const {'NOT_NULL': '', 'MIN_LENGTH': 20},
             ),

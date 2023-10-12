@@ -122,7 +122,7 @@ class CustomTextFormFieldController extends StatelessWidget {
 
   final Map<String, dynamic>? validators;
   final void Function(String)? onChanged;
-  final void Function()? onLongPress;
+  final void Function()? onTap;
 
   const CustomTextFormFieldController({
     Key? key,
@@ -135,7 +135,7 @@ class CustomTextFormFieldController extends StatelessWidget {
     this.fontSizeLabel = 16.0,
     this.fontSizePlaceholder = 16.0,
     this.onChanged,
-    this.onLongPress,
+    this.onTap,
     this.helperMessage,
     this.validators,
     this.keyboardType,
@@ -186,9 +186,9 @@ class CustomTextFormFieldController extends StatelessWidget {
           ],
         ),
         GestureDetector(
-          onLongPress: onLongPress,
+          onTap: onTap,
           child: AbsorbPointer(
-            absorbing: onLongPress != null,
+            absorbing: onTap != null,
             child: TextFormField(
               maxLines: maxLines,
               maxLength: maxLength,
