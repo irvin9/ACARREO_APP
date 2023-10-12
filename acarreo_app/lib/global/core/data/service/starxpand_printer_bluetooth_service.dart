@@ -9,7 +9,7 @@ class StartxpandPrinterBluetoothService {
     return byteData.buffer.asUint8List();
   }
 
-  Future<void> _appendTittle(
+  Future<void> _appendMainLogo(
       StarXpandDocument doc, StarXpandDocumentPrint printDoc) async {
     final logoImage = await getImageData('assets/logo/logo-icon.png');
     printDoc.style(alignment: StarXpandStyleAlignment.center);
@@ -62,7 +62,7 @@ class StartxpandPrinterBluetoothService {
     final printDoc = StarXpandDocumentPrint();
 
     try {
-      await _appendTittle(doc, printDoc);
+      await _appendMainLogo(doc, printDoc);
       appendBody(doc, printDoc, data);
       await _appendIsotype(doc, printDoc);
       _appendBarCode(doc, printDoc, data['barcode']);
