@@ -31,7 +31,7 @@ class StartxpandPrinterBluetoothService {
         "Nota: ${data['description']}");
   }
 
-  Future<void> _appendIsotype(
+  Future<void> _appendSecondaryLogo(
       StarXpandDocument doc, StarXpandDocumentPrint printDoc) async {
     final isotypeImage = await getImageData('assets/logo/logo-isotype.png');
     printDoc.style(alignment: StarXpandStyleAlignment.right);
@@ -64,7 +64,7 @@ class StartxpandPrinterBluetoothService {
     try {
       await _appendMainLogo(doc, printDoc);
       appendBody(doc, printDoc, data);
-      await _appendIsotype(doc, printDoc);
+      await _appendSecondaryLogo(doc, printDoc);
       _appendBarCode(doc, printDoc, data['barcode']);
       _appendWebSite(doc, printDoc);
 
