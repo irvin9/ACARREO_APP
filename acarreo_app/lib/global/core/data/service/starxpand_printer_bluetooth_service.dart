@@ -33,7 +33,7 @@ class StartxpandPrinterBluetoothService {
 
   Future<void> _appendSecondaryLogo(
       StarXpandDocument doc, StarXpandDocumentPrint printDoc) async {
-    final isotypeImage = await getImageData('assets/logo/logo-isotype.png');
+    final isotypeImage = await getImageData('assets/logo/logo-icon.png');
     printDoc.style(alignment: StarXpandStyleAlignment.right);
     printDoc.actionPrintImage(isotypeImage, 150);
   }
