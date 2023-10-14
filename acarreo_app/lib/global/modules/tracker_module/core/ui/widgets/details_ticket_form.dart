@@ -10,8 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class DetailsTicketForm extends StatelessWidget {
-  static final TextEditingController folioTicketController =
-      TextEditingController(text: '');
+  static final TextEditingController folioTicketController = TextEditingController(text: '');
 
   const DetailsTicketForm({
     super.key,
@@ -27,50 +26,37 @@ class DetailsTicketForm extends StatelessWidget {
     final String? answerTypeLocation = cubit.formAnswers['type_location'];
     final String? answerTypeRegister = cubit.formAnswers['type_register'];
     final truck = cubit.formAnswers['currentTruck'] as AcarreoTruck;
-    final captureDate =
-        DateFormat('dd/MM/yy hh:mm a').format(cubit.formAnswers['date']);
+    final captureDate = DateFormat('dd/MM/yy hh:mm a').format(cubit.formAnswers['date']);
 
-    final materials = cubit.managerService.materials
-        .map((i) => {i.id.toString(): i.materialName})
-        .toList();
+    final materials = cubit.managerService.materials.map((i) => {i.id.toString(): i.materialName}).toList();
 
     return Form(
       key: formKey,
       child: Column(
         children: [
-          TextFieldViewer(
-              label: 'Tipo de registro',
-              value: answerTypeRegister?.toUpperCase() ?? 'Desconocido'),
+          TextFieldViewer(label: 'Tipo de registro', value: answerTypeRegister?.toUpperCase() ?? 'Desconocido'),
           TextFieldViewer(label: 'Matricula camión:', value: truck.plate),
           TextFieldViewer(label: 'Fecha de captura:', value: captureDate),
-          TextFieldViewer(
-              label: 'Capacidad de Carga:', value: '${truck.capacity} m3'),
+          TextFieldViewer(label: 'Capacidad de Carga:', value: '${truck.capacity} m3'),
           const TitleForm(
             title: '',
-            description:
-                'Debes registrar los detalles de la ubicación, que se definen a continuación.',
+            description: 'Debes registrar los detalles de la ubicación, que se definen a continuación.',
           ),
           DropDownFormField(
             initialValue: cubit.formAnswers['id_material'] ?? '',
             items: materials,
             label: 'Tipo de material',
             helperMessage: DialogMessageModel(
-                title: 'Tipo de material',
-                description:
-                    'Selecciona el material que transporta el camión. Si no aparece el material en el listado es necesario darlo de alta en el sistema.'),
-            onChanged: (value) => cubit.addAnswer(
-                'id_material', value!.isNotEmpty ? value : null),
+                title: 'Tipo de material', description: 'Selecciona el material que transporta el camión. Si no aparece el material en el listado es necesario darlo de alta en el sistema.'),
+            onChanged: (value) => cubit.addAnswer('id_material', value!.isNotEmpty ? value : null),
           ),
           Visibility(
-            visible: TypeLocations.banco.toString() == answerTypeLocation &&
-                FormValues.mappingTypeRegister['1'] == answerTypeRegister,
+            visible: TypeLocations.banco.toString() == answerTypeLocation && FormValues.mappingTypeRegister['1'] == answerTypeRegister,
             child: CustomTextFormField(
               label: 'Folio Banco',
               placeholder: 'Ingrese el folio',
               helperMessage: DialogMessageModel(
-                  title: 'Folio Banco',
-                  description:
-                      'Introduce los últimos 6 dígitos del albarán del banco de material. Si son menos de 6 dígitos completar con ceros. Ejemplo: 001234.'),
+                  title: 'Folio Banco', description: 'Introduce los últimos 6 dígitos del albarán del banco de material. Si son menos de 6 dígitos completar con ceros. Ejemplo: 001234.'),
               initialValue: cubit.formAnswers['folio'] ?? '',
               maxLength: 6,
               maxLines: 1,
@@ -85,10 +71,7 @@ class DetailsTicketForm extends StatelessWidget {
             child: CustomTextFormFieldController(
               label: 'Folio Ticket Origen',
               placeholder: 'Ingrese el folio',
-              helperMessage: DialogMessageModel(
-                  title: 'Escanea el folio',
-                  description:
-                      'Presione el campo para abrir la camara, despues escanee su código.'),
+              helperMessage: DialogMessageModel(title: 'Escanea el folio', description: 'Presione el campo para abrir la camara, despues escanee su código.'),
               controller: folioTicketController,
               readOnly: true,
               maxLength: 20,
@@ -96,7 +79,7 @@ class DetailsTicketForm extends StatelessWidget {
               keyboardType: TextInputType.number,
               onTap: () => cubit.initScannerCode(),
               textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
-              validators: const {'NOT_NULL': '', 'MIN_LENGTH': 20},
+              // validators: const {'NOT_NULL': '', 'MIN_LENGTH': 20}, TODO: Undo this after test
             ),
           ),
           CustomTextFormField(
@@ -104,8 +87,7 @@ class DetailsTicketForm extends StatelessWidget {
             placeholder: 'Nota de ubicación',
             helperMessage: DialogMessageModel(
                 title: 'Comentario',
-                description:
-                    'Introduce información adicional del viaje (imputación de coste, unidad de obra, destino final del viaje, ruta de acarreo, incidencias, descuentos a subcontratistas…).'),
+                description: 'Introduce información adicional del viaje (imputación de coste, unidad de obra, destino final del viaje, ruta de acarreo, incidencias, descuentos a subcontratistas…).'),
             initialValue: cubit.formAnswers['description'] ?? '',
             maxLength: 180,
             maxLines: null,
