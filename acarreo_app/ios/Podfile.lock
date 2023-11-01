@@ -1,0 +1,89 @@
+PODS:
+  - barcode_scan2 (0.0.1):
+    - Flutter
+    - MTBBarcodeScanner
+    - SwiftProtobuf
+  - device_info_plus (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - flutter_blue (0.0.1):
+    - Flutter
+    - flutter_blue/Protos (= 0.0.1)
+  - flutter_blue/Protos (0.0.1):
+    - Flutter
+    - Protobuf (~> 3.11.4)
+  - flutter_native_splash (0.0.1):
+    - Flutter
+  - flutter_nfc_kit (2.0.0):
+    - Flutter
+  - flutter_secure_storage (6.0.0):
+    - Flutter
+  - MTBBarcodeScanner (5.0.11)
+  - open_settings (0.0.1):
+    - Flutter
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - Protobuf (3.11.4)
+  - starxpand (0.0.1):
+    - Flutter
+  - SwiftProtobuf (1.24.0)
+
+DEPENDENCIES:
+  - barcode_scan2 (from `.symlinks/plugins/barcode_scan2/ios`)
+  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
+  - Flutter (from `Flutter`)
+  - flutter_blue (from `.symlinks/plugins/flutter_blue/ios`)
+  - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
+  - flutter_nfc_kit (from `.symlinks/plugins/flutter_nfc_kit/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - open_settings (from `.symlinks/plugins/open_settings/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - starxpand (from `.symlinks/plugins/starxpand/ios`)
+
+SPEC REPOS:
+  trunk:
+    - MTBBarcodeScanner
+    - Protobuf
+    - SwiftProtobuf
+
+EXTERNAL SOURCES:
+  barcode_scan2:
+    :path: ".symlinks/plugins/barcode_scan2/ios"
+  device_info_plus:
+    :path: ".symlinks/plugins/device_info_plus/ios"
+  Flutter:
+    :path: Flutter
+  flutter_blue:
+    :path: ".symlinks/plugins/flutter_blue/ios"
+  flutter_native_splash:
+    :path: ".symlinks/plugins/flutter_native_splash/ios"
+  flutter_nfc_kit:
+    :path: ".symlinks/plugins/flutter_nfc_kit/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  open_settings:
+    :path: ".symlinks/plugins/open_settings/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  starxpand:
+    :path: ".symlinks/plugins/starxpand/ios"
+
+SPEC CHECKSUMS:
+  barcode_scan2: 0af2bb63c81b4565aab6cd78278e4c0fa136dbb0
+  device_info_plus: 7545d84d8d1b896cb16a4ff98c19f07ec4b298ea
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_blue: eeb381dc4727a0954dede73515f683865494b370
+  flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
+  flutter_nfc_kit: 965c98c3fa68f5609f1cc89abb968fe1b8ffdbaa
+  flutter_secure_storage: 23fc622d89d073675f2eaa109381aefbcf5a49be
+  MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
+  open_settings: 9628e736cb2738fd1dc84159565755c214478158
+  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
+  starxpand: f25ce146b09a422c7f243e03a516bcee66f77ccd
+  SwiftProtobuf: bcfd2bc231cf9ae552cdc7c4e877bd3b41fe57b1
+
+PODFILE CHECKSUM: 0a7d5b7d0e53420cb0284f7b2f171f93843b94d2
+
+COCOAPODS: 1.12.1

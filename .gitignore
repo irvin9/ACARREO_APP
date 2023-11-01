@@ -44,7 +44,5 @@ app.*.map.json
 /android/app/release
 
 .vscode
-pubspec.lock
-*.lock
 acarreo_app/config*.json
 .DS_Store
