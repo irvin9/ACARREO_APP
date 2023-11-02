@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:acarreo_app/global/core/domain/repository/scan_nfc_repository.dart';
+import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:ndef/ndef.dart' as ndef;
 
@@ -47,6 +47,7 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
         if (payload != null) {
           String recordData = utf8.decode(payload.buffer.asInt8List().toList());
           final data = json.decode(recordData);
+          debugPrint('${runtimeType.toString()} ReadNFCData -> $recordData');
           return data;
         }
       }
@@ -61,6 +62,7 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
         _tag.ndefWritable == true;
     if (!isWritable) return;
     final jsonData = jsonEncode(data);
+    debugPrint('${runtimeType.toString()} WriteNFCData -> $jsonData');
     await FlutterNfcKit.writeNDEFRecords([ndef.TextRecord(text: jsonData)]);
   }
 }
