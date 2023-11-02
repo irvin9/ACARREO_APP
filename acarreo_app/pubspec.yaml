@@ -27,6 +27,7 @@ dependencies:
   open_settings: ^2.0.2
   flutter_blue: ^0.8.0
   barcode_scan2: ^4.2.4
+  ndef: ^0.3.1
 
 dev_dependencies:
   flutter_test:
