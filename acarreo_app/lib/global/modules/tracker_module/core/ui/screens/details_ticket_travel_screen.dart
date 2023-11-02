@@ -32,7 +32,6 @@ class DetailsTicketTravelScreen extends StatelessWidget {
       children: [
         const TitleForm(
           title: title,
-          // description: description,
         ),
         const SizedBox(height: 12.0),
         DetailsTicketForm(formKey: formKey)

@@ -17,7 +17,7 @@ class PreviewTicketTravelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const String title = 'Revisa el ticket generado';
     final cubit = Modular.get<AcarreoCubit>();
-    cubit.generateTicketCode();
+    // cubit.generateTicketCode();
     final PreviewTicketModel ticketData = cubit.formatTicketByForm();
     return BlocListener<AcarreoCubit, AcarreoState>(
       listener: (context, state) {

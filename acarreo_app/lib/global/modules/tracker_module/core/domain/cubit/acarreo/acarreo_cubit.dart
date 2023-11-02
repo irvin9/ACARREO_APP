@@ -118,7 +118,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     final String truckId =
         int.parse((_formAnswers['truckId'] ?? '0').toString())
             .toString()
-            .padLeft(4, '0'); // (PROGRESO)(NORDIC MERCHANTS)
+            .padLeft(4, '0');
     String hourFormatted =
         '${captureDate.hour.toString().padLeft(2, '0')}${captureDate.minute.toString().padLeft(2, '0')}${captureDate.second.toString().padLeft(2, '0')}';
     String scannerId = _generateScannerId();
