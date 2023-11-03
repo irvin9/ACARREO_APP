@@ -3,6 +3,6 @@ abstract class ScanNfcRepository {
   Future<String?> startSession();
   Future<void> stopSession();
 
-  Future<void> writeNfcData(Map<String, dynamic> data);
+  Future<bool> writeNfcData(Map<String, dynamic> data);
   Future<Map<String, dynamic>?> readNfcData();
 }

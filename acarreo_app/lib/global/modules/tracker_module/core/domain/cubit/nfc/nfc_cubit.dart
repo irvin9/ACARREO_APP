@@ -14,26 +14,20 @@ class NfcCubit extends Cubit<NfcState> {
     emit(const NfcStartedScan());
     final String? idNfc = await scanNFC.startSession();
     if (idNfc != null) {
-      final currentTruck = managerService.trucks
-          .cast<AcarreoTruck?>()
-          .firstWhere(
-              (element) => element?.idNfc.toLowerCase() == idNfc.toLowerCase(),
-              orElse: () => null);
+      final currentTruck = managerService.trucks.cast<AcarreoTruck?>().firstWhere((element) => element?.idNfc.toLowerCase() == idNfc.toLowerCase(), orElse: () => null);
       if (currentTruck != null) {
         emit(NfcScanSuccess(truck: currentTruck));
         return;
       }
     }
     await closeScan();
-    emit(const NfcScanFailed({
-      'title': 'La lectura no puede ser completada',
-      'description': 'No se ha podido leer o verificar el código NFC.'
-    }));
+    emit(const NfcScanFailed({'title': 'La lectura no puede ser completada', 'description': 'No se ha podido leer o verificar el código NFC.'}));
   }
 
-  Future<void> write({required Map<String, dynamic> value}) async {
-    await scanNFC.writeNfcData(value);
+  Future<bool> write({required Map<String, dynamic> value}) async {
+    final success = await scanNFC.writeNfcData(value);
     await closeScan();
+    return success;
   }
 
   Future<Map<String, dynamic>?> read() async {

@@ -24,8 +24,7 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
     String? tagDecode;
     bool checkSupport = await isSupported();
     if (checkSupport) {
-      _tag = await FlutterNfcKit.poll(timeout: Duration(seconds: timeout))
-          .timeout(Duration(seconds: timeout));
+      _tag = await FlutterNfcKit.poll(timeout: Duration(seconds: timeout)).timeout(Duration(seconds: timeout));
       tagDecode = _tag.id;
     }
     return tagDecode;
@@ -40,29 +39,32 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
   Future<Map<String, dynamic>?> readNfcData() async {
     final ndefAvailable = _tag.ndefAvailable ?? false;
     if (ndefAvailable) {
-      final records = await FlutterNfcKit.readNDEFRecords(cached: false);
-      if (records.isNotEmpty) {
-        final record = records.first;
-        final payload = record.payload;
-        if (payload != null) {
-          String recordData = utf8.decode(payload.buffer.asInt8List().toList());
-          final data = json.decode(recordData);
-          debugPrint('${runtimeType.toString()} ReadNFCData -> $recordData');
-          return data;
+      try {
+        final records = await FlutterNfcKit.readNDEFRecords(cached: false);
+        if (records.isNotEmpty) {
+          final record = records.first as ndef.TextRecord;
+          final recordData = record.text;
+          if (recordData?.isNotEmpty == true) {
+            final data = json.decode(recordData!);
+            debugPrint('${runtimeType.toString()} ReadNFCData -> $recordData');
+            return data;
+          }
         }
+      } catch (e, s) {
+        debugPrint('${runtimeType.toString()} ${e.toString()}');
+        debugPrintStack(stackTrace: s);
       }
     }
     return null;
   }
 
   @override
-  Future<void> writeNfcData(Map<String, dynamic> data) async {
-    final bool isWritable = (_tag.type == NFCTagType.mifare_ultralight ||
-            _tag.type == NFCTagType.mifare_classic) &&
-        _tag.ndefWritable == true;
-    if (!isWritable) return;
+  Future<bool> writeNfcData(Map<String, dynamic> data) async {
+    final bool isWritable = (_tag.type == NFCTagType.mifare_ultralight || _tag.type == NFCTagType.mifare_classic || _tag.type == NFCTagType.unknown) && _tag.ndefWritable == true;
+    if (!isWritable) return false;
     final jsonData = jsonEncode(data);
     debugPrint('${runtimeType.toString()} WriteNFCData -> $jsonData');
-    await FlutterNfcKit.writeNDEFRecords([ndef.TextRecord(text: jsonData)]);
+    await FlutterNfcKit.writeNDEFRecords([ndef.TextRecord(text: jsonData, language: "en")]);
+    return true;
   }
 }
