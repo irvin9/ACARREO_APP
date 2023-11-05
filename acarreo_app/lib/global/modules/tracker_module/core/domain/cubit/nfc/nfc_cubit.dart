@@ -20,19 +20,22 @@ class NfcCubit extends Cubit<NfcState> {
         return;
       }
     }
-    await closeScan();
+    //TODO: Verify this
+    // await closeScan();
     emit(const NfcScanFailed({'title': 'La lectura no puede ser completada', 'description': 'No se ha podido leer o verificar el código NFC.'}));
   }
 
   Future<bool> write({required Map<String, dynamic> value}) async {
     final success = await scanNFC.writeNfcData(value);
-    await closeScan();
+    //TODO: Verify this
+    // await closeScan();
     return success;
   }
 
   Future<Map<String, dynamic>?> read() async {
     final data = await scanNFC.readNfcData();
-    await closeScan();
+    //TODO: Verify this
+    // await closeScan();
     return data;
   }
 
