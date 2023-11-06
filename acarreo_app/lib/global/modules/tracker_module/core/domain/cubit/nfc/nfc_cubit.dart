@@ -39,6 +39,10 @@ class NfcCubit extends Cubit<NfcState> {
     return data;
   }
 
+  beginScan() async {
+    await scanNFC.startSession();
+  }
+
   closeScan() async {
     await scanNFC.stopSession();
   }

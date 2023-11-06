@@ -17,7 +17,7 @@ class RegisterTravelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Modular.get<NfcCubit>().startScan(); //TODO: Verify this
+    Modular.get<NfcCubit>().beginScan(); //TODO: Verify this
     final formKey = GlobalKey<FormState>();
     const String title = 'Registrar Ubicación';
     const String description = 'Registra la información del la ubicación, le tomará unos minutos. '
