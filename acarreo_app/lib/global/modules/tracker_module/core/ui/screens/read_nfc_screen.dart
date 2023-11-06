@@ -35,8 +35,8 @@ class ReadNFCTravelScreen extends StatelessWidget {
       if (value != null) {
         final folioTicketOrigin = value['ticket_code'];
         acarreoCubit.addAnswer('folio_ticket_origin', folioTicketOrigin);
-        Modular.to.navigate(GlobalRoutesApp.detailsTicketTravelRoute);
       }
+      Modular.to.navigate(GlobalRoutesApp.detailsTicketTravelRoute); //TODO: Verify this
     }
   }
 
