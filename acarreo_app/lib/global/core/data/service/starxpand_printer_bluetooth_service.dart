@@ -24,6 +24,7 @@ class StartxpandPrinterBluetoothService {
     printDoc.actionPrintText("Desarrolladora: ${data['enterpriseName']}\n"
         "Proyecto: ${data['projectName']}\n"
         "Fecha:  ${data['date']}\n"
+        "Tipo de viaje:  ${data['typeLocation']}\n"
         "Ubicación: ${data['location']}\n"
         "Material: ${data['material']}\n"
         "Placas:  ${data['plates']}\n"
