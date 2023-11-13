@@ -12,12 +12,14 @@ class ReadNFCTravelScreen extends StatelessWidget {
   final int? totalSteps;
 
   static const String title = 'Identifica tu Unidad';
-  static const String description = 'Leeremos su código de indentificación mediante un lector NFC.';
+  static const String description =
+      'Leeremos su código de indentificación mediante un lector NFC.';
 
   static final acarreoCubit = Modular.get<AcarreoCubit>();
   static final nfcCubit = Modular.get<NfcCubit>();
 
-  const ReadNFCTravelScreen({super.key, this.currentStep = 1, this.totalSteps = 4});
+  const ReadNFCTravelScreen(
+      {super.key, this.currentStep = 1, this.totalSteps = 4});
 
   Future<void> _handlerNfcData(String idNfc) async {
     final typeRegister = acarreoCubit.getAnswersForm('type_register');
@@ -36,7 +38,7 @@ class ReadNFCTravelScreen extends StatelessWidget {
         final folioTicketOrigin = value['ticket_code'];
         acarreoCubit.addAnswer('folio_ticket_origin', folioTicketOrigin);
       }
-      Modular.to.navigate(GlobalRoutesApp.detailsTicketTravelRoute); //TODO: Verify this
+      Modular.to.navigate(GlobalRoutesApp.detailsTicketTravelRoute);
     }
   }
 
@@ -55,7 +57,8 @@ class ReadNFCTravelScreen extends StatelessWidget {
           DialogError.show(
             context,
             DialogMessageModel.fromMap(state.message),
-            () => Modular.to.pushReplacementNamed(GlobalRoutesApp.registerTravelRoute),
+            () => Modular.to
+                .pushReplacementNamed(GlobalRoutesApp.registerTravelRoute),
           );
         }
       },
