@@ -21,10 +21,17 @@ class StartxpandPrinterBluetoothService {
       Map<String, dynamic> data) {
     printDoc.style(alignment: StarXpandStyleAlignment.left);
 
+    String typeLocation;
+    if (data['typeLocation'] == '1') {
+      typeLocation = "Origen";
+    } else {
+      typeLocation = "Destino";
+    }
+
     printDoc.actionPrintText("Desarrolladora: ${data['enterpriseName']}\n"
         "Proyecto: ${data['projectName']}\n"
         "Fecha:  ${data['date']}\n"
-        "Tipo de viaje:  ${data['typeLocation']}\n"
+        "Tipo de viaje: $typeLocation\n"
         "Ubicación: ${data['location']}\n"
         "Material: ${data['material']}\n"
         "Placas:  ${data['plates']}\n"
