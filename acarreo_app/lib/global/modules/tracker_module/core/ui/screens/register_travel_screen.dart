@@ -20,7 +20,8 @@ class RegisterTravelScreen extends StatelessWidget {
     Modular.get<NfcCubit>().beginScan(); //TODO: Verify this
     final formKey = GlobalKey<FormState>();
     const String title = 'Registrar Ubicación';
-    const String description = 'Registra la información del la ubicación, le tomará unos minutos. '
+    const String description =
+        'Registra la información del la ubicación, le tomará unos minutos. '
         'Necesitamos almacenar el tipo de ubicación.';
 
     const String titleH2 = 'Detalles de la ubicación';
@@ -30,6 +31,7 @@ class RegisterTravelScreen extends StatelessWidget {
         currentStep: currentStep,
         onContinue: () {
           if (formKey.currentState!.validate()) {
+            Modular.get<NfcCubit>().closeScan(); //TODO: Verify this
             Modular.to.pushNamed(GlobalRoutesApp.readTravelNFCRoute);
           }
         },
