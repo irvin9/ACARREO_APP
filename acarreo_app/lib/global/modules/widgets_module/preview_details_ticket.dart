@@ -33,10 +33,11 @@ class PreviewDetailsTicket extends StatelessWidget {
           ),
           ConceptTextTicket(
             conceptText: 'Tipo de viaje:',
-            valueText:
-                FormValues.mappingTypeRegister['1'] == ticketData.typeLocation
-                    ? 'Origen'
-                    : 'Destino',
+            valueText: (ticketData.typeLocation ==
+                        FormValues.mappingTypeRegister['1'] ||
+                    ticketData.typeLocation == '1')
+                ? 'Origen'
+                : 'Destino',
           ),
           ConceptTextTicket(
             conceptText: 'Ubicación:',
