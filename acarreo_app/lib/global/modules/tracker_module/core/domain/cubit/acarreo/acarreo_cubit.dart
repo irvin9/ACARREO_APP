@@ -109,6 +109,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     }
     _pendingTickets = false;
     emit(const AcarreoSuccess());
+    updateLocalData();
   }
 
   String generateTicketCode() {
