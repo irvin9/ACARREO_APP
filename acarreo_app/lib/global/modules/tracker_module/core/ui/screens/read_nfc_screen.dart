@@ -25,7 +25,7 @@ class ReadNFCTravelScreen extends StatelessWidget {
     final typeRegister = acarreoCubit.getAnswersForm('type_register');
     final ticketCode = acarreoCubit.generateTicketCode();
     if (typeRegister == 'origen') {
-      final value = {'ticket_code': ticketCode, 'id': idNfc};
+      final value = {'Z196X110497Y997': ticketCode, 'XE92202976O4': idNfc};
       final statusWrite = await nfcCubit.write(value: value);
       if (statusWrite) {
         Modular.to.navigate(GlobalRoutesApp.detailsTicketTravelRoute);
@@ -35,7 +35,7 @@ class ReadNFCTravelScreen extends StatelessWidget {
     } else {
       final value = await nfcCubit.read();
       if (value != null) {
-        final folioTicketOrigin = value['ticket_code'];
+        final folioTicketOrigin = value['Z196X110497Y997'];
         acarreoCubit.addAnswer('folio_ticket_origin', folioTicketOrigin);
       }
       Modular.to.navigate(GlobalRoutesApp.detailsTicketTravelRoute);
