@@ -9,6 +9,7 @@ class GeneralTrackerWrap extends StatelessWidget {
   final void Function()? onContinue;
   final bool showMainButton;
   final List<Widget> children;
+  final List<GeneralButton> actions;
   final bool disableToBack;
   final String? mainButtonText;
   final bool showStepper;
@@ -16,11 +17,12 @@ class GeneralTrackerWrap extends StatelessWidget {
   const GeneralTrackerWrap({
     super.key,
     this.currentStep = 1,
-    this.totalSteps = 4,
+    this.totalSteps = 5,
     this.onContinue,
     this.mainButtonText,
     this.showMainButton = true,
     required this.children,
+    this.actions = const [],
     this.disableToBack = false,
     this.showStepper = true,
   });
@@ -61,13 +63,18 @@ class GeneralTrackerWrap extends StatelessWidget {
           Visibility(
             visible:
                 showMainButton && MediaQuery.of(context).viewInsets.bottom == 0,
-            child: GeneralButton(
-              vertical: 16.0,
-              horizontal: 16.0,
-              buttonText: mainButtonText ?? 'Continuar',
-              buttonElevation: 2.0,
-              textColor: Colors.black87,
-              onPressed: onContinue,
+            child: Column(
+              children: [
+                GeneralButton(
+                  vertical: actions.isEmpty ? 16.0 : 0.0,
+                  horizontal: 16.0,
+                  buttonText: mainButtonText ?? 'Continuar',
+                  buttonElevation: 2.0,
+                  textColor: Colors.black87,
+                  onPressed: onContinue,
+                ),
+                ...actions
+              ],
             ),
           ),
         ],
