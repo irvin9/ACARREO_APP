@@ -14,16 +14,18 @@ import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acar
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/nfc/nfc_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/printer/printer_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/list_tickets/list_tickets_cubit.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/routes/guards/first_location_guard.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/details_ticket_travel_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/list_tickets_screen.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/preview_current_location/preview_current_location_travel_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/preview_ticket_travel_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/read_nfc_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/register_travel_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/review_ticket_travel_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/tracker_module.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-const int totalSteps = 4;
+const int totalSteps = 5;
 
 class TrackerModule extends Module {
   @override
@@ -47,6 +49,7 @@ class TrackerModule extends Module {
             localStorageService: i(), repository: i(), storage: i())),
         Bind.lazySingleton(
           (i) => AcarreoDataManagerService(
+              preferencesStorage: i(),
               locationService: i(),
               materialService: i(),
               projectService: i(),
@@ -88,21 +91,19 @@ class TrackerModule extends Module {
                   BlocProvider.value(value: Modular.get<AcarreoCubit>()),
                   BlocProvider.value(value: Modular.get<PrinterCubit>()),
                 ],
-                child: FutureBuilder(
-                  future: initExternalService(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      Modular.get<AcarreoCubit>().getLocalData();
-                    }
-                    return const RouterOutlet();
-                  },
-                ),
+                child: const TrackerRouterOutlet(),
               )),
           children: [
+            ChildRoute(TrackerRoutesModule.registerTravelRoute,
+                child: (context, args) => const RegisterTravelScreen(
+                      currentStep: 1,
+                      totalSteps: totalSteps,
+                    ),
+                guards: [FirstLocationGuard()]),
             ChildRoute(
-              TrackerRoutesModule.registerTravelRoute,
-              child: (context, args) => const RegisterTravelScreen(
-                currentStep: 1,
+              TrackerRoutesModule.previewCurrentLocationTravelRoute,
+              child: (context, args) => const PreviewCurrentLocationScreen(
+                currentStep: 2,
                 totalSteps: totalSteps,
               ),
             ),
@@ -111,7 +112,7 @@ class TrackerModule extends Module {
               child: (context, args) => BlocProvider.value(
                 value: Modular.get<NfcCubit>()..startScan(),
                 child: const ReadNFCTravelScreen(
-                  currentStep: 2,
+                  currentStep: 3,
                   totalSteps: totalSteps,
                 ),
               ),
@@ -119,23 +120,33 @@ class TrackerModule extends Module {
             ChildRoute(
               TrackerRoutesModule.detailsTicketTravelRoute,
               child: (context, args) => const DetailsTicketTravelScreen(
-                currentStep: 3,
+                currentStep: 4,
                 totalSteps: totalSteps,
               ),
             ),
             ChildRoute(
               TrackerRoutesModule.previewTicketTravelRoute,
               child: (context, args) => const PreviewTicketTravelScreen(
-                currentStep: 4,
+                currentStep: 5,
                 totalSteps: totalSteps,
               ),
             ),
           ],
         ),
       ];
+}
 
-  Future<bool> initExternalService() async {
-    await HiveLocalStorageService.initStorage();
-    return true;
+class TrackerRouterOutlet extends StatefulWidget {
+  const TrackerRouterOutlet({super.key});
+
+  @override
+  State<TrackerRouterOutlet> createState() => _TrackerRouterOutletState();
+}
+
+class _TrackerRouterOutletState extends State<TrackerRouterOutlet> {
+  @override
+  Widget build(BuildContext context) {
+    Modular.get<AcarreoCubit>().getLocalData();
+    return const RouterOutlet();
   }
 }

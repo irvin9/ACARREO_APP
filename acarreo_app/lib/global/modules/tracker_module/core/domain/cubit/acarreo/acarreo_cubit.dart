@@ -184,4 +184,27 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     }
     emit(const FormScannerError());
   }
+
+  void saveFirsLocation() {
+    final currentLocation = {
+      'type_register': formAnswers['type_register'],
+      'type_location': formAnswers['type_location'],
+      'id_location': formAnswers['id_location'],
+      'location_name': managerService.locations
+          .firstWhere((i) => i.id.toString() == formAnswers['id_location'])
+          .name
+    };
+    managerService.preferencesStorage
+        .saveDataScreen('first-screen', currentLocation);
+  }
+
+  Future<void> getDataFirstLocation() async {
+    final firstScreenData =
+        await managerService.preferencesStorage.getDataScreen('first-screen');
+    if (firstScreenData != null) _formAnswers.addAll({...firstScreenData});
+  }
+
+  void clearDataFirstLocation() {
+    managerService.preferencesStorage.removeDataScreen('first-screen');
+  }
 }

@@ -12,6 +12,8 @@ abstract class GlobalRoutesApp {
 
   static String get trackerFormRoute => '$trackerRoute/form';
   static String get registerTravelRoute => '$trackerFormRoute/register-travel';
+  static String get previewCurrentLocationTravelRoute =>
+      '$trackerFormRoute/preview-current-location-travel';
   static String get readTravelNFCRoute => '$trackerFormRoute/read-travel-nfc';
   static String get detailsTicketTravelRoute =>
       '$trackerFormRoute/details-ticket-travel';
