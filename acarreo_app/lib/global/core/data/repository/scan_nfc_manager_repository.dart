@@ -24,7 +24,7 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
     String? tagDecode;
     bool checkSupport = await isSupported();
     if (checkSupport) {
-      _tag = await FlutterNfcKit.poll(timeout: Duration(seconds: timeout)).timeout(Duration(seconds: timeout));
+      _tag = await FlutterNfcKit.poll();
       tagDecode = _tag.id;
     }
     return tagDecode;
