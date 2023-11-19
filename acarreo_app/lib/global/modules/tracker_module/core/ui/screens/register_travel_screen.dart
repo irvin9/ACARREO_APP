@@ -1,5 +1,5 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/nfc/nfc_cubit.dart'; //TODO: Verify this
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/nfc/nfc_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_wrap.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/register_travel_form.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +17,11 @@ class RegisterTravelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Modular.get<NfcCubit>().beginScan(); //TODO: Verify this
+    Modular.get<NfcCubit>().beginScan();
     final formKey = GlobalKey<FormState>();
     const String title = 'Registrar Ubicación';
-    const String description = 'Registra la información del la ubicación, le tomará unos minutos. '
+    const String description =
+        'Registra la información del la ubicación, le tomará unos minutos. '
         'Necesitamos almacenar el tipo de ubicación.';
 
     const String titleH2 = 'Detalles de la ubicación';
@@ -30,6 +31,7 @@ class RegisterTravelScreen extends StatelessWidget {
         currentStep: currentStep,
         onContinue: () {
           if (formKey.currentState!.validate()) {
+            Modular.get<NfcCubit>().closeScan();
             Modular.to.pushNamed(GlobalRoutesApp.readTravelNFCRoute);
           }
         },

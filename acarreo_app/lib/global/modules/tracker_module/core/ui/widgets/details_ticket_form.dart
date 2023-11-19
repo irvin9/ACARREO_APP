@@ -34,6 +34,10 @@ class DetailsTicketForm extends StatelessWidget {
         .map((i) => {i.id.toString(): i.materialName})
         .toList();
 
+    final locationName = cubit.managerService.locations
+        .firstWhere((i) => i.id.toString() == cubit.formAnswers['id_location'])
+        .name;
+
     return Form(
       key: formKey,
       child: Column(
@@ -41,6 +45,7 @@ class DetailsTicketForm extends StatelessWidget {
           TextFieldViewer(
               label: 'Tipo de registro',
               value: answerTypeRegister?.toUpperCase() ?? 'Desconocido'),
+          TextFieldViewer(label: 'Ubicación:', value: locationName),
           TextFieldViewer(label: 'Matricula camión:', value: truck.plate),
           TextFieldViewer(label: 'Fecha de captura:', value: captureDate),
           TextFieldViewer(

@@ -1,6 +1,6 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/core/domain/models/preview_ticket_model.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/nfc/nfc_cubit.dart'; //TODO: Verify this
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/nfc/nfc_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_wrap.dart';
 import 'package:acarreo_app/global/modules/widgets_module/preview_details_ticket.dart';
@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
 class PreviewTicketTravelScreen extends StatelessWidget {
   final int? currentStep;
   final int? totalSteps;
-  const PreviewTicketTravelScreen({super.key, this.currentStep, this.totalSteps});
+  const PreviewTicketTravelScreen(
+      {super.key, this.currentStep, this.totalSteps});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,8 @@ class PreviewTicketTravelScreen extends StatelessWidget {
             context: context,
             message: DialogMessageModel(
               title: '¡Vamos a imprimir su ticket!',
-              description: 'Para eso necesitamos que tenga ya conectada su impresora al dispositivo.',
+              description:
+                  'Para eso necesitamos que tenga ya conectada su impresora al dispositivo.',
             ),
             data: ticketData.toMap(),
             onBack: () => cubit.finishForm(GlobalRoutesApp.registerTravelRoute),
@@ -37,7 +39,7 @@ class PreviewTicketTravelScreen extends StatelessWidget {
         mainButtonText: 'Generar Ticket',
         onContinue: () {
           cubit.createTicket();
-          Modular.get<NfcCubit>().closeScan(); //TODO: Verify this
+          Modular.get<NfcCubit>().closeScan();
         },
         currentStep: currentStep,
         children: [
