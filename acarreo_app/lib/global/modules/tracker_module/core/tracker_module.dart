@@ -147,6 +147,13 @@ class _TrackerRouterOutletState extends State<TrackerRouterOutlet> {
   @override
   Widget build(BuildContext context) {
     Modular.get<AcarreoCubit>().getLocalData();
+    Modular.get<NfcCubit>().beginScan();
     return const RouterOutlet();
+  }
+
+  @override
+  void dispose() {
+    Modular.get<NfcCubit>().closeScan();
+    super.dispose();
   }
 }
