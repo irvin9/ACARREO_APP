@@ -2,7 +2,6 @@ import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/preview_current_location/widgets/preview_location_travel.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_wrap.dart';
-import 'package:acarreo_app/global/modules/widgets_module/diloag_warning.dart';
 import 'package:acarreo_app/global/modules/widgets_module/general_button.dart';
 import 'package:flutter/material.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
@@ -24,18 +23,8 @@ class PreviewCurrentLocationScreen extends StatelessWidget {
 
     return GeneralTrackerWrap(
         currentStep: currentStep,
-        onContinue: () {
-          DialogWarning.show(
-            context,
-            null,
-            DialogMessageModel(
-                title: '¡Importante!',
-                description: 'Verifica si el tipo de registro (origen/destino)'
-                    'y la ubicación son correctas antes de registrar el viaje'),
-            'Validar',
-            () => Modular.to.navigate(GlobalRoutesApp.readTravelNFCRoute),
-          );
-        },
+        onContinue: () =>
+            Modular.to.navigate(GlobalRoutesApp.readTravelNFCRoute),
         actions: [
           GeneralButton(
             vertical: 16.0,
