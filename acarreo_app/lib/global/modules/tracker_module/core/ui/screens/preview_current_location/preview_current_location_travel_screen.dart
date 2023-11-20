@@ -24,18 +24,8 @@ class PreviewCurrentLocationScreen extends StatelessWidget {
 
     return GeneralTrackerWrap(
         currentStep: currentStep,
-        onContinue: () {
-          DialogWarning.show(
-            context,
-            null,
-            DialogMessageModel(
-                title: '¡Importante!',
-                description: 'Verifica si el tipo de registro (origen/destino)'
-                    'y la ubicación son correctas antes de registrar el viaje'),
-            'Validar',
-            () => Modular.to.navigate(GlobalRoutesApp.readTravelNFCRoute),
-          );
-        },
+        onContinue: () =>
+            Modular.to.navigate(GlobalRoutesApp.readTravelNFCRoute),
         actions: [
           GeneralButton(
             vertical: 16.0,

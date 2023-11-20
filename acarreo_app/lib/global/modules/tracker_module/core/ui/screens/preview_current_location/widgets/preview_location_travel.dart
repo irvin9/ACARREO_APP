@@ -12,6 +12,10 @@ class PreviewLocationTravel extends StatefulWidget {
 
 class _PreviewLocationTravelState extends State<PreviewLocationTravel> {
   final cubit = Modular.get<AcarreoCubit>();
+
+  final msgWarningDescription =
+      'Verifica si el tipo de registro (origen/destino)'
+      'y la ubicación son correctas antes de registrar el viaje';
   String? answerTypeRegister;
   String? answerTypeLocation;
   String? locationName;
@@ -45,6 +49,12 @@ class _PreviewLocationTravelState extends State<PreviewLocationTravel> {
                 'Desconocido'),
         TextFieldViewer(
             label: 'Ubicación', value: locationName ?? 'Desconocido'),
+        TextFieldViewer(
+            fontColor: Colors.redAccent,
+            fontSize: 20.0,
+            valueAlignText: TextAlign.center,
+            label: '¡Importante!'.toUpperCase(),
+            value: msgWarningDescription),
       ],
     );
   }
