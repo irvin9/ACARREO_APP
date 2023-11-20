@@ -1,7 +1,7 @@
 name: acarreo_app
 description: Una aplicación para manejos de transporte de carga.
 publish_to: "none"
-version: 1.0.2+1020002
+version: 1.0.3+1020000
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
