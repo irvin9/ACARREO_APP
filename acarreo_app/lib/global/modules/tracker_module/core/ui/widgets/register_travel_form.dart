@@ -13,11 +13,9 @@ class RegisterTravelForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<AcarreoCubit>((bloc) => bloc.stream);
-
-    final String? answerTypeLocation = bloc.formAnswers['type_location'];
-
-    final locations = bloc.managerService.locations
+    final cubit = context.watch<AcarreoCubit>((bloc) => bloc.stream);
+    final String? answerTypeLocation = cubit.formAnswers['type_location'];
+    final locations = cubit.managerService.locations
         .where((l) => l.idLabel.toString() == answerTypeLocation)
         .map((i) => {i.id.toString(): i.name})
         .toList();
@@ -28,35 +26,35 @@ class RegisterTravelForm extends StatelessWidget {
         children: [
           DropDownFormField(
             padding: 0.0,
-            initialValue: bloc.formAnswers['type_register'] ?? '',
+            initialValue: cubit.formAnswers['type_register'] ?? '',
             label: 'Tipo de Registro',
-            disable: bloc.formAnswers['type_location'] != null ||
-                bloc.formAnswers['id_location'] != null,
+            disable: cubit.formAnswers['type_location'] != null ||
+                cubit.formAnswers['id_location'] != null,
             items: const [FormValues.optionTypeRegisters],
-            onChanged: (value) => bloc.addAnswer(
+            onChanged: (value) => cubit.addAnswer(
                 'type_register', value!.isNotEmpty ? value : null),
           ),
           const SizedBox(height: 24.0),
           DropDownFormField(
             padding: 0.0,
-            initialValue: bloc.formAnswers['type_location'] ?? '',
+            initialValue: cubit.formAnswers['type_location'] ?? '',
             label: 'Tipo de ubicación',
-            disable: bloc.formAnswers['type_register'] == null ||
-                bloc.formAnswers['id_location'] != null,
+            disable: cubit.formAnswers['type_register'] == null ||
+                cubit.formAnswers['id_location'] != null,
             items: const [FormValues.optionTypeLocations],
-            onChanged: (value) => bloc.addAnswer(
+            onChanged: (value) => cubit.addAnswer(
                 'type_location', value!.isNotEmpty ? value : null),
           ),
           const SizedBox(height: 24.0),
           DropDownFormField(
             padding: 0.0,
-            initialValue: bloc.formAnswers['id_location'] ?? '',
+            initialValue: cubit.formAnswers['id_location'] ?? '',
             label: 'Ubicación',
-            disable: bloc.formAnswers['type_register'] == null ||
-                bloc.formAnswers['type_location'] == null,
+            disable: cubit.formAnswers['type_register'] == null ||
+                cubit.formAnswers['type_location'] == null,
             items: locations,
-            onChanged: (value) =>
-                bloc.addAnswer('id_location', value!.isNotEmpty ? value : null),
+            onChanged: (value) => cubit.addAnswer(
+                'id_location', value!.isNotEmpty ? value : null),
           ),
         ],
       ),

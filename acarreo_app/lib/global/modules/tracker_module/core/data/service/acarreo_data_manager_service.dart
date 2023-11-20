@@ -1,3 +1,4 @@
+import 'package:acarreo_app/global/core/data/service/preferences_app_storage.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_location.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_material.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
@@ -13,6 +14,7 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/foundation.dart';
 
 class AcarreoDataManagerService implements DataManagerService {
+  final AppPreferencesStorage preferencesStorage;
   final LocationService<AcarreoLocation> locationService;
   final MaterialService<AcarreoMaterial> materialService;
   final TicketService<AcarreoTicket> ticketService;
@@ -39,6 +41,7 @@ class AcarreoDataManagerService implements DataManagerService {
     required this.ticketService,
     required this.truckService,
     required this.projectService,
+    required this.preferencesStorage,
   });
 
   @override

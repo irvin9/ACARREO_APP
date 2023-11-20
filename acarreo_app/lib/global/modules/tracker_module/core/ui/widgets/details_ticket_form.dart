@@ -103,10 +103,7 @@ class DetailsTicketForm extends StatelessWidget {
               keyboardType: TextInputType.number,
               onTap: () => cubit.initScannerCode(),
               textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
-              validators: const {
-                'NOT_NULL': '',
-                'MIN_LENGTH': 20
-              }, // TODO: Undo this after test
+              validators: const {'NOT_NULL': '', 'MIN_LENGTH': 20},
             ),
           ),
           CustomTextFormField(

@@ -4,4 +4,5 @@ abstract class StorageLocalNames {
   static const String materials = 'materials';
   static const String tickets = 'tickets';
   static const String projects = 'projects';
+  static const String appPreferences = 'app_preferences';
 }

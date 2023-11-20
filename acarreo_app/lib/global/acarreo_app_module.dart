@@ -12,7 +12,8 @@ class AcarreoAppModule extends Module {
         Bind.singleton((i) => FlutterEnvironmentService()),
         Bind.singleton((i) => FlutterStorageService(i())),
         Bind.factory((i) => HiveLocalStorageService()),
-        Bind.singleton((i) => FlutterHttpService(storage: i()))
+        Bind.singleton((i) => FlutterHttpService(storage: i())),
+        Bind.lazySingleton((i) => AppPreferencesStorage(localStorage: i()))
       ];
 
   @override

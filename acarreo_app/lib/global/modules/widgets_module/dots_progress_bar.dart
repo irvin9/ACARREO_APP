@@ -31,7 +31,7 @@ class DotsProgressBar extends StatelessWidget {
       height: 12,
       width: double.infinity,
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -61,7 +61,7 @@ class ActiveIndicator extends StatelessWidget {
         Visibility(
           visible: !isFirst,
           child: Container(
-            width: 40.0,
+            width: 32.0,
             height: 1.0,
             decoration: ShapeDecoration(
               shape: RoundedRectangleBorder(

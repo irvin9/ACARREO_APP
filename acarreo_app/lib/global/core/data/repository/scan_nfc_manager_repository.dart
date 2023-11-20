@@ -24,7 +24,7 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
     String? tagDecode;
     bool checkSupport = await isSupported();
     if (checkSupport) {
-      _tag = await FlutterNfcKit.poll(timeout: Duration(seconds: timeout)).timeout(Duration(seconds: timeout));
+      _tag = await FlutterNfcKit.poll();
       tagDecode = _tag.id;
     }
     return tagDecode;
@@ -60,11 +60,15 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
 
   @override
   Future<bool> writeNfcData(Map<String, dynamic> data) async {
-    final bool isWritable = (_tag.type == NFCTagType.mifare_ultralight || _tag.type == NFCTagType.mifare_classic || _tag.type == NFCTagType.unknown) && _tag.ndefWritable == true;
+    final bool isWritable = (_tag.type == NFCTagType.mifare_ultralight ||
+            _tag.type == NFCTagType.mifare_classic ||
+            _tag.type == NFCTagType.unknown) &&
+        _tag.ndefWritable == true;
     if (!isWritable) return false;
     final jsonData = jsonEncode(data);
     debugPrint('${runtimeType.toString()} WriteNFCData -> $jsonData');
-    await FlutterNfcKit.writeNDEFRecords([ndef.TextRecord(text: jsonData, language: "en")]);
+    await FlutterNfcKit.writeNDEFRecords(
+        [ndef.TextRecord(text: jsonData, language: "en")]);
     return true;
   }
 }
