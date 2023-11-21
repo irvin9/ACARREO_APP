@@ -31,6 +31,7 @@ class DetailsTicketForm extends StatelessWidget {
         DateFormat('dd/MM/yy hh:mm a').format(cubit.formAnswers['date']);
 
     final materials = cubit.managerService.materials
+        .where((i) => i.state != "0")
         .map((i) => {i.id.toString(): i.materialName})
         .toList();
 
