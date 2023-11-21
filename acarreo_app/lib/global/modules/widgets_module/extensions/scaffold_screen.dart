@@ -53,7 +53,8 @@ extension ScaffoldScreen on Widget {
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
             title: const SizedBox(
-              width: 140,
+              width: 90,
+              height: 40,
               child: LogoApp(assetName: WidgetAssets.logoNameLightApp),
             ),
             automaticallyImplyLeading: !disableToBack,
