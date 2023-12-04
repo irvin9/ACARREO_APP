@@ -58,13 +58,21 @@ class DialogPritting {
           buttonColor: Colors.black87,
           onPressed: () => _printerCubit.print(data),
         ),
+        const SizedBox(height: 10.0),
+        GeneralButton(
+          buttonText: 'Cerrar',
+          textColor: Colors.white,
+          buttonColor: Colors.black87,
+          onPressed: () =>
+              _acarreoCubit.finishForm(GlobalRoutesApp.registerTravelRoute),
+        ),
       ],
       content: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Ha ocurrido algo con la impresión, vuelva intentarlo.',
+            'Ha ocurrido algo con la impresión, vuelva intentarlo más tarde.',
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
                 fontSize: 14.0, fontWeight: FontWeight.w400),

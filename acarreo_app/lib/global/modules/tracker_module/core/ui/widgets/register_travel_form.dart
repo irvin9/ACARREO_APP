@@ -17,6 +17,7 @@ class RegisterTravelForm extends StatelessWidget {
     final String? answerTypeLocation = cubit.formAnswers['type_location'];
     final locations = cubit.managerService.locations
         .where((l) => l.idLabel.toString() == answerTypeLocation)
+        .where((i) => i.state != 0)
         .map((i) => {i.id.toString(): i.name})
         .toList();
 
