@@ -1,4 +1,5 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/core/domain/cubit/app_cubit_observer.dart';
 import 'package:flutter/material.dart';
 
 class AcarreoApp extends StatelessWidget {
@@ -12,6 +13,8 @@ class AcarreoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Modular.setInitialRoute(initialRoute);
+    Modular.setObservers([AppRouteObserver()]);
+    Bloc.observer = AppCubitObserver();
     return MaterialApp.router(
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,
