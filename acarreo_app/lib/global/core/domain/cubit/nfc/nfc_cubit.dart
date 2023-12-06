@@ -12,8 +12,7 @@ class NfcCubit extends Cubit<NfcState> {
   startScan() async {
     Future.delayed(Duration.zero);
     emit(const NfcStartedScan());
-    final String? idNfc = '1DAF9366930000'; // await scanNFC.startSession();
-    await Future.delayed(Duration(seconds: 1));
+    final String? idNfc = await scanNFC.startSession();
     if (idNfc != null) {
       final currentTruck = managerService.trucks
           .cast<AcarreoTruck?>()
@@ -32,12 +31,12 @@ class NfcCubit extends Cubit<NfcState> {
   }
 
   Future<bool> write({required Map<String, dynamic> value}) async {
-    final success = true; // await scanNFC.writeNfcData(value);
+    final success = await scanNFC.writeNfcData(value);
     return success;
   }
 
   Future<Map<String, dynamic>?> read() async {
-    final data = {'Z196X110497Y997': '0001'}; //await scanNFC.readNfcData();
+    final data = await scanNFC.readNfcData();
     return data;
   }
 
