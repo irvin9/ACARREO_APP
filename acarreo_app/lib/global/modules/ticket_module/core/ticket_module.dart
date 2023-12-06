@@ -26,7 +26,6 @@ class TicketsModule extends Module {
           child: (context, args) => MultiBlocProvider(providers: [
             BlocProvider.value(value: Modular.get<AcarreoCubit>()),
             BlocProvider.value(value: Modular.get<ListTicketsCubit>()),
-            BlocProvider.value(value: Modular.get<PrinterCubit>()),
           ], child: const ReviewTicketTravelScreen()),
         ),
       ];

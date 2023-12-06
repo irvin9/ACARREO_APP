@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:acarreo_app/global/modules/widgets_module/dots_progress_bar.dart';
-import 'package:acarreo_app/global/modules/widgets_module/general_button.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 
 class GeneralTrackerWrap extends StatelessWidget {

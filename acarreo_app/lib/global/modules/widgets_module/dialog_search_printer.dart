@@ -1,6 +1,4 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/modules/widgets_module/general_button.dart';
-import 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
