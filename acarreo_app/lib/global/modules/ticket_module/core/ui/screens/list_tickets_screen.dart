@@ -9,7 +9,7 @@ class ListTicketsScreen extends StatelessWidget {
   static final _listTicketsCubit = Modular.get<ListTicketsCubit>();
   const ListTicketsScreen({super.key});
 
-  _buildLoadView() {
+  Widget _buildLoadView() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -142,7 +142,6 @@ class ListTicketsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _listTicketsCubit.getTickets();
     return Container(
       width: double.infinity,
       height: double.infinity,

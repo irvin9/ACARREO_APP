@@ -18,14 +18,14 @@ class TicketsModule extends Module {
           TicketRoutesModule.listTicketRoute,
           child: (context, args) => MultiBlocProvider(providers: [
             BlocProvider.value(value: Modular.get<AcarreoCubit>()),
-            BlocProvider.value(value: Modular.get<ListTicketsCubit>()),
+            BlocProvider.value(
+                value: Modular.get<ListTicketsCubit>()..getTickets()),
           ], child: const ListTicketsScreen()),
         ),
         ChildRoute(
           TicketRoutesModule.reviewTicketRoute,
           child: (context, args) => MultiBlocProvider(providers: [
             BlocProvider.value(value: Modular.get<AcarreoCubit>()),
-            BlocProvider.value(value: Modular.get<ListTicketsCubit>()),
           ], child: const ReviewTicketTravelScreen()),
         ),
       ];
