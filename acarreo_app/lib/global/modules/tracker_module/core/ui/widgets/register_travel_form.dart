@@ -1,5 +1,4 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dropdown_form_field.dart';
 import 'package:flutter/material.dart';
 

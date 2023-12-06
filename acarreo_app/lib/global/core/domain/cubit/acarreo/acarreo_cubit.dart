@@ -6,6 +6,8 @@ import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarre
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
 import 'package:intl/intl.dart';
 
+part 'acarreo_state.dart';
+
 class AcarreoCubit extends Cubit<AcarreoState> {
   AcarreoCubit(this.managerService) : super(const AcarreoInitState());
 

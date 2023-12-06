@@ -1,4 +1,4 @@
-import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+part of 'acarreo_cubit.dart';
 
 abstract class AcarreoState extends Equatable {
   const AcarreoState();
