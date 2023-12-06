@@ -61,7 +61,7 @@ class LoginForm extends StatelessWidget {
               BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
                   if (state is AuthSuccess) {
-                    cubit.goToNavigate(GlobalRoutesApp.registerTravelRoute);
+                    cubit.goToNavigate('${GlobalRoutesApp.homeRoute}/');
                   }
 
                   if (state is AuthError) {
