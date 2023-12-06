@@ -8,11 +8,9 @@ class PreviewCurrentLocationScreen extends StatelessWidget {
   const PreviewCurrentLocationScreen({
     super.key,
     this.currentStep = 2,
-    this.totalSteps = 5,
   });
 
   final int currentStep;
-  final int totalSteps;
 
   @override
   Widget build(BuildContext context) {

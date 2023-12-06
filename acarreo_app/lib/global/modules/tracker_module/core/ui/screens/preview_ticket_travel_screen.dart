@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 
 class PreviewTicketTravelScreen extends StatelessWidget {
   final int? currentStep;
-  final int? totalSteps;
-  const PreviewTicketTravelScreen(
-      {super.key, this.currentStep, this.totalSteps});
+  const PreviewTicketTravelScreen({
+    super.key,
+    this.currentStep,
+  });
 
   @override
   Widget build(BuildContext context) {

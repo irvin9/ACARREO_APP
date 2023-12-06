@@ -6,12 +6,10 @@ import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/regist
 
 class RegisterTravelScreen extends StatelessWidget {
   final int currentStep;
-  final int totalSteps;
 
   const RegisterTravelScreen({
     super.key,
     this.currentStep = 1,
-    this.totalSteps = 4,
   });
 
   @override

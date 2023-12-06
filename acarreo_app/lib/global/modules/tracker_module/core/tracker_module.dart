@@ -9,8 +9,6 @@ import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/regist
 import 'package:acarreo_app/global/modules/tracker_module/tracker_module.dart';
 import 'package:flutter/material.dart';
 
-const int totalSteps = 5;
-
 class TrackerModule extends Module {
   @override
   List<Bind<Object>> get binds => [
@@ -36,14 +34,12 @@ class TrackerModule extends Module {
             ChildRoute(TrackerRoutesModule.registerTravelRoute,
                 child: (context, args) => const RegisterTravelScreen(
                       currentStep: 1,
-                      totalSteps: totalSteps,
                     ),
                 guards: [FirstLocationGuard()]),
             ChildRoute(
               TrackerRoutesModule.previewCurrentLocationTravelRoute,
               child: (context, args) => const PreviewCurrentLocationScreen(
                 currentStep: 2,
-                totalSteps: totalSteps,
               ),
             ),
             ChildRoute(
@@ -52,7 +48,6 @@ class TrackerModule extends Module {
                 value: Modular.get<NfcCubit>()..startScan(),
                 child: const ReadNFCTravelScreen(
                   currentStep: 3,
-                  totalSteps: totalSteps,
                 ),
               ),
             ),
@@ -60,14 +55,12 @@ class TrackerModule extends Module {
               TrackerRoutesModule.detailsTicketTravelRoute,
               child: (context, args) => const DetailsTicketTravelScreen(
                 currentStep: 4,
-                totalSteps: totalSteps,
               ),
             ),
             ChildRoute(
               TrackerRoutesModule.previewTicketTravelRoute,
               child: (context, args) => const PreviewTicketTravelScreen(
                 currentStep: 5,
-                totalSteps: totalSteps,
               ),
             ),
           ],

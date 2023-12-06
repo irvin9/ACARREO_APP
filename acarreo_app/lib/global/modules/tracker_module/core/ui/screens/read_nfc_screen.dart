@@ -6,7 +6,6 @@ import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 
 class ReadNFCTravelScreen extends StatelessWidget {
   final int? currentStep;
-  final int? totalSteps;
 
   static const String title = 'Identifica tu Unidad';
   static const String description =
@@ -15,8 +14,10 @@ class ReadNFCTravelScreen extends StatelessWidget {
   static final acarreoCubit = Modular.get<AcarreoCubit>();
   static final nfcCubit = Modular.get<NfcCubit>();
 
-  const ReadNFCTravelScreen(
-      {super.key, this.currentStep = 1, this.totalSteps = 4});
+  const ReadNFCTravelScreen({
+    super.key,
+    this.currentStep,
+  });
 
   Future<void> _handlerNfcData(String idNfc) async {
     final typeRegister = acarreoCubit.getAnswersForm('type_register');
