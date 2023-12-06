@@ -1,5 +1,4 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/printer/printer_cubit.dart';
 import 'package:acarreo_app/global/modules/widgets_module/general_button.dart';
 import 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
@@ -8,18 +7,16 @@ import 'package:flutter/material.dart';
 class DialogSearchPrinter {
   static final _cubit = Modular.get<PrinterCubit>();
   static show(BuildContext context) {
-    _cubit.findPrinters();
     return GenericDialog.show(
       context: context,
       child: BlocBuilder<PrinterCubit, PrinterState>(
+        bloc: _cubit..findPrinters(),
         builder: (context, state) {
           return AlertDialog(
-            title: Text(
-              'Buscador de impresoras',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                  fontSize: 20.0, fontWeight: FontWeight.w700),
-            ),
+            title: Text('Buscador de impresoras',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                    fontSize: 20.0, fontWeight: FontWeight.w700)),
             actions: [
               Visibility(
                 visible: state is PrintersNotFound || state is PrintersFound,

@@ -4,8 +4,6 @@ import 'package:acarreo_app/global/modules/widgets_module/dialog_search_printer.
 import 'package:acarreo_app/global/modules/widgets_module/general_button.dart';
 import 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/printer/printer_cubit.dart';
 import 'package:flutter/material.dart';
 
 class DialogPritting {
@@ -21,6 +19,7 @@ class DialogPritting {
     return GenericDialog.show(
       context: context,
       child: BlocBuilder<PrinterCubit, PrinterState>(
+        bloc: _printerCubit..initPrinter(),
         builder: (context, state) {
           return _buildBody(context, state, message, data, onBack);
         },
