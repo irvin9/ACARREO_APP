@@ -4,7 +4,9 @@ class TitleForm extends StatelessWidget {
   final String title;
   final String? description;
   final double titleTextSize;
+  final Color? tittleColor;
   final double descriptionTextSize;
+  final Color? descriptionColor;
   final TextAlign align;
   final double spacing;
 
@@ -13,7 +15,9 @@ class TitleForm extends StatelessWidget {
     this.title = 'Título de Formulario',
     this.description,
     this.titleTextSize = 32.0,
+    this.tittleColor = const Color(0xFF242630),
     this.descriptionTextSize = 16,
+    this.descriptionColor = const Color(0xFF575E6E),
     this.align = TextAlign.center,
     this.spacing = 16.0,
   });
@@ -41,7 +45,7 @@ class TitleForm extends StatelessWidget {
             title,
             textAlign: align,
             style: TextStyle(
-              color: const Color(0xFF242630),
+              color: tittleColor,
               fontSize: titleTextSize,
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w700,
@@ -57,7 +61,7 @@ class TitleForm extends StatelessWidget {
               description ?? '',
               textAlign: align,
               style: TextStyle(
-                color: const Color(0xFF575E6E),
+                color: descriptionColor,
                 fontSize: descriptionTextSize,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w300,
