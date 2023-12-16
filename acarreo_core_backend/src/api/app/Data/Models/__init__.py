@@ -8,4 +8,6 @@ from .Checadores import Checadores
 from .Ubicaciones import Ubicaciones
 from .Tickets import Tickets
 from .Ticketsrecepcion import Ticketsrecepcion
+
+from .EmpresaExplotadora import EmpresaExplotadora
 from .Customer import Customer
