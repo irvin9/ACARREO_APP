@@ -9,3 +9,4 @@ from .ChecadoresRouter import checadores_router
 from .UbicacionesRouter import ubicaciones_router
 from .TicketsRouter import tickets_router
 from .TicketsrecepcionRouter import ticketsrecepcion_router
+from .CustomerRouter import customer_router

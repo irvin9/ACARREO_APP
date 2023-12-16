@@ -8,3 +8,4 @@ from .ChecadoresService import ChecadoresService
 from .UbicacionesService import UbicacionesService
 from .TicketsService import TicketsService
 from .TicketsrecepcionService import TicketsrecepcionService
+from .CustomerService import CustomerService
