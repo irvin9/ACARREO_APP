@@ -24,12 +24,13 @@ class Materiales(BaseModel):
     state = Column("estatus", String(191), nullable=False)
     id_client = Column("id_cliente", Integer, nullable=False)
     id_project = Column("id_obra", Integer, nullable=False)
+    id_module = Column("module_Id", Integer, nullable=False)
     created_at = Column("created_at", DateTime(timezone=True), default=func.now())
     updated_at = Column("updated_at", DateTime(timezone=True), onupdate=func.now())
 
     model_path_name = "materiales"
 
-    filter_columns = ["material_name", "truck", "travel_mode", "travel_price", "state", "material_price", "id_client", "id_project"]
+    filter_columns = ["material_name", "truck", "travel_mode", "id_module", "travel_price", "state", "material_price", "id_client", "id_project"]
 
     def property_map(self) -> Dict:
         return {
@@ -41,6 +42,7 @@ class Materiales(BaseModel):
             "material_price": "material_price",
             "state": "state",
             "id_client": "id_client",
+            "id_module": "id_module",
             "id_project": "id_project",
             "created_at": "created_at",
             "updated_at": "updated_at",
@@ -58,6 +60,7 @@ class Materiales(BaseModel):
             "state",
             "id_client",
             "id_project",
+            "id_module",
             "created_at",
             "updated_at",
         ]

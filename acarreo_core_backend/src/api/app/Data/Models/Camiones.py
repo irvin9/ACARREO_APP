@@ -26,12 +26,13 @@ class Camiones(BaseModel):
     id_carrier = Column("id_transportista", Integer, nullable=False)
     id_client = Column("id_cliente", Integer, nullable=False)
     id_project = Column("id_obra", Integer, nullable=False)
+    id_module = Column("module_Id", Integer, nullable=False)
     created_at = Column("created_at", DateTime(timezone=True), default=func.now())
     updated_at = Column("updated_at", DateTime(timezone=True), onupdate=func.now())
 
     model_path_name = "camiones"
 
-    filter_columns = ["plate", "plate_gondola", "id_client", "id_project", "id_carrier"]
+    filter_columns = ["plate", "plate_gondola", "id_client", "id_module", "id_project", "id_carrier"]
 
     def property_map(self) -> Dict:
         return {
@@ -46,6 +47,7 @@ class Camiones(BaseModel):
             "id_carrier": "id_carrier",
             "id_client": "id_client",
             "id_project": "id_project",
+            "id_module": "id_module",
             "created_at": "created_at",
             "updated_at": "updated_at",
         }
