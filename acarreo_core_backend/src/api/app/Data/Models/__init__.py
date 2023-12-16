@@ -11,3 +11,4 @@ from .Ticketsrecepcion import Ticketsrecepcion
 
 from .EmpresaExplotadora import EmpresaExplotadora
 from .Customer import Customer
+from .TicketMaterialSupplier import TicketMaterialSupplier
