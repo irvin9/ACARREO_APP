@@ -4,6 +4,7 @@ export 'package:acarreo_app/global/modules/widgets_module/text_field_viewer.dart
 export 'package:acarreo_app/global/modules/widgets_module/preview_details_ticket.dart';
 export 'package:acarreo_app/global/modules/widgets_module/counter_button.dart';
 export 'package:acarreo_app/global/modules/widgets_module/custom_text_form_field.dart';
+export 'package:acarreo_app/global/modules/widgets_module/custom_loader_progress.dart';
 
 // Dialogs
 export 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';

@@ -20,21 +20,7 @@ class ListTicketsScreen extends StatelessWidget {
           style:
               GoogleFonts.poppins(fontSize: 24.0, fontWeight: FontWeight.w700),
         ),
-        Container(
-          padding: const EdgeInsets.all(12.0),
-          child: const Center(
-            child: SizedBox(
-              width: 80,
-              height: 80,
-              child: FittedBox(
-                child: CircularProgressIndicator(
-                  color: Color(0xFF384596),
-                  strokeWidth: 5,
-                ),
-              ),
-            ),
-          ),
-        )
+        const CustomLoaderProgress()
       ],
     );
   }
