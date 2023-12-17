@@ -1,4 +1,5 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/modules/home_module/core/domain/cubit/home_cubit/home_cubit.dart';
 import 'package:acarreo_app/global/modules/home_module/core/ui/screens/home_screen.dart';
 import 'package:acarreo_app/global/modules/ticket_module/ticket_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/repository/acarreo_location_repository.dart';
@@ -41,6 +42,7 @@ class HomeModule extends Module {
               truckService: i()),
         ),
         Bind.lazySingleton((i) => StartxpandPrinterBluetoothService()),
+        Bind.lazySingleton((i) => HomeCubit(i())),
         Bind.lazySingleton((i) => AcarreoCubit(i())),
         Bind.lazySingleton((i) => PrinterCubit(i())),
       ];
@@ -49,8 +51,13 @@ class HomeModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute(
           '/',
-          child: (context, args) => BlocProvider.value(
-            value: Modular.get<AcarreoCubit>(),
+          child: (context, args) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                  value: Modular.get<AcarreoCubit>()..getLocalData()),
+              BlocProvider.value(
+                  value: Modular.get<HomeCubit>()..getMenuItems()),
+            ],
             child: const HomeScreen(),
           ),
         ),
