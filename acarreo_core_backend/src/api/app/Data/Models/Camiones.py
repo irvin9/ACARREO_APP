@@ -66,6 +66,7 @@ class Camiones(BaseModel):
             "id_carrier",
             "id_client",
             "id_project",
+            "id_module",
             "created_at",
             "updated_at",
         ]
