@@ -13,7 +13,7 @@ class TicketMaterialSupplier(BaseModel):
     Returns:
         TicketMaterialSupplier: Instance of model
     """
-    __tablename__ = 'TicketsMaterialSuppliers'
+    __tablename__ = 'tickets_material_suppliers'
     id = Column("id", Integer, primary_key=True)
     folio_ticket = Column("folioId", String(191), nullable=True)
     date = Column("fecha", String(191), nullable=True)
