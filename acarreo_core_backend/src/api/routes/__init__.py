@@ -10,6 +10,6 @@ from .UbicacionesRouter import ubicaciones_router
 from .TicketsRouter import tickets_router
 from .TicketsrecepcionRouter import ticketsrecepcion_router
 
-from .EmpresaExplotadoraRouter import empresaexplotadora_router
+from .EmpresaExplotadoraRouter import empresaExplotadora_router
 from .CustomerRouter import customer_router
 from .TicketMaterialSupplierRouter import ticketMaterialSupplier_router
