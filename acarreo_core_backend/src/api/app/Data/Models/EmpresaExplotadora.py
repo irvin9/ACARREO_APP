@@ -13,7 +13,7 @@ class EmpresaExplotadora(BaseModel):
     Returns:
         EmpresaExplotadora: Instance of model
     """
-    __tablename__ = 'EmpresaExplotadoras'
+    __tablename__ = 'empresas_explotadoras'
     id = Column("id", Integer, primary_key=True)
     id_module = Column("module_Id", Integer, nullable=False)
     id_project = Column("id_obra", Integer, nullable=False)
