@@ -60,6 +60,7 @@ class Ubicaciones(BaseModel):
             "id_client",
             "id_project",
             "id_label",
+            "id_module",
             "created_at",
             "updated_at",
         ]
