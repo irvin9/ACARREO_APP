@@ -6,6 +6,7 @@ class AcarreoLocation {
     required this.id,
     required this.idClient,
     required this.idProject,
+    required this.idModule,
     required this.latitude,
     required this.longitude,
     required this.type,
@@ -24,6 +25,7 @@ class AcarreoLocation {
         id: json["id"],
         idClient: json["id_client"],
         idProject: json["id_project"],
+        idModule: json["id_module"],
         idLabel: json["id_label"] ?? 1,
         latitude: json["latitude"],
         longitude: json["longitude"],
@@ -39,6 +41,7 @@ class AcarreoLocation {
   final int id;
   final int idClient;
   final int idProject;
+  final int idModule;
   final String latitude;
   final String type;
   final String longitude;
@@ -59,6 +62,7 @@ class AcarreoLocation {
         createdAt: createdAt,
         id: id,
         idClient: idClient,
+        idModule: idModule,
         idProject: idProject,
         idLabel: idLabel,
         latitude: latitude ?? this.latitude,
@@ -73,6 +77,7 @@ class AcarreoLocation {
     toJson().remove('id');
     toJson().remove('id_client');
     toJson().remove('id_project');
+    toJson().remove('id_module');
     toJson().remove('id_label');
     toJson().remove('created_at');
     toJson().remove('updated_at');

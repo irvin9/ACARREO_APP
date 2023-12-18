@@ -6,6 +6,7 @@ class AcarreoMaterial {
     required this.id,
     required this.idClient,
     required this.idProject,
+    required this.idModule,
     required this.materialName,
     required this.materialPrice,
     required this.state,
@@ -24,6 +25,7 @@ class AcarreoMaterial {
         id: json["id"],
         idClient: json["id_client"],
         idProject: json["id_project"],
+        idModule: json["id_module"],
         materialName: json["material_name"],
         materialPrice: json["material_price"],
         state: json["state"],
@@ -39,6 +41,7 @@ class AcarreoMaterial {
   final int id;
   final int idClient;
   final int idProject;
+  final int idModule;
   final String materialName;
   final String materialPrice;
   final String state;
@@ -60,6 +63,7 @@ class AcarreoMaterial {
         id: id,
         idClient: idClient,
         idProject: idProject,
+        idModule: idModule,
         materialName: materialName ?? this.materialName,
         materialPrice: materialPrice ?? this.materialPrice,
         state: state ?? this.state,
@@ -76,6 +80,7 @@ class AcarreoMaterial {
         "id": id,
         "id_client": idClient,
         "id_project": idProject,
+        "id_module": idModule,
         "material_name": materialName,
         "material_price": materialPrice,
         "state": state,
