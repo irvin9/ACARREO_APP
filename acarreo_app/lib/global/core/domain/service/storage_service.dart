@@ -5,9 +5,13 @@ abstract class StorageService {
 
   static const defaultValue = '';
 
+  Future<void> loadData();
+
   Future<void> saveUser(UserAuthModel user);
 
   Future<UserAuthModel> getCurrentUser();
+
+  UserAuthModel get currentUser;
 
   Future<String> getToken();
 

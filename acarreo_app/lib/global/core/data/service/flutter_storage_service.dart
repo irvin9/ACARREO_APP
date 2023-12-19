@@ -3,9 +3,11 @@ import 'package:acarreo_app/global/core/data/model/user_auth_model.dart';
 import 'package:acarreo_app/global/core/domain/service/storage_service.dart';
 
 class FlutterStorageService implements StorageService {
-  const FlutterStorageService(this.storage);
+  FlutterStorageService(this.storage);
 
   final FlutterSecureStorage storage;
+
+  late final UserAuthModel _currentUser;
 
   @override
   Future<void> deleteAll() async {
@@ -18,8 +20,19 @@ class FlutterStorageService implements StorageService {
   }
 
   @override
+  Future<UserAuthModel> getCurrentUser() async {
+    final data = await storage.read(key: 'user') ?? '';
+    return UserAuthModel.fromApiJson(data);
+  }
+
+  @override
   Future<String> getToken() async {
     return await readByKey(StorageService.tokenKey);
+  }
+
+  @override
+  Future<void> loadData() async {
+    _currentUser = await getCurrentUser();
   }
 
   @override
@@ -38,19 +51,16 @@ class FlutterStorageService implements StorageService {
   }
 
   @override
+  Future<void> saveUser(UserAuthModel user) async {
+    final data = user.toLocalStorage();
+    await writeByKey('user', data);
+  }
+
+  @override
   Future<void> writeByKey(String key, String value) async {
     await storage.write(key: key, value: value);
   }
 
   @override
-  Future<UserAuthModel> getCurrentUser() async {
-    final data = await storage.read(key: 'user') ?? '';
-    return UserAuthModel.fromApiJson(data);
-  }
-
-  @override
-  Future<void> saveUser(UserAuthModel user) async {
-    final data = user.toLocalStorage();
-    await writeByKey('user', data);
-  }
+  UserAuthModel get currentUser => _currentUser;
 }

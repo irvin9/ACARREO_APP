@@ -8,9 +8,14 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit(this.storage) : super(HomeInitial());
 
+  Future<void> initLoadData() async {
+    await storage.loadData();
+  }
+
   Future<void> getMenuItems() async {
     emit(HomeLoadData());
-    final user = await storage.getCurrentUser();
+    await initLoadData();
+    final user = storage.currentUser;
     List<MenuData> items = [
       MenuData(Icons.move_to_inbox_outlined, 'Registrar Acarreos',
           GlobalRoutesApp.registerTravelRoute),
