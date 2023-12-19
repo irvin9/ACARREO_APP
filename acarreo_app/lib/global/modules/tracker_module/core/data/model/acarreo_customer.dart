@@ -6,6 +6,7 @@ class AcarreoCustomer {
     required this.address,
     required this.idModule,
     required this.idProject,
+    required this.idClient,
     required this.name,
     required this.phone,
     required this.rfc,
@@ -22,6 +23,7 @@ class AcarreoCustomer {
         id: json["id"],
         idModule: json["id_module"],
         idProject: json["id_project"],
+        idClient: json["id_client"],
         name: json["name"],
         phone: json["phone"],
         rfc: json["rfc"],
@@ -36,6 +38,7 @@ class AcarreoCustomer {
   final int id;
   final int idModule;
   final int idProject;
+  final int idClient;
   final String name;
   final String phone;
   final String rfc;
@@ -53,6 +56,7 @@ class AcarreoCustomer {
         id: id,
         idModule: idModule,
         idProject: idProject,
+        idClient: idClient,
         name: name ?? this.name,
         phone: phone ?? this.phone,
         rfc: rfc ?? this.rfc,
@@ -75,6 +79,7 @@ class AcarreoCustomer {
         "id": id,
         "id_module": idModule,
         "id_project": idProject,
+        "id_client": idClient,
         "name": name,
         "phone": phone,
         "rfc": rfc,
