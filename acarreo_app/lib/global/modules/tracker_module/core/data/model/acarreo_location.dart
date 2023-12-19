@@ -40,14 +40,14 @@ class AcarreoLocation {
   final DateTime createdAt;
   final int id;
   final int idClient;
-  final int idProject;
+  final int idLabel;
   final int idModule;
+  final int idProject;
   final String latitude;
-  final String type;
   final String longitude;
   final String name;
-  final int idLabel;
   final int state;
+  final String type;
   final DateTime? updatedAt;
 
   AcarreoLocation copyWith({
