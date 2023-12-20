@@ -10,7 +10,7 @@ class AcarreoCarrierService implements CarrierService<AcarreoCarrier> {
     required this.repository,
     required this.localStorageService,
   }) {
-    localStorageService.init(StorageLocalNames.customers);
+    localStorageService.init(StorageLocalNames.carries);
   }
 
   final LocalStorageService localStorageService;
