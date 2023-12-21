@@ -41,11 +41,12 @@ class _PreviewLocationTravelState extends State<PreviewLocationTravel> {
         TextFieldViewer(
             label: 'Tipo de registro',
             value: answerTypeRegister?.toUpperCase() ?? 'Desconocido'),
-        TextFieldViewer(
-            label: 'Tipo de ubicación',
-            value: FormValues.optionTypeLocations[answerTypeLocation]
-                    ?.toUpperCase() ??
-                'Desconocido'),
+        if (answerTypeLocation != null)
+          TextFieldViewer(
+              label: 'Tipo de ubicación',
+              value: FormValues.optionTypeLocations[answerTypeLocation]
+                      ?.toUpperCase() ??
+                  'Desconocido'),
         TextFieldViewer(
             label: 'Ubicación', value: locationName ?? 'Desconocido'),
         TextFieldViewer(

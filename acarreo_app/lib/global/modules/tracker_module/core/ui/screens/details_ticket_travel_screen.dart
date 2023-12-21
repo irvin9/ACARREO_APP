@@ -47,7 +47,7 @@ class DetailsTicketTravelScreen extends StatelessWidget {
     if (module == 0) {
       return DetailsTicketForm(formKey: key);
     } else {
-      return DetailsTicketMaterialForm(formKey: key);
+      return DetailsTicketBankForm(formKey: key);
     }
   }
 }
