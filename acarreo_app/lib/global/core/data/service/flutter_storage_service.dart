@@ -7,7 +7,7 @@ class FlutterStorageService implements StorageService {
 
   final FlutterSecureStorage storage;
 
-  late final UserAuthModel _currentUser;
+  UserAuthModel? _currentUser;
 
   @override
   Future<void> deleteAll() async {
@@ -62,5 +62,5 @@ class FlutterStorageService implements StorageService {
   }
 
   @override
-  UserAuthModel get currentUser => _currentUser;
+  UserAuthModel get currentUser => _currentUser!;
 }
