@@ -3,13 +3,12 @@ import 'dart:convert';
 class AcarreoCustomer {
   AcarreoCustomer({
     required this.id,
-    required this.address,
+    this.address,
     required this.idModule,
     required this.idProject,
-    // required this.idClient,
     required this.name,
-    required this.phone,
-    required this.rfc,
+    this.phone,
+    this.rfc,
     required this.createdAt,
     this.updatedAt,
   });
@@ -19,29 +18,29 @@ class AcarreoCustomer {
 
   factory AcarreoCustomer.fromJson(Map<String, dynamic> json) =>
       AcarreoCustomer(
-        address: json["address"],
+        address: json["address"] ?? 'N/A',
         id: json["id"],
         idModule: json["id_module"],
         idProject: json["id_project"],
         // idClient: json["id_client"],
         name: json["name"],
-        phone: json["phone"],
-        rfc: json["rfc"],
+        phone: json["phone"] ?? 'N/A',
+        rfc: json["rfc"] ?? 'N/A',
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] != null
             ? DateTime.parse(json["updated_at"])
             : null,
       );
 
-  final String address;
+  final String? address;
   final DateTime createdAt;
   final int id;
   final int idModule;
   final int idProject;
   // final int idClient;
   final String name;
-  final String phone;
-  final String rfc;
+  final String? phone;
+  final String? rfc;
   final DateTime? updatedAt;
 
   AcarreoCustomer copyWith({
