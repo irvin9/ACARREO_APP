@@ -13,6 +13,8 @@ class AcarreoCubit extends Cubit<AcarreoState> {
 
   final AcarreoDataManagerService managerService;
 
+  final StorageService storage = Modular.get<StorageService>();
+
   final int totalSteps = 5;
 
   final Map<String, dynamic> _formAnswers = {};
