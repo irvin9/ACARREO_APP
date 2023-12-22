@@ -66,6 +66,7 @@ class TicketMaterialSupplier(BaseModel):
             "id_customer",
             "folio_external_ticket",
             "id_tracker",
+            "id_truck",
             "id_location",
             "id_material",
             "description",
