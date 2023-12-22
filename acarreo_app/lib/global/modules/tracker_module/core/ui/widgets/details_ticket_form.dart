@@ -143,7 +143,7 @@ class DetailsTicketBankForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.watch<AcarreoCubit>((bloc) => bloc.stream);
-    folioTicketController.text = cubit.formAnswers['folio_ticket_origin'] ?? '';
+    folioTicketController.text = cubit.formAnswers['folio_ticket'] ?? '';
 
     final materials = cubit.managerService.materials
         .where((i) => i.state != "0")
@@ -170,19 +170,26 @@ class DetailsTicketBankForm extends StatelessWidget {
       key: formKey,
       child: Column(
         children: [
-          CustomDropdownFormField(
-            dropdownLabelText: 'Transportistas',
+          DropDownFormField(
+            initialValue: cubit.formAnswers['id_carrier'] ?? '',
             items: carries,
-            inputPlaceholderText: 'Escriba su transportista',
+            label: 'Transportistas',
             onChanged: (value) =>
                 cubit.addAnswer('id_carrier', value!.isNotEmpty ? value : null),
           ),
-          CustomDropdownFormField(
-              dropdownLabelText: 'Camión',
-              items: trucks,
-              inputPlaceholderText: 'Escriba las placas',
-              onChanged: (value) => cubit.addAnswer(
-                  'id_truck', value!.isNotEmpty ? value : null)),
+          DropDownFormField(
+            initialValue: cubit.formAnswers['truckId'] ?? '',
+            items: trucks,
+            label: 'Camión',
+            onChanged: (value) {
+              final plate = value ?? '';
+              if (plate.isEmpty) return;
+              cubit.addAnswer('truckId', value);
+              final currentTruck = cubit.managerService.trucks
+                  .firstWhere((t) => t.id.toString() == value);
+              cubit.addAnswer('currentTruck', currentTruck);
+            },
+          ),
           DropDownFormField(
             initialValue: cubit.formAnswers['id_company'] ?? '',
             items: companies,

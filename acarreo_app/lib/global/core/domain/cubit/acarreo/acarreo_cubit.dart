@@ -156,18 +156,39 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     final String ticketCode = formAnswers['folio_ticket'];
     final String typeRegister = formAnswers['type_register'];
 
-    return PreviewTicketModel(
-      enterpriseName: project?.enterpriseName ?? 'N/A',
-      projectName: project?.projectName ?? 'N/A',
-      date: captureDate,
-      material: material.materialName,
-      plates: truck.plate,
-      capacity: truck.capacity,
-      description: description,
-      location: location.name,
-      barcode: ticketCode,
-      typeLocation: typeRegister,
-    );
+    return storage.currentUser.idModule == 0
+        ? PreviewTicketModel.ticket(
+            enterpriseName: project?.enterpriseName ?? 'N/A',
+            projectName: project?.projectName ?? 'N/A',
+            date: captureDate,
+            material: material.materialName,
+            plates: truck.plate,
+            capacity: truck.capacity,
+            description: description,
+            location: location.name,
+            barcode: ticketCode,
+            typeLocation: typeRegister)
+        : PreviewTicketModel.ticketBank(
+            enterpriseName: project?.enterpriseName ?? 'N/A',
+            projectName: project?.projectName ?? 'N/A',
+            date: captureDate,
+            material: material.materialName,
+            plates: truck.plate,
+            capacity: truck.capacity,
+            description: description,
+            location: location.name,
+            barcode: ticketCode,
+            typeLocation: typeRegister,
+            companyName: managerService.companies
+                .firstWhere(
+                    (c) => c.id.toString() == getAnswersForm('id_company'))
+                .name,
+            customerName: managerService.customers
+                .firstWhere(
+                    (c) => c.id.toString() == getAnswersForm('id_customer'))
+                .name,
+            barcodeExternal: getAnswersForm('folio_ticket_origin') ?? 'N/A',
+          );
   }
 
   Future<void> goTo(String route) {

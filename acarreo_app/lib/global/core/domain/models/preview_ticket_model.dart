@@ -11,6 +11,9 @@ class PreviewTicketModel extends Equatable {
   final String description;
   final String barcode;
   final String typeLocation;
+  final String? companyName;
+  final String? customerName;
+  final String? barcodeExternal;
 
   const PreviewTicketModel({
     required this.enterpriseName,
@@ -23,22 +26,94 @@ class PreviewTicketModel extends Equatable {
     required this.description,
     required this.barcode,
     required this.typeLocation,
+    this.companyName,
+    this.customerName,
+    this.barcodeExternal,
   });
 
-  toMap() {
-    return {
-      'enterpriseName': enterpriseName,
-      'projectName': projectName,
-      'date': date,
-      'location': location,
-      'material': material,
-      'plates': plates,
-      'capacity': capacity,
-      'description': description,
-      'typeLocation': typeLocation,
-      'barcode': barcode,
-    };
-  }
+  factory PreviewTicketModel.ticket({
+    required String enterpriseName,
+    required String projectName,
+    required String date,
+    required String location,
+    required String material,
+    required String plates,
+    required String capacity,
+    required String description,
+    required String barcode,
+    required String typeLocation,
+  }) =>
+      PreviewTicketModel(
+          enterpriseName: enterpriseName,
+          projectName: projectName,
+          date: date,
+          location: location,
+          material: material,
+          plates: plates,
+          capacity: capacity,
+          description: description,
+          barcode: barcode,
+          typeLocation: typeLocation);
+
+  factory PreviewTicketModel.ticketBank({
+    required String enterpriseName,
+    required String projectName,
+    required String date,
+    required String location,
+    required String material,
+    required String plates,
+    required String capacity,
+    required String description,
+    required String barcode,
+    required String typeLocation,
+    required String companyName,
+    required String customerName,
+    required String barcodeExternal,
+  }) =>
+      PreviewTicketModel(
+        enterpriseName: enterpriseName,
+        projectName: projectName,
+        date: date,
+        location: location,
+        material: material,
+        plates: plates,
+        capacity: capacity,
+        description: description,
+        barcode: barcode,
+        typeLocation: typeLocation,
+        companyName: companyName,
+        customerName: customerName,
+        barcodeExternal: barcodeExternal,
+      );
+
+  get toMapTicket => {
+        'enterpriseName': enterpriseName,
+        'projectName': projectName,
+        'date': date,
+        'location': location,
+        'material': material,
+        'plates': plates,
+        'capacity': capacity,
+        'description': description,
+        'typeLocation': typeLocation,
+        'barcode': barcode,
+      };
+
+  get toMapTicketBank => {
+        'enterpriseName': enterpriseName,
+        'projectName': projectName,
+        'date': date,
+        'location': location,
+        'material': material,
+        'plates': plates,
+        'capacity': capacity,
+        'description': description,
+        'typeLocation': typeLocation,
+        'barcode': barcode,
+        'companyName': companyName,
+        'customerName': customerName,
+        'barcodeExternal': barcodeExternal,
+      };
 
   @override
   List<Object?> get props => [];

@@ -67,7 +67,7 @@ class ListTicketsCubit extends Cubit<ListTicketsState> {
         description:
             'Para eso necesitamos que tenga ya conectada su impresora al dispositivo.',
       ),
-      data: formatTicket().toMap(),
+      data: formatTicket().toMapTicket(),
     );
   }
 }

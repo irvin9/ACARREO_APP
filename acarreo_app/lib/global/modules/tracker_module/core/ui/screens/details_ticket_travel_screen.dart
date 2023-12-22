@@ -17,15 +17,18 @@ class DetailsTicketTravelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     final currentUser = storage.currentUser;
+    final cubit = Modular.get<AcarreoCubit>();
 
     const String title = 'Detalles de la Ubicación';
-    // const String description =
-    //     'Debes registrar los detalles de la ubicación, que se definen a continuación.';
 
     return GeneralTrackerWrap(
       currentStep: currentStep,
       onContinue: () {
         if (formKey.currentState!.validate()) {
+          if (currentUser.idModule == 1) {
+            cubit.addAnswer('date', DateTime.now());
+            cubit.generateTicketCode();
+          }
           Modular.to.navigate(GlobalRoutesApp.previewTicketTravelRoute);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
