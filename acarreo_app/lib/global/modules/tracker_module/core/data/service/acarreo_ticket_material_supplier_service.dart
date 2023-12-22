@@ -75,6 +75,7 @@ class AcarreoTicketMaterialSupplierService
       AcarreoTicketMaterialSupplier ticket) async {
     try {
       final newTicket = await repository.createTicket(ticket);
+      await localStorageService.deleteItem(newTicket.folioTicket);
       return newTicket;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
