@@ -17,9 +17,10 @@ class TicketMaterialSupplier(BaseModel):
     id = Column("id", Integer, primary_key=True)
     folio_ticket = Column("folioId", String(191), nullable=True)
     date = Column("fecha", String(191), nullable=True)
-    id_export_company = Column("folio_ticket_externo", Integer, nullable=False)
+    id_export_company = Column("id_empresa_explotadora", Integer, nullable=False)
     id_customer = Column("id_customer", Integer, nullable=False)
-    folio_external_ticket = Column("id_camion", Integer, nullable=False)
+    folio_external_ticket = Column("folio_ticket_externo", Integer, nullable=False)
+    id_truck = Column("id_camion", Integer, nullable=False)
     id_tracker = Column("id_checador", Integer, nullable=False)
     id_location = Column("id_ubicacion", Integer, nullable=False)
     id_material = Column("id_material", Integer, nullable=False)
@@ -43,6 +44,7 @@ class TicketMaterialSupplier(BaseModel):
             "id_export_company": "id_export_company",
             "id_customer": "id_customer",
             "folio_external_ticket": "folio_external_ticket",
+            "id_truck": "id_truck",
             "id_tracker": "id_tracker",
             "id_location": "id_location",
             "id_material": "id_material",
