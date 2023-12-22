@@ -105,26 +105,39 @@ class AcarreoCubit extends Cubit<AcarreoState> {
   }
 
   Future<void> updateTickets() async {
+    dynamic tickets;
+    bool errorUpload = false;
     await Future.delayed(Duration.zero);
     if (!_pendingTickets) return;
     emit(const AcarreoShowLoadingModal(message: {
       'title': 'Subiendo archivos pendientes',
       'description': 'Espere estamos subiendo la información pendiente...',
     }));
-    final tickets = await managerService.ticketService.get() ?? [];
 
+    tickets = storage.currentUser.idModule == 0
+        ? (await managerService.ticketService.get() ?? [])
+        : (await managerService.ticketMaterialSupplierService.get() ?? []);
     for (var ticket in tickets) {
-      final newTicket = await managerService.ticketService.uploadTicket(ticket);
+      final newTicket = storage.currentUser.idModule == 0
+          ? await managerService.ticketService.uploadTicket(ticket)
+          : await managerService.ticketMaterialSupplierService
+              .uploadTicket(ticket);
       if (newTicket == null) {
-        _pendingTickets = true;
-        emit(const AcarreoError({
-          'title': 'Ha ocurrido un error',
-          'description': 'No hemos podido terminar la carga de tickets, '
-              'intente más tarde'
-        }));
-        return;
+        errorUpload = true;
+        break;
       }
     }
+
+    if (errorUpload) {
+      _pendingTickets = true;
+      emit(const AcarreoError({
+        'title': 'Ha ocurrido un error',
+        'description': 'No hemos podido terminar la carga de tickets, '
+            'intente más tarde'
+      }));
+      return;
+    }
+
     _pendingTickets = false;
     emit(const AcarreoSuccess());
     updateLocalData();
