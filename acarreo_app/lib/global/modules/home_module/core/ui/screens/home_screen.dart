@@ -1,4 +1,6 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/modules/home_module/core/domain/cubit/home_cubit/home_cubit.dart';
+import 'package:acarreo_app/global/modules/home_module/core/ui/widgets/home_menu_grid.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
@@ -7,13 +9,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<MenuData> menu = [
-      MenuData(Icons.move_to_inbox_outlined, 'Registrar Acarreos',
-          GlobalRoutesApp.registerTravelRoute),
-      MenuData(Icons.find_in_page_outlined, 'Registrar Bancos',
-          GlobalRoutesApp.registerTravelRoute)
-    ];
-    Modular.get<AcarreoCubit>().getLocalData();
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -35,41 +30,13 @@ class HomeScreen extends StatelessWidget {
             tittleColor: Colors.white,
           ),
           Expanded(
-            child: GridView.builder(
-              itemCount: menu.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 1,
-                crossAxisCount: 2,
-                crossAxisSpacing: 4.0,
-                mainAxisSpacing: 4.0,
-              ),
-              itemBuilder: (context, index) => Card(
-                elevation: 0.2,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0)),
-                child: InkWell(
-                  onTap: () => Modular.to.pushNamed(menu[index].uri),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        menu[index].icon,
-                        size: 36,
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        menu[index].title,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.black87),
-                      )
-                    ],
-                  ).withPaddingSymmetric(),
-                ),
-              ),
+            child: BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                if (state is HomeDataSuccess) {
+                  return HomeMenuGrid(menu: state.menu);
+                }
+                return const CustomLoaderProgress();
+              },
             ),
           ),
         ],

@@ -127,3 +127,145 @@ class DetailsTicketForm extends StatelessWidget {
     );
   }
 }
+
+class DetailsTicketBankForm extends StatelessWidget {
+  static final TextEditingController folioTicketController =
+      TextEditingController(text: '');
+
+  const DetailsTicketBankForm({
+    super.key,
+    required this.formKey,
+  });
+
+  final GlobalKey<FormState> formKey;
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.watch<AcarreoCubit>((bloc) => bloc.stream);
+    folioTicketController.text = cubit.formAnswers['folio_ticket_origin'] ?? '';
+
+    final materials = cubit.managerService.materials
+        .where((i) => i.state != "0")
+        .map((i) => {i.id.toString(): i.materialName})
+        .toList();
+
+    final carries = cubit.managerService.carries
+        .map((i) => {i.id.toString(): i.name})
+        .toList();
+
+    final trucks = cubit.managerService.trucks
+        .map((i) => {i.id.toString(): i.plate})
+        .toList();
+
+    final companies = cubit.managerService.companies
+        .map((i) => {i.id.toString(): i.name})
+        .toList();
+
+    final customers = cubit.managerService.customers
+        .map((i) => {i.id.toString(): i.name})
+        .toList();
+
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          DropDownFormField(
+            initialValue: cubit.formAnswers['id_carrier'] ?? '',
+            items: carries,
+            label: 'Transportistas',
+            onChanged: (value) =>
+                cubit.addAnswer('id_carrier', value!.isNotEmpty ? value : null),
+          ),
+          DropDownFormField(
+            initialValue: cubit.formAnswers['truckId'] ?? '',
+            items: trucks,
+            label: 'Camión',
+            onChanged: (value) {
+              final plate = value ?? '';
+              if (plate.isEmpty) return;
+              cubit.addAnswer('truckId', value);
+              final currentTruck = cubit.managerService.trucks
+                  .firstWhere((t) => t.id.toString() == value);
+              cubit.addAnswer('currentTruck', currentTruck);
+            },
+          ),
+          DropDownFormField(
+            initialValue: cubit.formAnswers['id_company'] ?? '',
+            items: companies,
+            label: 'Empresa de explotación',
+            helperMessage: DialogMessageModel(
+                title: 'Empresas explotadoras', description: 'n/a'),
+            onChanged: (value) =>
+                cubit.addAnswer('id_company', value!.isNotEmpty ? value : null),
+          ),
+          CustomTextFormFieldController(
+            label: 'Ticket',
+            placeholder: 'Ingrese el folio',
+            helperMessage: DialogMessageModel(
+                title: 'Escanea el folio',
+                description:
+                    'Presione el campo para abrir la camara, despues escanee su código.'),
+            controller: folioTicketController,
+            readOnly: true,
+            maxLength: 20,
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+            onTap: () => cubit.initScannerCode(),
+            textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
+          ),
+          DropDownFormField(
+            initialValue: cubit.formAnswers['id_customer'] ?? '',
+            items: customers,
+            label: 'Clientes',
+            helperMessage:
+                DialogMessageModel(title: 'Clientes', description: 'n/a'),
+            onChanged: (value) => cubit.addAnswer(
+                'id_customer', value!.isNotEmpty ? value : null),
+          ),
+          DropDownFormField(
+            initialValue: cubit.formAnswers['id_material'] ?? '',
+            items: materials,
+            label: 'Tipo de material',
+            helperMessage: DialogMessageModel(
+                title: 'Tipo de material',
+                description:
+                    'Selecciona el material que transporta el camión. Si no aparece el material en el listado es necesario darlo de alta en el sistema.'),
+            onChanged: (value) => cubit.addAnswer(
+                'id_material', value!.isNotEmpty ? value : null),
+          ),
+          CustomTextFormField(
+            label: 'Folio Banco',
+            placeholder: 'Ingrese el folio',
+            helperMessage: DialogMessageModel(
+                title: 'Folio Banco',
+                description:
+                    'Introduce los últimos 6 dígitos del albarán del banco de material. Si son menos de 6 dígitos completar con ceros. Ejemplo: 001234.'),
+            initialValue: cubit.formAnswers['folio_bank'] ?? '',
+            maxLength: 6,
+            maxLines: 1,
+            validators: const {'NOT_NULL': '', 'MIN_LENGTH': 6},
+            onChanged: (value) {
+              cubit.addAnswer('folio_bank', value);
+            },
+          ),
+          CustomTextFormField(
+            label: 'Comentario',
+            placeholder: 'Nota de ubicación',
+            helperMessage: DialogMessageModel(
+                title: 'Comentario',
+                description:
+                    'Introduce información adicional del viaje (imputación de coste, unidad de obra, destino final del viaje, ruta de acarreo, incidencias, descuentos a subcontratistas…).'),
+            initialValue: cubit.formAnswers['description'] ?? '',
+            maxLength: 180,
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
+            validators: const {'NOT_NULL': ''},
+            onChanged: (value) {
+              cubit.addAnswer('description', value);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}

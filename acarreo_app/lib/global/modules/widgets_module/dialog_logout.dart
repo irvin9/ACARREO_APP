@@ -35,8 +35,9 @@ class DialogLogout {
                   buttonText: 'Cancelar',
                   textColor: Colors.white,
                   buttonColor: Colors.black87,
-                  onPressed:
-                      state is AuthInitCloseSession ? hide(context) : () {},
+                  onPressed: state is! AuthInitCloseSession
+                      ? () => hide(context)
+                      : () {},
                 ),
               ],
               content: Column(

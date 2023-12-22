@@ -1,20 +1,34 @@
 import 'dart:convert';
 
-class AcarreoTicket {
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/model/ticket.dart';
+
+class AcarreoTicket implements Ticket {
+  @override
   final DateTime createdAt;
+  @override
   final DateTime date;
+  @override
   final String description;
+  @override
   final String folio;
+  @override
   final int? id;
+  @override
   final int idClient;
   final int? idEndTravel;
+  @override
   final int idMaterial;
+  @override
   final int idProject;
   final int? idStartTravel;
   final int? idTracker;
+  @override
   final int idTruck;
+  @override
   final String folioTicket;
+  @override
   final int? typeRegister;
+  @override
   final DateTime? updatedAt;
 
   AcarreoTicket({

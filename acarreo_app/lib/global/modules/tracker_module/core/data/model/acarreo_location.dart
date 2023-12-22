@@ -6,6 +6,7 @@ class AcarreoLocation {
     required this.id,
     required this.idClient,
     required this.idProject,
+    // required this.idModule,
     required this.latitude,
     required this.longitude,
     required this.type,
@@ -18,33 +19,35 @@ class AcarreoLocation {
   factory AcarreoLocation.fromApiJson(String str) =>
       AcarreoLocation.fromJson(json.decode(str));
 
-  factory AcarreoLocation.fromJson(Map<String, dynamic> json) =>
-      AcarreoLocation(
-        createdAt: DateTime.parse(json["created_at"]),
-        id: json["id"],
-        idClient: json["id_client"],
-        idProject: json["id_project"],
-        idLabel: json["id_label"] ?? 1,
-        latitude: json["latitude"],
-        longitude: json["longitude"],
-        type: json["type"],
-        name: json["name"],
-        state: json["state"],
-        updatedAt: json["updated_at"] != null
-            ? DateTime.parse(json["updated_at"])
-            : null,
-      );
-
+  factory AcarreoLocation.fromJson(Map<String, dynamic> json) {
+    return AcarreoLocation(
+      createdAt: DateTime.parse(json["created_at"]),
+      id: json["id"],
+      idClient: json["id_client"],
+      idProject: json["id_project"],
+      // idModule: json["id_module"],
+      idLabel: json["id_label"] ?? 1,
+      latitude: json["latitude"],
+      longitude: json["longitude"],
+      type: json["type"],
+      name: json["name"],
+      state: json["state"],
+      updatedAt: json["updated_at"] != null
+          ? DateTime.parse(json["updated_at"])
+          : null,
+    );
+  }
   final DateTime createdAt;
   final int id;
   final int idClient;
+  final int idLabel;
+  // final int idModule;
   final int idProject;
   final String latitude;
-  final String type;
   final String longitude;
   final String name;
-  final int idLabel;
   final int state;
+  final String type;
   final DateTime? updatedAt;
 
   AcarreoLocation copyWith({
@@ -59,6 +62,7 @@ class AcarreoLocation {
         createdAt: createdAt,
         id: id,
         idClient: idClient,
+        // idModule: idModule,
         idProject: idProject,
         idLabel: idLabel,
         latitude: latitude ?? this.latitude,
@@ -70,13 +74,15 @@ class AcarreoLocation {
       );
 
   String toApiJson() {
-    toJson().remove('id');
-    toJson().remove('id_client');
-    toJson().remove('id_project');
-    toJson().remove('id_label');
-    toJson().remove('created_at');
-    toJson().remove('updated_at');
-    return json.encode(toJson());
+    Map<String, dynamic> data = toJson();
+    data.remove('id');
+    data.remove('id_client');
+    data.remove('id_project');
+    // data.remove('id_module');
+    data.remove('id_label');
+    data.remove('created_at');
+    data.remove('updated_at');
+    return json.encode(data);
   }
 
   Map<String, dynamic> toJson() => {

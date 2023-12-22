@@ -15,12 +15,18 @@ class PreviewCurrentLocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = Modular.get<AcarreoCubit>();
+    final currentUser = cubit.storage.currentUser;
     const String title = 'Verfica la ubicación';
 
     return GeneralTrackerWrap(
         currentStep: currentStep,
-        onContinue: () =>
-            Modular.to.navigate(GlobalRoutesApp.readTravelNFCRoute),
+        onContinue: () {
+          if (currentUser.idModule == 0) {
+            Modular.to.navigate(GlobalRoutesApp.readTravelNFCRoute);
+          } else {
+            Modular.to.navigate(GlobalRoutesApp.detailsTicketTravelRoute);
+          }
+        },
         actions: [
           GeneralButton(
             vertical: 16.0,

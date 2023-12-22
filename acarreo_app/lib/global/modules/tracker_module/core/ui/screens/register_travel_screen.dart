@@ -16,6 +16,8 @@ class RegisterTravelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     final cubit = Modular.get<AcarreoCubit>();
+    final currentUser = cubit.storage.currentUser;
+
     const String title = 'Registrar Ubicación';
     const String description =
         'Registra la información del la ubicación, le tomará unos minutos. '
@@ -44,7 +46,10 @@ class RegisterTravelScreen extends StatelessWidget {
           description: descriptionH2,
         ),
         const SizedBox(height: 12.0),
-        RegisterTravelForm(formKey: formKey)
+        if (currentUser.idModule == 0)
+          RegisterTravelForm(formKey: formKey)
+        else
+          RegisterTravelBankForm(formKey: formKey)
       ],
     );
   }

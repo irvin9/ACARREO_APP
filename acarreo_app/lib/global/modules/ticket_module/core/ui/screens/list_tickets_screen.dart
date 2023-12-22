@@ -1,6 +1,7 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/ticket_module/core/domain/cubit/list_tickets/list_tickets_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/model/ticket.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -20,26 +21,12 @@ class ListTicketsScreen extends StatelessWidget {
           style:
               GoogleFonts.poppins(fontSize: 24.0, fontWeight: FontWeight.w700),
         ),
-        Container(
-          padding: const EdgeInsets.all(12.0),
-          child: const Center(
-            child: SizedBox(
-              width: 80,
-              height: 80,
-              child: FittedBox(
-                child: CircularProgressIndicator(
-                  color: Color(0xFF384596),
-                  strokeWidth: 5,
-                ),
-              ),
-            ),
-          ),
-        )
+        const CustomLoaderProgress()
       ],
     );
   }
 
-  _buildListView(List<AcarreoTicket> tickets) {
+  _buildListView(List<Ticket> tickets) {
     return ListView.separated(
       separatorBuilder: (context, index) {
         return const Divider();

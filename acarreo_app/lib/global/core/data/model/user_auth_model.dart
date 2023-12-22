@@ -8,8 +8,8 @@ class UserAuthModel extends Equatable {
     required this.fathersLastname,
     required this.id,
     this.updatedAt,
-    // required this.password,
     required this.user,
+    required this.idModule,
     required this.createdAt,
     required this.idClient,
     required this.mothersLastname,
@@ -26,8 +26,8 @@ class UserAuthModel extends Equatable {
         updatedAt: json["updated_at"] != null
             ? DateTime.parse(json["updated_at"])
             : null,
-        // password: json["password"],
         user: json["user"],
+        idModule: json['id_module'],
         createdAt: DateTime.parse(json["created_at"]),
         idClient: json["id_client"],
         mothersLastname: json["mothers_lastname"],
@@ -41,7 +41,7 @@ class UserAuthModel extends Equatable {
   final int idProject;
   final String mothersLastname;
   final String name;
-  // final String password;
+  final int idModule;
   final DateTime? updatedAt;
   final String user;
 
@@ -49,34 +49,32 @@ class UserAuthModel extends Equatable {
   List<Object?> get props => [
         name,
         fathersLastname,
-        // password,
         user,
         idClient,
         idProject,
+        idModule,
         mothersLastname,
         idProject,
       ];
 
-  UserAuthModel copyWith({
-    String? name,
-    String? fathersLastname,
-    // String? password,
-    String? user,
-    int? idClient,
-    String? mothersLastname,
-    int? idProject,
-  }) =>
-      UserAuthModel(
-        id: id,
-        name: name ?? this.name,
-        fathersLastname: fathersLastname ?? this.fathersLastname,
-        // password: password ?? this.password,
-        user: user ?? this.user,
-        createdAt: createdAt,
-        idClient: idClient ?? this.idClient,
-        mothersLastname: mothersLastname ?? this.mothersLastname,
-        idProject: idProject ?? this.idProject,
-      );
+  // UserAuthModel copyWith({
+  //   String? name,
+  //   String? fathersLastname,
+  //   String? user,
+  //   int? idClient,
+  //   String? mothersLastname,
+  //   int? idProject,
+  // }) =>
+  //     UserAuthModel(
+  //       id: id,
+  //       name: name ?? this.name,
+  //       fathersLastname: fathersLastname ?? this.fathersLastname,
+  //       user: user ?? this.user,
+  //       createdAt: createdAt,
+  //       idClient: idClient ?? this.idClient,
+  //       mothersLastname: mothersLastname ?? this.mothersLastname,
+  //       idProject: idProject ?? this.idProject,
+  //     );
 
   String toApiJson() {
     final apiMap = toMap();
@@ -94,9 +92,9 @@ class UserAuthModel extends Equatable {
         "id": id,
         "name": name,
         "fathers_lastname": fathersLastname,
-        // "password": password,
         "user": user,
         "id_client": idClient,
+        "id_module": idModule,
         "mothers_lastname": mothersLastname,
         "id_project": idProject,
         "created_at": createdAt.toIso8601String(),

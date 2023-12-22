@@ -56,6 +56,21 @@ class PreviewDetailsTicket extends StatelessWidget {
             valueText: '${ticketData.capacity} m3',
           ),
           ConceptTextTicket(
+            show: ticketData.companyName != null,
+            conceptText: 'Empresa de' '\n' 'explotación:',
+            valueText: ticketData.companyName ?? '',
+          ),
+          ConceptTextTicket(
+            show: ticketData.customerName != null,
+            conceptText: 'Client:',
+            valueText: ticketData.customerName ?? '',
+          ),
+          ConceptTextTicket(
+            show: ticketData.barcodeExternal != null,
+            conceptText: 'Ticket' '\n' 'Externo:',
+            valueText: ticketData.barcodeExternal ?? '',
+          ),
+          ConceptTextTicket(
             conceptText: 'Nota:',
             valueText: ticketData.description,
           ),

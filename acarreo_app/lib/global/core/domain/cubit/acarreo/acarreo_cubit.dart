@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/core/domain/models/preview_ticket_model.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket_material_supplier.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
 import 'package:intl/intl.dart';
 
@@ -12,6 +13,8 @@ class AcarreoCubit extends Cubit<AcarreoState> {
   AcarreoCubit(this.managerService) : super(const AcarreoInitState());
 
   final AcarreoDataManagerService managerService;
+
+  final StorageService storage = Modular.get<StorageService>();
 
   final int totalSteps = 5;
 
@@ -70,14 +73,25 @@ class AcarreoCubit extends Cubit<AcarreoState> {
   }
 
   Future<void> createTicket() async {
+    dynamic success;
+
     await Future.delayed(Duration.zero);
     emit(const AcarreoInitCreateTicket());
     final truck = _formAnswers['currentTruck'] as AcarreoTruck;
     _formAnswers['id_client'] = truck.idClient;
     _formAnswers['id_project'] = truck.idProject;
     _formAnswers['id_truck'] = truck.id;
-    final ticket = AcarreoTicket.fromForm(_formAnswers);
-    final success = await managerService.ticketService.createTicket(ticket);
+    _formAnswers['id_tracker'] = storage.currentUser.id;
+
+    if (storage.currentUser.idModule == 0) {
+      final ticket = AcarreoTicket.fromForm(_formAnswers);
+      success = await managerService.ticketService.createTicket(ticket);
+    } else {
+      final ticket = AcarreoTicketMaterialSupplier.fromForm(_formAnswers);
+      success = await managerService.ticketMaterialSupplierService
+          .createTicket(ticket);
+    }
+
     if (success != null) {
       _pendingTickets = true;
       emit(const AcarreoShowModalTicketPrint());
@@ -91,26 +105,39 @@ class AcarreoCubit extends Cubit<AcarreoState> {
   }
 
   Future<void> updateTickets() async {
+    dynamic tickets;
+    bool errorUpload = false;
     await Future.delayed(Duration.zero);
     if (!_pendingTickets) return;
     emit(const AcarreoShowLoadingModal(message: {
       'title': 'Subiendo archivos pendientes',
       'description': 'Espere estamos subiendo la información pendiente...',
     }));
-    final tickets = await managerService.ticketService.get() ?? [];
 
+    tickets = storage.currentUser.idModule == 0
+        ? (await managerService.ticketService.get() ?? [])
+        : (await managerService.ticketMaterialSupplierService.get() ?? []);
     for (var ticket in tickets) {
-      final newTicket = await managerService.ticketService.uploadTicket(ticket);
+      final newTicket = storage.currentUser.idModule == 0
+          ? await managerService.ticketService.uploadTicket(ticket)
+          : await managerService.ticketMaterialSupplierService
+              .uploadTicket(ticket);
       if (newTicket == null) {
-        _pendingTickets = true;
-        emit(const AcarreoError({
-          'title': 'Ha ocurrido un error',
-          'description': 'No hemos podido terminar la carga de tickets, '
-              'intente más tarde'
-        }));
-        return;
+        errorUpload = true;
+        break;
       }
     }
+
+    if (errorUpload) {
+      _pendingTickets = true;
+      emit(const AcarreoError({
+        'title': 'Ha ocurrido un error',
+        'description': 'No hemos podido terminar la carga de tickets, '
+            'intente más tarde'
+      }));
+      return;
+    }
+
     _pendingTickets = false;
     emit(const AcarreoSuccess());
     updateLocalData();
@@ -154,18 +181,38 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     final String ticketCode = formAnswers['folio_ticket'];
     final String typeRegister = formAnswers['type_register'];
 
-    return PreviewTicketModel(
-      enterpriseName: project?.enterpriseName ?? 'N/A',
-      projectName: project?.projectName ?? 'N/A',
-      date: captureDate,
-      material: material.materialName,
-      plates: truck.plate,
-      capacity: truck.capacity,
-      description: description,
-      location: location.name,
-      barcode: ticketCode,
-      typeLocation: typeRegister,
-    );
+    return storage.currentUser.idModule == 0
+        ? PreviewTicketModel.ticket(
+            enterpriseName: project?.enterpriseName ?? 'N/A',
+            projectName: project?.projectName ?? 'N/A',
+            date: captureDate,
+            material: material.materialName,
+            plates: truck.plate,
+            capacity: truck.capacity,
+            description: description,
+            location: location.name,
+            barcode: ticketCode,
+            typeLocation: typeRegister)
+        : PreviewTicketModel.ticketBank(
+            enterpriseName: project?.enterpriseName ?? 'N/A',
+            projectName: project?.projectName ?? 'N/A',
+            date: captureDate,
+            material: material.materialName,
+            plates: truck.plate,
+            capacity: truck.capacity,
+            description: description,
+            location: location.name,
+            barcode: ticketCode,
+            typeLocation: typeRegister,
+            companyName: managerService.companies
+                .firstWhere(
+                    (c) => c.id.toString() == getAnswersForm('id_company'))
+                .name,
+            customerName: managerService.customers
+                .firstWhere(
+                    (c) => c.id.toString() == getAnswersForm('id_customer'))
+                .name,
+            barcodeExternal: getAnswersForm('folio_ticket_origin') ?? '');
   }
 
   Future<void> goTo(String route) {
