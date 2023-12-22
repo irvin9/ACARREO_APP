@@ -212,8 +212,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
                 .firstWhere(
                     (c) => c.id.toString() == getAnswersForm('id_customer'))
                 .name,
-            barcodeExternal: getAnswersForm('folio_ticket_origin') ?? 'N/A',
-          );
+            barcodeExternal: getAnswersForm('folio_ticket_origin') ?? '');
   }
 
   Future<void> goTo(String route) {

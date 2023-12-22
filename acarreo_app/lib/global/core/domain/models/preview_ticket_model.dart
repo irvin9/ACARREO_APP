@@ -83,7 +83,7 @@ class PreviewTicketModel extends Equatable {
         typeLocation: typeLocation,
         companyName: companyName,
         customerName: customerName,
-        barcodeExternal: barcodeExternal,
+        barcodeExternal: barcodeExternal.isNotEmpty ? barcodeExternal : 'N/A',
       );
 
   get toMapTicket => {

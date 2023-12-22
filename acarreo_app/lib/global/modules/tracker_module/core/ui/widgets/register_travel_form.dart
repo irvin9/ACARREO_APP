@@ -73,6 +73,7 @@ class RegisterTravelBankForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.watch<AcarreoCubit>((bloc) => bloc.stream);
+    final currentUser = cubit.storage.currentUser;
     final locations = cubit.managerService.locations
         .where((i) => i.state != 0)
         .map((i) => {i.id.toString(): i.name})
@@ -87,7 +88,9 @@ class RegisterTravelBankForm extends StatelessWidget {
             initialValue: cubit.formAnswers['type_register'] ?? '',
             label: 'Tipo de Registro',
             disable: cubit.formAnswers['id_location'] != null,
-            items: const [FormValues.optionTypeRegisters],
+            items: currentUser.idModule == 0
+                ? [FormValues.optionTypeRegisters]
+                : [FormValues.optionTypeRegisterBanks],
             onChanged: (value) => cubit.addAnswer(
                 'type_register', value!.isNotEmpty ? value : null),
           ),

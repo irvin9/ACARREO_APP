@@ -1,7 +1,10 @@
 import 'dart:convert';
 
-class AcarreoTicketMaterialSupplier {
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/model/ticket.dart';
+
+class AcarreoTicketMaterialSupplier implements Ticket {
   AcarreoTicketMaterialSupplier({
+    required this.id,
     required this.date,
     required this.idExportCompany,
     required this.idCustomer,
@@ -15,33 +18,13 @@ class AcarreoTicketMaterialSupplier {
     required this.folioExternalTicket,
     required this.folioBank,
     required this.description,
+    required this.typeRegister,
     this.updatedAt,
     required this.createdAt,
   });
 
   factory AcarreoTicketMaterialSupplier.fromApiJson(String str) =>
       AcarreoTicketMaterialSupplier.fromJson(json.decode(str));
-
-  factory AcarreoTicketMaterialSupplier.fromJson(Map<String, dynamic> json) =>
-      AcarreoTicketMaterialSupplier(
-        date: DateTime.parse(json["date"]),
-        idExportCompany: json["id_export_company"],
-        idCustomer: json["id_customer"],
-        idTracker: json["id_tracker"],
-        idLocation: json["id_location"],
-        idMaterial: json["id_material"],
-        idClient: json["id_client"],
-        idTruck: json["id_truck"],
-        idProject: json["id_project"],
-        folioTicket: json["folio_ticket"],
-        folioExternalTicket: json["folio_external_ticket"],
-        folioBank: json["folio_bank"],
-        description: json["description"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] != null
-            ? DateTime.parse(json["updated_at"])
-            : null,
-      );
 
   factory AcarreoTicketMaterialSupplier.fromForm(
           Map<String, dynamic> answers) =>
@@ -61,22 +44,70 @@ class AcarreoTicketMaterialSupplier {
         description: answers["description"],
         createdAt: DateTime.now(),
         updatedAt: null,
+        id: null,
+        typeRegister: answers['typeRegister'],
       );
 
-  final DateTime date;
-  final String description;
+  factory AcarreoTicketMaterialSupplier.fromJson(Map<String, dynamic> json) =>
+      AcarreoTicketMaterialSupplier(
+        id: json["id"],
+        date: DateTime.parse(json["date"]),
+        idExportCompany: json["id_export_company"],
+        idCustomer: json["id_customer"],
+        idTracker: json["id_tracker"],
+        idLocation: json["id_location"],
+        idMaterial: json["id_material"],
+        idClient: json["id_client"],
+        idTruck: json["id_truck"],
+        idProject: json["id_project"],
+        folioTicket: json["folio_ticket"],
+        folioExternalTicket: json["folio_external_ticket"],
+        folioBank: json["folio_bank"],
+        description: json["description"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] != null
+            ? DateTime.parse(json["updated_at"])
+            : null,
+        typeRegister: json['typeRegister'],
+      );
+
   final String folioBank;
   final String folioExternalTicket;
-  final String folioTicket;
-  final int idClient;
   final int idCustomer;
   final int idExportCompany;
   final int idLocation;
-  final int idMaterial;
-  final int idTruck;
-  final int idProject;
   final int idTracker;
+  @override
+  final int idTruck;
+
+  @override
   final DateTime createdAt;
+
+  @override
+  final DateTime date;
+
+  @override
+  final String description;
+
+  @override
+  final String folioTicket;
+
+  @override
+  final int? id;
+
+  @override
+  final int idClient;
+
+  @override
+  final int idMaterial;
+
+  @override
+  final int idProject;
+
+  @override
+  final int? typeRegister;
+
+  @override
   final DateTime? updatedAt;
 
   AcarreoTicketMaterialSupplier copyWith({
@@ -88,6 +119,7 @@ class AcarreoTicketMaterialSupplier {
     String? description,
   }) =>
       AcarreoTicketMaterialSupplier(
+        id: id,
         date: date ?? this.date,
         idExportCompany: idExportCompany,
         idCustomer: idCustomer,
@@ -103,6 +135,7 @@ class AcarreoTicketMaterialSupplier {
         description: description ?? this.description,
         createdAt: createdAt,
         updatedAt: updatedAt,
+        typeRegister: typeRegister,
       );
 
   Map<String, dynamic> toMap() => {

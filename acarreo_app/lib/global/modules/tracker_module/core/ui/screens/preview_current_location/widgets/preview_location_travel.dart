@@ -36,11 +36,17 @@ class _PreviewLocationTravelState extends State<PreviewLocationTravel> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = cubit.storage.currentUser;
+
     return Column(
       children: [
         TextFieldViewer(
             label: 'Tipo de registro',
-            value: answerTypeRegister?.toUpperCase() ?? 'Desconocido'),
+            value: currentUser.idModule == 0
+                ? (FormValues.optionTypeLocations[answerTypeRegister] ??
+                    'Desconocido')
+                : (FormValues.optionTypeRegisterBanks[answerTypeRegister] ??
+                    'Desconocido')),
         if (answerTypeLocation != null)
           TextFieldViewer(
               label: 'Tipo de ubicación',

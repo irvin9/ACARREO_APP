@@ -1,7 +1,11 @@
 part of 'list_tickets_cubit.dart';
 
 abstract class ListTicketsState extends Equatable {
+  static Ticket? _selectedTicket;
   const ListTicketsState();
+
+  set setSelectedTicket(Ticket ticket) => _selectedTicket = ticket;
+  Ticket get selectedTicket => _selectedTicket!;
 }
 
 class InitListTicket extends ListTicketsState {
@@ -18,7 +22,7 @@ class LoadTickets extends ListTicketsState {
 }
 
 class LoadTicketsSuccess extends ListTicketsState {
-  final List<AcarreoTicket> tickets;
+  final List<Ticket> tickets;
 
   const LoadTicketsSuccess(this.tickets);
 

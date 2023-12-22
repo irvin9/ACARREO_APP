@@ -13,6 +13,12 @@ class FormValues {
     "destino": "DESTINO"
   };
 
+  static const Map<String, String> optionTypeRegisterBanks = {
+    "": "Seleccione una opción",
+    "destino": "ENTRADA DE MATERIAL",
+    "origen": "SALIDA DE MATERIAL",
+  };
+
   static const Map<String, String> optionTypeLocations = {
     "": "Seleccione una opción",
     "1": "BANCO DE MATERIAL",
