@@ -174,26 +174,23 @@ class DetailsTicketBankForm extends StatelessWidget {
             dropdownLabelText: 'Transportistas',
             items: carries,
             inputPlaceholderText: 'Escriba su transportista',
-            onChanged: (value) {
-              debugPrint(value);
-            },
+            onChanged: (value) =>
+                cubit.addAnswer('id_carrier', value!.isNotEmpty ? value : null),
           ),
           CustomDropdownFormField(
-            dropdownLabelText: 'Camión',
-            items: trucks,
-            inputPlaceholderText: 'Escriba las placas',
-            onChanged: (value) {
-              debugPrint(value);
-            },
-          ),
+              dropdownLabelText: 'Camión',
+              items: trucks,
+              inputPlaceholderText: 'Escriba las placas',
+              onChanged: (value) => cubit.addAnswer(
+                  'id_truck', value!.isNotEmpty ? value : null)),
           DropDownFormField(
-            // initialValue: cubit.formAnswers['id_material'] ?? '',
+            initialValue: cubit.formAnswers['id_company'] ?? '',
             items: companies,
             label: 'Empresa de explotación',
             helperMessage: DialogMessageModel(
                 title: 'Empresas explotadoras', description: 'n/a'),
-            // onChanged: (value) => cubit.addAnswer(
-            //     'id_material', value!.isNotEmpty ? value : null),
+            onChanged: (value) =>
+                cubit.addAnswer('id_company', value!.isNotEmpty ? value : null),
           ),
           CustomTextFormFieldController(
             label: 'Ticket',
@@ -211,13 +208,13 @@ class DetailsTicketBankForm extends StatelessWidget {
             textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
           ),
           DropDownFormField(
-            initialValue: cubit.formAnswers['id_material'] ?? '',
+            initialValue: cubit.formAnswers['id_customer'] ?? '',
             items: customers,
             label: 'Clientes',
             helperMessage:
                 DialogMessageModel(title: 'Clientes', description: 'n/a'),
-            // onChanged: (value) => cubit.addAnswer(
-            //     'id_material', value!.isNotEmpty ? value : null),
+            onChanged: (value) => cubit.addAnswer(
+                'id_customer', value!.isNotEmpty ? value : null),
           ),
           DropDownFormField(
             initialValue: cubit.formAnswers['id_material'] ?? '',
