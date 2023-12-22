@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/core/domain/models/preview_ticket_model.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket_material_supplier.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
 import 'package:intl/intl.dart';
 
@@ -72,14 +73,25 @@ class AcarreoCubit extends Cubit<AcarreoState> {
   }
 
   Future<void> createTicket() async {
+    dynamic success;
+
     await Future.delayed(Duration.zero);
     emit(const AcarreoInitCreateTicket());
     final truck = _formAnswers['currentTruck'] as AcarreoTruck;
     _formAnswers['id_client'] = truck.idClient;
     _formAnswers['id_project'] = truck.idProject;
     _formAnswers['id_truck'] = truck.id;
-    final ticket = AcarreoTicket.fromForm(_formAnswers);
-    final success = await managerService.ticketService.createTicket(ticket);
+    _formAnswers['id_tracker'] = storage.currentUser.id;
+
+    if (storage.currentUser.idModule == 0) {
+      final ticket = AcarreoTicket.fromForm(_formAnswers);
+      success = await managerService.ticketService.createTicket(ticket);
+    } else {
+      final ticket = AcarreoTicketMaterialSupplier.fromForm(_formAnswers);
+      success = await managerService.ticketMaterialSupplierService
+          .createTicket(ticket);
+    }
+
     if (success != null) {
       _pendingTickets = true;
       emit(const AcarreoShowModalTicketPrint());

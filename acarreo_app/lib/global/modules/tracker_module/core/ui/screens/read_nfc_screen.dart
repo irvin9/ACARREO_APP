@@ -33,7 +33,6 @@ class ReadNFCTravelScreen extends StatelessWidget {
     } else {
       final value = await nfcCubit.read();
       if (value != null) {
-        // TODO Revisar ese identificador
         final folioTicketOrigin = value['Z196X110497Y997'];
         acarreoCubit.addAnswer('folio_ticket_origin', folioTicketOrigin);
       }

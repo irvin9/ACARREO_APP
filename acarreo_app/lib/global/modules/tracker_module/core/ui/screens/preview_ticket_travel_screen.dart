@@ -26,7 +26,9 @@ class PreviewTicketTravelScreen extends StatelessWidget {
               description:
                   'Para eso necesitamos que tenga ya conectada su impresora al dispositivo.',
             ),
-            data: ticketData.toMapTicket(),
+            data: cubit.storage.currentUser.idModule == 0
+                ? ticketData.toMapTicket
+                : ticketData.toMapTicketBank,
             onBack: () => cubit.finishForm(GlobalRoutesApp.registerTravelRoute),
           );
         }

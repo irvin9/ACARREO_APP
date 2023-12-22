@@ -1,6 +1,5 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
-import 'package:acarreo_app/global/modules/widgets_module/custom_dropdown_form_field.dart';
 import 'package:acarreo_app/global/modules/widgets_module/custom_text_form_field.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dropdown_form_field.dart';
 import 'package:acarreo_app/global/modules/widgets_module/text_field_viewer.dart';
@@ -143,7 +142,7 @@ class DetailsTicketBankForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.watch<AcarreoCubit>((bloc) => bloc.stream);
-    folioTicketController.text = cubit.formAnswers['folio_ticket'] ?? '';
+    folioTicketController.text = cubit.formAnswers['folio_ticket_origin'] ?? '';
 
     final materials = cubit.managerService.materials
         .where((i) => i.state != "0")
@@ -241,12 +240,12 @@ class DetailsTicketBankForm extends StatelessWidget {
                 title: 'Folio Banco',
                 description:
                     'Introduce los últimos 6 dígitos del albarán del banco de material. Si son menos de 6 dígitos completar con ceros. Ejemplo: 001234.'),
-            initialValue: cubit.formAnswers['folio'] ?? '',
+            initialValue: cubit.formAnswers['folio_bank'] ?? '',
             maxLength: 6,
             maxLines: 1,
             validators: const {'NOT_NULL': '', 'MIN_LENGTH': 6},
             onChanged: (value) {
-              cubit.addAnswer('folio', value);
+              cubit.addAnswer('folio_bank', value);
             },
           ),
           CustomTextFormField(

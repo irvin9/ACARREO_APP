@@ -10,6 +10,7 @@ class AcarreoTicketMaterialSupplier {
     required this.idMaterial,
     required this.idClient,
     required this.idProject,
+    required this.idTruck,
     required this.folioTicket,
     required this.folioExternalTicket,
     required this.folioBank,
@@ -23,13 +24,14 @@ class AcarreoTicketMaterialSupplier {
 
   factory AcarreoTicketMaterialSupplier.fromJson(Map<String, dynamic> json) =>
       AcarreoTicketMaterialSupplier(
-        date: json["date"],
+        date: DateTime.parse(json["date"]),
         idExportCompany: json["id_export_company"],
         idCustomer: json["id_customer"],
         idTracker: json["id_tracker"],
         idLocation: json["id_location"],
         idMaterial: json["id_material"],
         idClient: json["id_client"],
+        idTruck: json["id_truck"],
         idProject: json["id_project"],
         folioTicket: json["folio_ticket"],
         folioExternalTicket: json["folio_external_ticket"],
@@ -41,25 +43,27 @@ class AcarreoTicketMaterialSupplier {
             : null,
       );
 
-  factory AcarreoTicketMaterialSupplier.fromForm(Map<String, dynamic> json) =>
+  factory AcarreoTicketMaterialSupplier.fromForm(
+          Map<String, dynamic> answers) =>
       AcarreoTicketMaterialSupplier(
-        date: json["date"],
-        idExportCompany: json["id_export_company"],
-        idCustomer: json["id_customer"],
-        idTracker: json["id_tracker"],
-        idLocation: json["id_location"],
-        idMaterial: json["id_material"],
-        idClient: json["id_client"],
-        idProject: json["id_project"],
-        folioTicket: json["folio_ticket"],
-        folioExternalTicket: json["folio_external_ticket"],
-        folioBank: json["folio_bank"],
-        description: json["description"],
+        date: answers["date"],
+        idExportCompany: int.parse(answers["id_company"]),
+        idCustomer: int.parse(answers["id_customer"]),
+        idTracker: answers["id_tracker"],
+        idLocation: int.parse(answers["id_location"]),
+        idMaterial: int.parse(answers["id_material"]),
+        idClient: answers["id_client"],
+        idProject: answers["id_project"],
+        folioTicket: answers["folio_ticket"],
+        idTruck: answers["id_truck"],
+        folioExternalTicket: answers["folio_ticket_origin"],
+        folioBank: answers["folio_bank"],
+        description: answers["description"],
         createdAt: DateTime.now(),
         updatedAt: null,
       );
 
-  final String date;
+  final DateTime date;
   final String description;
   final String folioBank;
   final String folioExternalTicket;
@@ -69,6 +73,7 @@ class AcarreoTicketMaterialSupplier {
   final int idExportCompany;
   final int idLocation;
   final int idMaterial;
+  final int idTruck;
   final int idProject;
   final int idTracker;
   final DateTime createdAt;
@@ -76,7 +81,7 @@ class AcarreoTicketMaterialSupplier {
 
   AcarreoTicketMaterialSupplier copyWith({
     int? idTracker,
-    String? date,
+    DateTime? date,
     String? folioTicket,
     String? folioExternalTicket,
     String? folioBank,
@@ -91,6 +96,7 @@ class AcarreoTicketMaterialSupplier {
         idMaterial: idMaterial,
         idClient: idClient,
         idProject: idProject,
+        idTruck: idTruck,
         folioTicket: folioTicket ?? this.folioTicket,
         folioExternalTicket: folioExternalTicket ?? this.folioExternalTicket,
         folioBank: folioBank ?? this.folioBank,
@@ -100,17 +106,20 @@ class AcarreoTicketMaterialSupplier {
       );
 
   Map<String, dynamic> toMap() => {
-        "date": date,
         "id_export_company": idExportCompany,
         "id_customer": idCustomer,
         "id_tracker": idTracker,
         "id_location": idLocation,
         "id_material": idMaterial,
+        "id_truck": idTruck,
         "id_client": idClient,
         "id_project": idProject,
         "folio_ticket": folioTicket,
         "folio_external_ticket": folioExternalTicket,
         "folio_bank": folioBank,
         "description": description,
+        "date": date.toIso8601String(),
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }
