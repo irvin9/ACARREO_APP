@@ -6,6 +6,7 @@ import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/previe
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/preview_ticket_travel_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/read_nfc_screen.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/screens/register_travel_screen.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_wrap.dart';
 import 'package:acarreo_app/global/modules/tracker_module/tracker_module.dart';
 import 'package:flutter/material.dart';
 
@@ -32,9 +33,7 @@ class TrackerModule extends Module {
               )),
           children: [
             ChildRoute(TrackerRoutesModule.registerTravelRoute,
-                child: (context, args) => const RegisterTravelScreen(
-                      currentStep: 1,
-                    ),
+                child: (context, args) => const RegisterTravelScreen(),
                 guards: [FirstLocationGuard()]),
             ChildRoute(
               TrackerRoutesModule.previewCurrentLocationTravelRoute,
@@ -74,7 +73,6 @@ class TrackerRouterOutlet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Modular.get<NfcCubit>().beginScan();
-
-    return const RouterOutlet();
+    return GeneralTrackerWrap.withRouterOutlet();
   }
 }

@@ -1,17 +1,8 @@
+import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:flutter/material.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 
 class GeneralTrackerWrap extends StatelessWidget {
-  final int? currentStep;
-  final int? totalSteps;
-  final void Function()? onContinue;
-  final bool showMainButton;
-  final List<Widget> children;
-  final List<GeneralButton> actions;
-  final bool disableToBack;
-  final String? mainButtonText;
-  final bool showStepper;
-
   const GeneralTrackerWrap({
     super.key,
     this.currentStep = 1,
@@ -19,11 +10,49 @@ class GeneralTrackerWrap extends StatelessWidget {
     this.onContinue,
     this.mainButtonText,
     this.showMainButton = true,
-    required this.children,
+    this.child = const RouterOutlet(),
+    this.children = const [],
     this.actions = const [],
     this.disableToBack = false,
     this.showStepper = true,
   });
+
+  factory GeneralTrackerWrap.withRouterOutlet({
+    currentStep = 1,
+    totalSteps = 5,
+    onContinue,
+    mainButtonText,
+    showMainButton = true,
+    child = const RouterOutlet(),
+    children = const [],
+    actions = const [],
+    disableToBack = false,
+    showStepper = true,
+  }) {
+    return GeneralTrackerWrap(
+      currentStep: currentStep,
+      totalSteps: totalSteps,
+      onContinue: onContinue,
+      mainButtonText: mainButtonText,
+      showMainButton: showMainButton,
+      child: child,
+      children: children,
+      actions: actions,
+      disableToBack: disableToBack,
+      showStepper: showStepper,
+    );
+  }
+
+  final void Function()? onContinue;
+  final List<GeneralButton> actions;
+  final Widget child;
+  final List<Widget> children;
+  final int? currentStep;
+  final bool disableToBack;
+  final String? mainButtonText;
+  final bool showMainButton;
+  final bool showStepper;
+  final int? totalSteps;
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +77,16 @@ class GeneralTrackerWrap extends StatelessWidget {
                     horizontal: 0.0,
                   ),
                 ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [...children],
+                if (children.isNotEmpty)
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [...children],
+                      ),
                     ),
-                  ),
-                )
+                  )
+                else
+                  Expanded(child: child)
               ],
             ),
           ),
