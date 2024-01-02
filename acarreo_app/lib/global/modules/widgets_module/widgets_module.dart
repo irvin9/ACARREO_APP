@@ -5,6 +5,7 @@ export 'package:acarreo_app/global/modules/widgets_module/preview_details_ticket
 export 'package:acarreo_app/global/modules/widgets_module/counter_button.dart';
 export 'package:acarreo_app/global/modules/widgets_module/custom_text_form_field.dart';
 export 'package:acarreo_app/global/modules/widgets_module/custom_loader_progress.dart';
+export 'package:acarreo_app/global/modules/widgets_module/single_scroll_wrap.dart';
 
 // Dialogs
 export 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';
@@ -27,5 +28,7 @@ export 'package:acarreo_app/global/modules/widgets_module/general_text_field.dar
 export 'package:acarreo_app/global/modules/widgets_module/widget_assets.dart';
 export 'package:acarreo_app/global/modules/widgets_module/title_screen.dart';
 
+// Extensions
 export 'package:acarreo_app/global/modules/widgets_module/extensions/padding_widget.dart';
 export 'package:acarreo_app/global/modules/widgets_module/extensions/scaffold_screen.dart';
+export 'package:acarreo_app/global/modules/widgets_module/extensions/single_scroll_extension.dart';
