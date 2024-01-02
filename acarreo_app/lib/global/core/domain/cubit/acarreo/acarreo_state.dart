@@ -2,9 +2,6 @@ part of 'acarreo_cubit.dart';
 
 abstract class AcarreoState extends Equatable {
   const AcarreoState();
-
-  @override
-  List<Object?> get props => [];
 }
 
 class AcarreoInitState extends AcarreoState {
@@ -89,4 +86,21 @@ class FormScannerError extends AcarreoState {
   const FormScannerError();
   @override
   List<Object?> get props => [];
+}
+
+class FormChangeStep extends AcarreoState {
+  final String? prevStep;
+  final String? step;
+  final int index;
+  final int totalSteps;
+
+  const FormChangeStep({
+    this.prevStep,
+    this.step,
+    required this.index,
+    required this.totalSteps,
+  });
+
+  @override
+  List<Object?> get props => [prevStep, step, index];
 }

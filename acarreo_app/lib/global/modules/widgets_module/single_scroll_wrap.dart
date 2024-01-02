@@ -9,30 +9,12 @@ class SingleScrollWrap extends StatelessWidget {
     this.isExpanded = false,
   });
 
-  factory SingleScrollWrap.withExpanded({
-    required List<Widget> children,
-  }) {
-    return SingleScrollWrap(
-      isExpanded: true,
-      children: children,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (isExpanded) {
-      return Expanded(
-          child: SingleChildScrollView(
-        child: Column(
-          children: children,
-        ),
-      ));
-    } else {
-      return SingleChildScrollView(
-        child: Column(
-          children: children,
-        ),
-      );
-    }
+    return SingleChildScrollView(
+      child: Column(
+        children: children,
+      ),
+    );
   }
 }

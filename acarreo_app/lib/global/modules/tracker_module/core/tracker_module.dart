@@ -26,7 +26,8 @@ class TrackerModule extends Module {
           TrackerRoutesModule.formTravelRoute,
           child: ((context, args) => MultiBlocProvider(
                 providers: [
-                  BlocProvider.value(value: Modular.get<AcarreoCubit>()),
+                  BlocProvider.value(
+                      value: Modular.get<AcarreoCubit>()..initForm()),
                   BlocProvider.value(value: Modular.get<PrinterCubit>()),
                 ],
                 child: const TrackerRouterOutlet(),
@@ -44,7 +45,9 @@ class TrackerModule extends Module {
             ChildRoute(
               TrackerRoutesModule.readTravelNFCRoute,
               child: (context, args) => BlocProvider.value(
-                value: Modular.get<NfcCubit>()..startScan(),
+                value: Modular.get<NfcCubit>()
+                  ..beginScan()
+                  ..startScan(),
                 child: const ReadNFCTravelScreen(
                   currentStep: 3,
                 ),
@@ -68,11 +71,37 @@ class TrackerModule extends Module {
 }
 
 class TrackerRouterOutlet extends StatelessWidget {
+  static final AcarreoCubit _cubit = Modular.get<AcarreoCubit>();
   const TrackerRouterOutlet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Modular.get<NfcCubit>().beginScan();
-    return GeneralTrackerWrap.withRouterOutlet();
+    FormChangeStep? currentState;
+
+    return BlocSelector<AcarreoCubit, AcarreoState, FormChangeStep>(
+      selector: (state) {
+        if (currentState == null && state is! FormChangeStep) {
+          currentState = const FormChangeStep(
+            index: 0,
+            prevStep: '',
+            step: '',
+            totalSteps: 5,
+          );
+        }
+
+        if (state is FormChangeStep) {
+          currentState = state;
+        }
+
+        return currentState!;
+      },
+      builder: (context, state) {
+        return GeneralTrackerWrap.withRouterOutlet(
+          currentStep: state.index,
+          totalSteps: state.totalSteps,
+          onContinue: () => _cubit.onContinue(state),
+        );
+      },
+    );
   }
 }

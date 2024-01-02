@@ -5,6 +5,7 @@ import 'package:acarreo_app/global/core/domain/models/preview_ticket_model.dart'
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket_material_supplier.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 part 'acarreo_state.dart';
@@ -16,7 +17,11 @@ class AcarreoCubit extends Cubit<AcarreoState> {
 
   final StorageService storage = Modular.get<StorageService>();
 
-  final int totalSteps = 5;
+  int _totalSteps = 5;
+
+  final formKey = GlobalKey<FormState>();
+
+  int get totalSteps => _totalSteps;
 
   final Map<String, dynamic> _formAnswers = {};
   bool _pendingTickets = false;
@@ -24,6 +29,16 @@ class AcarreoCubit extends Cubit<AcarreoState> {
   Map<String, dynamic> get formAnswers => _formAnswers;
 
   bool get pedingTickets => _pendingTickets;
+
+  Future<void> initForm() async {
+    final currentUser = storage.currentUser;
+    if (currentUser.idModule == 1) {
+      _totalSteps = 4;
+    }
+
+    emit(FormChangeStep(
+        index: 1, step: 'registerTravel', totalSteps: totalSteps));
+  }
 
   Future<void> updateLocalData() async {
     await Future.delayed(Duration.zero);
@@ -257,5 +272,33 @@ class AcarreoCubit extends Cubit<AcarreoState> {
 
   void clearDataFirstLocation() {
     managerService.preferencesStorage.removeDataScreen('first-screen');
+  }
+
+  Future<void> onContinue(FormChangeStep formChangeStep) async {
+    final index = formChangeStep.index + 1;
+
+    String route = GlobalRoutesApp.registerTravelRoute;
+    String? currentStep = formChangeStep.step;
+    String nextStep = '';
+
+    if (!formKey.currentState!.validate()) return;
+    switch (formChangeStep.step) {
+      case 'registerTravel':
+        route = GlobalRoutesApp.previewCurrentLocationTravelRoute;
+        nextStep = 'PreviewCurrentLocation';
+        saveFirsLocation();
+        break;
+      default:
+        route = '';
+        break;
+    }
+    if (route.isEmpty) return;
+    emit(FormChangeStep(
+      prevStep: currentStep,
+      step: nextStep,
+      index: index,
+      totalSteps: _totalSteps,
+    ));
+    Modular.to.navigate(route);
   }
 }

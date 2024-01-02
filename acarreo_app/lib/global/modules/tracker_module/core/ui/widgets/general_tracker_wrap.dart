@@ -10,7 +10,7 @@ class GeneralTrackerWrap extends StatelessWidget {
     this.onContinue,
     this.mainButtonText,
     this.showMainButton = true,
-    this.child = const RouterOutlet(),
+    this.child = const Placeholder(),
     this.children = const [],
     this.actions = const [],
     this.disableToBack = false,
@@ -18,16 +18,16 @@ class GeneralTrackerWrap extends StatelessWidget {
   });
 
   factory GeneralTrackerWrap.withRouterOutlet({
-    currentStep = 1,
-    totalSteps = 5,
-    onContinue,
-    mainButtonText,
-    showMainButton = true,
-    child = const RouterOutlet(),
-    children = const [],
-    actions = const [],
-    disableToBack = false,
-    showStepper = true,
+    int? currentStep = 1,
+    int? totalSteps = 5,
+    void Function()? onContinue,
+    String? mainButtonText,
+    bool showMainButton = true,
+    Widget child = const RouterOutlet(),
+    List<Widget> children = const [],
+    List<GeneralButton> actions = const [],
+    bool disableToBack = false,
+    bool showStepper = true,
   }) {
     return GeneralTrackerWrap(
       currentStep: currentStep,
@@ -35,11 +35,11 @@ class GeneralTrackerWrap extends StatelessWidget {
       onContinue: onContinue,
       mainButtonText: mainButtonText,
       showMainButton: showMainButton,
-      child: child,
-      children: children,
       actions: actions,
       disableToBack: disableToBack,
       showStepper: showStepper,
+      children: children,
+      child: child,
     );
   }
 
