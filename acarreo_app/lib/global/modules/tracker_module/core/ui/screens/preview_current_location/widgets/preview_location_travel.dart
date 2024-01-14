@@ -43,7 +43,7 @@ class _PreviewLocationTravelState extends State<PreviewLocationTravel> {
         TextFieldViewer(
             label: 'Tipo de registro',
             value: currentUser.idModule == 0
-                ? (FormValues.optionTypeLocations[answerTypeRegister] ??
+                ? (FormValues.optionTypeRegisters[answerTypeRegister] ??
                     'Desconocido')
                 : (FormValues.optionTypeRegisterBanks[answerTypeRegister] ??
                     'Desconocido')),
