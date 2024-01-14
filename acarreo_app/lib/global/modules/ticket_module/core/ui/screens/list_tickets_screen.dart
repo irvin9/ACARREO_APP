@@ -1,6 +1,5 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/ticket_module/core/domain/cubit/list_tickets/list_tickets_cubit.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_ticket.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/model/ticket.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
