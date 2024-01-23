@@ -30,6 +30,7 @@ dependencies:
   barcode_scan2: ^4.2.4
   ndef: ^0.3.1
   dropdown_search: ^5.0.6
+  package_info_plus: ^4.2.0
 
 dev_dependencies:
   flutter_test:

@@ -17,6 +17,7 @@ export 'package:acarreo_app/global/modules/widgets_module/dialog_search_printer.
 export 'package:acarreo_app/global/modules/widgets_module/diloag_warning.dart';
 
 export 'package:acarreo_app/global/modules/widgets_module/dots_progress_bar.dart';
+export 'package:acarreo_app/global/modules/widgets_module/footer_app_version.dart';
 
 export 'package:acarreo_app/global/modules/widgets_module/dropdown_field.dart';
 export 'package:acarreo_app/global/modules/widgets_module/dropdown_form_field.dart';

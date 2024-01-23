@@ -94,6 +94,7 @@ class LoginForm extends StatelessWidget {
                 width: 164.0,
                 height: 64.0,
               ),
+              const FooterAppVersion(),
             ],
           ),
         ),
