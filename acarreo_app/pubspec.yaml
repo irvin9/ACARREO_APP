@@ -48,15 +48,6 @@ flutter:
     - assets/logo/
     - google_fonts/Poppins/
 
-flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/icon/icon.png"
-  min_sdk_android: 21
-  remove_alpha_ios: true
-  adaptive_icon_background: "#ffffffff"
-  adaptive_icon_foreground: "assets/icon/icon-round.png"
-
 flutter_native_splash:
   color: "#ffffff"
   image: assets/logo/logo.png
