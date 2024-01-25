@@ -17,13 +17,14 @@ void catchUnhandledExceptions(Object error, StackTrace? stack) {
 void main() async {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+      name: DefaultFirebaseOptions.currentPlatform.appId,
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     GoogleFonts.config.allowRuntimeFetching = false;
 
     final String initialRoute = GlobalRoutesApp.authLoginRoute;
     await HiveLocalStorageService.initStorage();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
     runApp(
       ModularApp(
         module: AcarreoAppModule(),

@@ -43,6 +43,13 @@ android {
         applicationId APP_BUNDLE
         applicationIdSuffix APP_SUFFIX
         resValue 'string', 'app_name', APP_NAME
+        resValue 'string', 'gcm_defaultSenderId', FIREBASE_SENDER_ID
+        resValue 'string', 'google_api_key', FIREBASE_API_KEY_ANDROID
+        resValue 'string', 'google_app_id', FIREBASE_APP_ID_ANDROID
+        resValue 'string', 'google_crash_reporting_api_key', FIREBASE_API_KEY_ANDROID
+        resValue 'string', 'google_storage_bucket', FIREBASE_STORAGE_BUCKET
+        resValue 'string', 'project_id', FIREBASE_PROJECT_ID
+
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 23 // flutter.minSdkVersion
