@@ -47,3 +47,4 @@ app.*.map.json
 acarreo_app/config*.json
 .DS_Store
 *.apk
+*.jks
