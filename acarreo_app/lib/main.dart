@@ -18,7 +18,6 @@ void main() async {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
-      name: DefaultFirebaseOptions.currentPlatform.appId,
       options: DefaultFirebaseOptions.currentPlatform,
     );
     GoogleFonts.config.allowRuntimeFetching = false;
