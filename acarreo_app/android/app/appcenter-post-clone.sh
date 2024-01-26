@@ -36,7 +36,7 @@ echo "$CONFIG_JSON" >config.json
 echo "Archivo config.json creado con éxito."
 
 last_version=$(git describe --match "v[0-9]*.[0-9]*.[0-9]*+[0-9]*" --abbrev=0 --tags)
-numberBuild="${version#*+}"
+numberBuild="${last_version#*+}"
 
 if [ "$ENVIRONMENT" == "dev" ]; then
     echo "El actual número de build es: $numberBuild"
@@ -45,7 +45,7 @@ if [ "$ENVIRONMENT" == "dev" ]; then
         # Sumar uno al número de build
         numberBuild=$((numberBuild + 1))
         # Construir la nueva versión con el nuevo número de build
-        newVersion=$(echo $version | sed "s/+${numberBuild}/+${newNumberBuild}/")
+        newVersion=$(echo $last_version | sed "s/+${numberBuild}/+${newNumberBuild}/")
 
         # Etiquetar el repositorio Git con la nueva versión
         git checkout dev
@@ -54,6 +54,7 @@ if [ "$ENVIRONMENT" == "dev" ]; then
         echo "Versión actualizada y repositorio etiquetado con $newVersion"
     else
         echo "Error: El número de build no es un entero válido."
+        exit
     fi
 else
     echo "Tag de $ENVIRONMENT -> $last_version"
