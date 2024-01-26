@@ -86,7 +86,10 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 flutter doctor
 echo "Installed flutter to $(pwd)/flutter"
+# Print Directories
+find . -name "upload-keystore.jks"
 
+ls -la
 # build APK
 # if you get "Execution failed for task ':app:lintVitalRelease'." error, uncomment next two lines
 # flutter build apk --debug
