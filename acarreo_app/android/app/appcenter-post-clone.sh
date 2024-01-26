@@ -15,6 +15,12 @@ ls -la
 cd ..
 ls -la
 
+cd ..
+ls -la
+
+cd ..
+ls -la
+
 cd ./acarreo_app
 # Crear el contenido del archivo JSON utilizando variables de entorno o sistema
 CONFIG_JSON=$(
