@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 #Place this script in project/android/app/
-cd src
-ls -la
 cd ..
-ls -la
-cd ..
-ls -la
 
 # fail if any command fails
 set -e
@@ -13,18 +8,6 @@ set -e
 set -x
 
 cd ..
-ls -la
-
-cd ..
-ls -la
-
-cd ..
-ls -la
-
-cd ..
-ls -la
-
-cd ./acarreo_app
 # Crear el contenido del archivo JSON utilizando variables de entorno o sistema
 CONFIG_JSON=$(
     cat <<EOF
