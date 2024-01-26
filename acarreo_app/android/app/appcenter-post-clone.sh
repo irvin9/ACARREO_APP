@@ -75,18 +75,16 @@ handle_error() {
     fi
 }
 
-git clone -b beta https://github.com/flutter/flutter.git
+echo "Instalando Flutter"
+git clone -b stable https://github.com/flutter/flutter.git
+cd flutter
+git checkout 3.13.0
+cd ..
+
 export PATH=$(pwd)/flutter/bin:$PATH
-
-flutter channel stable
-
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
-dart pub global activate fvm
-fvm use 3.13.0
-fvm global 3.13.0
 flutter doctor
-
 echo "Installed flutter to $(pwd)/flutter"
 
 # build APK
