@@ -124,7 +124,7 @@ android {
                         bundleDir.mkdirs()
                         copy {
                             from bundlePath.parent
-                            into bundlePath
+                            into bundleDir
                             include bundlePath.name
                         }
                         println "AAB file moved to: ${bundleDir}/${bundlePath.name}"
