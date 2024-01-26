@@ -48,9 +48,9 @@ if [ "$ENVIRONMENT" == "dev" ]; then
         newVersion=$(echo $last_version | sed "s/+${numberBuild}/+${newNumberBuild}/")
 
         # Etiquetar el repositorio Git con la nueva versión
-        git checkout dev
+        git checkout develop
         git tag -a "$newVersion" -m "feat: new version app $newVersion"
-        git push origin dev --tags
+        git push origin develop --tags
         echo "Versión actualizada y repositorio etiquetado con $newVersion"
     else
         echo "Error: El número de build no es un entero válido."
