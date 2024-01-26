@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 #Place this script in project/android/app/
+cd src
+ls -la
+cd ..
 ls -la
 cd ..
 ls -la
