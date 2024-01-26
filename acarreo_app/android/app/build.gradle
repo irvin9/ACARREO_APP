@@ -38,12 +38,15 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    def environment = System.getenv('ENVIRONMENT') ?: 'prod'
     def appName = System.getenv('APP_NAME') ?: 'DefaultAppName'
     def firebaseSenderId = System.getenv('FIREBASE_SENDER_ID') ?: 'DefaultSenderId'
     def firebaseApiKeyAndroid = System.getenv('FIREBASE_API_KEY_ANDROID') ?: 'DefaultApiKeyAndroid'
     def firebaseAppIdAndroid = System.getenv('FIREBASE_APP_ID_ANDROID') ?: 'DefaultAppIdAndroid'
     def firebaseStorageBucket = System.getenv('FIREBASE_STORAGE_BUCKET') ?: 'DefaultStorageBucket'
     def firebaseProjectId = System.getenv('FIREBASE_PROJECT_ID') ?: 'DefaultProjectId'
+
+    def typeBundleTask = System.getenv('BUNDLE_TASK') ?: 'assembleRelease'
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
@@ -97,6 +100,55 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+        }
+    }
+
+    afterEvaluate {
+        if (System.getenv('IS_CI_BUILD') == 'true') {
+            // if you are creating bundle for release build then task name below will be bundleRelease
+            // if apk, then it will be assembleRelease
+            // if any flavor then, for staging flavor it will be bundleStagingRelease and assembleStagingRelease respectively
+            def bundleTask = project.tasks.findByName(typeBundleTask)
+
+            // Create a custom task to run after bundleRelease or assembleRelease
+            task copyBuildTask(dependsOn: bundleTask) {
+                // Configure your custom task here
+                doLast {
+                    // Code to run after bundleRelease or asssembleRelease for appcenter
+                    println 'Copying builds...'
+                    // if any flavor then path will change accordingly, for staging it will be -
+                    // def bundlePath = file('../../build/app/outputs/bundle/stagingRelease/app-staging-release.aab')
+                    def bundlePath = file("../../build/app/outputs/bundle/${environment}Release/app-${environment}-release.aab")
+                    if (bundlePath.exists()) {
+                        def bundleDir = file('build/outputs/bundle/')
+                        bundleDir.mkdirs()
+                        copy {
+                            from bundlePath.parent
+                            into bundlePath
+                            include bundlePath.name
+                        }
+                        println "AAB file moved to: ${bundleDir}/${bundlePath.name}"
+                    }
+
+                    // if any flavor then path will change accordingly, for staging it will be -
+                    //def mappingPath = file('../../build/app/outputs/mapping/stagingRelease/mapping.txt')
+                    def mappingPath = file("../../build/app/outputs/mapping/${environment}Release/mapping.txt")
+                    if (mappingPath.exists()) {
+                        def mappingDir = file('build/outputs/mapping/')
+                        mappingDir.mkdirs()
+                        copy {
+                            from mappingPath.parent
+                            into mappingDir
+                            include mappingPath.name
+                        }
+                        println "Mapping file moved to: ${mappingDir}/${mappingPath.name}"
+                    }
+                }
+            }
+
+            if (bundleTask != null) {
+                bundleTask.finalizedBy(copyBuildTask)
+            }
         }
     }
 }
