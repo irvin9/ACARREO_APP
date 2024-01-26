@@ -21,8 +21,11 @@ def properties = new Properties()
 
 //for appcenter build
 if (System.getenv('IS_CI_BUILD') == 'true') {
+    if (!localPropertiesFile.exists()) {
+        localPropertiesFile.text = "flutter.sdk=${rootProject.projectDir}/flutter"
+    }
     properties.load(localPropertiesFile.newDataInputStream())
-    properties.setProperty('flutter.sdk', '/Users/runner/work/1/s/flutter')
+    // properties.setProperty('flutter.sdk', '/Users/runner/work/1/s/flutter')
     properties.store(localPropertiesFile.newWriter(), null)
 }
 
