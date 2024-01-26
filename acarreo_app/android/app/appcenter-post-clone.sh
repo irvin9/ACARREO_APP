@@ -67,7 +67,8 @@ trap 'handle_error' ERR
 handle_error() {
     if [ "$ENVIRONMENT" == "dev" ]; then
         echo "Error detectado. Revertir el tag creado."
-        git tag -d "$newVersion"
+        git tag --delete "$newVersion"
+        git push origin --delete refs/tags/$newVersion
         exit 1
     else
         echo "Error detectado."
@@ -78,6 +79,9 @@ git clone -b beta https://github.com/flutter/flutter.git
 export PATH=$(pwd)/flutter/bin:$PATH
 
 flutter channel stable
+
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+
 dart pub global activate fvm
 fvm use 3.13.0
 fvm global 3.13.0
