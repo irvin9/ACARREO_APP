@@ -2,6 +2,7 @@
 #Place this script in project/android/app/
 
 cd ..
+ls -la
 
 # fail if any command fails
 set -e
@@ -9,6 +10,12 @@ set -e
 set -x
 
 cd ..
+ls -la
+
+cd ..
+ls -la
+
+cd ./android
 # Crear el contenido del archivo JSON utilizando variables de entorno o sistema
 CONFIG_JSON=$(
     cat <<EOF
@@ -86,10 +93,6 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 flutter doctor
 echo "Installed flutter to $(pwd)/flutter"
-# Print Directories
-find . -name "upload-keystore.jks"
-
-ls -la
 # build APK
 # if you get "Execution failed for task ':app:lintVitalRelease'." error, uncomment next two lines
 # flutter build apk --debug
