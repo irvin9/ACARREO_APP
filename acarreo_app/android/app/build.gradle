@@ -77,7 +77,7 @@ android {
             if (System.getenv('IS_CI_BUILD') == 'true') {
                 keyAlias System.getProperty('APPCENTER_KEY_ALIAS')
                 keyPassword System.getProperty('APPCENTER_KEY_PASSWORD')
-                storeFile rootProject.file('app/upload-keystore.jks')
+                storeFile rootProject.file('app/android.keystore')
                 storePassword System.getProperty('APPCENTER_KEYSTORE_PASSWORD')
             } else {
                 keyAlias keystoreProperties['keyAlias']
