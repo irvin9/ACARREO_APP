@@ -117,6 +117,20 @@ android {
                     // Code to run after bundleRelease or asssembleRelease for appcenter
                     println 'Copying builds...'
                     // if any flavor then path will change accordingly, for staging it will be -
+                    // def apkPath = file('../../build/app/outputs/flutter-apk/app-staging-release.apk')
+                    def apkPath = file("../../build/app/outputs/flutter-apk/app-${environment}-release.apk")
+                    if (apkPath.exists()) {
+                        def apkDir = file('build/outputs/apk/')
+                        apkDir.mkdirs()
+                        copy {
+                            from apkPath.parent
+                            into apkDir
+                            include apkPath.name
+                        }
+                        println "Apk file moved to: ${apkDir}/${apkPath.name}"
+                    }
+
+                    // if any flavor then path will change accordingly, for staging it will be -
                     // def bundlePath = file('../../build/app/outputs/bundle/stagingRelease/app-staging-release.aab')
                     def bundlePath = file("../../build/app/outputs/bundle/${environment}Release/app-${environment}-release.aab")
                     if (bundlePath.exists()) {
