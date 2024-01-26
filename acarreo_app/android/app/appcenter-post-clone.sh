@@ -43,7 +43,7 @@ if [ "$ENVIRONMENT" == "dev" ]; then
     # Verificar si el número es un entero antes de sumar uno
     if [[ $numberBuild =~ ^[0-9]+$ ]]; then
         # Sumar uno al número de build
-        numberBuild=$((numberBuild + 1))
+        newNumberBuild=$((numberBuild + 1))
         # Construir la nueva versión con el nuevo número de build
         newVersion=$(echo $last_version | sed "s/+${numberBuild}/+${newNumberBuild}/")
 
