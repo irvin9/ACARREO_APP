@@ -92,7 +92,7 @@ echo "Installed flutter to $(pwd)/flutter"
 # flutter build apk --debug
 # flutter build apk --profile
 # flutter build apk --release
-flutter build appbundle --flavor "$ENVIRONMENT" --dart-define-from-file=config.json
+flutter build appbundle --flavor "$ENVIRONMENT" --dart-define-from-file=config.json --verbose
 
 # if you need build bundle (AAB) in addition to your APK, uncomment line below and last line of this script.
 #flutter build appbundle --release --build-number $APPCENTER_BUILD_ID
