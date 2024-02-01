@@ -38,28 +38,17 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    def environment = System.getenv('ENVIRONMENT') ?: 'prod'
-    def appName = System.getenv('APP_NAME') ?: 'DefaultAppName'
-    def firebaseSenderId = System.getenv('FIREBASE_SENDER_ID') ?: 'DefaultSenderId'
-    def firebaseApiKeyAndroid = System.getenv('FIREBASE_API_KEY_ANDROID') ?: 'DefaultApiKeyAndroid'
-    def firebaseAppIdAndroid = System.getenv('FIREBASE_APP_ID_ANDROID') ?: 'DefaultAppIdAndroid'
-    def firebaseStorageBucket = System.getenv('FIREBASE_STORAGE_BUCKET') ?: 'DefaultStorageBucket'
-    def firebaseProjectId = System.getenv('FIREBASE_PROJECT_ID') ?: 'DefaultProjectId'
-
-    def typeBundleTask = System.getenv('BUNDLE_TASK') ?: 'assembleRelease'
-
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId System.getenv('APP_BUNDLE')
-        applicationIdSuffix System.getenv('APP_SUFFIX')
-        resValue 'string', 'app_name', appName
-        resValue 'string', 'gcm_defaultSenderId', firebaseSenderId
-        resValue 'string', 'google_api_key', firebaseApiKeyAndroid
-        resValue 'string', 'google_app_id', firebaseAppIdAndroid
-        resValue 'string', 'google_crash_reporting_api_key', firebaseApiKeyAndroid
-        resValue 'string', 'google_storage_bucket', firebaseStorageBucket
-        resValue 'string', 'project_id', firebaseProjectId
-
+        applicationId APP_BUNDLE
+        applicationIdSuffix APP_SUFFIX
+        resValue 'string', 'app_name', APP_NAME
+        resValue 'string', 'gcm_defaultSenderId', FIREBASE_SENDER_ID
+        resValue 'string', 'google_api_key', FIREBASE_API_KEY_ANDROID
+        resValue 'string', 'google_app_id', FIREBASE_APP_ID_ANDROID
+        resValue 'string', 'google_crash_reporting_api_key', FIREBASE_API_KEY_ANDROID
+        resValue 'string', 'google_storage_bucket', FIREBASE_STORAGE_BUCKET
+        resValue 'string', 'project_id', FIREBASE_PROJECT_ID
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 23 // flutter.minSdkVersion
@@ -84,85 +73,15 @@ android {
 
     signingConfigs {
         release {
-            if (System.getenv('IS_CI_BUILD') == 'true') {
-                keyAlias System.getenv('APPCENTER_KEY_ALIAS')
-                keyPassword System.getenv('APPCENTER_KEY_PASSWORD')
-                storeFile rootProject.file('app/android.keystore')
-                storePassword System.getenv('APPCENTER_KEYSTORE_PASSWORD')
-            } else {
                 keyAlias keystoreProperties['keyAlias']
                 keyPassword keystoreProperties['keyPassword']
                 storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
                 storePassword keystoreProperties['storePassword']
-            }
         }
     }
     buildTypes {
         release {
             signingConfig signingConfigs.release
-        }
-    }
-
-    afterEvaluate {
-        if (System.getenv('IS_CI_BUILD') == 'true') {
-            // if you are creating bundle for release build then task name below will be bundleRelease
-            // if apk, then it will be assembleRelease
-            // if any flavor then, for staging flavor it will be bundleStagingRelease and assembleStagingRelease respectively
-            def bundleTask = project.tasks.findByName(typeBundleTask)
-
-            // Create a custom task to run after bundleRelease or assembleRelease
-            task copyBuildTask(dependsOn: bundleTask) {
-                // Configure your custom task here
-                doLast {
-                    // Code to run after bundleRelease or asssembleRelease for appcenter
-                    println 'Copying builds...'
-                    // if any flavor then path will change accordingly, for staging it will be -
-                    // def apkPath = file('../../build/app/outputs/flutter-apk/app-staging-release.apk')
-                    def apkPath = file("../../build/app/outputs/flutter-apk/app-${environment}-release.apk")
-                    if (apkPath.exists()) {
-                        def apkDir = file('build/outputs/apk/')
-                        apkDir.mkdirs()
-                        copy {
-                            from apkPath.parent
-                            into apkDir
-                            include apkPath.name
-                        }
-                        println "Apk file moved to: ${apkDir}/${apkPath.name}"
-                    }
-
-                    // if any flavor then path will change accordingly, for staging it will be -
-                    // def bundlePath = file('../../build/app/outputs/bundle/stagingRelease/app-staging-release.aab')
-                    def bundlePath = file("../../build/app/outputs/bundle/${environment}Release/app-${environment}-release.aab")
-                    if (bundlePath.exists()) {
-                        def bundleDir = file('build/outputs/bundle/')
-                        bundleDir.mkdirs()
-                        copy {
-                            from bundlePath.parent
-                            into bundleDir
-                            include bundlePath.name
-                        }
-                        println "AAB file moved to: ${bundleDir}/${bundlePath.name}"
-                    }
-
-                    // if any flavor then path will change accordingly, for staging it will be -
-                    //def mappingPath = file('../../build/app/outputs/mapping/stagingRelease/mapping.txt')
-                    def mappingPath = file("../../build/app/outputs/mapping/${environment}Release/mapping.txt")
-                    if (mappingPath.exists()) {
-                        def mappingDir = file('build/outputs/mapping/')
-                        mappingDir.mkdirs()
-                        copy {
-                            from mappingPath.parent
-                            into mappingDir
-                            include mappingPath.name
-                        }
-                        println "Mapping file moved to: ${mappingDir}/${mappingPath.name}"
-                    }
-                }
-            }
-
-            if (bundleTask != null) {
-                bundleTask.finalizedBy(copyBuildTask)
-            }
         }
     }
 }
