@@ -86,7 +86,7 @@ class PreviewTicketModel extends Equatable {
         barcodeExternal: barcodeExternal.isNotEmpty ? barcodeExternal : 'N/A',
       );
 
-  get toMapTicket => {
+  Map<String, dynamic> get toMapTicket => {
         'enterpriseName': enterpriseName,
         'projectName': projectName,
         'date': date,
@@ -99,7 +99,7 @@ class PreviewTicketModel extends Equatable {
         'barcode': barcode,
       };
 
-  get toMapTicketBank => {
+  Map<String, dynamic> get toMapTicketBank => {
         'enterpriseName': enterpriseName,
         'projectName': projectName,
         'date': date,

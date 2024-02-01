@@ -35,7 +35,7 @@ class ListTicketsCubit extends Cubit<ListTicketsState> {
     await Modular.to.pushNamed(GlobalRoutesApp.reviewTicketRoute);
   }
 
-  get ticket {
+  PreviewTicketModel get ticket {
     final ticket = state.selectedTicket as AcarreoTicket;
     final project = managerService.project;
     final String description = ticket.description;
@@ -62,7 +62,7 @@ class ListTicketsCubit extends Cubit<ListTicketsState> {
     );
   }
 
-  get ticketBank {
+  PreviewTicketModel get ticketBank {
     final ticket = state.selectedTicket as AcarreoTicketMaterialSupplier;
     final project = managerService.project;
     final String description = ticket.description;
@@ -104,6 +104,7 @@ class ListTicketsCubit extends Cubit<ListTicketsState> {
   }
 
   printTicket(BuildContext context) {
+    final currentUser = storage.currentUser;
     DialogPritting.show(
       context: context,
       message: DialogMessageModel(
@@ -111,7 +112,9 @@ class ListTicketsCubit extends Cubit<ListTicketsState> {
         description:
             'Para eso necesitamos que tenga ya conectada su impresora al dispositivo.',
       ),
-      data: formatTicket().toMapTicket(),
+      data: currentUser.idModule == 0
+          ? formatTicket().toMapTicket
+          : formatTicket().toMapTicketBank,
     );
   }
 }
