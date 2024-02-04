@@ -41,9 +41,9 @@ class CustomTextFormField extends StatelessWidget {
     if (validators!.containsKey('NOT_NULL')) {
       if (value == null || value.isEmpty) return '';
     }
-    if (validators!.containsKey('MIN_LENGTH')) {
+    if (value?.isNotEmpty == true && validators!.containsKey('MIN_LENGTH')) {
       final min = validators!['MIN_LENGTH']!;
-      if (value == null || value.length < min) return '';
+      if (value!.length < min) return '';
     }
     return null;
   }
