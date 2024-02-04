@@ -62,7 +62,7 @@ class PreviewDetailsTicket extends StatelessWidget {
           ),
           ConceptTextTicket(
             show: ticketData.customerName != null,
-            conceptText: 'Client:',
+            conceptText: 'Cliente:',
             valueText: ticketData.customerName ?? '',
           ),
           ConceptTextTicket(

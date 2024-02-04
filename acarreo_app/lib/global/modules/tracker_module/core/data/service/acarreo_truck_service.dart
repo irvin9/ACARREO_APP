@@ -22,6 +22,8 @@ class AcarreoTruckService implements TruckService<AcarreoTruck> {
     try {
       final items = await localStorageService.getItems();
       final trucks = items.cast().map((i) => AcarreoTruck.fromJson(i)).toList();
+      trucks.sort(
+          (a, b) => a.plate.toLowerCase().compareTo(b.plate.toLowerCase()));
       return trucks;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');

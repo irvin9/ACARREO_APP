@@ -9,7 +9,6 @@ class AcarreoTicket implements Ticket {
   final DateTime date;
   @override
   final String description;
-  @override
   final String folio;
   @override
   final int? id;

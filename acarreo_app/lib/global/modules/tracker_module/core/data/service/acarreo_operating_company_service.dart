@@ -11,7 +11,7 @@ class AcarreoOperatingCompanyService
     required this.repository,
     required this.localStorageService,
   }) {
-    localStorageService.init(StorageLocalNames.customers);
+    localStorageService.init(StorageLocalNames.operatingCompanies);
   }
 
   final LocalStorageService localStorageService;

@@ -243,7 +243,7 @@ class DetailsTicketBankForm extends StatelessWidget {
             initialValue: cubit.formAnswers['folio_bank'] ?? '',
             maxLength: 6,
             maxLines: 1,
-            validators: const {'NOT_NULL': '', 'MIN_LENGTH': 6},
+            validators: const {'MIN_LENGTH': 6},
             onChanged: (value) {
               cubit.addAnswer('folio_bank', value);
             },
@@ -259,7 +259,7 @@ class DetailsTicketBankForm extends StatelessWidget {
             maxLength: 180,
             maxLines: null,
             keyboardType: TextInputType.multiline,
-            validators: const {'NOT_NULL': ''},
+            validators: null,
             onChanged: (value) {
               cubit.addAnswer('description', value);
             },

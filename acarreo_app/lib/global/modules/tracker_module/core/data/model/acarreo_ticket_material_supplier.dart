@@ -39,7 +39,7 @@ class AcarreoTicketMaterialSupplier implements Ticket {
         idProject: answers["id_project"],
         folioTicket: answers["folio_ticket"],
         idTruck: answers["id_truck"],
-        folioExternalTicket: answers["folio_ticket_origin"],
+        folioExternalTicket: answers["folio_ticket_origin"] ?? '',
         folioBank: answers["folio_bank"],
         description: answers["description"],
         createdAt: DateTime.now(),
