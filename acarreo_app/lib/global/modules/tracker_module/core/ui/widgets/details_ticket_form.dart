@@ -2,6 +2,7 @@ import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_truck.dart';
 import 'package:acarreo_app/global/modules/widgets_module/custom_text_form_field.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dropdown_form_field.dart';
+import 'package:acarreo_app/global/modules/widgets_module/dropdown_search_form_field.dart';
 import 'package:acarreo_app/global/modules/widgets_module/text_field_viewer.dart';
 import 'package:acarreo_app/global/modules/widgets_module/title_form.dart';
 import 'package:flutter/material.dart';
@@ -176,13 +177,13 @@ class DetailsTicketBankForm extends StatelessWidget {
             onChanged: (value) =>
                 cubit.addAnswer('id_carrier', value!.isNotEmpty ? value : null),
           ),
-          DropDownFormField(
+          DropdownSearchFormField(
             initialValue: cubit.formAnswers['truckId'] ?? '',
             items: trucks,
-            label: 'Camión',
+            dropdownLabelText: 'Camión',
             onChanged: (value) {
-              final plate = value ?? '';
-              if (plate.isEmpty) return;
+              final truckId = value ?? '';
+              if (truckId.isEmpty) return;
               cubit.addAnswer('truckId', value);
               final currentTruck = cubit.managerService.trucks
                   .firstWhere((t) => t.id.toString() == value);
