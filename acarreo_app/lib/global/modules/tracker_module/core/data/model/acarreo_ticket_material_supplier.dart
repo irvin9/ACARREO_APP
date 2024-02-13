@@ -42,10 +42,10 @@ class AcarreoTicketMaterialSupplier implements Ticket {
         folioExternalTicket: answers["folio_ticket_origin"] ?? '',
         folioBank: answers["folio_bank"] ?? '',
         description: answers["description"] ?? '',
+        typeRegister: int.tryParse(answers['type_register']),
         createdAt: DateTime.now(),
         updatedAt: null,
         id: null,
-        typeRegister: answers['typeRegister'],
       );
 
   factory AcarreoTicketMaterialSupplier.fromJson(Map<String, dynamic> json) =>
@@ -64,11 +64,11 @@ class AcarreoTicketMaterialSupplier implements Ticket {
         folioExternalTicket: json["folio_external_ticket"],
         folioBank: json["folio_bank"],
         description: json["description"],
+        typeRegister: json['mode'],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] != null
             ? DateTime.parse(json["updated_at"])
             : null,
-        typeRegister: json['typeRegister'],
       );
 
   final String folioBank;
@@ -151,6 +151,7 @@ class AcarreoTicketMaterialSupplier implements Ticket {
         "folio_external_ticket": folioExternalTicket,
         "folio_bank": folioBank,
         "description": description,
+        "mode": typeRegister,
         "date": date.toIso8601String(),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),

@@ -22,7 +22,7 @@ class ReadNFCTravelScreen extends StatelessWidget {
   Future<void> _handlerNfcData(String idNfc) async {
     final typeRegister = acarreoCubit.getAnswersForm('type_register');
     final ticketCode = acarreoCubit.generateTicketCode();
-    if (typeRegister == 'origen') {
+    if (FormValues.mappingTypeRegister["$typeRegister"] == 'origen') {
       final value = {'Z196X110497Y997': ticketCode, 'XE92202976O4': idNfc};
       final statusWrite = await nfcCubit.write(value: value);
       if (statusWrite) {

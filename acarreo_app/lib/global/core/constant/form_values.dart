@@ -9,14 +9,14 @@ abstract class TypeLocations {
 class FormValues {
   static const Map<String, String> optionTypeRegisters = {
     "": "Seleccione una opción",
-    "origen": "ORIGEN",
-    "destino": "DESTINO"
+    "1": "ORIGEN",
+    "2": "DESTINO"
   };
 
   static const Map<String, String> optionTypeRegisterBanks = {
     "": "Seleccione una opción",
-    "destino": "ENTRADA DE MATERIAL",
-    "origen": "SALIDA DE MATERIAL",
+    "2": "ENTRADA DE MATERIAL",
+    "3": "SALIDA DE MATERIAL",
   };
 
   static const Map<String, String> optionTypeLocations = {
@@ -29,5 +29,12 @@ class FormValues {
   static const Map<String, String> mappingTypeRegister = {
     "1": "origen",
     "2": "destino"
+  };
+
+  static const Map<String, String> typeRegisters = {
+    "0": "Origen",
+    "1": "Destino",
+    "2": "Entrada de Material",
+    "3": "Salida de Material",
   };
 }

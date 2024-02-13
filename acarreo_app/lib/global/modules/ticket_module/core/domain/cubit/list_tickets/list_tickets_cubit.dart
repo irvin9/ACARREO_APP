@@ -91,7 +91,7 @@ class ListTicketsCubit extends Cubit<ListTicketsState> {
       description: description,
       location: location.name,
       barcode: ticket.folioTicket,
-      typeLocation: ticket.typeRegister.toString(),
+      typeRegister: ticket.typeRegister.toString(),
       companyName: company.name,
       customerName: customer.name,
       barcodeExternal: externalTicketBarcode,

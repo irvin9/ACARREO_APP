@@ -19,12 +19,8 @@ class StartxpandPrinterBluetoothService {
 
   void appendBody(StarXpandDocument doc, StarXpandDocumentPrint printDoc,
       Map<String, dynamic> data) {
-    String typeLocation;
-    if (data['typeLocation'] == "1" || data['typeLocation'] == "origen") {
-      typeLocation = "Origen";
-    } else {
-      typeLocation = "Destino";
-    }
+    String typeLocation =
+        FormValues.typeRegisters["${data['typeLocation']}"] ?? '';
 
     printDoc.style(alignment: StarXpandStyleAlignment.left);
     printDoc.actionPrintText("Desarrolladora: ${data['enterpriseName']}\n"

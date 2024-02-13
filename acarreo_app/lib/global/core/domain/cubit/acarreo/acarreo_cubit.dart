@@ -192,7 +192,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
             description: description,
             location: location.name,
             barcode: ticketCode,
-            typeLocation: typeRegister)
+            typeLocation: typeRegister.toString())
         : PreviewTicketModel.ticketBank(
             enterpriseName: project?.enterpriseName ?? 'N/A',
             projectName: project?.projectName ?? 'N/A',
@@ -203,7 +203,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
             description: description,
             location: location.name,
             barcode: ticketCode,
-            typeLocation: typeRegister,
+            typeRegister: typeRegister.toString(),
             companyName: managerService.companies
                 .firstWhere(
                     (c) => c.id.toString() == getAnswersForm('id_company'))

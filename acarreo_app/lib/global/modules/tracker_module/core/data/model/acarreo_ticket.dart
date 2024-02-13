@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:acarreo_app/global/core/constant/form_values.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/model/ticket.dart';
 
 class AcarreoTicket implements Ticket {
@@ -100,10 +101,15 @@ class AcarreoTicket implements Ticket {
         createdAt: DateTime.now(),
         date: answers["date"],
         description: answers["description"],
-        folio: answers["type_register"] == 'origen'
+        folio: FormValues.mappingTypeRegister["${answers["type_register"]}"] ==
+                'origen'
             ? answers["folio"] ?? ''
             : answers["folio_ticket_origin"] ?? '',
-        typeRegister: answers["type_register"] == 'origen' ? 1 : 2,
+        typeRegister:
+            FormValues.mappingTypeRegister["${answers["type_register"]}"] ==
+                    'origen'
+                ? 1
+                : 2,
         folioTicket: answers["folio_ticket"],
         id: null,
         idClient: answers["id_client"],
