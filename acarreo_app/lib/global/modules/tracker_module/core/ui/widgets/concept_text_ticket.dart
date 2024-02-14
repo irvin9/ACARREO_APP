@@ -44,6 +44,7 @@ class ConceptTextTicket extends StatelessWidget {
           )
         ],
       ),
-    ).withPaddingSymmetric(vertical: 7.0, horizontal: 7.0);
+    ).withPaddingSymmetric(
+        vertical: show ? 7.0 : 0.0, horizontal: show ? 7.0 : 0.0);
   }
 }

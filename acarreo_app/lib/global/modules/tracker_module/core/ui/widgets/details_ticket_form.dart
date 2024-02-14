@@ -70,8 +70,8 @@ class DetailsTicketForm extends StatelessWidget {
                 'id_material', value!.isNotEmpty ? value : null),
           ),
           Visibility(
-            visible: TypeLocations.banco.toString() == answerTypeLocation &&
-                FormValues.mappingTypeRegister['0'] == answerTypeRegister,
+            visible: answerTypeLocation == TypeLocations.banco.toString() &&
+                answerTypeRegister == TypeRegisters.origin.index.toString(),
             child: CustomTextFormField(
               label: 'Folio Banco',
               placeholder: 'Ingrese el folio',
@@ -90,7 +90,7 @@ class DetailsTicketForm extends StatelessWidget {
           ),
           Visibility(
             visible:
-                FormValues.mappingTypeRegister['1'] == answerTypeRegister &&
+                answerTypeRegister == TypeRegisters.destino.index.toString() &&
                     folioTicketController.value.text.isEmpty,
             child: CustomTextFormFieldController(
               label: 'Folio Ticket Origen',

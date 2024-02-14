@@ -1,4 +1,4 @@
-enum TypeRegisters { origin, destino }
+enum TypeRegisters { origin, destino, inputMaterial, outputMaterial }
 
 abstract class TypeLocations {
   static const banco = 1;

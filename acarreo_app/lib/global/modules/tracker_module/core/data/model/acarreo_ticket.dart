@@ -108,8 +108,8 @@ class AcarreoTicket implements Ticket {
         typeRegister:
             FormValues.mappingTypeRegister["${answers["type_register"]}"] ==
                     'origen'
-                ? 1
-                : 2,
+                ? 0
+                : 1,
         folioTicket: answers["folio_ticket"],
         id: null,
         idClient: answers["id_client"],
