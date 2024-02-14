@@ -45,7 +45,9 @@ class DetailsTicketForm extends StatelessWidget {
         children: [
           TextFieldViewer(
               label: 'Tipo de registro',
-              value: answerTypeRegister?.toUpperCase() ?? 'Desconocido'),
+              value:
+                  FormValues.typeRegisters[answerTypeRegister]?.toUpperCase() ??
+                      'Desconocido'),
           TextFieldViewer(label: 'Ubicación:', value: locationName),
           TextFieldViewer(label: 'Matricula camión:', value: truck.plate),
           TextFieldViewer(label: 'Fecha de captura:', value: captureDate),
@@ -69,7 +71,7 @@ class DetailsTicketForm extends StatelessWidget {
           ),
           Visibility(
             visible: TypeLocations.banco.toString() == answerTypeLocation &&
-                FormValues.mappingTypeRegister['1'] == answerTypeRegister,
+                FormValues.mappingTypeRegister['0'] == answerTypeRegister,
             child: CustomTextFormField(
               label: 'Folio Banco',
               placeholder: 'Ingrese el folio',
@@ -88,7 +90,7 @@ class DetailsTicketForm extends StatelessWidget {
           ),
           Visibility(
             visible:
-                FormValues.mappingTypeRegister['2'] == answerTypeRegister &&
+                FormValues.mappingTypeRegister['1'] == answerTypeRegister &&
                     folioTicketController.value.text.isEmpty,
             child: CustomTextFormFieldController(
               label: 'Folio Ticket Origen',
