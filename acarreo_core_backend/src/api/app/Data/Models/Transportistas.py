@@ -27,12 +27,13 @@ class Transportistas(BaseModel):
     email = Column("email", String(191), nullable=False)
     id_client = Column("id_cliente", String(191), nullable=False)
     id_project = Column("id_obra", String(191), nullable=False)
+    id_module = Column("module_Id", Integer, nullable=False)
     created_at = Column("created_at", DateTime(timezone=True), default=func.now())
     updated_at = Column("updated_at", DateTime(timezone=True), onupdate=func.now())
 
     model_path_name = "transportistas"
 
-    filter_columns = ["nombre", "rfc", "phone", "email", "id_client", "id_project"]
+    filter_columns = ["nombre", "rfc", "phone", "email", "id_client", "id_project", "id_module"]
 
     def property_map(self) -> Dict:
         return {
@@ -48,6 +49,7 @@ class Transportistas(BaseModel):
             "email": "email",
             "id_client": "id_client",
             "id_project": "id_project",
+            "id_module": "id_module",
             "created_at": "created_at",
             "updated_at": "updated_at",
         }
@@ -67,6 +69,7 @@ class Transportistas(BaseModel):
             "email",
             "id_client",
             "id_project",
+            "id_module",
             "created_at",
             "updated_at",
         ]

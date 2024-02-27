@@ -1,6 +1,0 @@
-{
-  "ENVIRONMENT": "environment-value",
-
-  "ACARRO_API_HOST_URL": "host-url-value",
-  "ACARREO_API_VERSION": "path_acarreo_core_api_version"
-}

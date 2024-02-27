@@ -1,20 +1,34 @@
 import 'dart:convert';
 
-class AcarreoTicket {
+import 'package:acarreo_app/global/core/constant/form_values.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/domain/model/ticket.dart';
+
+class AcarreoTicket implements Ticket {
+  @override
   final DateTime createdAt;
+  @override
   final DateTime date;
+  @override
   final String description;
   final String folio;
+  @override
   final int? id;
+  @override
   final int idClient;
   final int? idEndTravel;
+  @override
   final int idMaterial;
+  @override
   final int idProject;
   final int? idStartTravel;
   final int? idTracker;
+  @override
   final int idTruck;
+  @override
   final String folioTicket;
+  @override
   final int? typeRegister;
+  @override
   final DateTime? updatedAt;
 
   AcarreoTicket({
@@ -87,10 +101,15 @@ class AcarreoTicket {
         createdAt: DateTime.now(),
         date: answers["date"],
         description: answers["description"],
-        folio: answers["type_register"] == 'origen'
+        folio: FormValues.mappingTypeRegister["${answers["type_register"]}"] ==
+                'origen'
             ? answers["folio"] ?? ''
             : answers["folio_ticket_origin"] ?? '',
-        typeRegister: answers["type_register"] == 'origen' ? 1 : 2,
+        typeRegister:
+            FormValues.mappingTypeRegister["${answers["type_register"]}"] ==
+                    'origen'
+                ? 0
+                : 1,
         folioTicket: answers["folio_ticket"],
         id: null,
         idClient: answers["id_client"],

@@ -51,7 +51,6 @@ class AcarreoTickeService implements TicketService<AcarreoTicket> {
 
   @override
   Future<List<AcarreoTicket>?> update() {
-    // TODO: implement update
     throw UnimplementedError();
   }
 
@@ -72,7 +71,7 @@ class AcarreoTickeService implements TicketService<AcarreoTicket> {
   Future<AcarreoTicket?> uploadTicket(AcarreoTicket ticket) async {
     try {
       final newTicket = await repository.createTicket(ticket);
-      if (ticket.typeRegister == 1) {
+      if (ticket.typeRegister == TypeRegisters.origin.index) {
         await localStorageService.deleteItem(newTicket.folioTicket);
       } else {
         await localStorageService.deleteItem(newTicket.folio);

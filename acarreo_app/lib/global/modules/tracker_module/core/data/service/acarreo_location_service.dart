@@ -1,5 +1,6 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/data/model/acarreo_location.dart';
+import 'package:acarreo_app/global/modules/tracker_module/core/data/model/filter_params.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/repository/location_repository.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/domain/service/location_service.dart';
 
@@ -35,9 +36,14 @@ class AcarreoLocationService implements LocationService<AcarreoLocation> {
   update() async {
     try {
       final currentUser = await storage.getCurrentUser();
-      final locations = await repository.getLocationsByClientAndProject(
-          currentUser.idClient.toString(), currentUser.idProject.toString());
 
+      final filterParams = FilterParams(
+        idClient: currentUser.idClient,
+        idProject: currentUser.idProject,
+        idModule: currentUser.idModule,
+      );
+
+      final locations = await repository.getLocationsByParams(filterParams);
       final castLocations = locations.map((l) => l.toJson()).toList();
       localStorageService.saveItems(castLocations);
       return locations;

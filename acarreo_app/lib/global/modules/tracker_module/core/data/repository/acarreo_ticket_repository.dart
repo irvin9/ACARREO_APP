@@ -18,7 +18,7 @@ class AcarreoTicketRepository extends BaseRepository<AcarreoTicket>
     String url = '$hostUrl$apiVersion';
     Map<String, dynamic> data = {};
 
-    if (ticket.typeRegister == 1) {
+    if (ticket.typeRegister == TypeRegisters.origin.index) {
       url = '$url$_subCategoryPathOrigin';
       data = ticket.toTicketOrigenJson();
     } else {

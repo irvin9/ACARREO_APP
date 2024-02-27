@@ -33,11 +33,8 @@ class PreviewDetailsTicket extends StatelessWidget {
           ),
           ConceptTextTicket(
             conceptText: 'Tipo de viaje:',
-            valueText: (ticketData.typeLocation ==
-                        FormValues.mappingTypeRegister['1'] ||
-                    ticketData.typeLocation == '1')
-                ? 'Origen'
-                : 'Destino',
+            valueText:
+                FormValues.typeRegisters[ticketData.typeLocation] ?? 'N/E',
           ),
           ConceptTextTicket(
             conceptText: 'Ubicación:',
@@ -54,6 +51,21 @@ class PreviewDetailsTicket extends StatelessWidget {
           ConceptTextTicket(
             conceptText: 'M3:',
             valueText: '${ticketData.capacity} m3',
+          ),
+          ConceptTextTicket(
+            show: ticketData.companyName != null,
+            conceptText: 'Empresa de' '\n' 'explotación:',
+            valueText: ticketData.companyName ?? '',
+          ),
+          ConceptTextTicket(
+            show: ticketData.customerName != null,
+            conceptText: 'Cliente:',
+            valueText: ticketData.customerName ?? '',
+          ),
+          ConceptTextTicket(
+            show: ticketData.barcodeExternal != null,
+            conceptText: 'Ticket' '\n' 'Externo:',
+            valueText: ticketData.barcodeExternal ?? '',
           ),
           ConceptTextTicket(
             conceptText: 'Nota:',

@@ -1,7 +1,7 @@
 name: acarreo_app
 description: Una aplicación para manejos de transporte de carga.
 publish_to: "none"
-version: 1.0.4+1040000
+version: 1.0.6+1060005
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
@@ -29,6 +29,10 @@ dependencies:
   flutter_blue: ^0.8.0
   barcode_scan2: ^4.2.4
   ndef: ^0.3.1
+  dropdown_search: ^5.0.6
+  package_info_plus: ^4.2.0
+  firebase_core: ^2.24.2
+  firebase_crashlytics: ^3.4.9
 
 dev_dependencies:
   flutter_test:
@@ -46,15 +50,6 @@ flutter:
     - assets/images/
     - assets/logo/
     - google_fonts/Poppins/
-
-flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/icon/icon.png"
-  min_sdk_android: 21
-  remove_alpha_ios: true
-  adaptive_icon_background: "#ffffffff"
-  adaptive_icon_foreground: "assets/icon/icon-round.png"
 
 flutter_native_splash:
   color: "#ffffff"

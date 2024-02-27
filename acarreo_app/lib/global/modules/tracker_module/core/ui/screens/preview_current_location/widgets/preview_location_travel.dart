@@ -1,5 +1,4 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
 import 'package:acarreo_app/global/modules/widgets_module/text_field_viewer.dart';
 import 'package:flutter/material.dart';
 
@@ -37,16 +36,23 @@ class _PreviewLocationTravelState extends State<PreviewLocationTravel> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = cubit.storage.currentUser;
+
     return Column(
       children: [
         TextFieldViewer(
             label: 'Tipo de registro',
-            value: answerTypeRegister?.toUpperCase() ?? 'Desconocido'),
-        TextFieldViewer(
-            label: 'Tipo de ubicación',
-            value: FormValues.optionTypeLocations[answerTypeLocation]
-                    ?.toUpperCase() ??
-                'Desconocido'),
+            value: currentUser.idModule == 0
+                ? (FormValues.optionTypeRegisters[answerTypeRegister] ??
+                    'Desconocido')
+                : (FormValues.optionTypeRegisterBanks[answerTypeRegister] ??
+                    'Desconocido')),
+        if (answerTypeLocation != null)
+          TextFieldViewer(
+              label: 'Tipo de ubicación',
+              value: FormValues.optionTypeLocations[answerTypeLocation]
+                      ?.toUpperCase() ??
+                  'Desconocido'),
         TextFieldViewer(
             label: 'Ubicación', value: locationName ?? 'Desconocido'),
         TextFieldViewer(

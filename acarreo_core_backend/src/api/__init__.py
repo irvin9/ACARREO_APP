@@ -41,6 +41,9 @@ def create_app():
     from .routes import ubicaciones_router
     from .routes import tickets_router
     from .routes import ticketsrecepcion_router
+    from .routes import customer_router
+    from .routes import empresaExplotadora_router
+    from .routes import ticketMaterialSupplier_router
 
     # replace this for add routes <-- NOT REMOVE THE COMMENT
 
@@ -55,6 +58,9 @@ def create_app():
     app.register_blueprint(
         transportistas_router, url_prefix=f"{VERSION_API}/transportistas"
     )
+    app.register_blueprint(customer_router, url_prefix=f"{VERSION_API}/customer")
+    app.register_blueprint(empresaExplotadora_router, url_prefix=f"{VERSION_API}/empresaexplotadora")
+    app.register_blueprint(ticketMaterialSupplier_router, url_prefix=f"{VERSION_API}/ticketmaterialsupplier")
     app.register_blueprint(checadores_router, url_prefix=f"{VERSION_API}/checadores")
     app.register_blueprint(ubicaciones_router, url_prefix=f"{VERSION_API}/ubicaciones")
     app.register_blueprint(tickets_router, url_prefix=f"{VERSION_API}/tickets")

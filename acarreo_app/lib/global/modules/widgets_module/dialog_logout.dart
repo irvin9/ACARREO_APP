@@ -1,8 +1,5 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/cubits/auth/auth_cubit.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
-import 'package:acarreo_app/global/modules/widgets_module/general_button.dart';
-import 'package:acarreo_app/global/modules/widgets_module/generic_dialog.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
@@ -38,8 +35,9 @@ class DialogLogout {
                   buttonText: 'Cancelar',
                   textColor: Colors.white,
                   buttonColor: Colors.black87,
-                  onPressed:
-                      state is AuthInitCloseSession ? hide(context) : () {},
+                  onPressed: state is! AuthInitCloseSession
+                      ? () => hide(context)
+                      : () {},
                 ),
               ],
               content: Column(

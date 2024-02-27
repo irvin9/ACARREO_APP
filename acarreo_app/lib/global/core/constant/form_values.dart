@@ -1,4 +1,4 @@
-enum TypeRegisters { origin, destino }
+enum TypeRegisters { origin, destino, inputMaterial, outputMaterial }
 
 abstract class TypeLocations {
   static const banco = 1;
@@ -9,8 +9,14 @@ abstract class TypeLocations {
 class FormValues {
   static const Map<String, String> optionTypeRegisters = {
     "": "Seleccione una opción",
-    "origen": "ORIGEN",
-    "destino": "DESTINO"
+    "0": "ORIGEN",
+    "1": "DESTINO"
+  };
+
+  static const Map<String, String> optionTypeRegisterBanks = {
+    "": "Seleccione una opción",
+    "2": "ENTRADA DE MATERIAL",
+    "3": "SALIDA DE MATERIAL",
   };
 
   static const Map<String, String> optionTypeLocations = {
@@ -21,7 +27,14 @@ class FormValues {
   };
 
   static const Map<String, String> mappingTypeRegister = {
-    "1": "origen",
-    "2": "destino"
+    "0": "origen",
+    "1": "destino"
+  };
+
+  static const Map<String, String> typeRegisters = {
+    "0": "Origen",
+    "1": "Destino",
+    "2": "Entrada de Material",
+    "3": "Salida de Material",
   };
 }

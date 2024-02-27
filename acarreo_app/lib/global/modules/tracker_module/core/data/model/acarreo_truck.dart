@@ -10,6 +10,7 @@ class AcarreoTruck {
     required this.id,
     required this.idCarrier,
     required this.idClient,
+    required this.idModule,
     required this.idProject,
     required this.plate,
     required this.plateGondola,
@@ -28,6 +29,7 @@ class AcarreoTruck {
         extraCapacity: json["extra_capacity"],
         id: json["id"],
         idCarrier: json["id_carrier"],
+        idModule: json["id_module"],
         idClient: json["id_client"],
         idProject: json["id_project"],
         plate: json["plate"],
@@ -47,6 +49,7 @@ class AcarreoTruck {
   final int idCarrier;
   final int idClient;
   final int idProject;
+  final int idModule;
   final String plate;
   final String plateGondola;
   final String idNfc;
@@ -69,6 +72,7 @@ class AcarreoTruck {
         id: id,
         idCarrier: idCarrier,
         idClient: idClient,
+        idModule: idModule,
         idProject: idProject,
         plate: plate ?? this.plate,
         plateGondola: plateGondola ?? this.plateGondola,
@@ -93,6 +97,7 @@ class AcarreoTruck {
         "id_carrier": idCarrier,
         "id_client": idClient,
         "id_project": idProject,
+        "id_module": idModule,
         "plate": plate,
         "plate_gondola": plateGondola,
         "id_nfc": idNfc,

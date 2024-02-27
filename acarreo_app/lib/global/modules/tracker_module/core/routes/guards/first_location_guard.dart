@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/core/data/service/preferences_app_storage.dart';
 
 class FirstLocationGuard extends RouteGuard {
   @override

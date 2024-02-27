@@ -5,7 +5,7 @@ import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  final String label;
+  final String? label;
   final String placeholder;
   final String? initialValue;
   final int maxLength;
@@ -21,7 +21,7 @@ class CustomTextFormField extends StatelessWidget {
 
   const CustomTextFormField({
     Key? key,
-    required this.label,
+    this.label,
     required this.placeholder,
     this.initialValue,
     required this.maxLength,
@@ -41,28 +41,32 @@ class CustomTextFormField extends StatelessWidget {
     if (validators!.containsKey('NOT_NULL')) {
       if (value == null || value.isEmpty) return '';
     }
-    if (validators!.containsKey('MIN_LENGTH')) {
+    if (value?.isNotEmpty == true && validators!.containsKey('MIN_LENGTH')) {
       final min = validators!['MIN_LENGTH']!;
-      if (value == null || value.length < min) return '';
+      if (value!.length < min) return '';
     }
     return null;
   }
 
   @override
   Widget build(BuildContext context) {
+    final isVisible = (label ?? '').isNotEmpty;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              child: Text(
-                label,
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: fontSizeLabel,
-                  fontWeight: FontWeight.w500,
+            Visibility(
+              visible: isVisible,
+              child: Expanded(
+                child: Text(
+                  label ?? '',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: fontSizeLabel,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),

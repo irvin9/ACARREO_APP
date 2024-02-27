@@ -20,12 +20,13 @@ class Clientes(BaseModel):
     address = Column("direccion", String(191), nullable=False)
     phone = Column("telefono", String(191), nullable=False)
     rfc = Column("rfc", String(191), nullable=False)
+    account_level = Column("accountLevel", String(191), nullable=False)
     created_at = Column("created_at", DateTime(timezone=True), default=func.now())
     updated_at = Column("updated_at", DateTime(timezone=True), onupdate=func.now())
 
     model_path_name = "clientes"
 
-    filter_columns = ["name", "phone", "rfc"]
+    filter_columns = ["name", "phone", "rfc", "account_level"]
 
     def property_map(self) -> Dict:
         return {
@@ -35,6 +36,7 @@ class Clientes(BaseModel):
             "phone": "phone",
             "rfc": "rfc",
             "created_at": "created_at",
+            "account_level": "account_level",
             "updated_at": "updated_at",
         }
 
@@ -46,6 +48,7 @@ class Clientes(BaseModel):
             "address",
             "phone",
             "rfc",
+            "account_level",
             "created_at",
             "updated_at",
         ]

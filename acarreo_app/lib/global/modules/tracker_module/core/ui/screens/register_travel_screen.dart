@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_wrap.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/register_travel_form.dart';
 
 class RegisterTravelScreen extends StatelessWidget {
   final int currentStep;
-  final int totalSteps;
 
   const RegisterTravelScreen({
     super.key,
     this.currentStep = 1,
-    this.totalSteps = 4,
   });
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     final cubit = Modular.get<AcarreoCubit>();
+    final currentUser = cubit.storage.currentUser;
+
     const String title = 'Registrar Ubicación';
     const String description =
         'Registra la información del la ubicación, le tomará unos minutos. '
@@ -47,7 +46,10 @@ class RegisterTravelScreen extends StatelessWidget {
           description: descriptionH2,
         ),
         const SizedBox(height: 12.0),
-        RegisterTravelForm(formKey: formKey)
+        if (currentUser.idModule == 0)
+          RegisterTravelForm(formKey: formKey)
+        else
+          RegisterTravelBankForm(formKey: formKey)
       ],
     );
   }

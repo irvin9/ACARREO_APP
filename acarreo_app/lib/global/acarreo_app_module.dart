@@ -1,6 +1,7 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/auth_module/auth_module.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/tracker_module.dart';
+import 'package:acarreo_app/global/modules/home_module/core/home_module.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class AcarreoAppModule extends Module {
   @override
@@ -12,8 +13,9 @@ class AcarreoAppModule extends Module {
         Bind.singleton((i) => FlutterEnvironmentService()),
         Bind.singleton((i) => FlutterStorageService(i())),
         Bind.factory((i) => HiveLocalStorageService()),
+        AsyncBind<PackageInfo>((i) => PackageInfo.fromPlatform()),
         Bind.singleton((i) => FlutterHttpService(storage: i())),
-        Bind.lazySingleton((i) => AppPreferencesStorage(localStorage: i()))
+        Bind.lazySingleton((i) => AppPreferencesStorage(localStorage: i())),
       ];
 
   @override
@@ -24,8 +26,8 @@ class AcarreoAppModule extends Module {
           guards: [SessionGuard()],
         ),
         ModuleRoute(
-          GlobalRoutesApp.trackerRoute,
-          module: TrackerModule(),
+          GlobalRoutesApp.homeRoute,
+          module: HomeModule(),
           guards: [AuthGuard()],
         ),
         RedirectRoute('/', to: GlobalRoutesApp.authLoginRoute)

@@ -1,15 +1,11 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/acarreo/acarreo_cubit.dart';
-import 'package:acarreo_app/global/modules/tracker_module/core/domain/cubit/nfc/nfc_cubit.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/general_tracker_wrap.dart';
 import 'package:acarreo_app/global/modules/tracker_module/core/ui/widgets/read_nfc_form.dart';
-import 'package:acarreo_app/global/modules/widgets_module/dialog_error.dart';
 import 'package:flutter/material.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 
 class ReadNFCTravelScreen extends StatelessWidget {
   final int? currentStep;
-  final int? totalSteps;
 
   static const String title = 'Identifica tu Unidad';
   static const String description =
@@ -18,13 +14,15 @@ class ReadNFCTravelScreen extends StatelessWidget {
   static final acarreoCubit = Modular.get<AcarreoCubit>();
   static final nfcCubit = Modular.get<NfcCubit>();
 
-  const ReadNFCTravelScreen(
-      {super.key, this.currentStep = 1, this.totalSteps = 4});
+  const ReadNFCTravelScreen({
+    super.key,
+    this.currentStep,
+  });
 
   Future<void> _handlerNfcData(String idNfc) async {
     final typeRegister = acarreoCubit.getAnswersForm('type_register');
     final ticketCode = acarreoCubit.generateTicketCode();
-    if (typeRegister == 'origen') {
+    if (FormValues.mappingTypeRegister["$typeRegister"] == 'origen') {
       final value = {'Z196X110497Y997': ticketCode, 'XE92202976O4': idNfc};
       final statusWrite = await nfcCubit.write(value: value);
       if (statusWrite) {
@@ -35,7 +33,6 @@ class ReadNFCTravelScreen extends StatelessWidget {
     } else {
       final value = await nfcCubit.read();
       if (value != null) {
-        // TODO Revisar ese identificador
         final folioTicketOrigin = value['Z196X110497Y997'];
         acarreoCubit.addAnswer('folio_ticket_origin', folioTicketOrigin);
       }

@@ -1,8 +1,5 @@
 abstract class TrackerRoutesModule {
-  static String get ticketsRoutes => '/tickets';
-  static String get listTicketRoute => '/list-tickets';
-  static String get reviewTicketRoute => '/review-ticket';
-
+  static String get trackerRoute => '/tracker';
   static String get formTravelRoute => '/form';
   static String get registerTravelRoute => '/register-travel';
   static String get previewCurrentLocationTravelRoute =>

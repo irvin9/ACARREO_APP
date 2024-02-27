@@ -6,26 +6,29 @@ import 'package:flutter/material.dart';
 
 class DetailsTicketTravelScreen extends StatelessWidget {
   final int? currentStep;
-  final int? totalSteps;
+  static final StorageService storage = Modular.get<StorageService>();
 
   const DetailsTicketTravelScreen({
     super.key,
     this.currentStep,
-    this.totalSteps,
   });
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
+    final currentUser = storage.currentUser;
+    final cubit = Modular.get<AcarreoCubit>();
 
     const String title = 'Detalles de la Ubicación';
-    // const String description =
-    //     'Debes registrar los detalles de la ubicación, que se definen a continuación.';
 
     return GeneralTrackerWrap(
       currentStep: currentStep,
       onContinue: () {
         if (formKey.currentState!.validate()) {
+          if (currentUser.idModule == 1) {
+            cubit.addAnswer('date', DateTime.now());
+            cubit.generateTicketCode();
+          }
           Modular.to.navigate(GlobalRoutesApp.previewTicketTravelRoute);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -38,9 +41,16 @@ class DetailsTicketTravelScreen extends StatelessWidget {
         const TitleForm(
           title: title,
         ),
-        const SizedBox(height: 12.0),
-        DetailsTicketForm(formKey: formKey)
+        getTicketForm(currentUser.idModule, formKey)
       ],
     );
+  }
+
+  getTicketForm(int module, GlobalKey<FormState> key) {
+    if (module == 0) {
+      return DetailsTicketForm(formKey: key);
+    } else {
+      return DetailsTicketBankForm(formKey: key);
+    }
   }
 }

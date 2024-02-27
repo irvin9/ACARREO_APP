@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
-import 'package:acarreo_app/global/modules/widgets_module/general_button.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:acarreo_app/global/modules/auth_module/core/domain/cubits/auth/auth_cubit.dart';
 
@@ -61,7 +60,7 @@ class LoginForm extends StatelessWidget {
               BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
                   if (state is AuthSuccess) {
-                    cubit.goToNavigate(GlobalRoutesApp.registerTravelRoute);
+                    cubit.goToNavigate('${GlobalRoutesApp.homeRoute}/');
                   }
 
                   if (state is AuthError) {
@@ -95,6 +94,7 @@ class LoginForm extends StatelessWidget {
                 width: 164.0,
                 height: 64.0,
               ),
+              const FooterAppVersion(),
             ],
           ),
         ),

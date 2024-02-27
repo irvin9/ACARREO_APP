@@ -1,7 +1,7 @@
 plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "dev.flutter.flutter-gradle-plugin"
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'dev.flutter.flutter-gradle-plugin'
 }
 
 def localProperties = new Properties()
@@ -22,8 +22,14 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
-    namespace "com.truckinginnovation.acarreo_app"
+    namespace 'com.truckinginnovation.acarreo_app'
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -34,7 +40,15 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.truckinginnovation.acarreo"
+        applicationId APP_BUNDLE
+        applicationIdSuffix APP_SUFFIX
+        resValue 'string', 'app_name', APP_NAME
+        resValue 'string', 'gcm_defaultSenderId', FIREBASE_SENDER_ID
+        resValue 'string', 'google_api_key', FIREBASE_API_KEY_ANDROID
+        resValue 'string', 'google_app_id', FIREBASE_APP_ID_ANDROID
+        resValue 'string', 'google_crash_reporting_api_key', FIREBASE_API_KEY_ANDROID
+        resValue 'string', 'google_storage_bucket', FIREBASE_STORAGE_BUCKET
+        resValue 'string', 'project_id', FIREBASE_PROJECT_ID
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 23 // flutter.minSdkVersion
@@ -44,11 +58,30 @@ android {
         multiDexEnabled true
     }
 
+    flavorDimensions 'default'
+    productFlavors {
+        local {
+            dimension 'default'
+        }
+        dev {
+            dimension 'default'
+        }
+        prod {
+            dimension 'default'
+        }
+    }
+
+    signingConfigs {
+        release {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                storePassword keystoreProperties['storePassword']
+        }
+    }
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -58,7 +91,7 @@ flutter {
 }
 
 dependencies {
-    def multidex_version = "2.0.1"
+    def multidex_version = '2.0.1'
     implementation "androidx.multidex:multidex:$multidex_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
