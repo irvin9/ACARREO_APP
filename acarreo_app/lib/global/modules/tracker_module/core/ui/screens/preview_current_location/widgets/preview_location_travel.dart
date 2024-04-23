@@ -12,9 +12,9 @@ class PreviewLocationTravel extends StatefulWidget {
 class _PreviewLocationTravelState extends State<PreviewLocationTravel> {
   final cubit = Modular.get<AcarreoCubit>();
 
-  final msgWarningDescription = 'Verifica si el tipo de registro (origen/destino)'
+  final msgWarningDescription = 'Verifica si el tipo de registro (origen/destino) '
       'y la ubicación son correctas antes de registrar el viaje';
-  final String msgWarningDescriptionBank = 'Verifica si el tipo de registro (entrada/salida de material)'
+  final String msgWarningDescriptionBank = 'Verifica si el tipo de registro (entrada/salida de material) '
       'y la ubicación son correctas antes de registrar el viaje';
   String? answerTypeRegister;
   String? answerTypeLocation;
