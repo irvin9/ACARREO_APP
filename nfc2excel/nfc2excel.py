@@ -1,10 +1,24 @@
 import serial
+import serial.tools.list_ports
 import openpyxl
 from openpyxl import Workbook
 from datetime import datetime
 
+# Función para detectar el puerto COM
+def find_arduino():
+    ports = list(serial.tools.list_ports.comports())
+    for port in ports:
+        if "CH340" in port.description:
+            return port.device
+    return None
+
+# Detectar el puerto COM del Arduino
+com_port = find_arduino()
+if not com_port:
+    print("No se pudo encontrar un Arduino conectado.")
+
 # Configuración del puerto serial
-ser = serial.Serial('COM8', 115200)  # Cambia 'COM8' al puerto serial correspondiente
+ser = serial.Serial(com_port, 115200)  # Usar el puerto detectado automáticamente
 
 # Obtener la fecha y hora actuales
 now = datetime.now()
