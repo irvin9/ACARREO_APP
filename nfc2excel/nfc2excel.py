@@ -19,8 +19,11 @@ ws.title = "Datos NFC"
 # Añadir encabezados
 ws.append(["Index", "UID"])
 
+# Preguntar al usuario a partir de qué índice comenzar a contar
+start_index = int(input("Ingrese el índice inicial: "))
+
 # Inicializar el índice de la tarjeta
-index = 1
+index = start_index
 
 # Leer datos del puerto serial y escribir en Excel
 try:
