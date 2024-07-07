@@ -1,4 +1,6 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/core/data/service/flutter_blue_service.dart';
+import 'package:acarreo_app/global/core/domain/service/thermal_printer_service.dart';
 import 'package:acarreo_app/global/modules/home_module/core/domain/cubit/home_cubit/home_cubit.dart';
 import 'package:acarreo_app/global/modules/home_module/core/ui/screens/home_screen.dart';
 import 'package:acarreo_app/global/modules/ticket_module/ticket_module.dart';
@@ -34,24 +36,15 @@ class HomeModule extends Module {
         Bind.lazySingleton((i) => AcarreoOperatingCompanyRepository()),
         Bind.lazySingleton((i) => AcarreoCarrierRepository()),
         Bind.lazySingleton((i) => AcarreoTicketMaterialSupplierRepository()),
-        Bind.lazySingleton((i) => AcarreoLocationService(
-            localStorageService: i(), repository: i(), storage: i())),
-        Bind.lazySingleton((i) => AcarreoMaterialService(
-            localStorageService: i(), repository: i(), storage: i())),
-        Bind.lazySingleton((i) => AcarreoTruckService(
-            localStorageService: i(), repository: i(), storage: i())),
-        Bind.lazySingleton((i) => AcarreoTickeService(
-            localStorageService: i(), repository: i(), storage: i())),
-        Bind.lazySingleton((i) => ApiProjectService(
-            localStorageService: i(), repository: i(), storage: i())),
-        Bind.lazySingleton((i) => AcarreoCustomerService(
-            localStorageService: i(), repository: i(), storage: i())),
-        Bind.lazySingleton((i) => AcarreoOperatingCompanyService(
-            localStorageService: i(), repository: i(), storage: i())),
-        Bind.lazySingleton((i) => AcarreoCarrierService(
-            localStorageService: i(), repository: i(), storage: i())),
-        Bind.lazySingleton((i) => AcarreoTicketMaterialSupplierService(
-            localStorageService: i(), repository: i(), storage: i())),
+        Bind.lazySingleton((i) => AcarreoLocationService(localStorageService: i(), repository: i(), storage: i())),
+        Bind.lazySingleton((i) => AcarreoMaterialService(localStorageService: i(), repository: i(), storage: i())),
+        Bind.lazySingleton((i) => AcarreoTruckService(localStorageService: i(), repository: i(), storage: i())),
+        Bind.lazySingleton((i) => AcarreoTickeService(localStorageService: i(), repository: i(), storage: i())),
+        Bind.lazySingleton((i) => ApiProjectService(localStorageService: i(), repository: i(), storage: i())),
+        Bind.lazySingleton((i) => AcarreoCustomerService(localStorageService: i(), repository: i(), storage: i())),
+        Bind.lazySingleton((i) => AcarreoOperatingCompanyService(localStorageService: i(), repository: i(), storage: i())),
+        Bind.lazySingleton((i) => AcarreoCarrierService(localStorageService: i(), repository: i(), storage: i())),
+        Bind.lazySingleton((i) => AcarreoTicketMaterialSupplierService(localStorageService: i(), repository: i(), storage: i())),
         Bind.lazySingleton(
           (i) => AcarreoDataManagerService(
             preferencesStorage: i(),
@@ -66,10 +59,11 @@ class HomeModule extends Module {
             ticketMaterialSupplierService: i(),
           ),
         ),
-        Bind.lazySingleton((i) => StartxpandPrinterBluetoothService()),
+        Bind.lazySingleton<FlutterBlueService>((i) => FlutterBlueService()),
+        Bind.lazySingleton<ThermalPrinterService>((i) => StartxpandThermalPrinterService(btnService: i())),
         Bind.lazySingleton((i) => HomeCubit(i())),
         Bind.lazySingleton((i) => AcarreoCubit(i())),
-        Bind.lazySingleton((i) => PrinterCubit(i())),
+        Bind.lazySingleton<PrinterCubit>((i) => PrinterCubit(i())),
       ];
 
   @override
@@ -78,10 +72,8 @@ class HomeModule extends Module {
           '/',
           child: (context, args) => MultiBlocProvider(
             providers: [
-              BlocProvider.value(
-                  value: Modular.get<AcarreoCubit>()..getLocalData()),
-              BlocProvider.value(
-                  value: Modular.get<HomeCubit>()..getMenuItems()),
+              BlocProvider.value(value: Modular.get<AcarreoCubit>()..getLocalData()),
+              BlocProvider.value(value: Modular.get<HomeCubit>()..getMenuItems()),
             ],
             child: const HomeScreen(),
           ),

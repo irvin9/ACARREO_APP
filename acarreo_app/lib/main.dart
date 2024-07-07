@@ -15,20 +15,23 @@ void catchUnhandledExceptions(Object error, StackTrace? stack) {
 }
 
 void main() async {
-  runZonedGuarded(() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    GoogleFonts.config.allowRuntimeFetching = false;
+  runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      GoogleFonts.config.allowRuntimeFetching = false;
 
-    final String initialRoute = GlobalRoutesApp.authLoginRoute;
-    await HiveLocalStorageService.initStorage();
-    runApp(
-      ModularApp(
-        module: AcarreoAppModule(),
-        child: AcarreoApp(initialRoute: initialRoute),
-      ),
-    );
-  }, catchUnhandledExceptions);
+      final String initialRoute = GlobalRoutesApp.authLoginRoute;
+      await HiveLocalStorageService.initStorage();
+      runApp(
+        ModularApp(
+          module: AcarreoAppModule(),
+          child: AcarreoApp(initialRoute: initialRoute),
+        ),
+      );
+    },
+    catchUnhandledExceptions,
+  );
 }

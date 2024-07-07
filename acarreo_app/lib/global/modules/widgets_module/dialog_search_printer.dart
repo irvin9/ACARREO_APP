@@ -1,4 +1,6 @@
-import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/core/acarreo_core_module.dart' hide BluetoothService;
+import 'package:acarreo_app/global/core/domain/models/thermal_printer_device.dart';
+import 'package:acarreo_app/global/core/domain/service/bluetooth_service.dart';
 import 'package:acarreo_app/global/modules/widgets_module/widgets_module.dart';
 import 'package:flutter/material.dart';
 
@@ -12,9 +14,7 @@ class DialogSearchPrinter {
         builder: (context, state) {
           return AlertDialog(
             title: Text('Buscador de impresoras',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
-                    fontSize: 20.0, fontWeight: FontWeight.w700)),
+                textAlign: TextAlign.center, style: GoogleFonts.poppins(fontSize: 20.0, fontWeight: FontWeight.w700)),
             actions: [
               Visibility(
                 visible: state is PrintersNotFound || state is PrintersFound,
@@ -22,9 +22,7 @@ class DialogSearchPrinter {
                   buttonText: 'Refrescar',
                   textColor: Colors.white,
                   buttonColor: Colors.black87,
-                  onPressed: state is PrintersInitSearch
-                      ? null
-                      : () => _cubit.findPrinters(),
+                  onPressed: state is PrintersInitSearch ? null : () => _cubit.findPrinters(),
                 ).withPaddingSymmetric(vertical: 12.0, horizontal: 0.0),
               ),
               Visibility(
@@ -45,7 +43,7 @@ class DialogSearchPrinter {
                       ? null
                       : () {
                           hide(context);
-                          _cubit.printerService.goToSettingBLE();
+                          Modular.get<BluetoothService>().goToSettingBLE();
                         },
                 ),
               ),
@@ -66,12 +64,11 @@ class DialogSearchPrinter {
       case PrintersError():
         return _buildErrorScan();
       default:
-        return const LoaderInnerDialog(
-            description: 'Estamos buscando impresoras...');
+        return const LoaderInnerDialog(description: 'Estamos buscando impresoras...');
     }
   }
 
-  static _buildListPrinters(List<StarXpandPrinter> printers) {
+  static _buildListPrinters(List<ThermalPrinterDevice> printers) {
     return SizedBox(
       height: 200,
       width: double.maxFinite,
@@ -85,7 +82,7 @@ class DialogSearchPrinter {
               hide(context);
             },
             leading: const Icon(Icons.print, size: 24, color: Colors.black87),
-            title: Text(printers[index].model.label),
+            title: Text(printers[index].name),
             subtitle: Text(printers[index].identifier),
           );
         },
@@ -104,8 +101,7 @@ class DialogSearchPrinter {
         Text(
           'Revise la configuración de su dispositivo.',
           textAlign: TextAlign.center,
-          style:
-              GoogleFonts.poppins(fontSize: 18.0, fontWeight: FontWeight.w400),
+          style: GoogleFonts.poppins(fontSize: 18.0, fontWeight: FontWeight.w400),
         ),
       ],
     );
@@ -122,8 +118,7 @@ class DialogSearchPrinter {
         Text(
           'No hemos encontrado impresoras cercanas.',
           textAlign: TextAlign.center,
-          style:
-              GoogleFonts.poppins(fontSize: 18.0, fontWeight: FontWeight.w400),
+          style: GoogleFonts.poppins(fontSize: 18.0, fontWeight: FontWeight.w400),
         ),
       ],
     );
@@ -163,8 +158,7 @@ class LoaderInnerDialog extends StatelessWidget {
         Text(
           description,
           textAlign: TextAlign.center,
-          style:
-              GoogleFonts.poppins(fontSize: 14.0, fontWeight: FontWeight.w400),
+          style: GoogleFonts.poppins(fontSize: 14.0, fontWeight: FontWeight.w400),
         ),
       ],
     );

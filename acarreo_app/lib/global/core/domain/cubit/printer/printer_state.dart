@@ -18,7 +18,7 @@ class PrintersInitSearch extends PrinterState {
 }
 
 class PrintersFound extends PrinterState {
-  final List<StarXpandPrinter> printers;
+  final List<ThermalPrinterDevice> printers;
   const PrintersFound(this.printers);
 
   @override
