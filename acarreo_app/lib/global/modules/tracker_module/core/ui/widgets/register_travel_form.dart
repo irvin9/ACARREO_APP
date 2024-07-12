@@ -29,33 +29,28 @@ class RegisterTravelForm extends StatelessWidget {
             padding: 0.0,
             initialValue: cubit.formAnswers['type_register'] ?? '',
             label: 'Tipo de Registro',
-            disable: cubit.formAnswers['type_location'] != null ||
-                cubit.formAnswers['id_location'] != null,
+            disable: cubit.formAnswers['type_location'] != null || cubit.formAnswers['id_location'] != null,
             items: const [FormValues.optionTypeRegisters],
-            onChanged: (value) => cubit.addAnswer(
-                'type_register', value!.isNotEmpty ? value : null),
+            onChanged: (value) => cubit.addAnswer('type_register', value!.isNotEmpty ? value : null),
           ),
           const SizedBox(height: 24.0),
           DropDownFormField(
             padding: 0.0,
             initialValue: cubit.formAnswers['type_location'] ?? '',
             label: 'Tipo de ubicación',
-            disable: cubit.formAnswers['type_register'] == null ||
-                cubit.formAnswers['id_location'] != null,
+            disable: cubit.formAnswers['type_register'] == null || cubit.formAnswers['id_location'] != null,
             items: const [FormValues.optionTypeLocations],
-            onChanged: (value) => cubit.addAnswer(
-                'type_location', value!.isNotEmpty ? value : null),
+            onChanged: (value) => cubit.addAnswer('type_location', value!.isNotEmpty ? value : null),
           ),
           const SizedBox(height: 24.0),
-          DropDownFormField(
+          DropdownSearchFormField(
             padding: 0.0,
             initialValue: cubit.formAnswers['id_location'] ?? '',
-            label: 'Ubicación',
-            disable: cubit.formAnswers['type_register'] == null ||
-                cubit.formAnswers['type_location'] == null,
+            dropdownLabelText: 'Ubicación',
+            hintText: 'Buscador de ubicación',
+            disable: cubit.formAnswers['type_register'] == null || cubit.formAnswers['type_location'] == null,
             items: locations,
-            onChanged: (value) => cubit.addAnswer(
-                'id_location', value!.isNotEmpty ? value : null),
+            onChanged: (value) => cubit.addAnswer('id_location', value!.isNotEmpty ? value : null),
           ),
         ],
       ),
