@@ -1,5 +1,6 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 import 'package:acarreo_app/global/modules/widgets_module/dropdown_form_field.dart';
+import 'package:acarreo_app/global/modules/widgets_module/dropdown_search_form_field.dart';
 import 'package:flutter/material.dart';
 
 class RegisterTravelForm extends StatelessWidget {
@@ -74,10 +75,7 @@ class RegisterTravelBankForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.watch<AcarreoCubit>((bloc) => bloc.stream);
     final currentUser = cubit.storage.currentUser;
-    final locations = cubit.managerService.locations
-        .where((i) => i.state != 0)
-        .map((i) => {i.id.toString(): i.name})
-        .toList();
+    final locations = cubit.managerService.locations.where((i) => i.state != 0).map((i) => {i.id.toString(): i.name}).toList();
 
     return Form(
       key: formKey,
@@ -88,21 +86,18 @@ class RegisterTravelBankForm extends StatelessWidget {
             initialValue: cubit.formAnswers['type_register'] ?? '',
             label: 'Tipo de Registro',
             disable: cubit.formAnswers['id_location'] != null,
-            items: currentUser.idModule == 0
-                ? [FormValues.optionTypeRegisters]
-                : [FormValues.optionTypeRegisterBanks],
-            onChanged: (value) => cubit.addAnswer(
-                'type_register', value!.isNotEmpty ? value : null),
+            items: currentUser.idModule == 0 ? [FormValues.optionTypeRegisters] : [FormValues.optionTypeRegisterBanks],
+            onChanged: (value) => cubit.addAnswer('type_register', value!.isNotEmpty ? value : null),
           ),
           const SizedBox(height: 24.0),
-          DropDownFormField(
+          DropdownSearchFormField(
             padding: 0.0,
             initialValue: cubit.formAnswers['id_location'] ?? '',
-            label: 'Ubicación',
+            dropdownLabelText: 'Ubicación',
             disable: cubit.formAnswers['type_register'] == null,
+            hintText: 'Buscador de ubicación',
             items: locations,
-            onChanged: (value) => cubit.addAnswer(
-                'id_location', value!.isNotEmpty ? value : null),
+            onChanged: (value) => cubit.addAnswer('id_location', value!.isNotEmpty ? value : null),
           ),
         ],
       ),

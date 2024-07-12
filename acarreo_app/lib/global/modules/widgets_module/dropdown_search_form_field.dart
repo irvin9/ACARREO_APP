@@ -7,8 +7,9 @@ class DropdownSearchFormField extends StatefulWidget {
   const DropdownSearchFormField({
     this.dropdownLabelText,
     required this.items,
-    this.inputPlaceholderText,
     required this.onChanged,
+    required this.hintText,
+    this.inputPlaceholderText,
     this.initialValue,
     this.inputLabelText,
     this.showInputManual = false,
@@ -25,6 +26,7 @@ class DropdownSearchFormField extends StatefulWidget {
   final String? dropdownLabelText;
   final double fontSize;
   final FontWeight fontWeight;
+  final String hintText;
   final DialogMessageModel? helperMessage;
   final String? initialValue;
   final String? inputLabelText;
@@ -36,8 +38,7 @@ class DropdownSearchFormField extends StatefulWidget {
   final TextAlign? textAlign;
 
   @override
-  State<DropdownSearchFormField> createState() =>
-      _DropdownSearchFormFieldState();
+  State<DropdownSearchFormField> createState() => _DropdownSearchFormFieldState();
 }
 
 class _DropdownSearchFormFieldState extends State<DropdownSearchFormField> {
@@ -49,16 +50,28 @@ class _DropdownSearchFormFieldState extends State<DropdownSearchFormField> {
   @override
   void initState() {
     super.initState();
+    configureDefaults();
+    applyInitialValue();
+  }
+
+  void configureDefaults() {
     widget.items.insert(0, _defaultValue);
     if (widget.showInputManual) {
       widget.items.insert(1, {'manual': 'Ingresar manualmente'});
     }
+  }
 
-    final currentIndexValue =
-        widget.items.indexWhere((i) => i.keys.first == widget.initialValue);
+  void applyInitialValue() {
+    final currentIndexValue = widget.items.indexWhere((i) => i.keys.first == widget.initialValue);
     if (currentIndexValue != -1) {
       dropdownValue = widget.items[currentIndexValue];
     }
+  }
+
+  @override
+  void didUpdateWidget(covariant DropdownSearchFormField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    configureDefaults();
   }
 
   @override
@@ -96,16 +109,17 @@ class _DropdownSearchFormFieldState extends State<DropdownSearchFormField> {
         DropdownSearch<Map<String, String>>(
           selectedItem: dropdownValue,
           items: widget.items,
+          enabled: !widget.disable,
           itemAsString: (item) => item.values.first,
-          popupProps: const PopupProps.menu(
+          popupProps: PopupProps.menu(
             searchFieldProps: TextFieldProps(
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
-                hintText: "Buscar placa...",
+                border: const OutlineInputBorder(),
+                contentPadding: const EdgeInsets.fromLTRB(12, 12, 8, 0),
+                hintText: widget.hintText,
               ),
             ),
-            searchDelay: Duration(milliseconds: 500),
+            searchDelay: const Duration(milliseconds: 500),
             showSearchBox: true,
           ),
           autoValidateMode: AutovalidateMode.onUserInteraction,
