@@ -33,6 +33,7 @@ dependencies:
   package_info_plus: ^4.2.0
   firebase_core: ^2.26.2
   firebase_crashlytics: ^3.4.9
+  logger: ^2.3.0
 
 dev_dependencies:
   flutter_test:
