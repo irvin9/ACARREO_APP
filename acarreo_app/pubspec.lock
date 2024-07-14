@@ -952,11 +952,12 @@ packages:
   starxpand:
     dependency: "direct main"
     description:
-      name: starxpand
-      sha256: b70f985a2cd77a508ee02fd36d9fc4a55cc4263d46a2491af9a7ec880909b857
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.2"
+      path: "."
+      ref: "0.0.4"
+      resolved-ref: "0e169a541b09652054a70c7cfb436211832ca5f7"
+      url: "https://github.com/Deltarios/starxpand_flutter.git"
+    source: git
+    version: "0.0.4"
   stream_channel:
     dependency: transitive
     description:
