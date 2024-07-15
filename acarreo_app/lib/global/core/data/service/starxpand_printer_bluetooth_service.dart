@@ -1,14 +1,8 @@
-import 'package:acarreo_app/global/core/domain/models/thermal_printer_device.dart';
-import 'package:acarreo_app/global/core/domain/service/thermal_printer_service.dart';
 import 'package:flutter/services.dart';
-import 'package:acarreo_app/global/core/acarreo_core_module.dart' hide BluetoothService;
+import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 
-import '../../domain/service/bluetooth_service.dart';
-
-class StartxpandThermalPrinterService implements ThermalPrinterService<StarXpandPrinter> {
-  final BluetoothService btnService;
-
-  StartxpandThermalPrinterService({required this.btnService});
+class StartxpandPrinterBluetoothService {
+  final FlutterBlue flutterBlue = FlutterBlue.instance;
 
   Future<Uint8List> getImageData(String asset) async {
     final ByteData byteData = await rootBundle.load(asset);
@@ -37,16 +31,22 @@ class StartxpandThermalPrinterService implements ThermalPrinterService<StarXpand
         "Nota: ${data['description']}");
   }
 
-  Future<void> _appendSecondaryLogo(StarXpandDocument doc, StarXpandDocumentPrint printDoc) async {
-    final isotypeImage = await getImageData('assets/logo/logo-icon.png');
-    printDoc.style(alignment: StarXpandStyleAlignment.right);
-    printDoc.actionPrintImage(isotypeImage, 150);
-  }
+  // Future<void> _appendSecondaryLogo(StarXpandDocument doc, StarXpandDocumentPrint printDoc) async {
+  //   final isotypeImage = await getImageData('assets/logo/logo-icon.png');
+  //   printDoc.style(alignment: StarXpandStyleAlignment.right);
+  //   printDoc.actionPrintImage(isotypeImage, 150);
+  // }
 
   void _appendBarCode(StarXpandDocument doc, StarXpandDocumentPrint printDoc, String barcode) {
     printDoc.style(alignment: StarXpandStyleAlignment.center);
     printDoc.actionFeedLine(1);
-    printDoc.actionPrintBarcode(barcode, symbology: StarXpandBarcodeSymbology.code128, barDots: 1, height: 10.0, printHri: true);
+    printDoc.actionPrintBarcode(
+      barcode,
+      symbology: StarXpandBarcodeSymbology.code128,
+      barDots: 3,
+      height: 10.0,
+      printHri: true,
+    );
   }
 
   void _appendWebSite(StarXpandDocument doc, StarXpandDocumentPrint printDoc) {
@@ -56,7 +56,6 @@ class StartxpandThermalPrinterService implements ThermalPrinterService<StarXpand
     printDoc.actionFeedLine(4);
   }
 
-  @override
   Future<bool> print(StarXpandPrinter printer, Map<String, dynamic> data) async {
     final doc = StarXpandDocument();
     final printDoc = StarXpandDocumentPrint();
@@ -64,7 +63,7 @@ class StartxpandThermalPrinterService implements ThermalPrinterService<StarXpand
     try {
       await _appendMainLogo(doc, printDoc);
       appendBody(doc, printDoc, data);
-      await _appendSecondaryLogo(doc, printDoc);
+      // await _appendSecondaryLogo(doc, printDoc);
       _appendBarCode(doc, printDoc, data['barcode']);
       _appendWebSite(doc, printDoc);
 
@@ -80,23 +79,21 @@ class StartxpandThermalPrinterService implements ThermalPrinterService<StarXpand
     }
   }
 
-  @override
-  Future<List<ThermalPrinterDevice>?> getPrinters() async {
+  Future<List<StarXpandPrinter>?> getPrinters() async {
     try {
-      final isBluetoothOn = await btnService.isOnBluetooth;
-      if (!isBluetoothOn) throw Exception('Bluetooth don\'t available.');
-      final printers = await StarXpand.findPrinters().timeout(const Duration(seconds: 10), onTimeout: () => []);
-      return printers
-          .map((p) => ThermalPrinterDevice(
-                name: p.model.label,
-                identifier: p.identifier,
-              ))
-          .toList();
+      final isBluetoothOn = await flutterBlue.isOn;
+      if (!isBluetoothOn) throw Exception('Bluetooth dont available.');
+      final printers = await StarXpand.findPrinters().timeout(const Duration(seconds: 10));
+      return printers;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
       debugPrint(e.toString());
       debugPrintStack(stackTrace: s);
       return null;
     }
+  }
+
+  goToSettingBLE() {
+    OpenSettings.openBluetoothSetting();
   }
 }
