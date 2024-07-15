@@ -46,6 +46,7 @@ class PrinterCubit extends Cubit<PrinterState> {
   }
 
   Future<void> print(Map<String, dynamic> data) async {
+    _currentPagePrint = 0;
     if (selectedPrinter == null) return;
     emit(const PrinterInitPrint());
     while (currentPrint < totalCopies) {
@@ -54,12 +55,13 @@ class PrinterCubit extends Cubit<PrinterState> {
       if (!status) break;
       _currentPagePrint++;
     }
+    await printerService.disconnect();
     if (currentPrint == totalCopies) {
       emit(const PrinterSuccessPrint());
-      _currentPagePrint = 0;
-      return;
+    } else {
+      emit(const PrinterErrorPrint());
     }
-    emit(const PrinterErrorPrint());
+    setTotalCopies = 1;
     return;
   }
 
