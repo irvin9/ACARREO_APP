@@ -1,8 +1,17 @@
-import 'package:flutter/services.dart';
-import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/core/domain/models/thermal_printer_device.dart';
+import 'package:acarreo_app/global/core/domain/service/thermal_printer_service.dart';
 
-class StartxpandPrinterBluetoothService {
-  final FlutterBlue flutterBlue = FlutterBlue.instance;
+import 'package:flutter/services.dart';
+import 'package:acarreo_app/global/core/acarreo_core_module.dart' hide BluetoothService;
+
+import '../../domain/service/bluetooth_service.dart';
+
+class StartxpandThermalPrinterService implements ThermalPrinterService {
+  final BluetoothService btnService;
+
+  List<StarXpandPrinter> _printers = [];
+
+  StartxpandThermalPrinterService({required this.btnService});
 
   Future<Uint8List> getImageData(String asset) async {
     final ByteData byteData = await rootBundle.load(asset);
@@ -56,11 +65,14 @@ class StartxpandPrinterBluetoothService {
     printDoc.actionFeedLine(4);
   }
 
-  Future<bool> print(StarXpandPrinter printer, Map<String, dynamic> data) async {
+  @override
+  Future<bool> print(ThermalPrinterDevice printer, Map<String, dynamic> data) async {
     final doc = StarXpandDocument();
     final printDoc = StarXpandDocumentPrint();
 
     try {
+      final starXpandPrinter = _printers.firstWhere((p) => p.identifier == printer.identifier);
+
       await _appendMainLogo(doc, printDoc);
       appendBody(doc, printDoc, data);
       // await _appendSecondaryLogo(doc, printDoc);
@@ -69,7 +81,7 @@ class StartxpandPrinterBluetoothService {
 
       doc.addPrint(printDoc);
       doc.addDrawer(StarXpandDocumentDrawer());
-      final status = await StarXpand.printDocument(printer, doc).timeout(const Duration(seconds: 20));
+      final status = await StarXpand.printDocument(starXpandPrinter, doc).timeout(const Duration(seconds: 20));
       return status;
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
@@ -79,21 +91,23 @@ class StartxpandPrinterBluetoothService {
     }
   }
 
-  Future<List<StarXpandPrinter>?> getPrinters() async {
+  @override
+  Future<bool> disconnect() async {
+    return true;
+  }
+
+  @override
+  Future<List<ThermalPrinterDevice>?> getPrinters() async {
     try {
-      final isBluetoothOn = await flutterBlue.isOn;
-      if (!isBluetoothOn) throw Exception('Bluetooth dont available.');
-      final printers = await StarXpand.findPrinters().timeout(const Duration(seconds: 10));
-      return printers;
+      final isBluetoothOn = await btnService.isOnBluetooth;
+      if (!isBluetoothOn) throw Exception('Bluetooth don\'t available.');
+      _printers = await StarXpand.findPrinters().timeout(const Duration(seconds: 10), onTimeout: () => []);
+      return _printers.map((p) => ThermalPrinterDevice(name: p.model.label, identifier: p.identifier)).toList();
     } catch (e, s) {
       debugPrint('Exception on -> ${runtimeType.toString()}');
       debugPrint(e.toString());
       debugPrintStack(stackTrace: s);
       return null;
     }
-  }
-
-  goToSettingBLE() {
-    OpenSettings.openBluetoothSetting();
   }
 }
