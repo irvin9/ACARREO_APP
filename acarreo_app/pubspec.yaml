@@ -37,6 +37,7 @@ dependencies:
   firebase_core: ^2.26.2
   firebase_crashlytics: ^3.4.9
   logger: ^2.3.0
+  zebrautility: ^0.0.41
 
 # dependency_overrides:
 #   starxpand:

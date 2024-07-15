@@ -97,6 +97,8 @@ PODS:
   - starxpand (0.0.1):
     - Flutter
   - SwiftProtobuf (1.24.0)
+  - zebrautility (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - barcode_scan2 (from `.symlinks/plugins/barcode_scan2/ios`)
@@ -112,6 +114,7 @@ DEPENDENCIES:
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - starxpand (from `.symlinks/plugins/starxpand/ios`)
+  - zebrautility (from `.symlinks/plugins/zebrautility/ios`)
 
 SPEC REPOS:
   trunk:
@@ -159,6 +162,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   starxpand:
     :path: ".symlinks/plugins/starxpand/ios"
+  zebrautility:
+    :path: ".symlinks/plugins/zebrautility/ios"
 
 SPEC CHECKSUMS:
   barcode_scan2: 0af2bb63c81b4565aab6cd78278e4c0fa136dbb0
@@ -190,6 +195,7 @@ SPEC CHECKSUMS:
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   starxpand: f25ce146b09a422c7f243e03a516bcee66f77ccd
   SwiftProtobuf: bcfd2bc231cf9ae552cdc7c4e877bd3b41fe57b1
+  zebrautility: 23402b742993ad1e76af4191154a7f6d90e11391
 
 PODFILE CHECKSUM: a61bdf44e1403243db5e30faebd2112b11f2134f
 
