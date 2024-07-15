@@ -1,7 +1,7 @@
 name: acarreo_app
 description: Una aplicación para manejos de transporte de carga.
 publish_to: "none"
-version: 1.0.6+1060007
+version: 1.0.7+1070002
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
@@ -37,6 +37,10 @@ dependencies:
   firebase_core: ^2.26.2
   firebase_crashlytics: ^3.4.9
   logger: ^2.3.0
+
+# dependency_overrides:
+#   starxpand:
+#     path: ../../starxpand_flutter
 
 dev_dependencies:
   flutter_test:
