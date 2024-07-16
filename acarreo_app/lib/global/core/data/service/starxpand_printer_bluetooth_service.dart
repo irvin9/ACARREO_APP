@@ -1,3 +1,4 @@
+import 'package:acarreo_app/global/core/utils/extensions/string_utils/string_utils_extension.dart';
 import 'package:flutter/services.dart';
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
 
@@ -21,14 +22,15 @@ class StartxpandPrinterBluetoothService {
 
     printDoc.style(alignment: StarXpandStyleAlignment.left);
     printDoc.actionPrintText("Desarrolladora: ${data['enterpriseName']}\n"
-        "Proyecto: ${data['projectName']}\n"
-        "Fecha:  ${data['date']}\n"
-        "Tipo de viaje: $typeLocation\n"
-        "Ubicación: ${data['location']}\n"
-        "Material: ${data['material']}\n"
-        "Placas:  ${data['plates']}\n"
-        "M3: ${data['capacity']} m3\n"
-        "Nota: ${data['description']}");
+            "Proyecto: ${data['projectName']}\n"
+            "Fecha:  ${data['date']}\n"
+            "Tipo de viaje: $typeLocation\n"
+            "Ubicacion: ${data['location']}\n"
+            "Material: ${data['material']}\n"
+            "Placas:  ${data['plates']}\n"
+            "M3: ${data['capacity']} m3\n"
+            "Nota: ${data['description']}"
+        .replaceDiacritics());
   }
 
   // Future<void> _appendSecondaryLogo(StarXpandDocument doc, StarXpandDocumentPrint printDoc) async {
