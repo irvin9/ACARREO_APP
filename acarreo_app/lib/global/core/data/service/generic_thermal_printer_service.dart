@@ -1,10 +1,11 @@
 import 'dart:async';
 
-import 'package:acarreo_app/global/core/acarreo_core_module.dart' hide BluetoothService;
+import 'package:acarreo_app/global/core/acarreo_core_module.dart'
+    hide BluetoothService;
 import 'package:acarreo_app/global/core/domain/models/thermal_printer_device.dart';
 import 'package:acarreo_app/global/core/domain/service/bluetooth_service.dart';
 import 'package:acarreo_app/global/core/domain/service/thermal_printer_service.dart';
-import 'package:acarreo_app/global/core/utils/image_utils.dart';
+// import 'package:acarreo_app/global/core/utils/image_utils.dart';
 import 'package:acarreo_app/global/core/utils/logger/logger.dart';
 // import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 // import 'package:flutter/services.dart';
@@ -18,7 +19,8 @@ class ZebraPrinterDevice {
   final String address;
   final bool status;
 
-  ZebraPrinterDevice({required this.label, required this.address, required this.status});
+  ZebraPrinterDevice(
+      {required this.label, required this.address, required this.status});
 }
 
 class GenericThermalPrinterService implements ThermalPrinterService {
@@ -30,7 +32,8 @@ class GenericThermalPrinterService implements ThermalPrinterService {
 
   final List<ZebraPrinterDevice> zebraPrinters = [];
 
-  final _printerDetectorStreamController = StreamController<List<ZebraPrinterDevice>>.broadcast();
+  final _printerDetectorStreamController =
+      StreamController<List<ZebraPrinterDevice>>.broadcast();
 
   final _statusPrinterController = StreamController<bool>.broadcast();
 
@@ -41,11 +44,13 @@ class GenericThermalPrinterService implements ThermalPrinterService {
   void _config() async {
     // CapabilityProfile profile = await CapabilityProfile.load();
     // _generator = Generator(PaperSize.mm58, profile);
-    zebraPrinter = await Zebrautility.getPrinterInstance(onPrinterFound: (label, address, status) {
+    zebraPrinter = await Zebrautility.getPrinterInstance(
+        onPrinterFound: (label, address, status) {
       if (zebraPrinters.isNotEmpty) {
         zebraPrinters.clear();
       }
-      zebraPrinters.add(ZebraPrinterDevice(label: label, address: address, status: status));
+      zebraPrinters.add(
+          ZebraPrinterDevice(label: label, address: address, status: status));
     }, onPrinterDiscoveryDone: () {
       _printerDetectorStreamController.add(zebraPrinters);
     }, onChangePrinterStatus: (status, code) {
@@ -57,7 +62,8 @@ class GenericThermalPrinterService implements ThermalPrinterService {
     });
   }
 
-  Future<List<ZebraPrinterDevice>> whenDetectPrinter(Stream<List<ZebraPrinterDevice>> source) {
+  Future<List<ZebraPrinterDevice>> whenDetectPrinter(
+      Stream<List<ZebraPrinterDevice>> source) {
     return source.first;
   }
 
@@ -71,21 +77,27 @@ class GenericThermalPrinterService implements ThermalPrinterService {
       final isBluetoothOn = await btnService.isOnBluetooth;
       if (!isBluetoothOn) throw Exception('Bluetooth don\'t available.');
       await zebraPrinter.discoveryPrinters();
-      final printers = await whenDetectPrinter(_printerDetectorStreamController.stream);
+      final printers =
+          await whenDetectPrinter(_printerDetectorStreamController.stream);
 
-      return printers.map((p) => ThermalPrinterDevice(name: p.label, identifier: p.address)).toList();
+      return printers
+          .map(
+              (p) => ThermalPrinterDevice(name: p.label, identifier: p.address))
+          .toList();
     } catch (e, s) {
-      Log.error('Exception on -> ${runtimeType.toString()}', error: e, stackTrace: s);
+      Log.error('Exception on -> ${runtimeType.toString()}',
+          error: e, stackTrace: s);
       return null;
     }
   }
 
-  Future<Uint8List> _appendMainLogo() async {
-    return await getImageBuffer('assets/logo/logo-icon.png');
-  }
+  // Future<Uint8List> _appendMainLogo() async {
+  //   return await getImageBuffer('assets/logo/logo-icon.png');
+  // }
 
   List<String> appendBody(Map<String, dynamic> data) {
-    String typeLocation = FormValues.typeRegisters["${data['typeLocation']}"] ?? '';
+    String typeLocation =
+        FormValues.typeRegisters["${data['typeLocation']}"] ?? '';
 
     return [
       "Desarrolladora: ${data['enterpriseName']}",
@@ -111,11 +123,14 @@ class GenericThermalPrinterService implements ThermalPrinterService {
   }
 
   @override
-  Future<bool> print(ThermalPrinterDevice printer, Map<String, dynamic> data) async {
+  Future<bool> print(
+      ThermalPrinterDevice printer, Map<String, dynamic> data) async {
     try {
       final macAddress = printer.identifier;
       zebraPrinter.connectToPrinter(macAddress);
-      final printerConnected = await waitStautsPrinter(_statusPrinterController.stream, true).timeout(const Duration(seconds: 10));
+      final printerConnected =
+          await waitStautsPrinter(_statusPrinterController.stream, true)
+              .timeout(const Duration(seconds: 10));
       if (!printerConnected) {
         return false;
       }
