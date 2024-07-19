@@ -11,11 +11,12 @@ class DialogPritting {
     required Map<String, dynamic> data,
     void Function()? onBack,
   }) {
-    _printerCubit.initPrinter();
+    // _printerCubit.initPrinter();
+    context;
     return GenericDialog.show(
       context: context,
       child: BlocBuilder<PrinterCubit, PrinterState>(
-        bloc: _printerCubit..initPrinter(),
+        bloc: _printerCubit..init(),
         builder: (context, state) {
           return _buildBody(context, state, message, data, onBack);
         },
