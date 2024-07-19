@@ -129,7 +129,8 @@ class ZebraPrinterService implements ThermalPrinterService {
         return false;
       }
       String body = appendBody(data).join('\r');
-      body += '\rFolio: ${data['barcode']}';
+      body += '\rFolio: ${data['barcode']}\r';
+      body += '\rwww.truckinginnovation.com';
       body += '\r\r\r\r';
       zebraPrinter.print(body.replaceDiacritics());
       return true;
