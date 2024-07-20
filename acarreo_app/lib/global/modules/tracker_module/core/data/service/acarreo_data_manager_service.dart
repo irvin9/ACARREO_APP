@@ -119,7 +119,7 @@ class AcarreoDataManagerService implements DataManagerService {
   }
 
   @override
-  Future<bool> hasPeddingTickes() async {
+  Future<bool> hasPendingTickes() async {
     final tickets = await ticketService.get();
     final ticketsSupplier = await ticketMaterialSupplierService.get();
 
