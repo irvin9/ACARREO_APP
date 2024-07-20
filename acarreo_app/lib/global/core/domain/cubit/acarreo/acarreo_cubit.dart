@@ -54,7 +54,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
     await Future.delayed(Duration.zero);
     emit(const LoadingLocalData());
     final hasData = await managerService.get();
-    _pendingTickets = await managerService.hasPeddingTickes();
+    _pendingTickets = await managerService.hasPendingTickes();
     if (!hasData) {
       updateLocalData();
     }
@@ -97,7 +97,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
       emit(const AcarreoShowModalTicketPrint());
       return;
     }
-    _pendingTickets = false;
+    _pendingTickets = await managerService.hasPendingTickes();
     emit(const AcarreoError({
       'title': 'Error al crear ticket',
       'description': 'No hemos podido crear tu ticket.'
@@ -138,7 +138,7 @@ class AcarreoCubit extends Cubit<AcarreoState> {
       return;
     }
 
-    _pendingTickets = false;
+    _pendingTickets = await managerService.hasPendingTickes();
     emit(const AcarreoSuccess());
     updateLocalData();
   }

@@ -10,6 +10,12 @@ class PrinterInitial extends PrinterState {
   List<Object?> get props => [];
 }
 
+class PrinterServiceWaiting extends PrinterState {
+  const PrinterServiceWaiting();
+  @override
+  List<Object?> get props => [];
+}
+
 class PrintersInitSearch extends PrinterState {
   const PrintersInitSearch();
 
@@ -18,7 +24,7 @@ class PrintersInitSearch extends PrinterState {
 }
 
 class PrintersFound extends PrinterState {
-  final List<StarXpandPrinter> printers;
+  final List<ThermalPrinterDevice> printers;
   const PrintersFound(this.printers);
 
   @override

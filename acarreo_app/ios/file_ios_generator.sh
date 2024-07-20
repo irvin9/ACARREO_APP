@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
+echo "Running config firebase"
 
 # Ruta de origen y destino para los archivos plist
 googleServicesPlistPath="${PROJECT_DIR}/Runner/GoogleService-Info.plist"
 firebaseAppIDFilePath="${PROJECT_DIR}/firebase_app_id_file.json"
-
 
 # Obtiene los valores necesarios del archivo Info.plist
 google_app_id="$FIREBASE_APP_ID_IOS"
 project_id="$FIREBASE_PROJECT_ID"
 sender_id="$FIREBASE_SENDER_ID"
 # Otros valores que necesites obtener del Info.plist
-
 
 # Crea el contenido del archivo JSON
 data='{
@@ -23,13 +22,13 @@ data='{
 # Agrega otros valores según sea necesario
 
 # Guarda el contenido en el archivo JSON
-echo "$data" > "$firebaseAppIDFilePath"
+echo "$data" >"$firebaseAppIDFilePath"
 
 # Verifica si se creó exitosamente
 if [ -f "$firebaseAppIDFilePath" ]; then
-    echo "Archivo firebase_app_id_file.json creado exitosamente en $firebaseAppIDFilePath"
+	echo "Archivo firebase_app_id_file.json creado exitosamente en $firebaseAppIDFilePath"
 else
-    echo "Error al crear el archivo firebase_app_id_file.json"
+	echo "Error al crear el archivo firebase_app_id_file.json"
 fi
 
 # Obtiene los valores necesarios del archivo Info.plist
@@ -72,13 +71,11 @@ googleServicesContent='<?xml version="1.0" encoding="UTF-8"?>
 </plist>'
 
 # Guarda el contenido en el archivo GoogleService-Info.plist en formato XML
-echo "$googleServicesContent" > "$googleServicesPlistPath"
+echo "$googleServicesContent" >"$googleServicesPlistPath"
 
 # Verifica si se creó exitosamente
 if [ -f "$googleServicesPlistPath" ]; then
- echo "Archivo GoogleService-Info.plist creado exitosamente en $googleServicesPlistPath"
+	echo "Archivo GoogleService-Info.plist creado exitosamente en $googleServicesPlistPath"
 else
- echo "Error al crear el archivo GoogleService-Info.plist"
+	echo "Error al crear el archivo GoogleService-Info.plist"
 fi
-
-

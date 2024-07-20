@@ -1,11 +1,11 @@
 name: acarreo_app
 description: Una aplicación para manejos de transporte de carga.
 publish_to: "none"
-version: 1.0.6+1060005
+version: 1.0.8+1080003
 
 environment:
-  sdk: ">=3.1.0 <4.0.0"
-  flutter: ">=3.13.0"
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"
 
 dependencies:
   flutter:
@@ -20,7 +20,10 @@ dependencies:
   google_fonts: ^5.1.0
   http_interceptor: ^2.0.0-beta.7
   equatable: ^2.0.5
-  starxpand: ^0.0.2
+  starxpand:
+    git:
+      url: https://github.com/Deltarios/starxpand_flutter.git
+      ref: 0.0.4
   flutter_nfc_kit: ^3.3.3
   path_provider: ^2.1.1
   barcode_widget: ^2.0.4
@@ -31,8 +34,15 @@ dependencies:
   ndef: ^0.3.1
   dropdown_search: ^5.0.6
   package_info_plus: ^4.2.0
-  firebase_core: ^2.24.2
+  firebase_core: ^2.26.2
   firebase_crashlytics: ^3.4.9
+  logger: ^2.3.0
+  zebrautility: ^0.0.41
+  remove_diacritic: ^0.9.0
+
+# dependency_overrides:
+#   starxpand:
+#     path: ../../starxpand_flutter
 
 dev_dependencies:
   flutter_test:

@@ -32,7 +32,10 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
 
   @override
   Future<void> stopSession() async {
-    await FlutterNfcKit.finish();
+    bool checkSupport = await isSupported();
+    if (checkSupport) {
+      await FlutterNfcKit.finish();
+    }
   }
 
   @override

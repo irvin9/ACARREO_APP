@@ -36,7 +36,8 @@ void setup() {
   Serial.begin(115200);        // Initialize serial communications with the PC
   SPI.begin();               // Init SPI bus
   mfrc522.PCD_Init();        // Init MFRC522 card
-  Serial.println(F("Write personal data on a MIFARE PICC "));
+  // Serial.println(F("Write personal data on a MIFARE PICC "));
+  // Serial.println(F("Scan init"));
 }
 
 void waitForCard() {
@@ -47,14 +48,15 @@ void waitForCard() {
 }
 
 void printCardInfo() {
-  Serial.print(F("Card UID:"));    //Dump UID
+  // Serial.print(F("UID Value: "));    //Dump UID
   for (byte i = 0; i < mfrc522.uid.size; i++) {
-    Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
+    Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? "0" : "");
     Serial.print(mfrc522.uid.uidByte[i], HEX);
   }
-  Serial.print(F(" PICC type: "));   // Dump PICC type
-  MFRC522::PICC_Type piccType = mfrc522.PICC_GetType(mfrc522.uid.sak);
-  Serial.println(mfrc522.PICC_GetTypeName(piccType));
+  Serial.println();
+  // Serial.print(F(" PICC type: "));   // Dump PICC type
+  // MFRC522::PICC_Type piccType = mfrc522.PICC_GetType(mfrc522.uid.sak);
+  // Serial.println(mfrc522.PICC_GetTypeName(piccType));
 }
 
 bool autenticate(byte block, MFRC522::MIFARE_Key key) { 
@@ -109,63 +111,64 @@ void loop() {
 
   waitForCard();
   printCardInfo();
-  block = 4;
-  len = 18;
+  delay(500);
+  // block = 4;
+  // len = 18;
 
-  readInfo(block, key, len);
-  printCardBuffer(len);
+  // readInfo(block, key, len);
+  // printCardBuffer(len);
 
-  block = 1;
-  readInfo(block, key, len);
-  printCardBuffer(len);
-  Serial.println();
-  Serial.setTimeout(20000L) ;     // wait until 20 seconds for input from serial
+  // block = 1;
+  // readInfo(block, key, len);
+  // printCardBuffer(len);
+  // Serial.println();
+  // Serial.setTimeout(20000L) ;     // wait until 20 seconds for input from serial
 
-  // Ask personal data: Family name
-  Serial.println(F("Press any key to write info"));
-  while(Serial.available() == 0);
-  Serial.println(F("Type truck brand, ending with #"));
-  len = Serial.readBytesUntil('#', (char *) writeBuffer, 30) ; // read family name from serial
-  for (byte i = len; i < 30; i++) writeBuffer[i] = ' ';     // pad with spaces
+  // // Ask personal data: Family name
+  // Serial.println(F("Press any key to write info"));
+  // while(Serial.available() == 0);
+  // Serial.println(F("Type truck brand, ending with #"));
+  // len = Serial.readBytesUntil('#', (char *) writeBuffer, 30) ; // read family name from serial
+  // for (byte i = len; i < 30; i++) writeBuffer[i] = ' ';     // pad with spaces
 
-  block = 1;
-  writeInfo(block, key, writeBuffer, len);
-  block = 2;
-  writeInfo(block, key, &writeBuffer[16], len);
+  // block = 1;
+  // writeInfo(block, key, writeBuffer, len);
+  // block = 2;
+  // writeInfo(block, key, &writeBuffer[16], len);
 
-  // Ask personal data: First name
-  Serial.println(F("Press any key to write truck plate"));
-  while(Serial.available() == 0);
-  Serial.println(F("Type Truck plate, ending with #"));
-  len = Serial.readBytesUntil('#', (char *) writeBuffer, 20) ; // read first name from serial
-  for (byte i = len; i < 20; i++) writeBuffer[i] = ' ';     // pad with spaces
+  // // Ask personal data: First name
+  // Serial.println(F("Press any key to write truck plate"));
+  // while(Serial.available() == 0);
+  // Serial.println(F("Type Truck plate, ending with #"));
+  // len = Serial.readBytesUntil('#', (char *) writeBuffer, 20) ; // read first name from serial
+  // for (byte i = len; i < 20; i++) writeBuffer[i] = ' ';     // pad with spaces
 
-  block = 4;
-  writeInfo(block, key, writeBuffer, len);
-  block = 5;
-  writeInfo(block, key, &writeBuffer[16], len);
+  // block = 4;
+  // writeInfo(block, key, writeBuffer, len);
+  // block = 5;
+  // writeInfo(block, key, &writeBuffer[16], len);
 
-  Serial.print(F("Name: "));
+  // Serial.print(F("Name: "));
 
-  block = 4;
-  len = 18;
+  // block = 4;
+  // len = 18;
 
-  //------------------------------------------- GET FIRST NAME
-  readInfo(block, key, len);
-  printCardBuffer(len);
+  // //------------------------------------------- GET FIRST NAME
+  // readInfo(block, key, len);
+  // printCardBuffer(len);
 
-  //---------------------------------------- GET LAST NAME
+  // //---------------------------------------- GET LAST NAME
 
-  block = 1;
-  readInfo(block, key, len);
-  printCardBuffer(len);
-  //----------------------------------------
+  // block = 1;
+  // readInfo(block, key, len);
+  // printCardBuffer(len);
+  // //----------------------------------------
 
-  Serial.println(F("\n**End Reading**\n"));
+  // Serial.println(F("\n**End Reading**\n"));
 
-  delay(1000); //change value if you want to read cards faster
+  // delay(1000); //change value if you want to read cards faster
 
-  mfrc522.PICC_HaltA();
-  mfrc522.PCD_StopCrypto1();
+  // mfrc522.PICC_HaltA();
+  // mfrc522.PCD_StopCrypto1();
 
 }

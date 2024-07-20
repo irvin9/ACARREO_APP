@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:acarreo_app/global/core/domain/service/local_storage_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -68,7 +69,15 @@ class HiveLocalStorageService extends LocalStorageService<Box<StorageObject>> {
 
   @override
   Future<bool> clearAllStorage() async {
-    await Hive.deleteFromDisk();
+    await Hive.close();
+    final directory = await getApplicationSupportDirectory();
+
+    final hiveDirectory = directory.path;
+
+    final hiveDir = Directory(hiveDirectory);
+    if (hiveDir.existsSync()) {
+      await hiveDir.delete(recursive: true);
+    }
     return true;
   }
 }

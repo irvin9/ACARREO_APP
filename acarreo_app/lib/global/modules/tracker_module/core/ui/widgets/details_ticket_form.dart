@@ -10,8 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class DetailsTicketForm extends StatelessWidget {
-  static final TextEditingController folioTicketController =
-      TextEditingController(text: '');
+  static final TextEditingController folioTicketController = TextEditingController(text: '');
 
   const DetailsTicketForm({
     super.key,
@@ -27,36 +26,24 @@ class DetailsTicketForm extends StatelessWidget {
     final String? answerTypeLocation = cubit.formAnswers['type_location'];
     final String? answerTypeRegister = cubit.formAnswers['type_register'];
     final truck = cubit.formAnswers['currentTruck'] as AcarreoTruck;
-    final captureDate =
-        DateFormat('dd/MM/yy hh:mm a').format(cubit.formAnswers['date']);
+    final captureDate = DateFormat('dd/MM/yy hh:mm a').format(cubit.formAnswers['date']);
 
-    final materials = cubit.managerService.materials
-        .where((i) => i.state != "0")
-        .map((i) => {i.id.toString(): i.materialName})
-        .toList();
+    final materials = cubit.managerService.materials.where((i) => i.state != "0").map((i) => {i.id.toString(): i.materialName}).toList();
 
-    final locationName = cubit.managerService.locations
-        .firstWhere((i) => i.id.toString() == cubit.formAnswers['id_location'])
-        .name;
+    final locationName = cubit.managerService.locations.firstWhere((i) => i.id.toString() == cubit.formAnswers['id_location']).name;
 
     return Form(
       key: formKey,
       child: Column(
         children: [
-          TextFieldViewer(
-              label: 'Tipo de registro',
-              value:
-                  FormValues.typeRegisters[answerTypeRegister]?.toUpperCase() ??
-                      'Desconocido'),
+          TextFieldViewer(label: 'Tipo de registro', value: FormValues.typeRegisters[answerTypeRegister]?.toUpperCase() ?? 'Desconocido'),
           TextFieldViewer(label: 'Ubicación:', value: locationName),
           TextFieldViewer(label: 'Matricula camión:', value: truck.plate),
           TextFieldViewer(label: 'Fecha de captura:', value: captureDate),
-          TextFieldViewer(
-              label: 'Capacidad de Carga:', value: '${truck.capacity} m3'),
+          TextFieldViewer(label: 'Capacidad de Carga:', value: '${truck.capacity} m3'),
           const TitleForm(
             title: '',
-            description:
-                'Debes registrar los detalles de la ubicación, que se definen a continuación.',
+            description: 'Debes registrar los detalles de la ubicación, que se definen a continuación.',
           ),
           DropDownFormField(
             initialValue: cubit.formAnswers['id_material'] ?? '',
@@ -66,12 +53,10 @@ class DetailsTicketForm extends StatelessWidget {
                 title: 'Tipo de material',
                 description:
                     'Selecciona el material que transporta el camión. Si no aparece el material en el listado es necesario darlo de alta en el sistema.'),
-            onChanged: (value) => cubit.addAnswer(
-                'id_material', value!.isNotEmpty ? value : null),
+            onChanged: (value) => cubit.addAnswer('id_material', value!.isNotEmpty ? value : null),
           ),
           Visibility(
-            visible: answerTypeLocation == TypeLocations.banco.toString() &&
-                answerTypeRegister == TypeRegisters.origin.index.toString(),
+            visible: answerTypeLocation == TypeLocations.banco.toString() && answerTypeRegister == TypeRegisters.origin.index.toString(),
             child: CustomTextFormField(
               label: 'Folio Banco',
               placeholder: 'Ingrese el folio',
@@ -89,16 +74,12 @@ class DetailsTicketForm extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible:
-                answerTypeRegister == TypeRegisters.destino.index.toString() &&
-                    folioTicketController.value.text.isEmpty,
+            visible: answerTypeRegister == TypeRegisters.destino.index.toString() && folioTicketController.value.text.isEmpty,
             child: CustomTextFormFieldController(
               label: 'Folio Ticket Origen',
               placeholder: 'Ingrese el folio',
               helperMessage: DialogMessageModel(
-                  title: 'Escanea el folio',
-                  description:
-                      'Presione el campo para abrir la camara, despues escanee su código.'),
+                  title: 'Escanea el folio', description: 'Presione el campo para abrir la camara, despues escanee su código.'),
               controller: folioTicketController,
               readOnly: true,
               maxLength: 20,
@@ -132,8 +113,7 @@ class DetailsTicketForm extends StatelessWidget {
 }
 
 class DetailsTicketBankForm extends StatelessWidget {
-  static final TextEditingController folioTicketController =
-      TextEditingController(text: '');
+  static final TextEditingController folioTicketController = TextEditingController(text: '');
 
   const DetailsTicketBankForm({
     super.key,
@@ -147,26 +127,15 @@ class DetailsTicketBankForm extends StatelessWidget {
     final cubit = context.watch<AcarreoCubit>((bloc) => bloc.stream);
     folioTicketController.text = cubit.formAnswers['folio_ticket_origin'] ?? '';
 
-    final materials = cubit.managerService.materials
-        .where((i) => i.state != "0")
-        .map((i) => {i.id.toString(): i.materialName})
-        .toList();
+    final materials = cubit.managerService.materials.where((i) => i.state != "0").map((i) => {i.id.toString(): i.materialName}).toList();
 
-    final carries = cubit.managerService.carries
-        .map((i) => {i.id.toString(): i.name})
-        .toList();
+    final carries = cubit.managerService.carries.map((i) => {i.id.toString(): i.name}).toList();
 
-    final trucks = cubit.managerService.trucks
-        .map((i) => {i.id.toString(): i.plate})
-        .toList();
+    final trucks = cubit.managerService.trucks.map((i) => {i.id.toString(): i.plate}).toList();
 
-    final companies = cubit.managerService.companies
-        .map((i) => {i.id.toString(): i.name})
-        .toList();
+    final companies = cubit.managerService.companies.map((i) => {i.id.toString(): i.name}).toList();
 
-    final customers = cubit.managerService.customers
-        .map((i) => {i.id.toString(): i.name})
-        .toList();
+    final customers = cubit.managerService.customers.map((i) => {i.id.toString(): i.name}).toList();
 
     return Form(
       key: formKey,
@@ -176,19 +145,18 @@ class DetailsTicketBankForm extends StatelessWidget {
             initialValue: cubit.formAnswers['id_carrier'] ?? '',
             items: carries,
             label: 'Transportistas',
-            onChanged: (value) =>
-                cubit.addAnswer('id_carrier', value!.isNotEmpty ? value : null),
+            onChanged: (value) => cubit.addAnswer('id_carrier', value!.isNotEmpty ? value : null),
           ),
           DropdownSearchFormField(
             initialValue: cubit.formAnswers['truckId'] ?? '',
             items: trucks,
             dropdownLabelText: 'Camión',
+            hintText: 'Buscar placas',
             onChanged: (value) {
               final truckId = value ?? '';
               if (truckId.isEmpty) return;
               cubit.addAnswer('truckId', value);
-              final currentTruck = cubit.managerService.trucks
-                  .firstWhere((t) => t.id.toString() == value);
+              final currentTruck = cubit.managerService.trucks.firstWhere((t) => t.id.toString() == value);
               cubit.addAnswer('currentTruck', currentTruck);
             },
           ),
@@ -196,18 +164,14 @@ class DetailsTicketBankForm extends StatelessWidget {
             initialValue: cubit.formAnswers['id_company'] ?? '',
             items: companies,
             label: 'Empresa de explotación',
-            helperMessage: DialogMessageModel(
-                title: 'Empresas explotadoras', description: 'n/a'),
-            onChanged: (value) =>
-                cubit.addAnswer('id_company', value!.isNotEmpty ? value : null),
+            helperMessage: DialogMessageModel(title: 'Empresas explotadoras', description: 'n/a'),
+            onChanged: (value) => cubit.addAnswer('id_company', value!.isNotEmpty ? value : null),
           ),
           CustomTextFormFieldController(
             label: 'Ticket',
             placeholder: 'Ingrese el folio',
             helperMessage: DialogMessageModel(
-                title: 'Escanea el folio',
-                description:
-                    'Presione el campo para abrir la camara, despues escanee su código.'),
+                title: 'Escanea el folio', description: 'Presione el campo para abrir la camara, despues escanee su código.'),
             controller: folioTicketController,
             readOnly: true,
             maxLength: 20,
@@ -220,10 +184,8 @@ class DetailsTicketBankForm extends StatelessWidget {
             initialValue: cubit.formAnswers['id_customer'] ?? '',
             items: customers,
             label: 'Clientes',
-            helperMessage:
-                DialogMessageModel(title: 'Clientes', description: 'n/a'),
-            onChanged: (value) => cubit.addAnswer(
-                'id_customer', value!.isNotEmpty ? value : null),
+            helperMessage: DialogMessageModel(title: 'Clientes', description: 'n/a'),
+            onChanged: (value) => cubit.addAnswer('id_customer', value!.isNotEmpty ? value : null),
           ),
           DropDownFormField(
             initialValue: cubit.formAnswers['id_material'] ?? '',
@@ -233,8 +195,7 @@ class DetailsTicketBankForm extends StatelessWidget {
                 title: 'Tipo de material',
                 description:
                     'Selecciona el material que transporta el camión. Si no aparece el material en el listado es necesario darlo de alta en el sistema.'),
-            onChanged: (value) => cubit.addAnswer(
-                'id_material', value!.isNotEmpty ? value : null),
+            onChanged: (value) => cubit.addAnswer('id_material', value!.isNotEmpty ? value : null),
           ),
           CustomTextFormField(
             label: 'Folio Banco',

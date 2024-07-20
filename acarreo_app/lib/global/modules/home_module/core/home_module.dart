@@ -1,4 +1,7 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/core/binds/thermal_printer_service_factory.dart';
+import 'package:acarreo_app/global/core/data/service/flutter_blue_service.dart';
+import 'package:acarreo_app/global/core/domain/service/thermal_printer_service.dart';
 import 'package:acarreo_app/global/modules/home_module/core/domain/cubit/home_cubit/home_cubit.dart';
 import 'package:acarreo_app/global/modules/home_module/core/ui/screens/home_screen.dart';
 import 'package:acarreo_app/global/modules/ticket_module/ticket_module.dart';
@@ -66,10 +69,13 @@ class HomeModule extends Module {
             ticketMaterialSupplierService: i(),
           ),
         ),
-        Bind.lazySingleton((i) => StartxpandPrinterBluetoothService()),
+        Bind.lazySingleton<FlutterBlueService>((i) => FlutterBlueService()),
+        Bind.lazySingleton<ThermalPrinterService>(
+            (i) => StartxpandThermalPrinterService(btnService: i())),
         Bind.lazySingleton((i) => HomeCubit(i())),
         Bind.lazySingleton((i) => AcarreoCubit(i())),
-        Bind.lazySingleton((i) => PrinterCubit(i())),
+        Bind.lazySingleton((i) => ThermalPrinterServiceFactory()),
+        Bind.lazySingleton<PrinterCubit>((i) => PrinterCubit()),
       ];
 
   @override
