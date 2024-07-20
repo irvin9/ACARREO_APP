@@ -5,5 +5,5 @@ abstract class AuthService {
   Future<String?> login(UserCredential credential);
   Future<UserModel?> verifyToken(String token);
   Future<UserModel?> getCurrentUser(int id);
-  Future<void> logout();
+  Future<bool> logout();
 }

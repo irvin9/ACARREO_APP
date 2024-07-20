@@ -36,9 +36,11 @@ class AuthCubit extends Cubit<AuthState> {
     AuthState currentState = const AuthInitCloseSession();
     emit(currentState);
     currentState = const AuthCloseSessionSuccess();
-    await service.logout();
-    emit(currentState);
-    goToNavigate(GlobalRoutesApp.authLoginRoute);
+    final status = await service.logout();
+    if (status) {
+      emit(currentState);
+      goToNavigate(GlobalRoutesApp.authLoginRoute);
+    }
   }
 
   Future<void> goToNavigate(String route) async {
