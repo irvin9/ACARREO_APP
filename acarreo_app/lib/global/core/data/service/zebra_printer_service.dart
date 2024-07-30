@@ -73,16 +73,17 @@ class ZebraPrinterService implements ThermalPrinterService {
       final printers =
           await whenDetectPrinter(_printerDetectorStreamController.stream)
               .timeout(const Duration(seconds: 30));
-
       return printers
           .map(
               (p) => ThermalPrinterDevice(name: p.label, identifier: p.address))
           .toList();
     } on TimeoutException catch (e, s) {
+      // Clear Stream
       Log.error('Exception on -> ${runtimeType.toString()}',
           error: e, stackTrace: s);
-      return null;
+      return [];
     } catch (e, s) {
+      // Clear Stream
       Log.fatal('Fatal Exception on -> ${runtimeType.toString()}',
           error: e, stackTrace: s);
       return null;
