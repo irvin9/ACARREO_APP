@@ -1,4 +1,5 @@
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/core/data/service/flutter_blue_service.dart';
 import 'package:acarreo_app/global/core/domain/cubit/app_cubit_observer.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class AcarreoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Modular.setInitialRoute(initialRoute);
     Modular.setObservers([AppRouteObserver()]);
+    Modular.get<FlutterBlueService>().checkPermission();
     Bloc.observer = AppCubitObserver();
     return MaterialApp.router(
       routeInformationParser: Modular.routeInformationParser,
