@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:acarreo_app/global/core/acarreo_core_module.dart';
+import 'package:acarreo_app/global/core/utils/logger/logger.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:ndef/ndef.dart' as ndef;
 
@@ -21,13 +22,18 @@ class ScanNFCManagerRepository implements ScanNfcRepository {
 
   @override
   Future<String?> startSession({int timeout = 30}) async {
-    String? tagDecode;
-    bool checkSupport = await isSupported();
-    if (checkSupport) {
-      _tag = await FlutterNfcKit.poll();
-      tagDecode = _tag.id;
+    try {
+      String? tagDecode;
+      bool checkSupport = await isSupported();
+      if (checkSupport) {
+        _tag = await FlutterNfcKit.poll(timeout: Duration(seconds: timeout));
+        tagDecode = _tag.id;
+      }
+      return tagDecode;
+    } catch (e, s) {
+      Log.error('$runtimeType', error: e, stackTrace: s);
+      return null;
     }
-    return tagDecode;
   }
 
   @override
