@@ -26,6 +26,7 @@
 
 #define RST_PIN         9           // Configurable, see typical pin layout above
 #define SS_PIN          10          // Configurable, see typical pin layout above
+#define BUZZ_PIN        8
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance
 byte writeBuffer[34];
@@ -33,6 +34,8 @@ byte readBuffer1[18];
 byte readBuffer2[18];
 
 void setup() {
+  pinMode(BUZZ_PIN, OUTPUT);
+  digitalWrite(BUZZ_PIN, LOW);
   Serial.begin(115200);        // Initialize serial communications with the PC
   SPI.begin();               // Init SPI bus
   mfrc522.PCD_Init();        // Init MFRC522 card
@@ -110,6 +113,10 @@ void loop() {
   byte len;
 
   waitForCard();
+  digitalWrite(BUZZ_PIN, HIGH);
+  delay(250);
+  digitalWrite(BUZZ_PIN, LOW);
+  delay(250);
   printCardInfo();
   delay(500);
   // block = 4;
