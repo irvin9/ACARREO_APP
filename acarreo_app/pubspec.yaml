@@ -1,7 +1,7 @@
 name: acarreo_app
 description: Una aplicación para manejos de transporte de carga.
 publish_to: "none"
-version: 1.0.8+1080005
+version: 1.0.8+1080008
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
@@ -37,13 +37,18 @@ dependencies:
   firebase_core: ^2.26.2
   firebase_crashlytics: ^3.4.9
   logger: ^2.3.0
-  zebrautility: ^0.0.41
+  zebrautility:
+    git:
+      url: https://github.com/Deltarios/zebra_utlity.git
+      ref: 0.0.42
   remove_diacritic: ^0.9.0
   permission_handler: ^11.3.1
 
 # dependency_overrides:
 #   starxpand:
 #     path: ../../starxpand_flutter
+#   zebrautility:
+#     path: ../../zebra_utlity
 
 dev_dependencies:
   flutter_test:
