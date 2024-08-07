@@ -30,9 +30,16 @@ class NfcCubit extends Cubit<NfcState> {
     }));
   }
 
-  Future<bool> write({required Map<String, dynamic> value}) async {
+  Future<void> write({required Map<String, dynamic> value}) async {
     final success = await scanNFC.writeNfcData(value);
-    return success;
+    if (success) {
+      emit(const NfcWriteSuccess());
+    } else {
+      emit(const NfcWriteFailed({
+        'title': 'Verificación NFC',
+        'description': 'No se ha podido reconocer alguna etiqueta NFC.',
+      }));
+    }
   }
 
   Future<Map<String, dynamic>?> read() async {

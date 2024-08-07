@@ -34,3 +34,18 @@ class NfcScanFailed extends NfcState {
   @override
   List<Object?> get props => [message];
 }
+
+class NfcWriteSuccess extends NfcState {
+  const NfcWriteSuccess();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class NfcWriteFailed extends NfcState {
+  final Map<String, dynamic> message;
+  const NfcWriteFailed(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}

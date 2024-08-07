@@ -24,12 +24,7 @@ class ReadNFCTravelScreen extends StatelessWidget {
     final ticketCode = acarreoCubit.generateTicketCode();
     if (FormValues.mappingTypeRegister["$typeRegister"] == 'origen') {
       final value = {'Z196X110497Y997': ticketCode, 'XE92202976O4': idNfc};
-      final statusWrite = await nfcCubit.write(value: value);
-      if (statusWrite) {
-        Modular.to.navigate(GlobalRoutesApp.detailsTicketTravelRoute);
-      } else {
-        Modular.to.navigate(GlobalRoutesApp.registerTravelRoute);
-      }
+      nfcCubit.write(value: value);
     } else {
       final value = await nfcCubit.read();
       if (value != null) {
@@ -52,6 +47,19 @@ class ReadNFCTravelScreen extends StatelessWidget {
         }
 
         if (state is NfcScanFailed) {
+          DialogError.show(
+            context,
+            DialogMessageModel.fromMap(state.message),
+            () => Modular.to
+                .pushReplacementNamed(GlobalRoutesApp.registerTravelRoute),
+          );
+        }
+
+        if (state is NfcWriteSuccess) {
+          Modular.to.navigate(GlobalRoutesApp.detailsTicketTravelRoute);
+        }
+
+        if (state is NfcWriteFailed) {
           DialogError.show(
             context,
             DialogMessageModel.fromMap(state.message),
