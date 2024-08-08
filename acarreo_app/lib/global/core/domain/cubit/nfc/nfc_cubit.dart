@@ -7,12 +7,15 @@ class NfcCubit extends Cubit<NfcState> {
   final ScanNfcRepository scanNFC;
   final AcarreoDataManagerService managerService;
 
+  final timeoutNFCSession = 10;
+
   NfcCubit(this.scanNFC, this.managerService) : super(const NfcInitState());
 
   startScan() async {
     Future.delayed(Duration.zero);
     emit(const NfcStartedScan());
-    final String? idNfc = await scanNFC.startSession();
+    final String? idNfc =
+        await scanNFC.startSession(timeout: timeoutNFCSession);
     if (idNfc != null) {
       final currentTruck = managerService.trucks
           .cast<AcarreoTruck?>()
