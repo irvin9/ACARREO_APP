@@ -129,11 +129,23 @@ class ZebraPrinterService implements ThermalPrinterService {
       if (!printerConnected) {
         return false;
       }
+      zebraPrinter.setMediaType(EnumMediaType.Journal);
+      await Future.delayed(const Duration(milliseconds: 10));
       String body = appendBody(data).join('\r');
-      body += '\rFolio: ${data['barcode']}\r';
-      body += '\rwww.truckinginnovation.com';
-      body += '\r\r\r\r';
-      zebraPrinter.print(body.replaceDiacritics());
+      zebraPrinter.print('\r${body.replaceDiacritics()}');
+      await Future.delayed(const Duration(milliseconds: 70));
+
+      zebraPrinter.setMediaType(EnumMediaType.Barcode);
+      await Future.delayed(const Duration(milliseconds: 10));
+      zebraPrinter.printBarcode(data['barcode']);
+      await Future.delayed(const Duration(milliseconds: 70));
+
+      zebraPrinter.setMediaType(EnumMediaType.Journal);
+      await Future.delayed(const Duration(milliseconds: 10));
+      String footer = '\r            www.truckinginnovation.com';
+      footer += '\r\r\r';
+      zebraPrinter.print(footer.replaceDiacritics());
+      await Future.delayed(const Duration(milliseconds: 2000));
       return true;
     } catch (e, s) {
       Log.error(

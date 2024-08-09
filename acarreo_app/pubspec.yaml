@@ -40,15 +40,15 @@ dependencies:
   zebrautility:
     git:
       url: https://github.com/Deltarios/zebra_utlity.git
-      ref: 0.0.42
+      ref: 0.0.43
   remove_diacritic: ^0.9.0
   permission_handler: ^11.3.1
 
-# dependency_overrides:
-#   starxpand:
-#     path: ../../starxpand_flutter
-#   zebrautility:
-#     path: ../../zebra_utlity
+dependency_overrides:
+  # starxpand:
+  #   path: ../../starxpand_flutter
+  # zebrautility:
+  #   path: ../../zebra_utlity
 
 dev_dependencies:
   flutter_test:
