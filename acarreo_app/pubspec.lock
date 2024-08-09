@@ -1161,10 +1161,12 @@ packages:
   zebrautility:
     dependency: "direct main"
     description:
-      path: "../../zebra_utlity"
-      relative: true
-    source: path
-    version: "0.0.42"
+      path: "."
+      ref: "0.0.43"
+      resolved-ref: dac79fd7cb54351e7d61ae2955fb8de490cd6b1a
+      url: "https://github.com/Deltarios/zebra_utlity.git"
+    source: git
+    version: "0.0.43"
 sdks:
   dart: ">=3.3.0 <4.0.0"
   flutter: ">=3.19.0"
